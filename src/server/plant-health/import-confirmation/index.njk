@@ -1,0 +1,46 @@
+{% extends 'layouts/page.njk' %}
+{% block beforeContent %}
+  <a href="/plant-health" class="govuk-back-link" type='button'>Back</a>
+{% endblock %}
+{% block content %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% call appPageBody() %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+ {% if errors %}
+    {{ govukErrorSummary(errors) }}
+  {% endif %}
+<form  id="itembox" action='/plant-health/import-confirmation' method="get"  name="radios">
+{{ govukRadios({
+  name: "whereareyouimportinginto",
+  errorMessage: errorMessageRadio,
+  fieldset: {
+    legend: {
+      text: mainContent.headerText,
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  items: [
+    {
+      value: "gb",
+      text:  mainContent.radioButtonText1,
+      checked: radiobuttonValue === 'gb'
+    },
+    {
+      value: "ni",
+      text: mainContent.radioButtonText2,
+      checked: radiobuttonValue === 'ni'
+    }
+  ]
+}) }}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{{ govukButton({
+  text: mainContent.buttonText
+}) }}
+</form>
+{% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+{% include "partials/get-help.njk" %}
+{% endcall %}
+{% endblock %}

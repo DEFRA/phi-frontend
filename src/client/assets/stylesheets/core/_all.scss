@@ -1,2 +1,23 @@
 @import "header";
 @import "main";
+
+// ========== ========== ========== ========== ==========
+// Colored hr for start page
+// ========== ========== ========== ========== =========
+.horizontal_line {
+    border-top: 2px solid govuk-colour("blue");
+  }
+// ========== ========== ========== ========== ==========
+// Grey Background for start page
+// ========== ========== ========== ========== =========
+
+  .div-background {
+    background-color: govuk-colour("light-grey");
+  }
+
+// ========== ========== ========== ========== ==========
+// solid border for a div 
+// ========== ========== ========== ========== =========
+  .solid-div {
+    border-style: solid;
+  }

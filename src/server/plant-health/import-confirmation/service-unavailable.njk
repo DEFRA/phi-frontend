@@ -1,0 +1,22 @@
+{% extends 'layouts/page.njk' %}
+
+{% block beforeContent %}
+  <a href="/plant-health/import-confirmation" class="govuk-back-link" type='button'>Back</a>
+{% endblock %}
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{serviceUnavailablePage.headerText}}</h1>
+      <p class="govuk-body">
+        {{serviceUnavailablePage.desc1}}
+      </p>
+      <p class="govuk-body">
+        {{serviceUnavailablePage.desc2}}
+      <a class="govuk-link" href="https://www.daera-ni.gov.uk/publications/import-requirements-plants-plant-produce-and-other-objects">
+       view import requirements for plants and plant produce for Northern Ireland</a>
+      </p>
+    </div>
+  </div>
+{% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+{% include "partials/get-help.njk" %}
+{% endblock %}

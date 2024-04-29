@@ -1,0 +1,23 @@
+{
+  "mainContent": {
+    "headerText": "Where are you importing plant or plant product into?",
+    "radioButtonText1": "Great Britain (England, Scotland and Wales)",
+    "radioButtonText2": "Northern Ireland",
+    "buttonText": "Continue"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "if you have any queries or you need technical support, email"
+    }
+  },
+  "serviceUnavailablePage": {
+    "headerText": "Pest or disease information unavailable",
+    "description": "You cannot currently use this service to lookup pests or diseases. We will add this information soon",
+    "buttonText": "Go Back"
+  },
+  "errors": {
+    "titleText": "There is a problem",
+    "purposeOfVisitErrorListText": "Select what do you want to find"
+  }
+}

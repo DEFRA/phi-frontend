@@ -1,0 +1,14 @@
+{
+  "mainContent": {
+    "headerText": "What do you want to find?",
+    "radioButtonText1": "Plant or plant product import rules",
+    "radioButtonText2": "Pest or disease information",
+    "buttonText": "Continue"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "if you have any queries or you need technical support, email"
+    }
+  }
+}

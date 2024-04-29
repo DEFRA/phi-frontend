@@ -1,0 +1,91 @@
+{% extends 'layouts/page.njk' %}
+{% block beforeContent %}
+  <a href="/plant-health/import-confirmation" class="govuk-back-link" type='button'>Back</a>
+{% endblock %}
+{% block content %}
+  {% call appPageBody() %}
+  {% set myArray = ['plant_1', 'plant_2', 'plant_3'] %}
+  <form method="[object Object]" action="" novalidate="">
+    {# <fieldset class="govuk-fieldset">
+      <h1 class="govuk-heading-l govuk-!-margin-bottom-1">What plant or plant product are you importing?</h1>
+      <div class="govuk-form-group ">
+         <p class="govuk-body-m govuk-!-margin-bottom-1">You can enter the scientific name or any synonyms or common names.</p>
+        <div class="search">
+          <input class="search__input" id="query" name="query" type="search" aria-describedby="search-hint" value="">
+          <button id="submitButton" data-module="govuk-button" class="search__button">Search</button>
+        </div>
+      </div>
+      <ul id="searchResults" style="display: none;"></ul>
+    </fieldset> #}
+    {% from "govuk/components/input/macro.njk" import govukInput %}
+
+    {{ govukInput({
+      label: {
+        text: "What plant or plant product are you importing?",
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      hint: {
+        text: "You can enter the scientific name or any synonyms or common names."
+      },
+      id: "query",
+      name: "query"
+    }) }}
+    <ul id="searchResults" style="display: none;"></ul>
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+      text: "Continue",
+      id: "submitButton"
+    }) }}
+  </form>
+  <script>
+
+    var searchInput = document.getElementById('query');
+    var searchResults = document.getElementById('searchResults');
+    searchInput.addEventListener('input', function () {
+      var inputValue = this
+        .value
+        .toLowerCase();
+      {# var suggestions = myArray;
+        if (inputValue) {
+          suggestions = myArray.filter(function (item) {
+            return item
+              .toLowerCase()
+              .indexOf(inputValue) !== -1;
+          });
+        }
+        # } {# renderSuggestions(suggestions); #}
+    fetchSuggestions();
+  });
+  function fetchSuggestions(query) { // Mock API endpoint URL
+    var apiUrl = 'http://localhost:3004/mock-api/products';
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => renderSuggestions(data))
+      .catch(error => console.log('Error fetching suggestions:', error));
+  }
+  function renderSuggestions(suggestions) {
+    var searchInput = document.getElementById('query')?.value;
+    searchResults.innerHTML = '';
+
+    suggestions = suggestions.filter(function (item) {
+      return item?.name?.toLowerCase().indexOf(searchInput) !== -1;
+    });
+    console.log('suggestions:', suggestions)
+    suggestions.forEach(function (item) {
+      console.log(item)
+      var li = document.createElement('li');
+      li.textContent = item.name;
+      searchResults.appendChild(li);
+    });
+    if (suggestions.length > 0 && searchInput !== '') {
+      searchResults.style.display = 'block';
+    } else {
+      searchResults.innerHTML = '';
+      searchResults.style.display = 'none';
+    }
+  }
+  </script>
+  {% endcall %}
+{% endblock %}

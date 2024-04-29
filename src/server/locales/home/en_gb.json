@@ -1,0 +1,45 @@
+{
+  "govukcaption": "Guidance",
+  "govukheading": "Check plant health information and import rules",
+  "govukbodytitle": "Use this service to find information on the pest or disease risks of importing a plant to Great Britain (England, Scotland and Wales).",
+  "buttonText": "Start Now",
+  "publishedSection": {
+    "publishedOtherText": {
+      "t1": "From:",
+      "t2": "and"
+    },
+    "publishedDates": {
+      "text1": "Published 14 December 2023",
+      "text2": "Last updated 23 February 2024 —"
+    }
+  },
+  "appliesToSection": {
+    "appliesToText": "Applies to\r\n England, Scotland and Wales"
+  },
+  "textBeforeStartNowSection": {
+    "paragraphText1": "Use this service to find out",
+    "bulletText1": "the latest rules for importing plants or plant products",
+    "bulletText2": "if a plant could carry pests and diseases that need reporting",
+    "bulletText3": "current information on non-native plants pests and diseases\r\n that are a risk to Great Britain"
+  },
+  "textAfterStartNowSection": {
+    "headerText": "Before you start",
+    "paragraphText1": "You'll need the name of the plant/ plant product/ pest or disease to find plant\r\n health\r\n information",
+    "paragraphText2": "You can use:",
+    "paragraphText3": "This service",
+    "bulletText1": "the scientific name or any synonyms",
+    "bulletText2": "a common name in some cases",
+    "bulletText3": "does not provide trade information about exporting plants or plant products",
+    "bulletText4": "it is not a pest or disease identification service",
+    "bulletText5": "does not have information about pests and diseases native to Great Britain"
+  },
+  "relatedContentSection": {
+    "headerText": "Related content"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "if you have any queries or you need technical support, email"
+    }
+  }
+}
