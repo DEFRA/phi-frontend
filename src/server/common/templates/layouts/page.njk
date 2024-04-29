@@ -18,18 +18,6 @@
   <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
 {% endblock %}
 
-{% block header %}
-  {{ govukHeader({
-    homepageUrl: "https://www.gov.uk/",
-    classes: "app-header",
-    containerClasses: "govuk-width-container",
-    serviceName: serviceName,
-    serviceUrl: serviceUrl,
-    useTudorCrown: true
-  }) }}
-  {% include "partials/navigation.njk" %}
-{% endblock %}
-
 {% block pageTitle %}
   {{ pageTitle }} | {{ serviceName }}
 {% endblock %}

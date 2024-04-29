@@ -4,6 +4,9 @@ import path from 'node:path'
 const oneWeek = 7 * 24 * 60 * 60 * 1000
 
 const config = convict({
+  locale: {
+    value: 'en_gb'
+  },
   env: {
     doc: 'The application environment.',
     format: ['production', 'development', 'test'],

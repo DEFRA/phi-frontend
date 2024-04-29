@@ -1,0 +1,14 @@
+{
+  "mainContent": {
+    "headerText": "Beth ydych chi am ei ddarganfod?",
+    "radioButtonText1": "Rheolau mewnforio planhigion neu gynnyrch planhigion",
+    "radioButtonText2": "Gwybodaeth am blâu neu glefydau",
+    "buttonText": "Parhewch"
+  },
+  "getHelpSection": {
+    "titleText": "Cael help gyda'r gwasanaeth hwn",
+    "supportUrl": {
+      "text": "os oes gennych unrhyw ymholiadau neu os oes angen cymorth technegol arnoch, e-bostiwch"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{% extends 'layouts/page.njk' %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="solid-div govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-m govuk-!-margin-top-2">{{serviceUnavailablePage.headerText}}</h1>
+      <p class="govuk-body">
+        {{serviceUnavailablePage.description}}</p>
+        {% from "govuk/components/button/macro.njk" import govukButton %}
+            {{ 
+          govukButton({
+            text: serviceUnavailablePage.buttonText,
+            href: "/plant-health"
+        }) 
+        }}
+    </div>
+  </div>
+{% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+{% include "partials/get-help.njk" %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{
+  "govukcaption": "Arweiniad",
+  "govukheading": "Gwiriwch wybodaeth iechyd planhigion a rheolau mewnforio",
+  "govukbodytitle": "Defnyddiwch y gwasanaeth hwn i ddod o hyd i wybodaeth am y risgiau o bla neu glefyd sy'n gysylltiedig â mewnforio planhigyn i Brydain Fawr (Cymru, Lloegr a'r Alban).",
+  "buttonText": "Dechreuwch Nawr",
+  "publishedSection": {
+    "publishedOtherText": {
+      "t1": "Oddi wrth:",
+      "t2": "a"
+    },
+    "publishedDates": {
+      "text1": "Wedi'i gyhoeddi ar 14 Rhagfyr 2023",
+      "text2": "Wedi ei ddiweddaru ddiwetha' 23 Chwefror 2024 —"
+    }
+  },
+  "appliesToSection": {
+    "appliesToText": "Yn berthnasol i\r\n Lloegr, yr Alban a Chymru"
+  },
+  "textBeforeStartNowSection": {
+    "paragraphText1": "Defnyddiwch y gwasanaeth hwn i gael gwybod",
+    "bulletText1": "y rheolau diweddaraf ar gyfer mewnforio planhigion neu gynhyrchion planhigion",
+    "bulletText2": "a allai planhigyn gario plâu a chlefydau y mae angen adrodd amdanynt",
+    "bulletText3": "gwybodaeth gyfredol am blâu a chlefydau planhigion anfrodorol\r\n sy'n risg i Brydain Fawr"
+  },
+  "textAfterStartNowSection": {
+    "headerText": "Cyn i chi ddechrau",
+    "paragraphText1": "Bydd angen enw'r planhigyn/cynnyrch planhigyn/ pla neu afiechyd arnoch i ddod o hyd i wybodaeth am blanhigion\r\niechyd\r\n",
+    "paragraphText2": "Gallwch ddefnyddio:",
+    "paragraphText3": "Y gwasanaeth hwn",
+    "bulletText1": "yr enw gwyddonol neu unrhyw gyfystyron",
+    "bulletText2": "enw cyffredin mewn rhai achosion",
+    "bulletText3": "nad yw'n darparu gwybodaeth fasnachol am allforio planhigion neu gynhyrchion planhigion",
+    "bulletText4": "nid yw'n wasanaeth adnabod pla neu afiechyd",
+    "bulletText5": "nid oes ganddo wybodaeth am blâu a chlefydau sy'n frodorol i Brydain Fawr"
+  },
+  "relatedContentSection": {
+    "headerText": "Cynnwys cysylltiedig"
+  },
+  "getHelpSection": {
+    "titleText": "Cael help gyda'r gwasanaeth hwn",
+    "supportUrl": {
+      "text": "os oes gennych unrhyw ymholiadau neu os oes angen cymorth technegol arnoch, e-bostiwch"
+    }
+  }
+}

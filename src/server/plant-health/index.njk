@@ -1,0 +1,46 @@
+{% extends 'layouts/page.njk' %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% block beforeContent %}
+  <a href="/" class="govuk-back-link" type='button'>Back</a>
+{% endblock %}
+{% block content %}
+{% call appPageBody() %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+ {% if errors %}
+    {{ govukErrorSummary(errors) }}
+  {% endif %}
+<form  id="itembox" action='/plant-health/purpose-of-visit' method="get"  name="radios">
+{{ govukRadios({
+  name: "whatdoyouwanttofind",
+  errorMessage: errorMessageRadio,
+  fieldset: {
+    legend: {
+      text: mainContent.headerText,
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  items: [
+    {
+      value: "importrules",
+      text: mainContent.radioButtonText1,
+      checked: radiobuttonValue === 'importrules'
+    },
+    {
+      value: "pest",
+      text: mainContent.radioButtonText2,
+      checked: radiobuttonValue === 'pest'
+    }
+  ]
+}) }}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{{ govukButton({
+  text: mainContent.buttonText
+}) }}
+</form>
+{% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+{% include "partials/get-help.njk" %}
+{% endcall %}
+{% endblock %}

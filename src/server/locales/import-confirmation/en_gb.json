@@ -1,0 +1,23 @@
+{
+  "mainContent": {
+    "headerText": "Where are you importing plant or plant product into?",
+    "radioButtonText1": "Great Britain (England, Scotland and Wales)",
+    "radioButtonText2": "Northern Ireland",
+    "buttonText": "Continue"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "if you have any queries or you need technical support, email"
+    }
+  },
+  "serviceUnavailablePage": {
+    "headerText": "This service does not contain import and plant health information for Northern Ireland",
+    "desc1": "You will be able to use the service later.",
+    "desc2": "There are different plant health controls for Northern Ireland and Great Britain. You can"
+  },
+  "errors": {
+    "titleText": "There is a problem",
+    "importConfirmationErrorListText": "Select where are you importing plant or plant product into"
+  }
+}

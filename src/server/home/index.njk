@@ -1,58 +1,133 @@
 {% extends 'layouts/page.njk' %}
-
 {% block content %}
-  {{ appHeading({
-    text: heading,
-    caption: "Core delivery platform Node.js Frontend Template."
-  }) }}
+  <div class="govuk-width-container">
+    <main class="govuk-main-wrapper">
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <span class="govuk-caption-l">{{govukCaption}}</span>
+          <h1 class="govuk-heading-l">{{govukHeading}}</h1>
+          <p class="govuk-body-l">{{govukBodyTitle}}</p>
+        </p>
+        </div>
+        <div class="govuk-grid-column-full">
+          <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+        </div>
+      </div>
+      <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+          <p class="govuk-body">
+            <dl>
+              <dt class="govuk-!-margin-bottom-1">{{publishedSection.publishedOtherText.t1}} 
+              <a href="https://www.gov.uk/government/organisations/department-for-environment-food-rural-affairs">
+                Department for Environment, Food & Rural Affairs</a> {{publishedSection.publishedOtherText.t2}}
+              <a href="https://www.gov.uk/government/organisations/animal-and-plant-health-agency">
+                Animal and Plant Health Agency</a>
+              </dt>
+              <dt class="govuk-!-margin-bottom-1">{{publishedSection.publishedDates.text1}}</dt>
+              <dt class="govuk-!-margin-bottom-1">{{publishedSection.publishedDates.text2}}
+              <a
+                href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#full-publication-update-history">
+                See all updates</a>
+              </dt>
+              </dl>
+            </p>
+          </div>
+        </div>
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <div class="div-background govuk-!-padding-bottom-1 govuk-!-padding-top-2">
+              <h1 class="govuk-!-margin-bottom-2 govuk-!-margin-left-2 govuk-heading-s" id="query" name="query">{{appliesToSection.appliesToText}}</h1>
+              <p class="govuk-body-s govuk-!-margin-left-2">
+                <a
+            href="https://www.daera-ni.gov.uk/publications/import-requirements-plants-plant-produce-and-other-objects">
+            Guidance for Northern Ireland</a>
+              </p>
+            </div>
+            <p class="govuk-body-s govuk-!-margin-bottom-2 govuk-!-margin-top-2">{{textBeforeStartNowSection.paragraphText1}}</p>
+            <ul class="govuk-body-s govuk-!-margin-bottom-1">
+              <li>{{textBeforeStartNowSection.bulletText1}}</li>
+              <li>{{textBeforeStartNowSection.bulletText2}}</li>
+              <li class="govuk-!-margin-bottom-4">{{textBeforeStartNowSection.bulletText3}}</li>
+            </ul>
+            {% from "govuk/components/button/macro.njk" import govukButton %}
+            {{ 
+          govukButton({
+            text: buttonText,
+            href: "/plant-health",
+            isStartButton: true
+        }) 
+        }}
+            <h3 class="govuk-heading-m">{{textAfterStartNowSection.headerText}}</h3>
+            <p class="govuk-body-s govuk-!-margin-bottom-1">{{textAfterStartNowSection.paragraphText1}}</p>
+            <p class="govuk-body-s govuk-!-margin-bottom-1">{{textAfterStartNowSection.paragraphText2}}</p>
+            <ul class="govuk-body-s govuk-!-margin-bottom-1">
+              <li>{{textAfterStartNowSection.bulletText1}}</li>
+              <li>{{textAfterStartNowSection.bulletText2}}</li>
+            </ul>
+            <p class="govuk-body-s govuk-!-margin-bottom-1">{{textAfterStartNowSection.paragraphText3}}</p>
+            <ul class="govuk-body-s govuk-!-margin-bottom-1">
+              <li>{{textAfterStartNowSection.bulletText3}}</li>
+              <li>{{textAfterStartNowSection.bulletText4}}</li>
+              <li>{{textAfterStartNowSection.bulletText5}}/li>
+            </ul>
 
-  {% call appPageBody() %}
-    <p>
-      Welcome to the Frontend Template, a starter kit for Core Delivery Platform Node.js Frontends 🚀
-    </p>
-    <p>
-      Based on <a href="https://github.com/DEFRA/design-standards">DEFRA</a> and <a
-              href="https://design-system.service.gov.uk/">GOV.UK</a> best practices this starter kit provides you with
-      a deployable, production ready template 🙌🏻 to start your new service with.
-    </p>
-
-    <ul>
-      <li>
-        <a href="https://frontend.design-system.service.gov.uk/">GOV.UK Frontend</a>
-      </li>
-      <li>
-        <a href="https://hapi.dev">Hapi</a>
-      </li>
-      <li>
-        <a href="https://mozilla.github.io/nunjucks/">Nunjucks</a>
-      </li>
-      <li>
-        <a href="https://github.com/mozilla/node-convict">Node Convict</a>
-      </li>
-      <li>
-        <a href="https://jestjs.io/">Jest testing</a>
-      </li>
-      <li>
-        <a href="https://webdriver.io">WebdriverIO</a> User Journey testing
-      </li>
-      <li>GitHub Actions Pull Request and Publish jobs</li>
-      <li>
-        <a href="https://github.com/pinojs/pino">PinoJs logging</a>
-      </li>
-      <li>
-        <a href="https://standardjs.com">Standard JS</a>
-      </li>
-      <li>
-        <a href="https://eslint.org">ESLint</a>
-      </li>
-      <li>
-        <a href="https://stylelint.io">StyleLint</a>
-      </li>
-      <li>
-        <a href="https://prettier.io">Prettier</a>
-      </li>
-      <li>and lots more... 😎</li>
-    </ul>
-  {% endcall %}
-
-{% endblock %}
+          </div>
+          <div class="govuk-grid-column-one-third">
+            <hr class="horizontal_line govuk-section-break govuk-section-break--visible">
+            <h2 class="govuk-heading-s govuk-!-margin-top-1">{{relatedContentSection.headerText}}</h2>
+            <div class="govuk-body-s">
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a
+              href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#register-and-pre-notify-your-goods-on-the-relevant-import-it-system">
+              Import plants and plant products from the EU to Great Britain</a>
+              </p>
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a
+              href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain">
+              Import plants and plant products from non-EU countries to Great Britain</a>
+              </p>
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a href="https://www.gov.uk/guidance/import-high-risk-food-and-feed-not-of-animal-origin-from-the-eu-to-great-britain">
+              Import high-risk food and feed not of animal origin from the EU to Great Britain</a>
+              </p>
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a href="https://www.gov.uk/guidance/import-of-products-animals-food-and-feed-system">
+              Import of products, animals, food and feed system (IPAFFS)</a>
+              </p>
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a href="https://www.gov.uk/guidance/cites-imports-and-exports">
+               Import or export endangered species: check if you need a CITES permit</a>
+              </p>
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a href="https://www.gov.uk/guidance/comply-with-marketing-standards-for-fresh-fruit-and-vegetables">
+              Fresh fruit and vegetable marketing standard</a>
+              </p>
+              <p class="govuk-body-s govuk-!-margin-bottom-1">
+                <a href="https://www.gov.uk/guidance/plant-health-controls">Plant health controls</a>
+              </p>
+              <p class="govuk-body-s">
+                <a href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/">Reporting a
+              plant pest or disease</a>
+              </p>
+            </div>
+          </div>
+        </div>
+        {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+        {% include "partials/get-help.njk" %}
+        <div class="govuk-grid-row">
+          <div class="govuk-grid-column-two-thirds">
+            <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+            <p class="govuk-body">
+              <dl>
+                <dt class="govuk-!-margin-bottom-1">{{publishedSection.publishedDates.text1}}</dt>
+                <dt class="govuk-!-margin-bottom-1">{{publishedSection.publishedDates.text2}}
+              <a
+                href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#full-publication-update-history">
+                See all updates</a>
+                </dt>
+              </p>
+            </div>
+          </div>
+        </main>
+      </div>
+    {% endblock %}
