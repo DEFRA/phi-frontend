@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Where are you importing plant or plant product into?",
+    "headerText": "Where are you importing your plant or plant product into?",
     "radioButtonText1": "Great Britain (England, Scotland and Wales)",
     "radioButtonText2": "Northern Ireland",
     "buttonText": "Continue"
@@ -8,7 +8,7 @@
   "getHelpSection": {
     "titleText": "Get help with this service",
     "supportUrl": {
-      "text": "if you have any queries or you need technical support, email"
+      "text": "If you have any queries or you need technical support, email"
     }
   },
   "serviceUnavailablePage": {
