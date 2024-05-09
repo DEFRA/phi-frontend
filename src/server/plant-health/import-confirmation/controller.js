@@ -15,7 +15,8 @@ const importConfirmationController = {
         })
         return h.view('plant-health/import-confirmation/search', {
           pageTitle: 'ImportConfirmation',
-          heading: 'ImportConfirmation'
+          heading: 'ImportConfirmation',
+          getHelpSection
         })
       } else if (request.query.whereareyouimportinginto === 'ni') {
         request.yar.set('importConfirmationRadiooption', {

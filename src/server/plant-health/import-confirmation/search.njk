@@ -4,34 +4,19 @@
 {% endblock %}
 {% block content %}
   {% call appPageBody() %}
-  {% set myArray = ['plant_1', 'plant_2', 'plant_3'] %}
   <form method="[object Object]" action="" novalidate="">
-    {# <fieldset class="govuk-fieldset">
-      <h1 class="govuk-heading-l govuk-!-margin-bottom-1">What plant or plant product are you importing?</h1>
-      <div class="govuk-form-group ">
-         <p class="govuk-body-m govuk-!-margin-bottom-1">You can enter the scientific name or any synonyms or common names.</p>
-        <div class="search">
-          <input class="search__input" id="query" name="query" type="search" aria-describedby="search-hint" value="">
-          <button id="submitButton" data-module="govuk-button" class="search__button">Search</button>
-        </div>
-      </div>
-      <ul id="searchResults" style="display: none;"></ul>
-    </fieldset> #}
-    {% from "govuk/components/input/macro.njk" import govukInput %}
-
-    {{ govukInput({
-      label: {
-        text: "What plant or plant product are you importing?",
-        classes: "govuk-label--l",
-        isPageHeading: true
-      },
-      hint: {
-        text: "You can enter the scientific name or any synonyms or common names."
-      },
-      id: "query",
-      name: "query"
-    }) }}
-    <ul id="searchResults" style="display: none;"></ul>
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="event-name">
+          What plant or plant product are you importing?
+        </label>
+      </h1>
+      <label class="govuk-label" for="event-name">
+        You can enter the scientific name or any synonyms or common names.
+      </label>
+    <input class="govuk-input" id="query" name="query" type="text">
+    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 100%; height: 200px; display: none; overflow: auto"></ul>
+  </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
     {{ govukButton({
@@ -39,23 +24,14 @@
       id: "submitButton"
     }) }}
   </form>
+ 
   <script>
-
     var searchInput = document.getElementById('query');
     var searchResults = document.getElementById('searchResults');
     searchInput.addEventListener('input', function () {
       var inputValue = this
         .value
         .toLowerCase();
-      {# var suggestions = myArray;
-        if (inputValue) {
-          suggestions = myArray.filter(function (item) {
-            return item
-              .toLowerCase()
-              .indexOf(inputValue) !== -1;
-          });
-        }
-        # } {# renderSuggestions(suggestions); #}
     fetchSuggestions();
   });
   function fetchSuggestions(query) { // Mock API endpoint URL
@@ -76,8 +52,23 @@
     suggestions.forEach(function (item) {
       console.log(item)
       var li = document.createElement('li');
-      li.textContent = item.name;
+      li.className = "govuk-task-list__item govuk-task-list__item--with-link";
       searchResults.appendChild(li);
+      var division = document.createElement('div');
+      division.className = "govuk-task-list__name-and-hint";
+      li.appendChild(division);  
+       if (searchInput.indexOf(item.name)){
+        var strongElement = document.createElement('strong');
+        var regExp = new RegExp(searchInput, 'gi');
+        var matchingText = item.name.match(regExp);
+        strongElement.textContent = matchingText   
+        var result = item.name.replace(matchingText, strongElement.outerHTML); 
+        division.innerHTML = result;
+      }
+      var anchor = document.createElement('a');
+      anchor.className = "govuk-link govuk-task-list__link";
+      anchor.href = "#";
+      division.appendChild(anchor);
     });
     if (suggestions.length > 0 && searchInput !== '') {
       searchResults.style.display = 'block';
@@ -87,5 +78,9 @@
     }
   }
   </script>
+
+  {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+  {% include "partials/get-help.njk" %}
+  
   {% endcall %}
 {% endblock %}
