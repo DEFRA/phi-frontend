@@ -15,7 +15,7 @@
         You can enter the scientific name or any synonyms or common names.
       </label>
     <input class="govuk-input" id="query" name="query" type="text">
-    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 100%; height: 200px; display: none; overflow: auto"></ul>
+    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 100%; max-height: 342px; display: none; overflow: auto"></ul>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -46,7 +46,7 @@
     searchResults.innerHTML = '';
 
     suggestions = suggestions.filter(function (item) {
-      return item?.name?.toLowerCase().indexOf(searchInput) !== -1;
+      return item.name.match(new RegExp(searchInput, 'gi'));
     });
     console.log('suggestions:', suggestions)
     suggestions.forEach(function (item) {
@@ -61,7 +61,8 @@
         var strongElement = document.createElement('strong');
         var regExp = new RegExp(searchInput, 'gi');
         var matchingText = item.name.match(regExp);
-        strongElement.textContent = matchingText   
+        strongElement.textContent = matchingText;
+        strongElement.style.color = "red";
         var result = item.name.replace(matchingText, strongElement.outerHTML); 
         division.innerHTML = result;
       }
@@ -71,7 +72,7 @@
       division.appendChild(anchor);
     });
     if (suggestions.length > 0 && searchInput !== '') {
-      searchResults.style.display = 'block';
+      searchResults.style.display = 'inline-block';
     } else {
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
