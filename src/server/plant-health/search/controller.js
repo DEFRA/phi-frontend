@@ -1,4 +1,5 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
+import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const searchController = {
   handler: (request, h) => {
     if (request != null) {
@@ -26,21 +27,11 @@ const searchController = {
         if (request.query.searchQuery === '') {
           const errorData = getDefaultLocaleData('search')
           const errorSection = errorData?.errors
-
-          request.yar.set('errors', {
-            list: {
-              titleText: errorSection.titleText,
-              errorList: [
-                {
-                  text: errorSection.searchErrorListText,
-                  href: '#itembox'
-                }
-              ]
-            }
-          })
-          request.yar.set('errorMessage', {
-            message: { text: errorSection.searchErrorListText }
-          })
+          setErrorMessage(
+            request,
+            errorSection.titleText,
+            errorSection.searchErrorListText
+          )
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')

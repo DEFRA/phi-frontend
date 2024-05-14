@@ -1,4 +1,5 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
+import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const importConfirmationController = {
   handler: (request, h) => {
     if (request != null) {
@@ -63,20 +64,11 @@ const importConfirmationController = {
         const errorSection = errorData?.errors
 
         if (!radiobuttonValue) {
-          request.yar.set('errors', {
-            errors: {
-              titleText: errorSection.titleText,
-              errorList: [
-                {
-                  text: errorSection.importConfirmationErrorListText,
-                  href: '#itembox'
-                }
-              ]
-            }
-          })
-          request.yar.set('errorMessage', {
-            errorMessage: { text: errorSection.importConfirmationErrorListText }
-          })
+          setErrorMessage(
+            request,
+            errorSection.titleText,
+            errorSection.importConfirmationErrorListText
+          )
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
@@ -86,9 +78,8 @@ const importConfirmationController = {
           radiobuttonValue,
           pageTitle: 'ImportConfirmation',
           heading: 'ImportConfirmation',
-          errors: errors?.errors,
-          errorMessage: errorMessage?.errorMessage,
-          errorMessageRadio: errorMessage?.errorMessage
+          errors,
+          errorMessage
         })
       }
     }
