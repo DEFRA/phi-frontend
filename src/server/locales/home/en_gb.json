@@ -2,7 +2,7 @@
   "govukcaption": "Guidance",
   "govukheading": "Check plant health information and import rules",
   "govukbodytitle": "Use this service to find information on the pest or disease risks of importing a plant or plant product to Great Britain (England, Scotland and Wales).",
-  "buttonText": "Start Now",
+  "buttonText": "Start now",
   "publishedSection": {
     "publishedOtherText": {
       "t1": "From:",
@@ -17,14 +17,14 @@
     "appliesToText": "Applies to\r\n England, Scotland and Wales"
   },
   "textBeforeStartNowSection": {
-    "paragraphText1": "Use this service to find out;",
+    "paragraphText1": "Use this service to find out:",
     "bulletText1": "the latest rules for importing particular plants or plant products",
     "bulletText2": "if a plant could carry pests and diseases that need reporting",
     "bulletText3": "current information on non-native plants pests and diseases\r\n that are a risk to Great Britain"
   },
   "textAfterStartNowSection": {
     "headerText": "Before you start",
-    "paragraphText1": "You'll need the name of either the plant, plant product, pest or disease to find plant\r\n health\r\n information",
+    "paragraphText1": "You'll need the name of either the plant, plant product, pest or disease to find plant\r\n health\r\n information.",
     "paragraphText2": "You can use:",
     "paragraphText3": "This service:",
     "bulletText1": "the scientific name or any synonyms",
