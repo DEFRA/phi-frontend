@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Where are you importing your plant or plant product into?",
+    "headerText": "I ble ydych chi'n mewnforio eich planhigyn neu gynnyrch planhigyn?",
     "radioButtonText1": "Great Britain (England, Scotland and Wales)",
     "radioButtonText2": "Northern Ireland",
     "buttonText": "Continue"
@@ -18,6 +18,6 @@
   },
   "errors": {
     "titleText": "There is a problem",
-    "importConfirmationErrorListText": "Select where are you importing plant or plant product into"
+    "importConfirmationErrorListText": "Select where are you importing your plant or plant product to"
   }
 }

@@ -4,7 +4,7 @@
     <main class="govuk-main-wrapper">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-          <span class="govuk-caption-l">{{govukCaption}}</span>
+          <span class="govuk-caption-xl">{{govukCaption}}</span>
           <h1 class="govuk-heading-l">{{govukHeading}}</h1>
           <p class="govuk-body-l">{{govukBodyTitle}}</p>
         </p>
@@ -32,19 +32,19 @@
         </div>
         <div class="govuk-grid-row">
           <div class="govuk-grid-column-two-thirds">
-            <div class="div-background govuk-!-padding-bottom-1 govuk-!-padding-top-2">
-              <h1 class="govuk-!-margin-bottom-2 govuk-!-margin-left-2 govuk-heading-s" id="query" name="query">{{appliesToSection.appliesToText}}</h1>
-              <p class="govuk-body-s govuk-!-margin-left-2">
-                <a
+            <section class="section-background govuk-!-padding-bottom-1 govuk-!-margin-top-2 govuk-!-padding-top-2">
+              <h1 class="govuk-!-margin-left-4 govuk-heading-s" id="query" name="query">{{appliesToSection.appliesToText}}</h1>
+              <p class="govuk-body govuk-!-margin-left-4 govuk-!-margin-bottom-2">
+                <a class="govuk-link govuk-body"
             href="https://www.daera-ni.gov.uk/publications/import-requirements-plants-plant-produce-and-other-objects">
             Guidance for Northern Ireland</a>
               </p>
-            </div>
-            <p class="govuk-body-s govuk-!-margin-bottom-2 govuk-!-margin-top-2">{{textBeforeStartNowSection.paragraphText1}}</p>
-            <ul class="govuk-body-s govuk-!-margin-bottom-1">
+            </section>
+            <p class="govuk-body govuk-!-margin-top-4">{{textBeforeStartNowSection.paragraphText1}}</p>
+            <ul class="govuk-list govuk-list--bullet">
               <li>{{textBeforeStartNowSection.bulletText1}}</li>
               <li>{{textBeforeStartNowSection.bulletText2}}</li>
-              <li class="govuk-!-margin-bottom-4">{{textBeforeStartNowSection.bulletText3}}</li>
+              <li>{{textBeforeStartNowSection.bulletText3}}</li>
             </ul>
             {% from "govuk/components/button/macro.njk" import govukButton %}
             {{ 
@@ -55,14 +55,14 @@
         }) 
         }}
             <h3 class="govuk-heading-m">{{textAfterStartNowSection.headerText}}</h3>
-            <p class="govuk-body-s govuk-!-margin-bottom-1">{{textAfterStartNowSection.paragraphText1}}</p>
-            <p class="govuk-body-s govuk-!-margin-bottom-1">{{textAfterStartNowSection.paragraphText2}}</p>
-            <ul class="govuk-body-s govuk-!-margin-bottom-1">
+            <p class="govuk-body">{{textAfterStartNowSection.paragraphText1}}</p>
+            <p>{{textAfterStartNowSection.paragraphText2}}</p>
+            <ul class="govuk-list govuk-list--bullet">
               <li>{{textAfterStartNowSection.bulletText1}}</li>
               <li>{{textAfterStartNowSection.bulletText2}}</li>
             </ul>
-            <p class="govuk-body-s govuk-!-margin-bottom-1">{{textAfterStartNowSection.paragraphText3}}</p>
-            <ul class="govuk-body-s govuk-!-margin-bottom-1">
+            <p>{{textAfterStartNowSection.paragraphText3}}</p>
+            <ul class="govuk-list govuk-list--bullet">
               <li>{{textAfterStartNowSection.bulletText3}}</li>
               <li>{{textAfterStartNowSection.bulletText4}}</li>
               <li>{{textAfterStartNowSection.bulletText5}}</li>
