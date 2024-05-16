@@ -44,12 +44,23 @@
    
     var searchInput = document.getElementById('query');
     var searchResults = document.getElementById('searchResults');
+    var inputValue;
     searchInput.addEventListener('input', function () {
-      var inputValue = this
+      inputValue = this
         .value
         .toLowerCase();
     fetchSuggestions();
   });
+   function containsSpecialCharacter(str) {
+    let specialChars =
+        "!@#$%^&*()-_=+[{]};:'\",<.>/?\\|";
+    for (var i = 0; i < str.length; i++) {
+        if (specialChars.indexOf(str[i]) !== -1) {
+            return true;
+        }
+    }
+    return false;
+}
   function fetchSuggestions(query) { // Mock API endpoint URL
     var apiUrl = 'http://localhost:3004/mock-api/products';
     fetch(apiUrl)
@@ -62,7 +73,11 @@
     searchResults.innerHTML = '';
 
     suggestions = suggestions.filter(function (item) {
-      return item.name.match(new RegExp(searchInput, 'gi'));
+     let result = null;
+      if (containsSpecialCharacter(item.name)){
+        result = item.name.toLowerCase().indexOf(inputValue) !== -1;
+      }
+      return result
     });
     console.log('suggestions:', suggestions)
     suggestions.forEach(function (item, index) {
@@ -77,8 +92,14 @@
       li.appendChild(division);  
        if (searchInput.indexOf(item.name)){
         var strongElement = document.createElement('strong');
-        var regExp = new RegExp(searchInput, 'gi');
-        var matchingText = item.name.match(regExp);
+        let newResult, matchingText = null;
+        if (containsSpecialCharacter(item.name)){
+        newResult = item.name.toLowerCase().indexOf(inputValue) !== -1;
+        }
+        
+        if (newResult) {
+          matchingText = document.getElementById('query').value;
+        }
         strongElement.textContent = matchingText;
         strongElement.style.color = "red";
         var result = item.name.replace(matchingText, strongElement.outerHTML); 
