@@ -48,7 +48,7 @@ const importConfirmationController = {
           value: decodeURI(request.query.searchQuery)
         })
         const searchQuery = request.yar?.get('searchQuery')
-        return h.view('plant-health/import-confirmation/country', {
+        return h.view('plant-health/country-search/index', {
           pageTitle: 'Country',
           heading: 'Country',
           getHelpSection,

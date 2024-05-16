@@ -1,6 +1,6 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
-const searchController = {
+const countrySearchController = {
   handler: (request, h) => {
     if (request != null) {
       const data = getDefaultLocaleData('search')
@@ -35,7 +35,7 @@ const searchController = {
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
-        return h.view('plant-health/search/index', {
+        return h.view('plant-health/country-search/index', {
           mainContent,
           getHelpSection,
           searchQuery,
@@ -49,4 +49,4 @@ const searchController = {
   }
 }
 
-export { searchController }
+export { countrySearchController }
