@@ -67,43 +67,36 @@
       .then(data => renderSuggestions(data))
       .catch(error => console.log('Error fetching suggestions:', error));
   }
-  var latinName;
+  var latinName = false;
+  var commonName = false;
+  var synonymName = false;
+  var searchResult;
 
   function renderSuggestions(suggestions) {
     var searchInput = document.getElementById('query')?.value;
     searchResults.innerHTML = '';
 
     suggestions = suggestions.filter(function (item) {
+    if (item.LatinName.toLowerCase()?.indexOf(inputValue) !== -1){
+      latinName = true;
+      searchResult = item.LatinName;
+    }
+    else {
     item.COMMON_NAME?.NAME?.filter(function (common_name){
+  
     if (common_name.toLowerCase()?.indexOf(inputValue) !== -1){
-      latinName = common_name;
+      commonName = true;
+      searchResult = common_name;
     }
-    else if (item.LatinName.toLowerCase()?.indexOf(inputValue) !== -1){
-      latinName = item.LatinName;
-    }
-   
-      
     })
     item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
     if (synonym_name.toLowerCase()?.indexOf(inputValue) !== -1){
-      latinName = synonym_name;
-    }
-    
-     else if (item.LatinName.toLowerCase()?.indexOf(inputValue) !== -1){
-      latinName = item.LatinName;
+      synonymName = true;
+      searchResult = synonym_name;
     }
     })
-    
-    
-     let result = null;
-      if ((containsSpecialCharacter(latinName))){
-        result = item.LatinName
-      }
-      else if ((!(containsSpecialCharacter(latinName))) && (item.name.match(new RegExp(inputValue, 'gi')))){
-       result = item.LatinName
-      }
-      console.log('RESULT', result)
-      return result
+    }
+      return searchResult
     });
     suggestions = suggestions.sort(function (a, b) {
                     if (a.LatinName < b.LatinName) {
@@ -125,31 +118,57 @@
       division.className = "govuk-task-list__name-and-hint";
       division.id = 'div-searchResults'+index;
       li.appendChild(division);  
-       if (searchInput.indexOf(item.name)){
+       
         var strongElement = document.createElement('strong');
-        let newResult, matchingText = null;
-        if ((containsSpecialCharacter(inputValue))){
-           newResult = item.name.toLowerCase().indexOf(inputValue) !== -1;
-          }
-        else if ((!(containsSpecialCharacter(inputValue))) && (item.name.match(new RegExp(inputValue, 'gi')))){
-          newResult = item.name.toLowerCase().indexOf(inputValue) !== -1;
-          }
+        let matchingText = null;
         
-        if (newResult) {
-         if(containsSpecialCharacter(inputValue)){
-         matchingText = document.getElementById('query').value
-         }
-         else{
-         matchingText = item.name.match(new RegExp(document.getElementById('query').value, 'gi'))
-         }
-          
+        if (searchResult.length > 0) {
+         matchingText = document.getElementById('query').value.toLowerCase();
         }
         strongElement.textContent = matchingText;
         strongElement.style.color = "red";
         console.log('Match', matchingText)
-        var result = item.name.replace(matchingText, strongElement.outerHTML); 
-        division.innerHTML = result + " "  + item?.SYNONYM_NAME?.NAME  + " " + "(" + item?.COMMON_NAME?.NAME + ")";
-      }
+        var result
+        var replacedText
+        if (commonName && matchingText.length > 0){
+        item.COMMON_NAME?.NAME?.filter(function (common_name){
+      
+        if (common_name.toLowerCase()?.indexOf(inputValue) !== -1){
+          replacedText = common_name.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
+          commonName = false;  
+        }
+        })
+        if (replacedText === undefined){
+        result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+        }
+        else {
+        result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + replacedText + ")";
+        }
+        }
+        else  if (synonymName && matchingText.length > 0){
+        item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
+      
+        if (synonym_name.toLowerCase()?.indexOf(inputValue) !== -1){
+          replacedText = synonym_name.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
+          synonymNAme = false; 
+        }
+        })
+        if (replacedText === undefined){
+        result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+        }
+        else {
+        result = item.LatinName + ", " + replacedText + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+        } 
+        }
+        else if (matchingText.length > 0) {
+          replacedText = item.LatinName.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
+          result = replacedText + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+          latinName = false;
+        }
+        else {
+         result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+        }
+        division.innerHTML = result;
       var anchor = document.createElement('a');
       anchor.className = "govuk-link govuk-task-list__link";
       anchor.href = "#";
