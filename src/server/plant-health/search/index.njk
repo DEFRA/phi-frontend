@@ -22,15 +22,15 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" name="searchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" id="query" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if searchQuery.value %}
-    <input class="govuk-input" id="query" name="searchQuery" type="text" value='{{searchQuery.value}}'>
+    <input class="govuk-input" id="query" name="searchQuery" type="text" maxlength="125" value='{{searchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="searchQuery" type="text" value='{{searchQuery.value}}'>
+     <input class="govuk-input" id="query" name="searchQuery" type="text" maxlength="125">
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 100%; max-height: 342px; display: none; overflow: auto"></ul>
+    <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 100%; max-height: 450px; display: none; overflow: auto"></ul>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -47,9 +47,8 @@
     var inputValue;
     searchInput.addEventListener('input', function () {
       inputValue = this
-        .value
-        .toLowerCase();
-    fetchSuggestions();
+        .value.toLowerCase();
+      fetchSuggestions(inputValue);  
   });
    function containsSpecialCharacter(str) {
     let specialChars =
@@ -68,19 +67,55 @@
       .then(data => renderSuggestions(data))
       .catch(error => console.log('Error fetching suggestions:', error));
   }
+  var latinName;
+
   function renderSuggestions(suggestions) {
     var searchInput = document.getElementById('query')?.value;
     searchResults.innerHTML = '';
 
     suggestions = suggestions.filter(function (item) {
+    item.COMMON_NAME?.NAME?.filter(function (common_name){
+    if (common_name.toLowerCase()?.indexOf(inputValue) !== -1){
+      latinName = common_name;
+    }
+    else if (item.LatinName.toLowerCase()?.indexOf(inputValue) !== -1){
+      latinName = item.LatinName;
+    }
+   
+      
+    })
+    item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
+    if (synonym_name.toLowerCase()?.indexOf(inputValue) !== -1){
+      latinName = synonym_name;
+    }
+    
+     else if (item.LatinName.toLowerCase()?.indexOf(inputValue) !== -1){
+      latinName = item.LatinName;
+    }
+    })
+    
+    
      let result = null;
-      if (containsSpecialCharacter(item.name)){
-        result = item.name.toLowerCase().indexOf(inputValue) !== -1;
+      if ((containsSpecialCharacter(latinName))){
+        result = item.LatinName
       }
+      else if ((!(containsSpecialCharacter(latinName))) && (item.name.match(new RegExp(inputValue, 'gi')))){
+       result = item.LatinName
+      }
+      console.log('RESULT', result)
       return result
     });
+    suggestions = suggestions.sort(function (a, b) {
+                    if (a.LatinName < b.LatinName) {
+                        return -1;
+                    }
+                    if (a.LatinName > b.LatinName) {
+                        return 1;
+                    }
+                    return 0;
+                    });
     console.log('suggestions:', suggestions)
-    suggestions.forEach(function (item, index) {
+    suggestions.sort().forEach(function (item, index) {
       console.log(item)
       var li = document.createElement('li');
       li.className = "govuk-task-list__item govuk-task-list__item--with-link";
@@ -93,17 +128,27 @@
        if (searchInput.indexOf(item.name)){
         var strongElement = document.createElement('strong');
         let newResult, matchingText = null;
-        if (containsSpecialCharacter(item.name)){
-        newResult = item.name.toLowerCase().indexOf(inputValue) !== -1;
-        }
+        if ((containsSpecialCharacter(inputValue))){
+           newResult = item.name.toLowerCase().indexOf(inputValue) !== -1;
+          }
+        else if ((!(containsSpecialCharacter(inputValue))) && (item.name.match(new RegExp(inputValue, 'gi')))){
+          newResult = item.name.toLowerCase().indexOf(inputValue) !== -1;
+          }
         
         if (newResult) {
-          matchingText = document.getElementById('query').value;
+         if(containsSpecialCharacter(inputValue)){
+         matchingText = document.getElementById('query').value
+         }
+         else{
+         matchingText = item.name.match(new RegExp(document.getElementById('query').value, 'gi'))
+         }
+          
         }
         strongElement.textContent = matchingText;
         strongElement.style.color = "red";
+        console.log('Match', matchingText)
         var result = item.name.replace(matchingText, strongElement.outerHTML); 
-        division.innerHTML = result;
+        division.innerHTML = result + " "  + item?.SYNONYM_NAME?.NAME  + " " + "(" + item?.COMMON_NAME?.NAME + ")";
       }
       var anchor = document.createElement('a');
       anchor.className = "govuk-link govuk-task-list__link";
@@ -121,8 +166,18 @@
       searchResults.style.display = 'none';
       });
     } else {
+    if(suggestions.length === 0 && document.getElementById('query').value.length === 125){
+      console.log('HELLO');
+      var liNew = document.createElement('li');
+      liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      liNew.textContent = "No results found"
+      searchResults.appendChild(liNew);
+      searchResults.style.display = 'inline-block';
+      }
+    else if(suggestions.length === 0){
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
+      }
     }
   }
   </script>
