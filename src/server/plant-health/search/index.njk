@@ -64,40 +64,52 @@
     var apiUrl = 'http://localhost:3004/mock-api/products';
     fetch(apiUrl)
       .then(response => response.json())
-      .then(data => renderSuggestions(data))
+      .then(data=> {
+        result = renderSuggestions(data);
+        return result ? result : '';
+      })
       .catch(error => console.log('Error fetching suggestions:', error));
   }
   var latinName = false;
   var commonName = false;
   var synonymName = false;
   var searchResult;
-
+  var regexValue;
   function renderSuggestions(suggestions) {
     var searchInput = document.getElementById('query')?.value;
     searchResults.innerHTML = '';
-
-    suggestions = suggestions.filter(function (item) {
-    if (item.LatinName.toLowerCase()?.indexOf(inputValue) !== -1){
+    searchResult = null;
+    regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    try {
+      suggestions = suggestions.filter(item => {
+      if (item.LatinName.toLowerCase()?.match(new RegExp(regexValue,"gi"))){
+      console.log('HI')
       latinName = true;
-      searchResult = item.LatinName;
-    }
-    else {
-    item.COMMON_NAME?.NAME?.filter(function (common_name){
-  
-    if (common_name.toLowerCase()?.indexOf(inputValue) !== -1){
+      searchResult = item
+      }
+      else {
+      item.COMMON_NAME?.NAME?.filter(function (common_name){
+
+      if (common_name.toLowerCase()?.match(new RegExp(regexValue,"gi"))){
+      console.log('HI2')
       commonName = true;
-      searchResult = common_name;
-    }
-    })
-    item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
-    if (synonym_name.toLowerCase()?.indexOf(inputValue) !== -1){
+      searchResult = item;
+      }
+      })
+      item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
+      if (synonym_name.toLowerCase()?.match(new RegExp(regexValue,"gi"))){
+      console.log('HI')
       synonymName = true;
-      searchResult = synonym_name;
+      searchResult = item;
+      }
+      })
+      }
+      return true
+      });
+    } catch(error) {
+      console.error(error)
+      return false;
     }
-    })
-    }
-      return searchResult
-    });
     suggestions = suggestions.sort(function (a, b) {
                     if (a.LatinName < b.LatinName) {
                         return -1;
@@ -108,74 +120,84 @@
                     return 0;
                     });
     console.log('suggestions:', suggestions)
-    suggestions.sort().forEach(function (item, index) {
-      console.log(item)
-      var li = document.createElement('li');
-      li.className = "govuk-task-list__item govuk-task-list__item--with-link";
-      li.id = 'searchResults'+index;
-      searchResults.appendChild(li);
-      var division = document.createElement('div');
-      division.className = "govuk-task-list__name-and-hint";
-      division.id = 'div-searchResults'+index;
-      li.appendChild(division);  
-       
-        var strongElement = document.createElement('strong');
-        let matchingText = null;
-        
-        if (searchResult.length > 0) {
-         matchingText = document.getElementById('query').value.toLowerCase();
-        }
-        strongElement.textContent = matchingText;
-        strongElement.style.color = "red";
-        console.log('Match', matchingText)
-        var result
-        var replacedText
-        if (commonName && matchingText.length > 0){
-        item.COMMON_NAME?.NAME?.filter(function (common_name){
+    if (searchResult !== null) {
+      suggestions.sort().forEach(function (item, index) {
+          var li = document.createElement('li');
+          li.className = "govuk-task-list__item govuk-task-list__item--with-link";
+          li.id = 'searchResults'+index;
+          searchResults.appendChild(li);
+          var division = document.createElement('div');
+          division.className = "govuk-task-list__name-and-hint";
+          division.id = 'div-searchResults'+index;
+          li.appendChild(division);  
+          
+            var strongElement = document.createElement('strong');
+            let matchingText = null;
+            
+            if (searchResult !== null) {
+            matchingText = inputValue;
+            }
+
+            strongElement.textContent = matchingText;
+            strongElement.style.color = "red";
+            console.log('Match', matchingText)
+            var result
+            var replacedText
+            if (commonName && matchingText?.length > 0){
+            item.COMMON_NAME?.NAME?.filter(function (common_name){
+          
+            if (common_name.toLowerCase()?.indexOf(inputValue) !== -1){
+              replacedText = common_name.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
+              commonName = false;  
+            }
+            })
+            if (replacedText === undefined){
+            result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+            }
+            else {
+            result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + replacedText + ")";
+            }
+            }
+            else  if (synonymName && matchingText?.length > 0){
+            item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
+          
+            if (synonym_name.toLowerCase()?.indexOf(inputValue) !== -1){
+              replacedText = synonym_name.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
+              synonymNAme = false; 
+            }
+            })
+            if (replacedText === undefined){
+            result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+            }
+            else {
+            result = item.LatinName + ", " + replacedText + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+            } 
+            }
+            else {
+              
+                replacedText = item.LatinName.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
+                result = replacedText + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
+                latinName = false;
+              
+              
+            }
+          division.innerHTML = result;
+          var anchor = document.createElement('a');
+          anchor.className = "govuk-link govuk-task-list__link";
+          anchor.href = "#";
+          anchor.id = 'searchResults'+index;
+          division.appendChild(anchor);
       
-        if (common_name.toLowerCase()?.indexOf(inputValue) !== -1){
-          replacedText = common_name.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
-          commonName = false;  
-        }
-        })
-        if (replacedText === undefined){
-        result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
-        }
-        else {
-        result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + replacedText + ")";
-        }
-        }
-        else  if (synonymName && matchingText.length > 0){
-        item.SYNONYM_NAME?.NAME?.filter(function (synonym_name){
       
-        if (synonym_name.toLowerCase()?.indexOf(inputValue) !== -1){
-          replacedText = synonym_name.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
-          synonymNAme = false; 
-        }
-        })
-        if (replacedText === undefined){
-        result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
-        }
-        else {
-        result = item.LatinName + ", " + replacedText + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
-        } 
-        }
-        else if (matchingText.length > 0) {
-          replacedText = item.LatinName.toLowerCase()?.replace(matchingText, strongElement.outerHTML);
-          result = replacedText + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
-          latinName = false;
-        }
-        else {
-         result = item.LatinName + ", " + item?.SYNONYM_NAME?.NAME?.filter(e => e) + ", " + "(" + item?.COMMON_NAME?.NAME?.filter(e => e) + ")";
-        }
-        division.innerHTML = result;
-      var anchor = document.createElement('a');
-      anchor.className = "govuk-link govuk-task-list__link";
-      anchor.href = "#";
-      anchor.id = 'searchResults'+index;
-      division.appendChild(anchor);
-     
-    });
+      });
+    }
+    else {
+        var liNew = document.createElement('li');
+        liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
+        liNew.textContent = "No results found"
+        searchResults.appendChild(liNew);
+        searchResults.style.display = 'inline-block';
+    }
     if (suggestions.length > 0 && searchInput !== '') {
       searchResults.style.display = 'inline-block';
        searchResults.addEventListener('click', function(e) {
@@ -186,7 +208,6 @@
       });
     } else {
     if(suggestions.length === 0 && document.getElementById('query').value.length === 125){
-      console.log('HELLO');
       var liNew = document.createElement('li');
       liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
       liNew.textContent = "No results found"
