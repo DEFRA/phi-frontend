@@ -260,7 +260,24 @@
           })
           synonymName = newCA
        }
-      division.innerHTML = latinName + ", " + synonymName + ", " + "( " + commonName + " )" 
+      var innerHTMLText 
+      if (synonymName.length === 0){
+       if (commonName.length > 0){
+         innerHTMLText = latinName + ", " + "( " + commonName + " )"
+       }
+       else{
+        innerHTMLText = latinName
+       }
+      }
+      else{
+       if (commonName.length > 0){
+         innerHTMLText = synonymName + ", " + "( " + commonName + " )"
+       }
+       else{
+        innerHTMLText = synonymName
+       }
+      }
+      division.innerHTML = innerHTMLText 
     
       li.appendChild(division)
       searchResults.style.display = 'inline-block';
