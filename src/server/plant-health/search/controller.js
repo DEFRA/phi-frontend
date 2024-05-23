@@ -1,6 +1,6 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
-const searchController = {
+const searchPageController = {
   handler: (request, h) => {
     if (request != null) {
       const data = getDefaultLocaleData('search')
@@ -49,4 +49,4 @@ const searchController = {
   }
 }
 
-export { searchController }
+export { searchPageController }

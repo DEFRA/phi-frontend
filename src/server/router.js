@@ -7,6 +7,7 @@ import { purposeOfVisit } from '~/src/server/plant-health/purpose-of-visit'
 import { importConfirmation } from '~/src/server/plant-health/import-confirmation'
 import { searchPage } from '~/src/server/plant-health/search'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
+import { search } from '~/src/api/search'
 
 const options = {
   storeBlank: false,
@@ -28,6 +29,7 @@ const router = {
         purposeOfVisit,
         importConfirmation,
         searchPage,
+        search,
         serveStaticFiles
       ])
       await server.register({

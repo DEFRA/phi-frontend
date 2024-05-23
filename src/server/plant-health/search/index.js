@@ -1,14 +1,14 @@
-import { searchController } from '~/src/server/plant-health/search/controller'
+import { searchPageController } from '~/src/server/plant-health/search/controller'
 
 const searchPage = {
   plugin: {
-    name: 'search',
+    name: 'searchPage',
     register: async (server) => {
       server.route([
         {
           method: 'GET',
           path: '/plant-health/search',
-          ...searchController
+          ...searchPageController
         }
       ])
     }
