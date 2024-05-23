@@ -171,29 +171,51 @@
         
         var resultSet = [{latinNames: latinArray,commonNames:  commonArray,synonymNames: synonymArray}]
         console.log('RES', resultSet)
-        searchResults.innerHTML = '';
-        searchResults.style.display = 'none';
-        renderResultsWithHtml(resultSet)
+        if(regexValue.length > 3){
+         searchResults.innerHTML = '';
+         searchResults.style.display = 'none';
+         renderResultsWithHtml(resultSet)
+        }
+        else{
+         searchResults.innerHTML = '';
+         searchResults.style.display = 'none';
+        }
+        
         return latinArray, commonArray, synonymArray
   }
 
   function renderResultsWithHtml(filterResults){
-    filterResults.forEach(function (resultSet) {  
-      resultSet['latinNames'].forEach(function (item, index)
-      {
-        createAndAppendLiElement(item,index)
-      })
-      
-      resultSet['commonNames'].forEach(function (item, index)
-      {
-        createAndAppendLiElement(item,index)
-      })
+    var checkForEmptyArray = filterResults.flat()
+    if (checkForEmptyArray.length > 0){
+      if (checkForEmptyArray[0]['commonNames'].length === 0 && 
+      checkForEmptyArray[0]['latinNames'].length === 0 && 
+      checkForEmptyArray[0]['synonymNames'].length === 0 ){
+       var liNew = document.createElement('li');
+      liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      liNew.textContent = "No results found"
+      searchResults.appendChild(liNew);
+      searchResults.style.display = 'inline-block';
+      }
+     else {  
+      filterResults.forEach(function (resultSet) {  
+        resultSet['latinNames'].forEach(function (item, index)
+        {
+          createAndAppendLiElement(item,index)
+        })
+        
+        resultSet['commonNames'].forEach(function (item, index)
+        {
+          createAndAppendLiElement(item,index)
+        })
 
-      resultSet['synonymNames'].forEach(function (item, index)
-      {
-        createAndAppendLiElement(item,index)
+        resultSet['synonymNames'].forEach(function (item, index)
+        {
+          createAndAppendLiElement(item,index)
+        })
       })
-    })
+    } 
+    }
+  
   }  
       
   function createAndAppendLiElement(item, index){
