@@ -110,7 +110,22 @@
                   synonymJson[i][j]['NAME'].filter(name => {
                     if (name.match(new RegExp(regexValue,"gi"))) {
                      console.log('SYNONYM')
-                     synonymArray.push({result: synonymJson[i], highlight: 'SYNONYM_NAME', matchingText: inputValue})
+                    var existingArray = []
+                     if (latinArray.length > 0){
+                      latinArray.filter(function (item) {
+                        item.result[2]['NAME']?.filter(function (sname) 
+                        { if (sname.match(new RegExp(regexValue,"gi")))
+                         existingArray.push(sname)
+                        })
+                      })
+                      if (existingArray.length === 0){
+                       synonymArray.push({result: synonymJson[i], highlight: 'SYNONYM_NAME', matchingText: inputValue})
+                      }
+                     }
+                     else {
+                      synonymArray.push({result: synonymJson[i], highlight: 'SYNONYM_NAME', matchingText: inputValue})
+                     }
+                     
                     }
                   })
                 }
@@ -225,38 +240,39 @@
           }
         })
         synonymName = newSA;
+        console.log('NEWSA', synonymName)
       var latinInnerHTMLText, synonymInnerHTMLText;
        if (commonName.length > 0){
-        if (latinName && synonymName.length > 0){
-          latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
-            synonymName.forEach(function (sname){
-            synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
-            })
-        }
-        else if (latinName && synonymName.length == 0 ){
-          latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
-        }
-       else if ((!latinName) && synonymName.length > 0){
-         synonymName.forEach(function (sname){
-          synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
-          })
-       }
+        latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
+
+        synonymName.forEach(function (sname){
+         synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
+            var division = document.createElement('div');
+            division.className = "govuk-task-list__name-and-hint";
+            division.id = 'div-searchResults' + index;
+            division.innerHTML = synonymInnerHTMLText
+            var li = document.createElement('li');
+            li.className = "govuk-task-list__item govuk-task-list__item--with-link";
+            li.id = 'searchResults' + index;
+            li.appendChild(division)
+            searchResults.appendChild(li);
+        })
        }
        else{
-         if (latinName && synonymName.length > 0){
-          latinInnerHTMLText = latinName
-            synonymName.forEach(function (sname){
-            synonymInnerHTMLText = sname
-            })
-         }
-        else if (latinName && synonymName.length == 0 ){
-            latinInnerHTMLText = latinName
-        }
-        else if ((!latinName) && synonymName.length > 0){
-         synonymName.forEach(function (sname){
-          synonymInnerHTMLText = sname
-          })
-        }
+        latinInnerHTMLText = latinName
+        synonymName.forEach(function (sname){
+         synonymInnerHTMLText = sname
+          var division = document.createElement('div');
+          division.className = "govuk-task-list__name-and-hint";
+          division.id = 'div-searchResults' + index;
+          division.innerHTML = synonymInnerHTMLText
+          var li = document.createElement('li');
+          li.className = "govuk-task-list__item govuk-task-list__item--with-link";
+          li.id = 'searchResults' + index;
+          li.appendChild(division)
+          searchResults.appendChild(li);
+          
+        })
        }
       console.log(latinInnerHTMLText, synonymInnerHTMLText)
       if(latinInnerHTMLText){
@@ -264,11 +280,7 @@
        liOne.appendChild(divisionOne)
        searchResults.appendChild(liOne);
       }
-      if (synonymInnerHTMLText){
-       divisionTwo.innerHTML = synonymInnerHTMLText
-       liTwo.appendChild(divisionTwo)
-       searchResults.appendChild(liTwo);
-      }
+     
       var anchorOne = document.createElement('a');
       anchorOne.className = "govuk-link govuk-task-list__link";
       anchorOne.href = "#";
