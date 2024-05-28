@@ -22,15 +22,15 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if searchQuery.value %}
-    <input class="govuk-input" id="query" name="searchQuery" type="text" maxlength="125" value='{{searchQuery.value}}'>
+    <input class="govuk-input" id="query" name="searchQuery" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="searchQuery" type="text" maxlength="125">
+     <input class="govuk-input" id="query" name="searchQuery" style="width: 100%;" type="text" maxlength="125">
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 100%; max-height: 450px; display: none; overflow: auto"></ul>
+    <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -186,19 +186,14 @@
   }  
       
   function createAndAppendLiElement(item, index){
-    console.log('FILTER', item)
+      console.log('FILTER', item)
       var liOne = document.createElement('li');
       liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
       liOne.id = 'searchResults' + index;
-      var liTwo = document.createElement('li');
-      liTwo.className = "govuk-task-list__item govuk-task-list__item--with-link";
-      liTwo.id = 'searchResults' + index;
       var divisionOne = document.createElement('div');
       divisionOne.className = "govuk-task-list__name-and-hint";
       divisionOne.id = 'div-searchResults' + index;
-      var divisionTwo = document.createElement('div');
-      divisionTwo.className = "govuk-task-list__name-and-hint";
-      divisionTwo.id = 'div-searchResults' + index;
+      divisionOne.style.padding = '5px';
         var latinName, commonName, synonymName;
         item.result.filter(function (el){
         if (el.type === "LATIN_NAME"){
@@ -246,35 +241,50 @@
         latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
 
         synonymName.forEach(function (sname){
-         synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
-            var division = document.createElement('div');
-            division.className = "govuk-task-list__name-and-hint";
-            division.id = 'div-searchResults' + index;
-            division.innerHTML = synonymInnerHTMLText
-            var li = document.createElement('li');
-            li.className = "govuk-task-list__item govuk-task-list__item--with-link";
-            li.id = 'searchResults' + index;
-            li.appendChild(division)
-            searchResults.appendChild(li);
-        })
-       }
-       else{
-        latinInnerHTMLText = latinName
-        synonymName.forEach(function (sname){
-         synonymInnerHTMLText = sname
+          synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
           var division = document.createElement('div');
           division.className = "govuk-task-list__name-and-hint";
           division.id = 'div-searchResults' + index;
           division.innerHTML = synonymInnerHTMLText
+          division.style.padding = '5px';
           var li = document.createElement('li');
           li.className = "govuk-task-list__item govuk-task-list__item--with-link";
           li.id = 'searchResults' + index;
           li.appendChild(division)
+          var anchorTwo = document.createElement('a');
+          anchorTwo.className = "govuk-link govuk-task-list__link";
+          anchorTwo.href = "#";
+          anchorTwo.id = 'searchResults'+index;
+          division.appendChild(anchorTwo);
           searchResults.appendChild(li);
-          
         })
        }
-      console.log(latinInnerHTMLText, synonymInnerHTMLText)
+       else{
+        if (synonymName.length === 0){
+         latinInnerHTMLText = latinName
+        }
+        else {
+         synonymName.forEach(function (sname){
+          synonymInnerHTMLText = sname
+          var division = document.createElement('div');
+          division.className = "govuk-task-list__name-and-hint";
+          division.id = 'div-searchResults' + index;
+          division.innerHTML = synonymInnerHTMLText
+          division.style.padding = '5px';
+          var li = document.createElement('li');
+          li.className = "govuk-task-list__item govuk-task-list__item--with-link";
+          li.id = 'searchResults' + index;
+          li.appendChild(division)
+          var anchorTwo = document.createElement('a');
+          anchorTwo.className = "govuk-link govuk-task-list__link";
+          anchorTwo.href = "#";
+          anchorTwo.id = 'searchResults'+index;
+          division.appendChild(anchorTwo);
+          searchResults.appendChild(li);
+        })
+        }
+        
+       }
       if(latinInnerHTMLText){
        divisionOne.innerHTML = latinInnerHTMLText
        liOne.appendChild(divisionOne)
@@ -285,12 +295,7 @@
       anchorOne.className = "govuk-link govuk-task-list__link";
       anchorOne.href = "#";
       anchorOne.id = 'searchResults'+index;
-      var anchorTwo = document.createElement('a');
-      anchorTwo.className = "govuk-link govuk-task-list__link";
-      anchorTwo.href = "#";
-      anchorTwo.id = 'searchResults'+index;
       divisionOne.appendChild(anchorOne);
-      divisionTwo.appendChild(anchorTwo);
       searchResults.style.display = 'inline-block';    
       searchResults.addEventListener('click', function(e) {
         var autocompleteInputValue = document.getElementById('query');
