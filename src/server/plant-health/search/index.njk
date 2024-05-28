@@ -102,7 +102,7 @@
               }
             }
           }
-          if (latinArray.length === 0 && commonArray.length === 0){
+          if (commonArray.length === 0){
             for (let i=0; i < synonymJson.length; i++){
               var existingArray;
               for(let j=0; j < synonymJson[i].length; j++){   
@@ -172,13 +172,18 @@
       
   function createAndAppendLiElement(item, index){
     console.log('FILTER', item)
-      var li = document.createElement('li');
-      li.className = "govuk-task-list__item govuk-task-list__item--with-link";
-      li.id = 'searchResults' + index;
-      searchResults.appendChild(li);
-      var division = document.createElement('div');
-      division.className = "govuk-task-list__name-and-hint";
-      division.id = 'div-searchResults' + index;
+      var liOne = document.createElement('li');
+      liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      liOne.id = 'searchResults' + index;
+      var liTwo = document.createElement('li');
+      liTwo.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      liTwo.id = 'searchResults' + index;
+      var divisionOne = document.createElement('div');
+      divisionOne.className = "govuk-task-list__name-and-hint";
+      divisionOne.id = 'div-searchResults' + index;
+      var divisionTwo = document.createElement('div');
+      divisionTwo.className = "govuk-task-list__name-and-hint";
+      divisionTwo.id = 'div-searchResults' + index;
         var latinName, commonName, synonymName;
         item.result.filter(function (el){
         if (el.type === "LATIN_NAME"){
@@ -216,40 +221,64 @@
             newSA.push(highlightSName);
           }
           else{
-           newCA.push(sname);
+           newSA.push(sname);
           }
         })
         synonymName = newSA;
-      var innerHTMLText 
-      if (synonymName.length === 0){
+      var latinInnerHTMLText, synonymInnerHTMLText;
        if (commonName.length > 0){
-         innerHTMLText = latinName + " " + "( " + commonName + " )"
+        if (latinName && synonymName.length > 0){
+          latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
+            synonymName.forEach(function (sname){
+            synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
+            })
+        }
+        else if (latinName && synonymName.length == 0 ){
+          latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
+        }
+       else if ((!latinName) && synonymName.length > 0){
+         synonymName.forEach(function (sname){
+          synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
+          })
+       }
        }
        else{
-        innerHTMLText = latinName
+         if (latinName && synonymName.length > 0){
+          latinInnerHTMLText = latinName
+            synonymName.forEach(function (sname){
+            synonymInnerHTMLText = sname
+            })
+         }
+        else if (latinName && synonymName.length == 0 ){
+            latinInnerHTMLText = latinName
+        }
+        else if ((!latinName) && synonymName.length > 0){
+         synonymName.forEach(function (sname){
+          synonymInnerHTMLText = sname
+          })
+        }
        }
+      console.log(latinInnerHTMLText, synonymInnerHTMLText)
+      if(latinInnerHTMLText){
+       divisionOne.innerHTML = latinInnerHTMLText
+       liOne.appendChild(divisionOne)
+       searchResults.appendChild(liOne);
       }
-      else{
-       if (commonName.length > 0){
-        synonymName.forEach(function (sname){
-         innerHTMLText = sname + " " + "( " + commonName + " )"
-        })
-       }
-       else{
-        synonymName.forEach(function (sname){
-         innerHTMLText = sname
-        })
-        
-       }
+      if (synonymInnerHTMLText){
+       divisionTwo.innerHTML = synonymInnerHTMLText
+       liTwo.appendChild(divisionTwo)
+       searchResults.appendChild(liTwo);
       }
-      division.innerHTML = innerHTMLText 
-    
-      li.appendChild(division)
-      var anchor = document.createElement('a');
-      anchor.className = "govuk-link govuk-task-list__link";
-      anchor.href = "#";
-      anchor.id = 'searchResults'+index;
-      division.appendChild(anchor);
+      var anchorOne = document.createElement('a');
+      anchorOne.className = "govuk-link govuk-task-list__link";
+      anchorOne.href = "#";
+      anchorOne.id = 'searchResults'+index;
+      var anchorTwo = document.createElement('a');
+      anchorTwo.className = "govuk-link govuk-task-list__link";
+      anchorTwo.href = "#";
+      anchorTwo.id = 'searchResults'+index;
+      divisionOne.appendChild(anchorOne);
+      divisionTwo.appendChild(anchorTwo);
       searchResults.style.display = 'inline-block';    
       searchResults.addEventListener('click', function(e) {
         var autocompleteInputValue = document.getElementById('query');
