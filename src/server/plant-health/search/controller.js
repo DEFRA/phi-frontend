@@ -1,6 +1,7 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
-const searchController = {
+import { config } from '~/src/config'
+const searchPageController = {
   handler: (request, h) => {
     if (request != null) {
       const data = getDefaultLocaleData('search')
@@ -11,6 +12,7 @@ const searchController = {
       request.yar.set('searchQuery', {
         value: decodeURI(request.query.searchQuery)
       })
+      const frontendUrl = config.get('frontendUrl')
       const searchInput = request?.yar?.get('searchQuery')
       const searchValue = searchInput?.value
       if (searchValue) {
@@ -20,7 +22,8 @@ const searchController = {
           heading: 'Country',
           getHelpSection,
           mainContent,
-          searchQuery
+          searchQuery,
+          frontendUrl
         })
       } else {
         const searchQuery = request.yar?.get('searchQuery')
@@ -39,6 +42,7 @@ const searchController = {
           mainContent,
           getHelpSection,
           searchQuery,
+          frontendUrl,
           pageTitle: 'Search',
           heading: 'Search',
           errors,
@@ -49,4 +53,4 @@ const searchController = {
   }
 }
 
-export { searchController }
+export { searchPageController }

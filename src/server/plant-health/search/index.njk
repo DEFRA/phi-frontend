@@ -9,6 +9,7 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <form action='/plant-health/search' method="get">
+    <div id="frontendUrl" style="display: none;">{{frontendUrl}}</div>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
@@ -22,15 +23,15 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" name="searchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if searchQuery.value %}
-    <input class="govuk-input" id="query" name="searchQuery" type="text" value='{{searchQuery.value}}'>
+    <input class="govuk-input" id="query" name="searchQuery" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="searchQuery" type="text" value='{{searchQuery.value}}'>
+     <input class="govuk-input" id="query" name="searchQuery" style="width: 100%;" type="text" maxlength="125">
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 100%; max-height: 342px; display: none; overflow: auto"></ul>
+    <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -41,70 +42,334 @@
   </form>
  
   <script>
-   
-    var searchInput = document.getElementById('query');
-    var searchResults = document.getElementById('searchResults');
-    searchInput.addEventListener('input', function () {
-      var inputValue = this
-        .value
-        .toLowerCase();
-    fetchSuggestions();
-  });
-  function fetchSuggestions(query) { // Mock API endpoint URL
-    var apiUrl = 'http://localhost:3004/mock-api/products';
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => renderSuggestions(data))
-      .catch(error => console.log('Error fetching suggestions:', error));
-  }
-  function renderSuggestions(suggestions) {
-    var searchInput = document.getElementById('query')?.value;
-    searchResults.innerHTML = '';
-
-    suggestions = suggestions.filter(function (item) {
-      return item.name.match(new RegExp(searchInput, 'gi'));
-    });
-    console.log('suggestions:', suggestions)
-    suggestions.forEach(function (item, index) {
-      console.log(item)
-      var li = document.createElement('li');
-      li.className = "govuk-task-list__item govuk-task-list__item--with-link";
-      li.id = 'searchResults'+index;
-      searchResults.appendChild(li);
-      var division = document.createElement('div');
-      division.className = "govuk-task-list__name-and-hint";
-      division.id = 'div-searchResults'+index;
-      li.appendChild(division);  
-       if (searchInput.indexOf(item.name)){
-        var strongElement = document.createElement('strong');
-        var regExp = new RegExp(searchInput, 'gi');
-        var matchingText = item.name.match(regExp);
-        strongElement.textContent = matchingText;
-        strongElement.style.color = "red";
-        var result = item.name.replace(matchingText, strongElement.outerHTML); 
-        division.innerHTML = result;
-      }
-      var anchor = document.createElement('a');
-      anchor.className = "govuk-link govuk-task-list__link";
-      anchor.href = "#";
-      anchor.id = 'searchResults'+index;
-      division.appendChild(anchor);
-     
-    });
-    if (suggestions.length > 0 && searchInput !== '') {
-      searchResults.style.display = 'inline-block';
-       searchResults.addEventListener('click', function(e) {
-       var autocompleteInputValue = document.getElementById('query');
-      autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 
-       searchResults.innerHTML = '';
-      searchResults.style.display = 'none';
-      });
+  var searchInput = document.getElementById('query');
+  var searchResults = document.getElementById('searchResults');
+  var inputValue;
+  searchInput.addEventListener('input', function() {
+    inputValue = this
+      .value.toLowerCase();
+    if (inputValue.length > 2) {
+      fetchSuggestions(inputValue);
     } else {
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
     }
+
+  });
+
+  function fetchSuggestions(query) { // Mock API endpoint URL
+    var frontendUrl = document.getElementById('frontendUrl').textContent
+    var apiUrl = frontendUrl+'/search/plants?searchQuery=' + query;
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        result = renderSuggestions(data);
+        return result ? result : '';
+      })
+      .catch(error => console.log('Error fetching suggestions:', error));
   }
-  </script>
+  var searchResult;
+  var regexValue;
+
+  function renderSuggestions(json) {
+    console.log('JSON', json)
+    var latinJson = json.message.plant_detail.filter(function(el) {
+      return el.id == "latin-name"
+    })[0].results.map((item) => {
+      return item['PLANT_NAME']
+    })
+    var commonJson = json.message.plant_detail.filter(function(el) {
+      return el.id == "common-name"
+    })[0].results.map((item) => {
+      return item['PLANT_NAME']
+    })
+    var synonymJson = json.message.plant_detail.filter(function(el) {
+      return el.id == "synonym-name"
+    })[0].results.map((item) => {
+      return item['PLANT_NAME']
+    })
+    regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+    console.log('REGEX', inputValue);
+    var latinArray = []
+    var commonArray = []
+    var synonymArray = []
+
+    function getResults(latinJson, commonJson) {
+      //latin name search
+
+      if (commonArray.length === 0 && synonymArray.length === 0) {
+        for (let i = 0; i < latinJson.length; i++) {
+          for (let j = 0; j < latinJson[i].length; j++) {
+            if ((latinJson[i][j]['type'] === "LATIN_NAME") && (latinJson[i][j]['NAME'].match(new RegExp(regexValue, "gi")))) {
+              console.log('LATIN')
+              latinArray.push({
+                result: latinJson[i],
+                highlight: 'LATIN_NAME',
+                matchingText: inputValue
+              })
+            }
+          }
+        }
+      }
+
+      //common name search
+      if (synonymArray.length === 0) {
+        for (let i = 0; i < commonJson.length; i++) {
+          var existingArray;
+          for (let j = 0; j < commonJson[i].length; j++) {
+            if (commonJson[i][j]['type'] === "COMMON_NAME") {
+              commonJson[i][j]['NAME'].sort().filter(name => {
+                if (name.match(new RegExp(regexValue, "gi"))) {
+                  console.log('COMMON')
+                  if (latinArray.length > 0) {
+                    var existingArray = commonExistingNameCheck(latinArray, name)
+                    if (existingArray.length === 0) {
+                      commonArray.push({
+                        result: commonJson[i],
+                        highlight: 'COMMON_NAME',
+                        matchingText: inputValue
+                      })
+                    }
+                  } else {
+                    commonArray.push({
+                      result: commonJson[i],
+                      highlight: 'COMMON_NAME',
+                      matchingText: inputValue
+                    })
+                  }
+
+                }
+              })
+            }
+          }
+        }
+      }
+
+      //synonym name search
+      if (commonArray.length === 0) {
+        for (let i = 0; i < synonymJson.length; i++) {
+          for (let j = 0; j < synonymJson[i].length; j++) {
+            if (synonymJson[i][j]['type'] === "SYNONYM_NAME") {
+              synonymJson[i][j]['NAME'].filter(name => {
+                if (name.match(new RegExp(regexValue, "gi"))) {
+                  console.log('SYNONYM')
+                  if (latinArray.length > 0) {
+                    var existingArray = synonymExistingNameCheck(latinArray, name)
+                    if (existingArray.length === 0) {
+                      synonymArray.push({
+                        result: synonymJson[i],
+                        highlight: 'SYNONYM_NAME',
+                        matchingText: inputValue
+                      })
+                    }
+                  } else {
+                    synonymArray.push({
+                      result: synonymJson[i],
+                      highlight: 'SYNONYM_NAME',
+                      matchingText: inputValue
+                    })
+                  }
+                }
+              })
+            }
+          }
+        }
+      }
+
+    }
+    getResults(latinJson, commonJson)
+
+    var resultSet = [{
+      latinNames: latinArray,
+      commonNames: commonArray,
+      synonymNames: synonymArray
+    }]
+    console.log('RESULTS', resultSet)
+    if (inputValue.length > 2){
+      searchResults.innerHTML = '';
+      searchResults.style.display = 'none';
+      renderResultsWithHtml(resultSet)
+    }
+
+    return latinArray, commonArray, synonymArray
+  }
+
+  function synonymExistingNameCheck(latinArray, name) {
+    var existingArray = []
+    latinArray.filter(function(item) {
+      item.result[2]['NAME']?.filter(function(sname) {
+        if (sname.match(new RegExp(name, "gi")))
+          existingArray.push(sname)
+      })
+    })
+    return existingArray
+  }
+
+  function commonExistingNameCheck(latinArray, name) {
+    var existingArray = []
+    latinArray.filter(function(item) {
+      item.result[1]['NAME']?.filter(function(cname) {
+        if (cname.match(new RegExp(name, "gi")))
+          existingArray.push(cname)
+      })
+    })
+    return existingArray
+  }
+
+  function renderResultsWithHtml(filterResults) {
+    var checkForEmptyArray = filterResults.flat()
+    if (checkForEmptyArray.length > 0) {
+      if (checkForEmptyArray[0]['commonNames'].length === 0 &&
+        checkForEmptyArray[0]['latinNames'].length === 0 &&
+        checkForEmptyArray[0]['synonymNames'].length === 0) {
+        var liNew = document.createElement('li');
+        liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
+        liNew.textContent = "No results found"
+        searchResults.appendChild(liNew);
+        searchResults.style.display = 'inline-block';
+      } else {
+        filterResults.forEach(function(resultSet) {
+          resultSet['latinNames'].forEach(function(item, index) {
+            var latinIndex = 'latinName' + index
+            createAndAppendLiElement(item, latinIndex)
+          })
+
+          resultSet['commonNames'].forEach(function(item, index) {
+            var commonIndex = 'commonName' + index
+            createAndAppendLiElement(item, commonIndex)
+          })
+
+          resultSet['synonymNames'].forEach(function(item, index) {
+            var synonymIndex = 'synonymName' + index
+            createAndAppendLiElement(item, synonymIndex)
+          })
+        })
+      }
+    }
+
+  }
+
+  function capitalizeFirstLetter(string) {
+    if (string !== undefined){
+     return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  }
+
+  function synonymNameHTML(synonymName, commonName) {
+    var synonymInnerHTMLText
+    synonymName.forEach(function(sname, i) {
+      if (commonName.length > 0) {
+        synonymInnerHTMLText = capitalizeFirstLetter(sname) + " " + "( " + commonName + " )"
+      } else {
+        synonymInnerHTMLText = capitalizeFirstLetter(sname)
+      }
+
+      var division = document.createElement('div');
+      division.className = "govuk-task-list__name-and-hint";
+      division.id = 'div-synonymName' + i;
+      division.innerHTML = synonymInnerHTMLText
+      division.style.padding = '5px';
+      var li = document.createElement('li');
+      li.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      li.id = 'synonymName' + i;
+      li.appendChild(division)
+      var anchorTwo = document.createElement('a');
+      anchorTwo.className = "govuk-link govuk-task-list__link";
+      anchorTwo.href = "#";
+      anchorTwo.id = i;
+      division.appendChild(anchorTwo);
+      searchResults.appendChild(li);
+    })
+  }
+
+  function createAndAppendLiElement(item, index) {
+    console.log('FILTER', item)
+    var liOne = document.createElement('li');
+    liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
+    liOne.id = index;
+    var divisionOne = document.createElement('div');
+    divisionOne.className = "govuk-task-list__name-and-hint";
+    divisionOne.id = 'div-'+index;
+    divisionOne.style.padding = '5px';
+    var latinName, commonName, synonymName;
+    item.result.filter(function(el) {
+      if (el.type === "LATIN_NAME") {
+        latinName = el.NAME
+      }
+      if (el.type === "COMMON_NAME") {
+        commonName = el.NAME
+      }
+      if (el.type === "SYNONYM_NAME") {
+        synonymName = el.NAME
+      }
+      return latinName, commonName, synonymName
+    })
+    var strongElement = document.createElement('strong');
+    strongElement.textContent = inputValue;
+    latinName = latinName?.toLowerCase()?.replace(inputValue, strongElement.outerHTML)
+    var newCA = []
+    commonName.forEach(function(cname) {
+      var highlightCName;
+      if (cname.match(new RegExp(regexValue, "gi"))) {
+        highlightCName = cname.toLowerCase().replace(inputValue, strongElement.outerHTML)
+        newCA.push(highlightCName);
+      } else {
+        newCA.push(cname);
+      }
+    })
+    commonName = newCA.join("; ");
+    var newSA = []
+    synonymName.forEach(function(sname) {
+      var highlightSName;
+      if (sname.match(new RegExp(regexValue, "gi"))) {
+        highlightSName = sname.toLowerCase().replace(inputValue, strongElement.outerHTML)
+        newSA.push(highlightSName);
+      }
+      else{
+       if (commonName.length > 0 && item.highlight === 'COMMON_NAME'){
+        newSA.push(sname);
+       }
+      }
+    })
+    synonymName = newSA;
+    var latinInnerHTMLText;
+    if (commonName.length > 0) {
+      if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME' && latinName.split(' ')[1] !== undefined){
+       latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
+      }
+      synonymNameHTML(synonymName, commonName)
+    } else {
+      if (synonymName.length === 0) {
+      if (latinName !== undefined  && latinName.split(' ')[1] !== undefined){
+        latinInnerHTMLText = capitalizeFirstLetter(latinName)
+      }  
+      }
+      synonymNameHTML(synonymName, commonName)
+    }
+
+    if (latinInnerHTMLText) {
+      divisionOne.innerHTML = latinInnerHTMLText
+      liOne.appendChild(divisionOne)
+      searchResults.appendChild(liOne);
+    }
+
+    var anchorOne = document.createElement('a');
+    anchorOne.className = "govuk-link govuk-task-list__link";
+    anchorOne.href = "#";
+    anchorOne.id = index;
+    divisionOne.appendChild(anchorOne);
+    searchResults.style.display = 'inline-block';
+    searchResults.addEventListener('click', function(e) {
+      var autocompleteInputValue = document.getElementById('query');
+      console.log('TEXTSEL', 'div-'+ e.target.id)
+      console.log('TEXTSEL', 'div-'+ e.target.id)
+      console.log('TEXTSEL', 'div-'+ e.target.id)
+      autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
+      searchResults.innerHTML = '';
+      searchResults.style.display = 'none';
+    });
+  }
+</script>
 
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
   {% include "partials/get-help.njk" %}

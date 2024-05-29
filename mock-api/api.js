@@ -1,4 +1,8 @@
 const { products } = require('./products')
-const { countries } = require('./countries')
+const fs = require('fs')
+const path = require('path')
+const plantJson = `./products/plants.json`
+const filePath = path.join(__dirname, plantJson)
+const plants = JSON.parse(fs.readFileSync(filePath, 'utf8'))
 
-module.exports = { products, countries }
+module.exports = { products, plants }
