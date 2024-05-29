@@ -335,13 +335,14 @@
     synonymName = newSA;
     var latinInnerHTMLText;
     if (commonName.length > 0) {
-      if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME'){
+      console.log('LATINNAMMME', latinName?.split(' ')[1])
+      if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME' && latinName.split(' ')[1] !== undefined){
        latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
       }
       synonymNameHTML(synonymName, commonName)
     } else {
       if (synonymName.length === 0) {
-      if (latinName !== undefined){
+      if (latinName !== undefined  && latinName.split(' ')[1] !== undefined){
         latinInnerHTMLText = capitalizeFirstLetter(latinName)
       }  
       }
