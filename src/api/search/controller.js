@@ -1,4 +1,6 @@
+import { config } from '~/src/config'
 const axios = require('axios')
+
 const searchController = {
   handler: async (request, h) => {
     const path = request.path
@@ -20,7 +22,7 @@ const searchController = {
 async function invokeSearchApi(searchQuery) {
   try {
     const response = await axios.post(
-      'https://phi-etl-fera-backend.test.cdp-int.defra.cloud/search/plants',
+      config.get('backendApiUrl') + '/search/plants',
       { search: searchQuery }
     )
     return response.data
@@ -32,7 +34,7 @@ async function invokeSearchApi(searchQuery) {
 async function getCountries() {
   try {
     const response = await axios.get(
-      'https://phi-etl-fera-backend.test.cdp-int.defra.cloud/search/countries'
+      config.get('backendApiUrl') + '/search/countries'
     )
     return response.data
   } catch (error) {

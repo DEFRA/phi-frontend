@@ -75,6 +75,12 @@ const config = convict({
     nullable: true,
     default: null,
     env: 'CDP_HTTPS_PROXY'
+  },
+  backendApiUrl: {
+    doc: 'Backend api url',
+    format: String,
+    default: `https://phi-etl-fera-backend.test.cdp-int.defra.cloud`,
+    env: 'BACKEND_API_URL'
   }
 })
 
