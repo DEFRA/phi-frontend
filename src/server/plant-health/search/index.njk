@@ -335,7 +335,6 @@
     synonymName = newSA;
     var latinInnerHTMLText;
     if (commonName.length > 0) {
-      console.log('LATINNAMMME', latinName?.split(' ')[1])
       if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME' && latinName.split(' ')[1] !== undefined){
        latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
       }
