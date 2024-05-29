@@ -51,6 +51,10 @@
         if (inputValue.length > 2){
           fetchSuggestions(inputValue); 
         }
+        else{
+         searchResults.innerHTML = '';
+         searchResults.style.display = 'none';
+        }
         
     });
   
@@ -87,21 +91,37 @@
               }
             }
           }
-          if (latinArray.length === 0 && synonymArray.length === 0){
+          if (synonymArray.length === 0){
             for (let i=0; i < commonJson.length; i++){
               var existingArray;
               for(let j=0; j < commonJson[i].length; j++){   
                 if (commonJson[i][j]['type'] === "COMMON_NAME") {
-                  commonJson[i][j]['NAME'].filter(name => {
+                  commonJson[i][j]['NAME'].sort().filter(name => {
                     if (name.match(new RegExp(regexValue,"gi"))) {
                       console.log('COMMON')
-                      commonArray.push({result: commonJson[i], highlight: 'COMMON_NAME', matchingText: inputValue})
+                      var existingArray = []
+                      if (latinArray.length > 0){
+                        latinArray.filter(function (item) {
+                          item.result[1]['NAME']?.filter(function (cname) 
+                          { if (cname.match(new RegExp(name,"gi")))
+                          existingArray.push(cname)
+                          })
+                        })
+                        if (existingArray.length === 0){
+                        commonArray.push({result: commonJson[i], highlight: 'COMMON_NAME', matchingText: inputValue})
+                        }
+                      }
+                      else {
+                        commonArray.push({result: commonJson[i], highlight: 'COMMON_NAME', matchingText: inputValue})
+                      }
+                      
                     }
                   })
                 }
               }
             }
           }
+          
           if (commonArray.length === 0){
             for (let i=0; i < synonymJson.length; i++){
               var existingArray;
@@ -114,7 +134,7 @@
                      if (latinArray.length > 0){
                       latinArray.filter(function (item) {
                         item.result[2]['NAME']?.filter(function (sname) 
-                        { if (sname.match(new RegExp(regexValue,"gi")))
+                        { if (sname.match(new RegExp(name,"gi")))
                          existingArray.push(sname)
                         })
                       })
@@ -138,7 +158,7 @@
         
         var resultSet = [{latinNames: latinArray,commonNames:  commonArray,synonymNames: synonymArray}]
         console.log('RESULTS', resultSet)
-        if(regexValue.length > 3){
+        if(inputValue.length > 2){
          searchResults.innerHTML = '';
          searchResults.style.display = 'none';
          renderResultsWithHtml(resultSet)
@@ -184,6 +204,10 @@
     }
   
   }  
+
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
       
   function createAndAppendLiElement(item, index){
       console.log('FILTER', item)
@@ -231,20 +255,21 @@
             newSA.push(highlightSName);
           }
           else{
-           newSA.push(sname);
+           if (commonName.length > 0 && latinName){
+            {# newSA.push(sname); #}
+           }
           }
         })
         synonymName = newSA;
         console.log('NEWSA', synonymName)
       var latinInnerHTMLText, synonymInnerHTMLText;
        if (commonName.length > 0){
-        latinInnerHTMLText = latinName + " " + "( " + commonName + " )"
-
-        synonymName.forEach(function (sname){
-          synonymInnerHTMLText = sname + " " + "( " + commonName + " )"
+        latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
+        synonymName.forEach(function (sname, i){
+          synonymInnerHTMLText = capitalizeFirstLetter(sname) + " " + "( " + commonName + " )"
           var division = document.createElement('div');
           division.className = "govuk-task-list__name-and-hint";
-          division.id = 'div-searchResults' + index;
+          division.id = 'div-searchResults' + i;
           division.innerHTML = synonymInnerHTMLText
           division.style.padding = '5px';
           var li = document.createElement('li');
@@ -254,35 +279,33 @@
           var anchorTwo = document.createElement('a');
           anchorTwo.className = "govuk-link govuk-task-list__link";
           anchorTwo.href = "#";
-          anchorTwo.id = 'searchResults'+index;
+          anchorTwo.id = 'searchResults'+i;
           division.appendChild(anchorTwo);
           searchResults.appendChild(li);
         })
        }
        else{
-        if (synonymName.length === 0){
-         latinInnerHTMLText = latinName
-        }
-        else {
-         synonymName.forEach(function (sname){
-          synonymInnerHTMLText = sname
+         if (synonymName.length === 0){
+          latinInnerHTMLText = capitalizeFirstLetter(latinName)
+         }
+         synonymName.forEach(function (sname, i){
+          synonymInnerHTMLText = capitalizeFirstLetter(sname)
           var division = document.createElement('div');
           division.className = "govuk-task-list__name-and-hint";
-          division.id = 'div-searchResults' + index;
+          division.id = 'div-searchResults' + i;
           division.innerHTML = synonymInnerHTMLText
           division.style.padding = '5px';
           var li = document.createElement('li');
           li.className = "govuk-task-list__item govuk-task-list__item--with-link";
-          li.id = 'searchResults' + index;
+          li.id = 'searchResults' + i;
           li.appendChild(division)
           var anchorTwo = document.createElement('a');
           anchorTwo.className = "govuk-link govuk-task-list__link";
           anchorTwo.href = "#";
-          anchorTwo.id = 'searchResults'+index;
+          anchorTwo.id = 'searchResults'+i;
           division.appendChild(anchorTwo);
           searchResults.appendChild(li);
         })
-        }
         
        }
       if(latinInnerHTMLText){
@@ -299,7 +322,9 @@
       searchResults.style.display = 'inline-block';    
       searchResults.addEventListener('click', function(e) {
         var autocompleteInputValue = document.getElementById('query');
+        
         autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 
+        console.log('TEXTSEL', autocompleteInputValue, 'div-'+e.target.id)
         searchResults.innerHTML = '';
         searchResults.style.display = 'none';
       });
