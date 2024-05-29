@@ -20,7 +20,7 @@ const searchController = {
 async function invokeSearchApi(searchQuery) {
   try {
     const response = await axios.post(
-      'https://phi-etl-fera-backend.test.cdp-int.defra.cloud/search/plants',
+      'https://phi-etl-fera-backend.dev.cdp-int.defra.cloud/search/plants',
       { search: searchQuery }
     )
     return response.data
@@ -32,7 +32,7 @@ async function invokeSearchApi(searchQuery) {
 async function getCountries() {
   try {
     const response = await axios.get(
-      'https://phi-etl-fera-backend.test.cdp-int.defra.cloud/search/countries'
+      'https://phi-etl-fera-backend.dev.cdp-int.defra.cloud/search/countries'
     )
     return response.data
   } catch (error) {

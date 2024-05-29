@@ -57,7 +57,7 @@
   });
 
   function fetchSuggestions(query) { // Mock API endpoint URL
-    var apiUrl = 'http://localhost:3000/search/plants?searchQuery=' + query;
+    var apiUrl = 'https://phi-frontend.test.cdp-int.defra.cloud/search/plants?searchQuery=' + query;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
@@ -183,9 +183,11 @@
       synonymNames: synonymArray
     }]
     console.log('RESULTS', resultSet)
-    searchResults.innerHTML = '';
-    searchResults.style.display = 'none';
-    renderResultsWithHtml(resultSet)
+    if (inputValue.length > 2){
+      searchResults.innerHTML = '';
+      searchResults.style.display = 'none';
+      renderResultsWithHtml(resultSet)
+    }
 
     return latinArray, commonArray, synonymArray
   }
@@ -246,7 +248,9 @@
   }
 
   function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    if (string !== undefined){
+     return string.charAt(0).toUpperCase() + string.slice(1);
+    }
   }
 
   function synonymNameHTML(synonymName, commonName) {
@@ -300,7 +304,7 @@
     })
     var strongElement = document.createElement('strong');
     strongElement.textContent = inputValue;
-    latinName = latinName.toLowerCase().replace(inputValue, strongElement.outerHTML)
+    latinName = latinName?.toLowerCase()?.replace(inputValue, strongElement.outerHTML)
     var newCA = []
     commonName.forEach(function(cname) {
       var highlightCName;
@@ -323,11 +327,15 @@
     synonymName = newSA;
     var latinInnerHTMLText;
     if (commonName.length > 0) {
-      latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
+      if (latinName !== undefined){
+       latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
+      }
       synonymNameHTML(synonymName, commonName)
     } else {
       if (synonymName.length === 0) {
+      if (latinName !== undefined){
         latinInnerHTMLText = capitalizeFirstLetter(latinName)
+      }  
       }
       synonymNameHTML(synonymName, commonName)
     }
