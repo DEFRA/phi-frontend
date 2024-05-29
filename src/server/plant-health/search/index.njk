@@ -9,6 +9,7 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <form action='/plant-health/search' method="get">
+    <div id="frontendUrl" style="display: none;">{{frontendUrl}}</div>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
@@ -57,7 +58,9 @@
   });
 
   function fetchSuggestions(query) { // Mock API endpoint URL
-    var apiUrl = 'https://phi-frontend.test.cdp-int.defra.cloud/search/plants?searchQuery=' + query;
+    var frontendUrl = document.getElementById('frontendUrl').textContent
+    console.log('FRONT', frontendUrl);
+    var apiUrl = frontendUrl+'/search/plants?searchQuery=' + query;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
