@@ -59,8 +59,7 @@
 
   function fetchSuggestions(query) { // Mock API endpoint URL
     var frontendUrl = document.getElementById('frontendUrl').textContent
-    console.log('FRONT', frontendUrl);
-    var apiUrl = '/search/plants?searchQuery=' + query;
+    var apiUrl = frontendUrl+'/search/plants?searchQuery=' + query;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
