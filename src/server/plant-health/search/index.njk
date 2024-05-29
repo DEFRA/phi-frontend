@@ -60,7 +60,7 @@
   function fetchSuggestions(query) { // Mock API endpoint URL
     var frontendUrl = document.getElementById('frontendUrl').textContent
     console.log('FRONT', frontendUrl);
-    var apiUrl = frontendUrl+'/search/plants?searchQuery=' + query;
+    var apiUrl = '/search/plants?searchQuery=' + query;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
@@ -326,11 +326,16 @@
         highlightSName = sname.toLowerCase().replace(inputValue, strongElement.outerHTML)
         newSA.push(highlightSName);
       }
+      else{
+       if (commonName.length > 0 && item.highlight === 'COMMON_NAME'){
+        newSA.push(sname);
+       }
+      }
     })
     synonymName = newSA;
     var latinInnerHTMLText;
     if (commonName.length > 0) {
-      if (latinName !== undefined){
+      if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME'){
        latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
       }
       synonymNameHTML(synonymName, commonName)
