@@ -1,5 +1,6 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
+import { config } from '~/src/config'
 const importConfirmationController = {
   handler: (request, h) => {
     if (request != null) {
@@ -23,11 +24,13 @@ const importConfirmationController = {
         const searchData = getDefaultLocaleData('search')
         const mainContent = searchData?.mainContent
         const getHelpSection = searchData?.getHelpSection
+        const frontendUrl = config.get('frontendUrl')
         return h.view('plant-health/search/index', {
           pageTitle: 'Search',
           heading: 'Search',
           getHelpSection,
           mainContent,
+          frontendUrl,
           searchQuery
         })
       } else if (request.query.whereareyouimportinginto === 'ni') {
