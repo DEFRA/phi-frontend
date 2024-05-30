@@ -6,13 +6,13 @@
 {% block content %}
 {% call appPageBody() %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
- {% if errors %}
-    {{ govukErrorSummary(errors) }}
+ {% if errors.list %}
+    {{ govukErrorSummary(errors.list) }}
   {% endif %}
 <form  id="itembox" action='/plant-health/purpose-of-visit' method="get"  name="radios">
 {{ govukRadios({
   name: "whatdoyouwanttofind",
-  errorMessage: errorMessageRadio,
+  errorMessage: errorMessage.message,
   fieldset: {
     legend: {
       text: mainContent.headerText,

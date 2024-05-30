@@ -13,6 +13,23 @@ function statusCodeMessage(statusCode) {
   }
 }
 
+function setErrorMessage(request, titleText, errorListText) {
+  request.yar.set('errors', {
+    list: {
+      titleText,
+      errorList: [
+        {
+          text: errorListText,
+          href: '#itembox'
+        }
+      ]
+    }
+  })
+  request.yar.set('errorMessage', {
+    message: { text: errorListText }
+  })
+}
+
 function catchAll(request, h) {
   const { response } = request
 
@@ -34,4 +51,4 @@ function catchAll(request, h) {
     .code(statusCode)
 }
 
-export { catchAll }
+export { catchAll, setErrorMessage }

@@ -1,4 +1,5 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
+import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const purposeOfVisitController = {
   handler: (request, h) => {
     const data = getDefaultLocaleData('purpose-of-visit')
@@ -43,20 +44,11 @@ const purposeOfVisitController = {
         radiobuttonValue = radiooption?.purposeOfVisit
 
         if (!radiobuttonValue) {
-          request.yar.set('errors', {
-            errors: {
-              titleText: errorSection.titleText,
-              errorList: [
-                {
-                  text: errorSection.purposeOfVisitErrorListText,
-                  href: '#itembox'
-                }
-              ]
-            }
-          })
-          request.yar.set('errorMessage', {
-            errorMessage: { text: errorSection.purposeOfVisitErrorListText }
-          })
+          setErrorMessage(
+            request,
+            errorSection.titleText,
+            errorSection.purposeOfVisitErrorListText
+          )
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
@@ -66,9 +58,8 @@ const purposeOfVisitController = {
           pageTitle: 'Plant',
           heading: 'Plant',
           radiobuttonValue,
-          errors: errors?.errors,
-          errorMessage: errorMessage?.errorMessage,
-          errorMessageRadio: errorMessage?.errorMessage
+          errors,
+          errorMessage
         })
       }
     }

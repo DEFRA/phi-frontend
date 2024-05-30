@@ -1,0 +1,17 @@
+{
+  "mainContent": {
+    "headerText": "What plant or plant product are you importing?",
+    "searchText1": "You can enter the scientific name or any synonyms or common names.",
+    "buttonText": "Continue"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "If you have any queries or you need technical support, email"
+    }
+  },
+  "errors": {
+    "titleText": "There is a problem",
+    "searchErrorListText": "Select What plant or plant product are you importing"
+  }
+}

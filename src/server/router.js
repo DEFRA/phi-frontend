@@ -2,10 +2,12 @@ import inert from '@hapi/inert'
 import yar from '@hapi/yar'
 import { health } from '~/src/server/health'
 import { home } from '~/src/server/home'
-import { importConfirmation } from '~/src/server/plant-health/import-confirmation'
 import { plantHealth } from '~/src/server/plant-health'
 import { purposeOfVisit } from '~/src/server/plant-health/purpose-of-visit'
+import { importConfirmation } from '~/src/server/plant-health/import-confirmation'
+import { searchPage } from '~/src/server/plant-health/search'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
+import { search } from '~/src/api/search'
 
 const options = {
   storeBlank: false,
@@ -23,9 +25,11 @@ const router = {
       await server.register([
         health,
         home,
-        importConfirmation,
         plantHealth,
         purposeOfVisit,
+        importConfirmation,
+        searchPage,
+        search,
         serveStaticFiles
       ])
       await server.register({
