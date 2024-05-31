@@ -1,0 +1,19 @@
+{
+  "mainContent": {
+    "headerText1": "Which country are you importing",
+    "headerText2": "from?",
+    "searchText1": "This is the country that issues the phytosanitary certificate, if required.",
+    "buttonText": "Continue"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "If you have any queries or you need technical support, email"
+    }
+  },
+  "errors": {
+    "titleText": "There is a problem",
+    "searchErrorListText1": "Select which country are you importing",
+    "searchErrorListText2": "from?"
+  }
+}

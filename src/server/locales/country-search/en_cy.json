@@ -1,0 +1,19 @@
+{
+  "mainContent": {
+    "headerText1": "Pa wlad ydych chi'n ei mewnforio",
+    "headerText2": "o?",
+    "searchText1": "Dyma'r wlad sy'n cyhoeddi'r dystysgrif ffytoiechydol, os oes angen.",
+    "buttonText": "Parhewch"
+  },
+  "getHelpSection": {
+    "titleText": "Cael help gyda'r gwasanaeth hwn",
+    "supportUrl": {
+      "text": "os oes gennych unrhyw ymholiadau neu os oes angen cymorth technegol arnoch, e-bostiwch"
+    }
+  },
+  "errors": {
+    "titleText": "Mae yna broblem",
+    "searchErrorListText1": "Dewiswch pa wlad ydych chi'n ei mewnforio",
+    "searchErrorListText2": "o?"
+  }
+}

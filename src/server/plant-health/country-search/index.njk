@@ -1,0 +1,156 @@
+{% extends 'layouts/page.njk' %}
+{% block beforeContent %}
+  <a href="/plant-health/import-confirmation?whereareyouimportinginto=gb&searchQuery={{fullSearchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
+{% endblock %}
+{% block content %}
+  {% call appPageBody() %}
+  {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+ {% if errors.list %}
+    {{ govukErrorSummary(errors.list) }}
+  {% endif %}
+  <form action='/plant-health/country-search' method="get">
+    <div class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="event-name">
+          {{mainContent.headerText1}} {{searchQuery.value}} {{mainContent.headerText2}}
+        </label>
+      </h1>
+      <label class="govuk-label" for="event-name">
+        {{mainContent.searchText1}}
+      </label>
+      {% if errorMessage.message %}
+      <p id="event-name-error" class="govuk-error-message">
+    <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
+  </p>
+  <input class="govuk-input govuk-input--error" id="query" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+ {% else %}
+    {% if countrySearchQuery.value %}
+    <input class="govuk-input" id="query" name="countrySearchQuery" type="text" value='{{countrySearchQuery.value}}'>
+    {% else %}
+     <input class="govuk-input" id="query" name="countrySearchQuery" type="text">
+    {% endif %}
+   {% endif %}
+    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 342px; display: none; overflow: auto"></ul>
+  </div>
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+      text: "Continue",
+      id: "submitButton"
+    }) }}
+  </form>
+ 
+  <script>
+   
+    var searchInput = document.getElementById('query');
+    var searchResults = document.getElementById('searchResults');
+    var inputValue;
+    searchInput.addEventListener('input', function () {
+      inputValue = this
+        .value;
+    if (inputValue.length > 0) {
+      fetchSuggestions(inputValue);
+    } else {
+      searchResults.innerHTML = '';
+      searchResults.style.display = 'none';
+    }
+  });
+  function fetchSuggestions(query) { // Mock API endpoint URL
+    var apiUrl = '/search/countries?searchQuery=' + query;
+    fetch(apiUrl)
+      .then(response => response.json())
+      .then(data => {
+        console.log('DATA', data)
+        result = renderSuggestions(data);
+        return result ? result : '';
+      })
+      .catch(error => console.log('Error fetching suggestions:', error));
+  }
+  function containsSpecialCharacter(str) {
+    let specialChars =
+        "!@#$%^&*()-_=+[{]};:'\",<.>/?\\|";
+    for (var i = 0; i < str.length; i++) {
+        if (specialChars.indexOf(str[i]) !== -1) {
+            return true;
+        }
+    }
+    return false;
+}
+  var regexValue;
+  function renderSuggestions(suggestions) {
+    var searchInput = document.getElementById('query')?.value;
+    searchResults.innerHTML = '';
+    var json = suggestions.message.countries[0].COUNTRY_GROUPING.COUNTRY_GROUPING
+    console.log('JSON', json)
+    suggestions = json.filter(function (item) {
+      let result = null;
+      var regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      console.log('REGEX', regexValue);
+      if (item.COUNTRY_NAME.match(new RegExp(regexValue, "gi"))){
+        result = item
+      }
+      return result
+    });
+    console.log('suggestions:', suggestions)
+    createAndAppendLiElement(suggestions, regexValue)
+    if (suggestions.length > 0 && inputValue !== '') {
+      searchResults.style.display = 'inline-block';
+       searchResults.addEventListener('click', function(e) {
+       var autocompleteInputValue = document.getElementById('query');
+      autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 
+       searchResults.innerHTML = '';
+      searchResults.style.display = 'none';
+      });
+    } else {
+      var liNew = document.createElement('li');
+      liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      liNew.textContent = "No results found"
+      searchResults.appendChild(liNew);
+      searchResults.style.display = 'inline-block';
+    }
+  }
+  
+  function capitalizeFirstLetter(string) {
+    if (string !== undefined){
+     return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+  }
+
+  function createAndAppendLiElement(suggestions, regexValue){
+   suggestions.forEach(function (item, index) {
+      console.log(item)
+      var li = document.createElement('li');
+      li.className = "govuk-task-list__item govuk-task-list__item--with-link";
+      li.id = 'searchResults'+index;
+      searchResults.appendChild(li);
+      var division = document.createElement('div');
+      division.className = "govuk-task-list__name-and-hint";
+      division.id = 'div-searchResults'+index;
+      division.style.padding = '5px';
+      li.appendChild(division);  
+      var result;
+      var strongElement = document.createElement('strong');
+      regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      if (inputValue.length > 1){
+       strongElement.textContent = item.COUNTRY_NAME.match(new RegExp(regexValue, "gi"));
+       result = capitalizeFirstLetter(item.COUNTRY_NAME).replace(new RegExp(regexValue, "gi"), strongElement.outerHTML);
+      }else {
+       strongElement.textContent = inputValue
+       result = capitalizeFirstLetter(item.COUNTRY_NAME).replace(inputValue, strongElement.outerHTML);
+      }
+      
+      division.innerHTML = result;
+      var anchor = document.createElement('a');
+      anchor.className = "govuk-link govuk-task-list__link";
+      anchor.href = "#";
+      anchor.id = 'searchResults'+index;
+      division.appendChild(anchor);
+    });
+  }
+  </script>
+
+  {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
+  {% include "partials/get-help.njk" %}
+  
+  {% endcall %}
+{% endblock %}
