@@ -8,9 +8,6 @@ const countrySearchController = {
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
-      // request.yar.set('searchQuery', {
-      //   value: decodeURI(request.query.searchQuery)
-      // })
       request.yar.set('countrySearchQuery', {
         value: decodeURI(request.query.countrySearchQuery)
       })
