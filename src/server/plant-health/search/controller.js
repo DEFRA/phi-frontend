@@ -9,20 +9,32 @@ const searchPageController = {
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
-      request.yar.set('searchQuery', {
+      request.yar.set('fullSearchQuery', {
         value: decodeURI(request.query.searchQuery)
+      })
+      request.yar.set('searchQuery', {
+        value: decodeURI(
+          request.query.searchQuery.replace(/ *\([^)]*\) */g, '')
+        )
       })
       const frontendUrl = config.get('frontendUrl')
       const searchInput = request?.yar?.get('searchQuery')
       const searchValue = searchInput?.value
       if (searchValue) {
         const searchQuery = request.yar?.get('searchQuery')
+        const fullSearchQuery = request.yar.get('fullSearchQuery')
+        const data = getDefaultLocaleData('country-search')
+        const mainContent = data?.mainContent
+        const getHelpSection = data?.getHelpSection
+        const countrySearchQuery = request.yar.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
           pageTitle: 'Country',
           heading: 'Country',
           getHelpSection,
           mainContent,
           searchQuery,
+          countrySearchQuery,
+          fullSearchQuery,
           frontendUrl
         })
       } else {

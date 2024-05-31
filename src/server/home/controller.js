@@ -8,6 +8,7 @@ const homeController = {
     request.yar.set('purposeOfVisitRadiooption', null)
     request.yar.set('importConfirmationRadiooption', null)
     request.yar.set('searchQuery', null)
+    request.yar.set('countrySearchQuery', null)
 
     const data = getDefaultLocaleData('home')
     const govukHeading = data?.govukheading

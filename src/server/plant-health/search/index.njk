@@ -1,6 +1,6 @@
 {% extends 'layouts/page.njk' %}
 {% block beforeContent %}
-  <a href="/plant-health/search?searchQuery={{searchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
+  <a href='/plant-health/import-confirmation' class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
   {% call appPageBody() %}
@@ -266,9 +266,9 @@
 
       var division = document.createElement('div');
       division.className = "govuk-task-list__name-and-hint";
-      division.id = 'div-synonymName' + i;
+      division.id = 'div-'+ sname + i;
       division.innerHTML = synonymInnerHTMLText
-      division.style.padding = '5px';
+      division.style.paddingLeft = '5px';
       var li = document.createElement('li');
       li.className = "govuk-task-list__item govuk-task-list__item--with-link";
       li.id = 'synonymName' + i;
@@ -276,7 +276,7 @@
       var anchorTwo = document.createElement('a');
       anchorTwo.className = "govuk-link govuk-task-list__link";
       anchorTwo.href = "#";
-      anchorTwo.id = 'synonymName' + i;
+      anchorTwo.id =  sname + i;
       division.appendChild(anchorTwo);
       searchResults.appendChild(li);
     })
@@ -290,7 +290,7 @@
     var divisionOne = document.createElement('div');
     divisionOne.className = "govuk-task-list__name-and-hint";
     divisionOne.id = 'div-'+index;
-    divisionOne.style.padding = '5px';
+    divisionOne.style.paddingLeft = '5px';
     var latinName, commonName, synonymName;
     item.result.filter(function(el) {
       if (el.type === "LATIN_NAME") {
@@ -339,11 +339,11 @@
       }
       synonymNameHTML(synonymName, commonName)
     } else {
-      if (synonymName.length === 0) {
+    if (item.highlight !== 'SYNONYM_NAME'){
       if (latinName !== undefined  && latinName.split(' ')[1] !== undefined){
         latinInnerHTMLText = capitalizeFirstLetter(latinName)
-      }  
       }
+    }  
       synonymNameHTML(synonymName, commonName)
     }
 
