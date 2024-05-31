@@ -34,7 +34,9 @@ const countrySearchController = {
             request,
             errorSection.titleText,
             errorSection.searchErrorListText1 +
+              ' ' +
               request.yar?.get('searchQuery').value +
+              ' ' +
               errorSection.searchErrorListText2
           )
         }
