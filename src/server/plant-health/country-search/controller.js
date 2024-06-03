@@ -12,7 +12,10 @@ const countrySearchController = {
         value: decodeURI(request.query.countrySearchQuery)
       })
       request.yar.set('fullSearchQuery', {
-        value: request.yar?.get('fullSearchQuery')?.value
+        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
+      })
+      request.yar.set('searchQuery', {
+        value: decodeURI(request.yar?.get('searchQuery')?.value)
       })
       const searchInput = request?.yar?.get('countrySearchQuery')
       const searchValue = searchInput?.value

@@ -9,10 +9,10 @@ const formatPageController = {
 
       let radiobuttonValue
       request.yar.set('searchQuery', {
-        value: request.yar?.get('searchQuery')?.value
+        value: decodeURI(request.yar?.get('searchQuery')?.value)
       })
       request.yar.set('fullSearchQuery', {
-        value: request.yar?.get('fullSearchQuery')?.value
+        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
       })
       request.yar.set('countrySearchQuery', {
         value: request.yar?.get('countrySearchQuery')?.value
@@ -42,25 +42,21 @@ const formatPageController = {
         request.yar.set('errors', '')
         request.yar.set('errorMessage', '')
         request.yar.set('errorMessageRadio', '')
-        const radiooption = request?.yar?.get('format')
-        radiobuttonValue = radiooption?.whereareyouimportinginto
+        radiobuttonValue = request?.yar?.get('format')
         const errorData = getDefaultLocaleData('format')
         const errorSection = errorData?.errors
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-
-        if (!radiobuttonValue) {
-          setErrorMessage(
-            request,
-            errorSection.titleText,
-            errorSection.formatPageErrorListText1 +
-              ' ' +
-              searchQuery?.value +
-              ' ' +
-              errorSection.formatPageErrorListText2
-          )
-        }
+        setErrorMessage(
+          request,
+          errorSection.titleText,
+          errorSection.formatPageErrorListText1 +
+            ' ' +
+            searchQuery?.value +
+            ' ' +
+            errorSection.formatPageErrorListText2
+        )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
         return h.view('plant-health/format/index', {
