@@ -1,4 +1,13 @@
 {% extends 'layouts/page.njk' %}
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{{ govukPhaseBanner({
+  tag: {
+    text: getHelpSection.betaText
+  },
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+}) }}
+{% endblock %}
 {% block content %}
   <div class="govuk-width-container">
     <main class="govuk-main-wrapper">

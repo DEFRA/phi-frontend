@@ -16,6 +16,17 @@
 
 {% block head %}
   <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
+{% endblock %}#
+
+{% block header %}
+  {{ govukHeader({
+    homepageUrl: "https://www.gov.uk/",
+    classes: "app-header",
+    containerClasses: "govuk-width-container",
+    serviceName: "Check plant health information and import rules",
+    serviceUrl: "/",
+    useTudorCrown: true
+  }) }}
 {% endblock %}
 
 {% block pageTitle %}

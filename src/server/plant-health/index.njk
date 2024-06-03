@@ -1,6 +1,14 @@
 {% extends 'layouts/page.njk' %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% block beforeContent %}
+  {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: getHelpSection.betaText
+  },
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+}) }}
   <a href="/" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}

@@ -1,5 +1,13 @@
 {% extends 'layouts/page.njk' %}
 {% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: getHelpSection.betaText
+  },
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+}) }}
     <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&countrySearchQuery={{countrySearchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
