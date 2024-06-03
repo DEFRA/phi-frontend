@@ -1,0 +1,27 @@
+{
+  "mainContent": {
+    "headerText1": "Pa fformat o",
+    "headerText2": "ydych chi'n mewnforio?",
+    "radioButtonText1": "Planhigion ar gyfer plannu",
+    "hint1": "Mae hyn yn cynnwys hadau, planhigion cwsg, planhigion sydd wedi'u corlannu'n naturiol neu'n artiffisial, deunydd in vitro a chloron.",
+    "radioButtonText2": "Cynnyrch",
+    "hint2": "Mae hyn yn cynnwys ffrwythau, llysiau, blodau wedi'u torri, grawn, dail, cloron a llysiau gwraidd a chloronen.",
+    "radioButtonText3": "Rhan o blanhigyn",
+    "hint3": "Mae hyn yn cynnwys hadau, blodau wedi'u torri, cloron, llysiau deiliog, dail, coesynnau a llysiau gwraidd a thwbercwl.",
+    "radioButtonText4": "Pren",
+    "hint4": "Mae hyn yn cynnwys pren nad yw wedi cadw ei arwyneb crwn naturiol, pecynnu pren, pren gwastraff a chynhyrchion coopers.",
+    "radioButtonText5": "Rhisgl ynysig",
+    "buttonText": "Parhewch"
+  },
+  "getHelpSection": {
+    "titleText": "Cael help gyda'r gwasanaeth hwn",
+    "supportUrl": {
+      "text": "os oes gennych unrhyw ymholiadau neu os oes angen cymorth technegol arnoch, e-bostiwch"
+    }
+  },
+  "errors": {
+    "titleText": "Mae yna broblem",
+    "formatPageErrorListText1": "Dewiswch pa fformat o",
+    "formatPageErrorListText2": "ydych chi'n mewnforio"
+  }
+}
