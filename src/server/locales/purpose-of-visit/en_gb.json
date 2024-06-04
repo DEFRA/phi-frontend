@@ -9,7 +9,10 @@
     "titleText": "Get help with this service",
     "supportUrl": {
       "text": "If you have any queries or you need technical support, email"
-    }
+    },
+    "betabannertext1": "This is a new service - your",
+    "betabannertext2": "will help us to improve it.",
+    "betaText": "BETA"
   },
   "serviceUnavailablePage": {
     "headerText": "Pest or disease information unavailable",

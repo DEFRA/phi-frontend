@@ -1,0 +1,84 @@
+{% extends 'layouts/page.njk' %}
+{% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: getHelpSection.betaText
+  },
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+}) }}
+    <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&countrySearchQuery={{countrySearchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
+{% endblock %}
+{% block content %}
+    {% from "govuk/components/radios/macro.njk" import govukRadios %}
+    {% call appPageBody() %}
+    {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+    {% if errors.list %}
+        {{ govukErrorSummary(errors.list) }}
+    {% endif %}
+    <form  id="itembox" action='/plant-health/format' method="get"  name="radios">
+        {{ govukRadios({
+  name: "format",
+  errorMessage: errorMessage.message,
+  fieldset: {
+    legend: {
+      text: mainContent.headerText1 + " " + searchQuery.value + " " + mainContent.headerText2,
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  items: [
+    {
+      value: "plants-for-planting",
+      text:  mainContent.radioButtonText1,
+      hint: {
+        text: mainContent.hint1
+      },
+      checked: radiobuttonValue === 'plants-for-planting'
+    },
+    {
+      value: "produce",
+      text: mainContent.radioButtonText2,
+      hint: {
+        text: mainContent.hint2},
+      checked: radiobuttonValue === 'produce'
+    },
+    {
+      value: "part-of-a-plant",
+      text:  mainContent.radioButtonText3,
+      hint: {
+        text: mainContent.hint3
+      },
+      checked: radiobuttonValue === 'part-of-a-plant'
+    },
+    {
+      value: "wood",
+      text: mainContent.radioButtonText4,
+      hint: {
+        text: mainContent.hint4},
+      checked: radiobuttonValue === 'wood'
+    },
+    {
+      value: "isolated-bark",
+      text: mainContent.radioButtonText5,
+      checked: radiobuttonValue === 'isolated-bark'
+    }
+  ]
+}) }}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{{ govukButton({
+  text: mainContent.buttonText
+}) }}
+</form>
+{% set supportSection = {
+    title: getHelpSection.titleText,
+    supportMail: getHelpSection.supportUrl.href,
+    email: getHelpSection.supportUrl.email,
+    description: getHelpSection.supportUrl.text
+} %}
+{% include "partials/get-help.njk" %}
+{% endcall %}
+{% endblock %}

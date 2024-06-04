@@ -7,6 +7,7 @@ import { purposeOfVisit } from '~/src/server/plant-health/purpose-of-visit'
 import { importConfirmation } from '~/src/server/plant-health/import-confirmation'
 import { searchPage } from '~/src/server/plant-health/search'
 import { countrySearchPage } from '~/src/server/plant-health/country-search'
+import { formatPage } from '~/src/server/plant-health/format'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
 import { search } from '~/src/api/search'
 
@@ -31,6 +32,7 @@ const router = {
         importConfirmation,
         searchPage,
         countrySearchPage,
+        formatPage,
         search,
         serveStaticFiles
       ])

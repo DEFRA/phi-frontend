@@ -11,22 +11,34 @@ const countrySearchController = {
       request.yar.set('countrySearchQuery', {
         value: decodeURI(request.query.countrySearchQuery)
       })
+      request.yar.set('fullSearchQuery', {
+        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
+      })
+      request.yar.set('searchQuery', {
+        value: decodeURI(request.yar?.get('searchQuery')?.value)
+      })
       const searchInput = request?.yar?.get('countrySearchQuery')
       const searchValue = searchInput?.value
       const searchQuery = request.yar?.get('searchQuery')
       if (searchValue) {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
-        return h.view('plant-health/country-search/format', {
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')
+        const data = getDefaultLocaleData('format')
+        const mainContent = data?.mainContent
+        const getHelpSection = data?.getHelpSection
+        return h.view('plant-health/format/index', {
           pageTitle: 'Format',
           heading: 'Format',
           getHelpSection,
           mainContent,
+          fullSearchQuery,
           countrySearchQuery,
           searchQuery
         })
       } else {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const searchQuery = request.yar?.get('searchQuery')
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')
         if (request.query.countrySearchQuery === '') {
           const errorData = getDefaultLocaleData('country-search')
           const errorSection = errorData?.errors
@@ -47,6 +59,7 @@ const countrySearchController = {
           getHelpSection,
           countrySearchQuery,
           searchQuery,
+          fullSearchQuery,
           pageTitle: 'Country Search',
           heading: 'Country Search',
           errors,

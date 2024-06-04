@@ -1,5 +1,13 @@
 {% extends 'layouts/page.njk' %}
 {% block beforeContent %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: getHelpSection.betaText
+  },
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+}) }}
   <a href='/plant-health/import-confirmation' class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
@@ -23,12 +31,12 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" autocomplete="off" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if searchQuery.value %}
-    <input class="govuk-input" id="query" name="searchQuery" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
+    <input class="govuk-input" id="query" name="searchQuery" autocomplete="off" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="searchQuery" style="width: 100%;" type="text" maxlength="125">
+     <input class="govuk-input" id="query" name="searchQuery" autocomplete="off" style="width: 100%;" type="text" maxlength="125">
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
@@ -59,7 +67,7 @@
 
   function fetchSuggestions(query) { // Mock API endpoint URL
     var frontendUrl = document.getElementById('frontendUrl').textContent
-    var apiUrl = frontendUrl+'/search/plants?searchQuery=' + query;
+    var apiUrl = '/search/plants?searchQuery=' + query;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {

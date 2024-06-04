@@ -1,0 +1,35 @@
+{
+  "mainContent": {
+    "headerText1": "Which format of",
+    "headerText2": "are you importing?",
+    "radioButtonText1": "Plants for planting",
+    "hint1": "This includes seeds, dormant plants, naturally or artificially dwarfed plants, in vitro material and tubers.",
+    "radioButtonText2": "Produce",
+    "hint2": "This includes fruit, vegetables, cut flowers, grain, leaves, tubers and root and tubercle vegetables.",
+    "radioButtonText3": "Part of a plant",
+    "hint3": "This includes seeds, cut flowers, tubers, leafy vegetables, leaves, stems and root and tubercle vegetables.",
+    "radioButtonText4": "Wood",
+    "hint4": "This includes wood which has not kept its natural round surface, wood packaging, waste wood and coopers products.",
+    "radioButtonText5": "Isolated bark",
+    "buttonText": "Continue"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "If you have any queries or you need technical support, email"
+    },
+    "betabannertext1": "This is a new service - your",
+    "betabannertext2": "will help us to improve it.",
+    "betaText": "BETA"
+  },
+  "serviceUnavailablePage": {
+    "headerText": "This service does not include import and plant health information for Northern Ireland",
+    "desc1": "You will be able to use the service later.",
+    "desc2": "There are different plant health controls for Northern Ireland and Great Britain. You can"
+  },
+  "errors": {
+    "titleText": "There is a problem",
+    "formatPageErrorListText1": "Select which format of",
+    "formatPageErrorListText2": "are you importing?"
+  }
+}
