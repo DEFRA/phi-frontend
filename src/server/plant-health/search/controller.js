@@ -17,10 +17,18 @@ const searchPageController = {
           request.query.searchQuery.replace(/ *\([^)]*\) */g, '')
         )
       })
+      request.yar.set('hostRef', {
+        value: request.query.hostRef
+      })
+      request.yar.set('eppoCode', {
+        value: request.query.eppoCode
+      })
       const frontendUrl = config.get('frontendUrl')
       const searchInput = request?.yar?.get('searchQuery')
       const searchValue = searchInput?.value
-      if (searchValue) {
+      const hostRef = request?.yar?.get('hostRef')?.value
+      const eppoCode = request?.yar?.get('eppoCode')?.value
+      if (searchValue && hostRef) {
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar.get('fullSearchQuery')
         const data = getDefaultLocaleData('country-search')
@@ -35,6 +43,8 @@ const searchPageController = {
           searchQuery,
           countrySearchQuery,
           fullSearchQuery,
+          hostRef,
+          eppoCode,
           frontendUrl
         })
       } else {

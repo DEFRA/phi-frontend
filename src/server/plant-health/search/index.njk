@@ -40,6 +40,8 @@
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
+    <input id="hostRef" name="hostRef" style="display: none;"></input>
+    <input id="eppoCode" name="eppoCode" style="display: none;"></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -84,20 +86,23 @@
     var latinJson = json.message.plant_detail.filter(function(el) {
       return el.id == "latin-name"
     })[0].results.map((item) => {
-      return item['PLANT_NAME']
+       var latin_arr = [{plantName: item['PLANT_NAME'], hostRef: item.HOST_REF, eppoCode: item.EPPO_CODE}]
+      return latin_arr
     })
     var commonJson = json.message.plant_detail.filter(function(el) {
       return el.id == "common-name"
     })[0].results.map((item) => {
-      return item['PLANT_NAME']
+      var common_arr = [{plantName: item['PLANT_NAME'], hostRef: item.HOST_REF, eppoCode: item.EPPO_CODE}]
+      return common_arr
     })
     var synonymJson = json.message.plant_detail.filter(function(el) {
       return el.id == "synonym-name"
     })[0].results.map((item) => {
-      return item['PLANT_NAME']
+       var synonym_arr = [{plantName: item['PLANT_NAME'], hostRef: item.HOST_REF, eppoCode: item.EPPO_CODE}]
+      return synonym_arr
     })
     regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-    console.log('REGEX', inputValue);
+    console.log('REGEX', latinJson[0]);
     var latinArray = []
     var commonArray = []
     var synonymArray = []
@@ -108,10 +113,13 @@
       if (commonArray.length === 0 && synonymArray.length === 0) {
         for (let i = 0; i < latinJson.length; i++) {
           for (let j = 0; j < latinJson[i].length; j++) {
-            if ((latinJson[i][j]['type'] === "LATIN_NAME") && (latinJson[i][j]['NAME'].match(new RegExp(regexValue, "gi")))) {
+            console.log('LATINJSON', latinJson[i])
+            if ((latinJson[i][0]['plantName'][j]['type'] === "LATIN_NAME") && (latinJson[i][0]['plantName'][j]['NAME'].match(new RegExp(regexValue, "gi")))) {
               console.log('LATIN')
               latinArray.push({
-                result: latinJson[i],
+                result: latinJson[i][0]['plantName'],
+                hostRef: latinJson[i][0]['hostRef'],
+                eppoCode: latinJson[i][0]['eppoCode'],
                 highlight: 'LATIN_NAME',
                 matchingText: inputValue
               })
@@ -124,23 +132,27 @@
       if (synonymArray.length === 0) {
         for (let i = 0; i < commonJson.length; i++) {
           var existingArray;
-          for (let j = 0; j < commonJson[i].length; j++) {
-            if (commonJson[i][j]['type'] === "COMMON_NAME") {
-              commonJson[i][j]['NAME'].sort().filter(name => {
+          for (let j = 0; j < commonJson[i][0]['plantName'].length; j++) {
+            if (commonJson[i][0]['plantName'][j]['type'] === "COMMON_NAME") {
+              commonJson[i][0]['plantName'][j]['NAME'].sort().filter(name => {
                 if (name.match(new RegExp(regexValue, "gi"))) {
                   console.log('COMMON')
                   if (latinArray.length > 0) {
                     var existingArray = commonExistingNameCheck(latinArray, name)
                     if (existingArray.length === 0) {
                       commonArray.push({
-                        result: commonJson[i],
+                        result: commonJson[i][0]['plantName'],
+                        hostRef: commonJson[i][0]['hostRef'],
+                        eppoCode: commonJson[i][0]['eppoCode'],
                         highlight: 'COMMON_NAME',
                         matchingText: inputValue
                       })
                     }
                   } else {
                     commonArray.push({
-                      result: commonJson[i],
+                      result: commonJson[i][0]['plantName'],
+                      hostRef: commonJson[i][0]['hostRef'],
+                      eppoCode: commonJson[i][0]['eppoCode'],
                       highlight: 'COMMON_NAME',
                       matchingText: inputValue
                     })
@@ -156,23 +168,27 @@
       //synonym name search
       if (commonArray.length === 0) {
         for (let i = 0; i < synonymJson.length; i++) {
-          for (let j = 0; j < synonymJson[i].length; j++) {
-            if (synonymJson[i][j]['type'] === "SYNONYM_NAME") {
-              synonymJson[i][j]['NAME'].filter(name => {
+          for (let j = 0; j < synonymJson[i][0]['plantName'].length; j++) {
+            if (synonymJson[i][0]['plantName'][j]['type'] === "SYNONYM_NAME") {
+              synonymJson[i][0]['plantName'][j]['NAME'].filter(name => {
                 if (name.match(new RegExp(regexValue, "gi"))) {
                   console.log('SYNONYM')
                   if (latinArray.length > 0) {
                     var existingArray = synonymExistingNameCheck(latinArray, name)
                     if (existingArray.length === 0) {
                       synonymArray.push({
-                        result: synonymJson[i],
+                        result: synonymJson[i][0]['plantName'],
+                        hostRef: synonymJson[i][0]['hostRef'],
+                        eppoCode: synonymJson[i][0]['eppoCode'],
                         highlight: 'SYNONYM_NAME',
                         matchingText: inputValue
                       })
                     }
                   } else {
                     synonymArray.push({
-                      result: synonymJson[i],
+                      result: synonymJson[i][0]['plantName'],
+                      hostRef: synonymJson[i][0]['hostRef'],
+                      eppoCode: synonymJson[i][0]['eppoCode'],
                       highlight: 'SYNONYM_NAME',
                       matchingText: inputValue
                     })
@@ -369,10 +385,11 @@
     searchResults.style.display = 'inline-block';
     searchResults.addEventListener('click', function(e) {
       var autocompleteInputValue = document.getElementById('query');
-      console.log('TEXTSEL', 'div-'+ e.target.id)
-      console.log('TEXTSEL', 'div-'+ e.target.id)
-      console.log('TEXTSEL', 'div-'+ e.target.id)
       autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
+      var hostRefElement = document.getElementById('hostRef');
+      var eppoCodeElement = document.getElementById('eppoCode');
+      hostRefElement.value = item.hostRef;
+      eppoCodeElement.value = item.eppoCode;
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
     });

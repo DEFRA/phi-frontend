@@ -1,10 +1,7 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
-import { config } from '~/src/config'
-const axios = require('axios')
-
-const formatPageController = {
-  handler: async (request, h) => {
+const plantDetailsPageController = {
+  handler: (request, h) => {
     if (request != null) {
       const data = getDefaultLocaleData('format')
       const mainContent = data?.mainContent
@@ -26,11 +23,13 @@ const formatPageController = {
       request.yar.set('eppoCode', {
         value: request.yar?.get('eppoCode')?.value
       })
-
+      request.yar.set('commonName', {
+        value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
+      })
       const hostRef = request?.yar?.get('hostRef')?.value
+      const eppoCode = request?.yar?.get('eppoCode')?.value
 
       if (request.query.format !== undefined) {
-        let result
         radiobuttonValue = request.query.format
         request.yar.set('format', {
           value: radiobuttonValue
@@ -38,45 +37,21 @@ const formatPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const plantData = getDefaultLocaleData('plant-details')
-        const mainContent = plantData?.mainContent
-        const getHelpSection = plantData?.getHelpSection
+        const formatData = getDefaultLocaleData('format')
+        const mainContent = formatData?.mainContent
+        const getHelpSection = formatData?.getHelpSection
 
-        if (request.yar?.get('hostRef')?.value) {
-          const plantDetails = {
-            hostRef: parseInt(request.yar?.get('hostRef')?.value),
-            serviceFormat: request.query.format,
-            country: request?.yar?.get('countrySearchQuery')?.value
-          }
-          result = await invokeWorkflowApi(plantDetails)
-          return h.view('plant-health/plant-details/index', {
-            pageTitle: 'Plant Details',
-            heading: 'Plant Details',
-            getHelpSection,
-            radiobuttonValue,
-            hostRef,
-            eppoCode: result.eppoCode,
-            preferredName: result.plantName[0].NAME,
-            commonNames: result.plantName[1].NAME,
-            synonymNames: result.plantName[2].NAME,
-            countrySearchQuery,
-            fullSearchQuery,
-            mainContent,
-            searchQuery
-          })
-        }
-
-        async function invokeWorkflowApi(payload) {
-          try {
-            const response = await axios.post(
-              config.get('backendApiUrl') + '/workflow',
-              { plantDetails: payload }
-            )
-            return response.data
-          } catch (error) {
-            return error // Rethrow the error so it can be handled appropriately
-          }
-        }
+        return h.view('plant-health/plant-details/index', {
+          pageTitle: 'Plant Details',
+          heading: 'Plant Details',
+          getHelpSection,
+          hostRef,
+          eppoCode,
+          countrySearchQuery,
+          fullSearchQuery,
+          mainContent,
+          searchQuery
+        })
       } else {
         request.yar.set('errors', '')
         request.yar.set('errorMessage', '')
@@ -98,7 +73,7 @@ const formatPageController = {
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
-        return h.view('plant-health/format/index', {
+        return h.view('plant-health/plant-details/index', {
           mainContent,
           getHelpSection,
           radiobuttonValue,
@@ -115,4 +90,4 @@ const formatPageController = {
   }
 }
 
-export { formatPageController }
+export { plantDetailsPageController }

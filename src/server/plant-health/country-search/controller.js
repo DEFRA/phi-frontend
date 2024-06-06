@@ -17,6 +17,14 @@ const countrySearchController = {
       request.yar.set('searchQuery', {
         value: decodeURI(request.yar?.get('searchQuery')?.value)
       })
+      request.yar.set('hostRef', {
+        value: request.yar?.get('hostRef')?.value
+      })
+      request.yar.set('eppoCode', {
+        value: request.yar?.get('eppoCode')?.value
+      })
+      const hostRef = request?.yar?.get('hostRef')?.value
+      const eppoCode = request?.yar?.get('eppoCode')?.value
       const searchInput = request?.yar?.get('countrySearchQuery')
       const searchValue = searchInput?.value
       const searchQuery = request.yar?.get('searchQuery')
@@ -31,6 +39,8 @@ const countrySearchController = {
           heading: 'Format',
           getHelpSection,
           mainContent,
+          hostRef,
+          eppoCode,
           fullSearchQuery,
           countrySearchQuery,
           searchQuery
