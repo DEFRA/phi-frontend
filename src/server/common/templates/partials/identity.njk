@@ -1,0 +1,40 @@
+<span class="govuk-caption-l">
+{{data.mainContent.headerText}}
+</span>
+<h2 class="govuk-heading-m">
+{{data.searchQuery.value | capitalize}}
+</h2>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.preferredNameHeading}}
+</h3>
+<p>{{preferredName}}</p>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.commonNameHeading}}
+</h3>
+<ul class="govuk-list">
+{% if data.commonNames.length > 0 %}
+{% for item in data.commonNames %}
+    <li>{{item}}</li>
+{% endfor %}
+{%else%}
+    <p>{{data.mainContent.noneText}}</p>
+{%endif%}
+</ul>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.synonymNameHeading}}
+</h3>
+<ul class="govuk-list">
+{% if data.synonymNames.length > 0 %}
+{% for item in data.synonymNames %}
+    <li>{{item}}</li>
+{% endfor %}
+{%else%}
+    <p>{{data.mainContent.noneText}}</p>
+{%endif%}
+</ul>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{mainContent.eppoCodeHeading}}
+</h3>
+<p>
+{{eppoCode}}
+</p>
