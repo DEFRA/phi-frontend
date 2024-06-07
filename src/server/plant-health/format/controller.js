@@ -41,6 +41,7 @@ const formatPageController = {
         const plantData = getDefaultLocaleData('plant-details')
         const mainContent = plantData?.mainContent
         const getHelpSection = plantData?.getHelpSection
+        const format = request.yar?.get('format')?.value
 
         if (request.yar?.get('hostRef')?.value) {
           const plantDetails = {
@@ -55,6 +56,10 @@ const formatPageController = {
             getHelpSection,
             radiobuttonValue,
             hostRef,
+            format,
+            outcome: result.outcome,
+            annexSixRule: result.annexSixRule,
+            annexElevenRule: result.annexElevenRule,
             eppoCode: result.eppoCode,
             preferredName: result.plantName[0].NAME,
             commonNames: result.plantName[1].NAME,

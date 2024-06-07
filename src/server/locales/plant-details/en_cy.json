@@ -5,7 +5,13 @@
     "commonNameHeading": "Enwau cyffredin",
     "synonymNameHeading": "Cyfystyron",
     "eppoCodeHeading": "Llun plentyn",
-    "noneText": "Dim"
+    "noneText": "Dim",
+    "importRulesHeaderText1": "Mewnforio",
+    "importRulesHeaderText2": "rhag",
+    "prohibitedHeader": "Gwybodaeth waharddedig",
+    "prohibitedContentText1": "! Ni ddylech fewnforio",
+    "prohibitedContentText2": "fel",
+    "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu"
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",

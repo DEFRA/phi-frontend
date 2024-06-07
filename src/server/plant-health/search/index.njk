@@ -67,16 +67,17 @@
 
   });
 
-  function fetchSuggestions(query) { // Mock API endpoint URL
-    var frontendUrl = document.getElementById('frontendUrl').textContent
+  async function fetchSuggestions(query) {
     var apiUrl = '/search/plants?searchQuery=' + query;
-    fetch(apiUrl)
-      .then(response => response.json())
-      .then(data => {
-        result = renderSuggestions(data);
+      try {
+        const response = await fetch(apiUrl);
+        const responseJSON = await response.json();
+        const result = await renderSuggestions(responseJSON);
         return result ? result : '';
-      })
-      .catch(error => console.log('Error fetching suggestions:', error));
+      } catch (error) {
+        // TypeError: Failed to fetch
+        console.log('Error fetching suggestions:', error);
+      }
   }
   var searchResult;
   var regexValue;

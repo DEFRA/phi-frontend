@@ -5,7 +5,13 @@
     "commonNameHeading": "Common names",
     "synonymNameHeading": "Synonyms",
     "eppoCodeHeading": "EPPO code",
-    "noneText": "None"
+    "noneText": "None",
+    "importRulesHeaderText1": "Importing",
+    "importRulesHeaderText2": "from",
+    "prohibitedHeader": "Prohibited information",
+    "prohibitedContentText1": "! You must not import",
+    "prohibitedContentText2": "as",
+    "prohibitedContentText3": "Despite import restrictions, you may be able to"
   },
   "getHelpSection": {
     "titleText": "Get help with this service",
