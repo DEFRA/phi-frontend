@@ -19,7 +19,7 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-full">
       {% set data = {
     mainContent: mainContent,
     searchQuery: searchQuery,
@@ -27,8 +27,23 @@
     synonymNames: synonymNames,
     preferredName: preferredName,
     eppoCode: eppoCode
-  } %}
-  {% include "partials/identity.njk" %}
+    } %}
+    {% include "partials/identity.njk" %}
+    <h2 class="govuk-heading-m">
+      {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
+    </h2>
+    {% if (outcome) and (outcome === 'Prohibited') %}
+      {% if (annexSixRule) and (annexSixRule === 'INNS') %}
+      <h2 class="govuk-heading-m">
+        {{mainContent.prohibitedHeader}}
+      </h2>
+      <h3 class="govuk-heading-s">
+        {{mainContent.prohibitedContentText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}} {{mainContent.prohibitedContentText2}} {{format | capitalize}}
+      </h3>
+      <p class="govuk-body-s">{{mainContent.prohibitedContentText3}} <a class="govuk-link"
+                href="https://www.gov.uk/government/publications/invasive-alien-species-permit-application">apply for a permit to move your plant or plant product.</a></p>
+      {% endif %}
+    {% endif %}
     </div>
   </div>
 
