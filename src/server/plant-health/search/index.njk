@@ -86,22 +86,13 @@
     console.log('JSON', json)
     var latinJson = json.message.plant_detail.filter(function(el) {
       return el.id == "latin-name"
-    })[0].results.map((item) => {
-       var latin_arr = [{plantName: item['PLANT_NAME'], hostRef: item.HOST_REF, eppoCode: item.EPPO_CODE}]
-      return latin_arr
-    })
+    })[0].results
     var commonJson = json.message.plant_detail.filter(function(el) {
       return el.id == "common-name"
-    })[0].results.map((item) => {
-      var common_arr = [{plantName: item['PLANT_NAME'], hostRef: item.HOST_REF, eppoCode: item.EPPO_CODE}]
-      return common_arr
-    })
+    })[0].results
     var synonymJson = json.message.plant_detail.filter(function(el) {
       return el.id == "synonym-name"
-    })[0].results.map((item) => {
-       var synonym_arr = [{plantName: item['PLANT_NAME'], hostRef: item.HOST_REF, eppoCode: item.EPPO_CODE}]
-      return synonym_arr
-    })
+    })[0].results
     regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     console.log('REGEX', latinJson[0]);
     var latinArray = []
@@ -113,14 +104,14 @@
 
       if (commonArray.length === 0 && synonymArray.length === 0) {
         for (let i = 0; i < latinJson.length; i++) {
-          for (let j = 0; j < latinJson[i].length; j++) {
+          for (let j = 0; j < latinJson[i]['plantName'].length; j++) {
             console.log('LATINJSON', latinJson[i])
-            if ((latinJson[i][0]['plantName'][j]['type'] === "LATIN_NAME") && (latinJson[i][0]['plantName'][j]['NAME'].match(new RegExp(regexValue, "gi")))) {
+            if ((latinJson[i]['plantName'][j]['type'] === "LATIN_NAME") && (latinJson[i]['plantName'][j]['NAME'].match(new RegExp(regexValue, "gi")))) {
               console.log('LATIN')
               latinArray.push({
-                result: latinJson[i][0]['plantName'],
-                hostRef: latinJson[i][0]['hostRef'],
-                eppoCode: latinJson[i][0]['eppoCode'],
+                result: latinJson[i]['plantName'],
+                hostRef: latinJson[i]['hostRef'],
+                eppoCode: latinJson[i]['eppoCode'],
                 highlight: 'LATIN_NAME',
                 matchingText: inputValue
               })
@@ -133,27 +124,27 @@
       if (synonymArray.length === 0) {
         for (let i = 0; i < commonJson.length; i++) {
           var existingArray;
-          for (let j = 0; j < commonJson[i][0]['plantName'].length; j++) {
-            if (commonJson[i][0]['plantName'][j]['type'] === "COMMON_NAME") {
-              commonJson[i][0]['plantName'][j]['NAME'].sort().filter(name => {
+          for (let j = 0; j < commonJson[i]['plantName'].length; j++) {
+            if (commonJson[i]['plantName'][j]['type'] === "COMMON_NAME") {
+              commonJson[i]['plantName'][j]['NAME'].sort().filter(name => {
                 if (name.match(new RegExp(regexValue, "gi"))) {
-                  console.log('COMMON')
+                  console.log('COMMON', commonJson[i])
                   if (latinArray.length > 0) {
                     var existingArray = commonExistingNameCheck(latinArray, name)
                     if (existingArray.length === 0) {
                       commonArray.push({
-                        result: commonJson[i][0]['plantName'],
-                        hostRef: commonJson[i][0]['hostRef'],
-                        eppoCode: commonJson[i][0]['eppoCode'],
+                        result: commonJson[i]['plantName'],
+                        hostRef: commonJson[i]['hostRef'],
+                        eppoCode: commonJson[i]['eppoCode'],
                         highlight: 'COMMON_NAME',
                         matchingText: inputValue
                       })
                     }
                   } else {
                     commonArray.push({
-                      result: commonJson[i][0]['plantName'],
-                      hostRef: commonJson[i][0]['hostRef'],
-                      eppoCode: commonJson[i][0]['eppoCode'],
+                      result: commonJson[i]['plantName'],
+                      hostRef: commonJson[i]['hostRef'],
+                      eppoCode: commonJson[i]['eppoCode'],
                       highlight: 'COMMON_NAME',
                       matchingText: inputValue
                     })
@@ -169,27 +160,27 @@
       //synonym name search
       if (commonArray.length === 0) {
         for (let i = 0; i < synonymJson.length; i++) {
-          for (let j = 0; j < synonymJson[i][0]['plantName'].length; j++) {
-            if (synonymJson[i][0]['plantName'][j]['type'] === "SYNONYM_NAME") {
-              synonymJson[i][0]['plantName'][j]['NAME'].filter(name => {
+          for (let j = 0; j < synonymJson[i]['plantName'].length; j++) {
+            if (synonymJson[i]['plantName'][j]['type'] === "SYNONYM_NAME") {
+              synonymJson[i]['plantName'][j]['NAME'].filter(name => {
                 if (name.match(new RegExp(regexValue, "gi"))) {
                   console.log('SYNONYM')
                   if (latinArray.length > 0) {
                     var existingArray = synonymExistingNameCheck(latinArray, name)
                     if (existingArray.length === 0) {
                       synonymArray.push({
-                        result: synonymJson[i][0]['plantName'],
-                        hostRef: synonymJson[i][0]['hostRef'],
-                        eppoCode: synonymJson[i][0]['eppoCode'],
+                        result: synonymJson[i]['plantName'],
+                        hostRef: synonymJson[i]['hostRef'],
+                        eppoCode: synonymJson[i]['eppoCode'],
                         highlight: 'SYNONYM_NAME',
                         matchingText: inputValue
                       })
                     }
                   } else {
                     synonymArray.push({
-                      result: synonymJson[i][0]['plantName'],
-                      hostRef: synonymJson[i][0]['hostRef'],
-                      eppoCode: synonymJson[i][0]['eppoCode'],
+                      result: synonymJson[i]['plantName'],
+                      hostRef: synonymJson[i]['hostRef'],
+                      eppoCode: synonymJson[i]['eppoCode'],
                       highlight: 'SYNONYM_NAME',
                       matchingText: inputValue
                     })
