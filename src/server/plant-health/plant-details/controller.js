@@ -62,6 +62,8 @@ const plantDetailsPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
+        const hostRef = request?.yar?.get('hostRef')?.value
+        const eppoCode = request?.yar?.get('eppoCode')?.value
         setErrorMessage(
           request,
           errorSection.titleText,
@@ -79,6 +81,8 @@ const plantDetailsPageController = {
           radiobuttonValue,
           countrySearchQuery,
           searchQuery,
+          hostRef,
+          eppoCode,
           fullSearchQuery,
           pageTitle: 'Format',
           heading: 'Format',

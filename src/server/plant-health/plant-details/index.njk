@@ -9,7 +9,7 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   {# todo add back link #}
-  {# <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&countrySearchQuery={{countrySearchQuery.value}}" class="govuk-back-link" type='button'>Back</a> #}
+  <a href="/plant-health/country-search?countrySearchQuery={{countrySearchQuery.value}}&format={{format}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -34,16 +34,77 @@
     </h2>
     {% if (outcome) and (outcome === 'Prohibited') %}
       {% if (annexSixRule) and (annexSixRule === 'INNS') %}
-      <h2 class="govuk-heading-m">
-        {{mainContent.prohibitedHeader}}
-      </h2>
-      <h3 class="govuk-heading-s">
-        {{mainContent.prohibitedContentText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}} {{mainContent.prohibitedContentText2}} {{format | capitalize}}
-      </h3>
-      <p class="govuk-body-s">{{mainContent.prohibitedContentText3}} <a class="govuk-link"
-                href="https://www.gov.uk/government/publications/invasive-alien-species-permit-application">apply for a permit to move your plant or plant product.</a></p>
-      {% endif %}
+        <h2 class="govuk-heading-m">
+          {{mainContent.prohibitedHeader}}
+        </h2>
+        <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+          {{mainContent.prohibitedContentText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}} {{mainContent.prohibitedContentText2}} {{format | capitalize}}
+        </h3>
+        <p class="govuk-body-s govuk-!-margin-top-0">{{mainContent.prohibitedContentText3}} <a class="govuk-link"
+                  href="https://www.gov.uk/government/publications/invasive-alien-species-permit-application">apply for a permit to move your plant or plant product.</a></p>
+        <h2 class="govuk-heading-m">
+          {{mainContent.pestHeader}}
+        </h2>
+        {% if (pest_names.length === 0) %}
+          <p class="govuk-body-s">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
+        {% else %}
+          <p class="govuk-body-s">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
+            {{mainContent.pestContentHundredPercentText2}} 
+            {{countrySearchQuery.value | capitalize}} 
+            {{mainContent.pestContentHundredPercentText3}} 
+            {{mainContent.pestContentHundredPercentText4}}
+            </p>
+            <p class="govuk-body-s">
+              {{mainContent.pestContentHundredPercentText5}}
+              <a class="govuk-link"
+                    href="https://www.gov.uk/guidance/contact-apha#plant-health-reports-and-other-queries">report any suspicions of these pests or diseases to the relevant authority.
+              </a>
+           </p>
+           <p>{{mainContent.pestContentHundredPercentText6}}</p>
+           <table class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">{{mainContent.pestContentScientificHeader}}</th>
+                <th scope="col" class="govuk-table__header">{{mainContent.pestContentCommonHeader}}</th>
+                <th scope="col" class="govuk-table__header">{{mainContent.pestContentFormatHeader1}} {{searchQuery.value | capitalize}}</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              {% for item in pest_names %}
+               <tr class="govuk-table__row">
+                {% if item.quarantine_indicator === "R" and format === "plants for planting"  %}
+                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  <td class="govuk-table__cell">{{item.regulated_indicator}}</td>
+                {% else %}
+                {% if item.quarantine_indicator !== "R"%}
+                  {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
+                    <td class="govuk-table__cell">{{item.name[0].NAME}}
+                      <br>
+                      <br>
+                      <p class="govuk-body-s">{{mainContent.checkAnnex3Text}}&nbsp;<a class="govuk-link" href="#">Plant Health Regulations</a>&nbsp;{{mainContent.checkAnnex3Text1}}&nbsp;{{mainContent.checkAnnex3Text2}}<p>
+                    </td>
+                  {% else %}
+                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  {% endif %}
+                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
+                {% endif %}
+                 {% endif %}
+                
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        {% endif %}
+     {% endif %}
     {% endif %}
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+      text: "Find another plant or pest",
+       href: "/plant-health/import-confirmation?whereareyouimportinginto=gb&findAnotherPest=true"
+    }) }}
     </div>
   </div>
 
