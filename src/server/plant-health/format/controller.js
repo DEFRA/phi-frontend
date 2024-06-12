@@ -1,6 +1,6 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
-// import { config } from '~/src/config'
+import { config } from '~/src/config'
 const axios = require('axios')
 
 const formatPageController = {
@@ -50,8 +50,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
-          result = result.message
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
             pageTitle: 'Plant Details',
@@ -79,8 +77,8 @@ const formatPageController = {
 
         async function invokeWorkflowApi(payload) {
           try {
-            const response = await axios.get(
-              'http://localhost:3004/mock-api/pests',
+            const response = await axios.post(
+              config.get('backendApiUrl') + '/workflow',
               { plantDetails: payload }
             )
             return response.data
