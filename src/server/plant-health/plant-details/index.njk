@@ -8,7 +8,6 @@
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-  {# todo add back link #}
   <a href="/plant-health/country-search?countrySearchQuery={{countrySearchQuery.value}}&format={{format}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
@@ -120,7 +119,7 @@
 
     {{ govukButton({
       text: "Find another plant or pest",
-       href: "/plant-health/import-confirmation?whereareyouimportinginto=gb&findAnotherPest=true"
+       href: "/plant-health"
     }) }}
     </div>
   </div>
