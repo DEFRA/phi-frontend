@@ -11,7 +11,22 @@
     "prohibitedHeader": "Gwybodaeth waharddedig",
     "prohibitedContentText1": "! Ni ddylech fewnforio",
     "prohibitedContentText2": "fel",
-    "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu"
+    "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu",
+    "pestHeader": "Plâu a chlefydau y mae'n rhaid i chi roi gwybod amdanynt",
+    "pestContentText1": "Ar hyn o bryd nid oes unrhyw blâu neu afiechydon o",
+    "pestContentText2": "adrodd ar gyfer y planhigyn neu'r cynnyrch planhigyn hwn",
+    "pestContentHundredPercentText1": "Fformat gwahanol o",
+    "pestContentHundredPercentText2": "a allai gludo'r plâu neu'r clefydau o",
+    "pestContentHundredPercentText3": "a restrir ar waelod y dudalen.",
+    "pestContentHundredPercentText4": "Ystyrir bod y plâu a'r clefydau hyn yn risg i amaethyddiaeth, garddwriaeth neu fywyd gwyllt Prydain Fawr. Gall llwythi gael eu dinistrio oherwydd y plâu hyn.",
+    "pestContentScientificHeader": "Enw gwyddonol",
+    "pestContentCommonHeader": "Enwau cyffredin",
+    "pestContentFormatHeader1": "Fformatau yr effeithir arnynt o",
+    "pestContentHundredPercentText5": "Mae'n rhaid i ti",
+    "allFormatText": "Pob fformat",
+    "checkAnnex3Text": "Dim ond mewn rhai ardaloedd o Brydain Fawr y mae'r pla hwn yn bryder. Gwiriwch Atodiad 3 y",
+    "checkAnnex3Text1": "2020",
+    "checkAnnex3Text2": "am fanylion."
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",

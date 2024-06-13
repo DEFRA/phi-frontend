@@ -23,10 +23,14 @@ const countrySearchController = {
       request.yar.set('eppoCode', {
         value: request.yar?.get('eppoCode')?.value
       })
+      request.yar.set('format', {
+        value: decodeURI(request.query.format)
+      })
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
       const searchInput = request?.yar?.get('countrySearchQuery')
       const searchValue = searchInput?.value
+      const radiobuttonValue = request?.yar?.get('format')?.value
       const searchQuery = request.yar?.get('searchQuery')
       if (searchValue) {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
@@ -41,6 +45,7 @@ const countrySearchController = {
           mainContent,
           hostRef,
           eppoCode,
+          radiobuttonValue,
           fullSearchQuery,
           countrySearchQuery,
           searchQuery

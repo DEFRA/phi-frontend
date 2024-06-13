@@ -8,7 +8,7 @@
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-    <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&countrySearchQuery={{countrySearchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
+    <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
     {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -50,7 +50,7 @@
       hint: {
         text: mainContent.hint3
       },
-      checked: radiobuttonValue === 'part of a plant'
+      checked: radiobuttonValue === 'parts of a plant'
     },
     {
       value: "wood",

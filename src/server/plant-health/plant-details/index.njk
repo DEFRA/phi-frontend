@@ -9,7 +9,7 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   {# todo add back link #}
-  {# <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&countrySearchQuery={{countrySearchQuery.value}}" class="govuk-back-link" type='button'>Back</a> #}
+  <a href="/plant-health/country-search?countrySearchQuery={{countrySearchQuery.value}}&format={{format}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -33,17 +33,91 @@
       {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
     </h2>
     {% if (outcome) and (outcome === 'Prohibited') %}
+     
       {% if (annexSixRule) and (annexSixRule === 'INNS') %}
-      <h2 class="govuk-heading-m">
-        {{mainContent.prohibitedHeader}}
-      </h2>
-      <h3 class="govuk-heading-s">
-        {{mainContent.prohibitedContentText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}} {{mainContent.prohibitedContentText2}} {{format | capitalize}}
-      </h3>
-      <p class="govuk-body-s">{{mainContent.prohibitedContentText3}} <a class="govuk-link"
-                href="https://www.gov.uk/government/publications/invasive-alien-species-permit-application">apply for a permit to move your plant or plant product.</a></p>
+        {% set data = {
+        mainContent: mainContent,
+        countrySearchQuery: countrySearchQuery,
+        format: format,
+        searchQuery: searchQuery,
+        urlText: "apply for a permit to move your plant or plant product.",
+        url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application"
+        } %}
+        {% include "partials/import-rules.njk" %}
+      {% else %}
+      {% if (annexSixRule) and (annexSixRule === '6A1' or annexSixRule === '6B5') %}
+        {% set data = {
+        mainContent: mainContent,
+        countrySearchQuery: countrySearchQuery,
+        format: format,
+        searchQuery: searchQuery,
+        urlText: "apply for authorisation to import your plant or plant product.",
+        url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
+        } %}
+        {% include "partials/import-rules.njk" %}
+      {% endif %}
+      
+      {%endif%}
+      {% if (pest_names.length === 0) %}
+        <p class="govuk-body-s">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
+      {% else %}
+        <p class="govuk-body-s">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
+          {{mainContent.pestContentHundredPercentText2}} 
+          {{countrySearchQuery.value | capitalize}} 
+          {{mainContent.pestContentHundredPercentText3}} 
+          {{mainContent.pestContentHundredPercentText4}}
+          </p>
+          <p class="govuk-body-s">
+            {{mainContent.pestContentHundredPercentText5}}
+            <a class="govuk-link"
+                  href="https://www.gov.uk/guidance/contact-apha#plant-health-reports-and-other-queries">report any suspicions of these pests or diseases to the relevant authority.
+            </a>
+          </p>
+          <p>{{mainContent.pestContentHundredPercentText6}}</p>
+          <table class="govuk-table">
+          <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">{{mainContent.pestContentScientificHeader}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.pestContentCommonHeader}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.pestContentFormatHeader1}} {{searchQuery.value | capitalize}}</th>
+            </tr>
+          </thead>
+          <tbody class="govuk-table__body">
+            {% for item in pest_names %}
+              {% if (item.status === 'Present')or (item.status === 'Present (Limited)') or (item.status === 'Present (Unknown Distribution)') or (item.status === 'Present (Widespread)') %}
+                <tr class="govuk-table__row">
+                {% if (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
+                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  <td class="govuk-table__cell">{{item.regulated_indicator}}</td>
+                {% else %}
+                {% if item.quarantine_indicator !== "R"%}
+                  {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
+                    <td class="govuk-table__cell">{{item.name[0].NAME}}
+                      <br>
+                      <br>
+                      <p class="govuk-body-s">{{mainContent.checkAnnex3Text}}&nbsp;<a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">Plant Health Regulations</a>&nbsp;{{mainContent.checkAnnex3Text1}}&nbsp;{{mainContent.checkAnnex3Text2}}<p>
+                    </td>
+                  {% else %}
+                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  {% endif %}
+                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
+                {% endif %}
+                {% endif %}
+                </tr>
+              {% endif %}  
+            {% endfor %}
+          </tbody>
+        </table>
       {% endif %}
     {% endif %}
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+
+    {{ govukButton({
+      text: "Find another plant or pest",
+       href: "/plant-health/import-confirmation?whereareyouimportinginto=gb&findAnotherPest=true"
+    }) }}
     </div>
   </div>
 

@@ -31,7 +31,7 @@ const formatPageController = {
 
       if (request.query.format !== undefined) {
         let result
-        radiobuttonValue = request.query.format
+        radiobuttonValue = decodeURI(request.query.format)
         request.yar.set('format', {
           value: radiobuttonValue
         })
@@ -50,6 +50,7 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
             pageTitle: 'Plant Details',
             heading: 'Plant Details',
@@ -64,6 +65,9 @@ const formatPageController = {
             preferredName: result.plantName[0].NAME,
             commonNames: result.plantName[1].NAME,
             synonymNames: result.plantName[2].NAME,
+            pest_names: pestDetails.map(function (item) {
+              return item
+            }),
             countrySearchQuery,
             fullSearchQuery,
             mainContent,
