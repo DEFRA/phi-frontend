@@ -8,7 +8,6 @@
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-  {# todo add back link #}
   <a href="/plant-health/country-search?countrySearchQuery={{countrySearchQuery.value}}&format={{format}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
@@ -45,7 +44,7 @@
         } %}
         {% include "partials/import-rules.njk" %}
       {% else %}
-      {% if (annexSixRule) and (annexSixRule === '6A1' or annexSixRule === '6B5') %}
+      {% if (annexSixRule) and (annexSixRule !== 'INNS') %}
         {% set data = {
         mainContent: mainContent,
         countrySearchQuery: countrySearchQuery,
@@ -58,7 +57,12 @@
       {% endif %}
       
       {%endif%}
-      {% if (pest_names.length === 0) %}
+     
+    {% endif %}
+    <h2 class="govuk-heading-m">
+    {{mainContent.pestHeader}}
+    </h2>
+     {% if (pest_names.length === 0) %}
         <p class="govuk-body-s">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
       {% else %}
         <p class="govuk-body-s">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
@@ -111,12 +115,11 @@
           </tbody>
         </table>
       {% endif %}
-    {% endif %}
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
     {{ govukButton({
       text: "Find another plant or pest",
-       href: "/plant-health/import-confirmation?whereareyouimportinginto=gb&findAnotherPest=true"
+       href: "/plant-health"
     }) }}
     </div>
   </div>

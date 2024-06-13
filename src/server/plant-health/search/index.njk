@@ -271,7 +271,7 @@
     }
   }
 
-  function synonymNameHTML(synonymName, commonName) {
+  function synonymNameHTML(synonymName, item, commonName) {
     var synonymInnerHTMLText
     synonymName.forEach(function(sname, i) {
       if (commonName.length > 0) {
@@ -289,6 +289,18 @@
       li.className = "govuk-task-list__item govuk-task-list__item--with-link";
       li.id = 'synonymName' + i;
       li.appendChild(division)
+      var inputHref = document.createElement('input');
+      inputHref.id = 'hostRef'+i;
+      inputHref.style = 'display:none'
+      inputHref.name = 'hostRef'
+      inputHref.setAttribute('value', item.hostRef);
+      var inputEppo = document.createElement('input');
+      inputEppo.id = 'eppoCode'+i;
+      inputEppo.style = 'display:none'
+      inputEppo.name = 'eppoCode'
+      inputEppo.setAttribute('value', item.eppoCode);
+      li.appendChild(inputHref)
+      li.appendChild(inputEppo)
       var anchorTwo = document.createElement('a');
       anchorTwo.className = "govuk-link govuk-task-list__link";
       anchorTwo.href = "#";
@@ -307,6 +319,18 @@
     divisionOne.className = "govuk-task-list__name-and-hint";
     divisionOne.id = 'div-'+index;
     divisionOne.style.paddingLeft = '5px';
+     var inputHref = document.createElement('input');
+    inputHref.id = 'hostRef'+index;
+    inputHref.style = 'display:none'
+    inputHref.name = 'hostRef'
+    inputHref.setAttribute('value', item.hostRef);
+    var inputEppo = document.createElement('input');
+    inputEppo.id = 'eppoCode'+index;
+    inputEppo.style = 'display:none'
+    inputEppo.name = 'eppoCode'
+    inputEppo.setAttribute('value', item.eppoCode);
+    liOne.appendChild(inputHref)
+    liOne.appendChild(inputEppo)
     var latinName, commonName, synonymName;
     item.result.filter(function(el) {
       if (el.type === "LATIN_NAME") {
@@ -353,14 +377,14 @@
       if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME' && latinName.split(' ')[1] !== undefined){
        latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
       }
-      synonymNameHTML(synonymName, commonName)
+      synonymNameHTML(synonymName, item, commonName)
     } else {
     if (item.highlight !== 'SYNONYM_NAME'){
       if (latinName !== undefined  && latinName.split(' ')[1] !== undefined){
         latinInnerHTMLText = capitalizeFirstLetter(latinName)
       }
     }  
-      synonymNameHTML(synonymName, commonName)
+      synonymNameHTML(synonymName, item, commonName)
     }
 
     if (latinInnerHTMLText) {
@@ -375,17 +399,19 @@
     anchorOne.id = index;
     divisionOne.appendChild(anchorOne);
     searchResults.style.display = 'inline-block';
-    searchResults.addEventListener('click', function(e) {
+ 
+  }
+
+   searchResults.addEventListener('click', function(e) {
       var autocompleteInputValue = document.getElementById('query');
       autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
       var hostRefElement = document.getElementById('hostRef');
       var eppoCodeElement = document.getElementById('eppoCode');
-      hostRefElement.value = item.hostRef;
-      eppoCodeElement.value = item.eppoCode;
+      hostRefElement.value = document.getElementById('hostRef'+e.target.id).value;
+      eppoCodeElement.value =document.getElementById('eppoCode'+e.target.id).value;
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
     });
-  }
 </script>
 
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
