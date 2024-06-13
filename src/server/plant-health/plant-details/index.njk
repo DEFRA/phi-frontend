@@ -45,7 +45,7 @@
         } %}
         {% include "partials/import-rules.njk" %}
       {% else %}
-      {% if (annexSixRule) and (annexSixRule === '6A1' or annexSixRule === '6B5') %}
+      {% if (annexSixRule) and (annexSixRule !== 'INNS') %}
         {% set data = {
         mainContent: mainContent,
         countrySearchQuery: countrySearchQuery,
