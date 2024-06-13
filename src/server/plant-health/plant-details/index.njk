@@ -84,28 +84,29 @@
           </thead>
           <tbody class="govuk-table__body">
             {% for item in pest_names %}
-              <tr class="govuk-table__row">
-              {% if item.quarantine_indicator === "R" and format === "plants for planting"  %}
-                <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
-                <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
-                <td class="govuk-table__cell">{{item.regulated_indicator}}</td>
-              {% else %}
-              {% if item.quarantine_indicator !== "R"%}
-                {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
-                  <td class="govuk-table__cell">{{item.name[0].NAME}}
-                    <br>
-                    <br>
-                    <p class="govuk-body-s">{{mainContent.checkAnnex3Text}}&nbsp;<a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">Plant Health Regulations</a>&nbsp;{{mainContent.checkAnnex3Text1}}&nbsp;{{mainContent.checkAnnex3Text2}}<p>
-                  </td>
+              {% if (item.status === 'Present')or (item.status === 'Present (Limited)') or (item.status === 'Present (Unknown Distribution)') or (item.status === 'Present (Widespread)') %}
+                <tr class="govuk-table__row">
+                {% if (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
+                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  <td class="govuk-table__cell">{{item.regulated_indicator}}</td>
                 {% else %}
-                <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                {% if item.quarantine_indicator !== "R"%}
+                  {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
+                    <td class="govuk-table__cell">{{item.name[0].NAME}}
+                      <br>
+                      <br>
+                      <p class="govuk-body-s">{{mainContent.checkAnnex3Text}}&nbsp;<a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">Plant Health Regulations</a>&nbsp;{{mainContent.checkAnnex3Text1}}&nbsp;{{mainContent.checkAnnex3Text2}}<p>
+                    </td>
+                  {% else %}
+                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  {% endif %}
+                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
                 {% endif %}
-                <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
-                <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
-              {% endif %}
                 {% endif %}
-              
-            </tr>
+                </tr>
+              {% endif %}  
             {% endfor %}
           </tbody>
         </table>
