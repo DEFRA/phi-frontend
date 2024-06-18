@@ -39,7 +39,7 @@ const countrySearchController = {
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
         return h.view('plant-health/format/index', {
-          pageTitle: 'Format',
+          pageTitle: 'Plant format',
           heading: 'Format',
           getHelpSection,
           mainContent,
@@ -75,7 +75,7 @@ const countrySearchController = {
           countrySearchQuery,
           searchQuery,
           fullSearchQuery,
-          pageTitle: 'Country Search',
+          pageTitle: 'Import from country selection',
           heading: 'Country Search',
           errors,
           errorMessage

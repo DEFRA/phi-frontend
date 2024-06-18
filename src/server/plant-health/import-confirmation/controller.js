@@ -26,7 +26,7 @@ const importConfirmationController = {
         const getHelpSection = searchData?.getHelpSection
         const frontendUrl = config.get('frontendUrl')
         return h.view('plant-health/search/index', {
-          pageTitle: 'Search',
+          pageTitle: 'Plant search',
           heading: 'Search',
           getHelpSection,
           mainContent,
@@ -42,7 +42,7 @@ const importConfirmationController = {
           {
             serviceUnavailablePage,
             getHelpSection,
-            pageTitle: 'ImportConfirmation',
+            pageTitle: 'NI not supported',
             heading: 'ImportConfirmation'
           }
         )
@@ -52,7 +52,7 @@ const importConfirmationController = {
         })
         const searchQuery = request.yar?.get('searchQuery')
         return h.view('plant-health/country-search/index', {
-          pageTitle: 'Country',
+          pageTitle: 'Import from country selection',
           heading: 'Country',
           getHelpSection,
           searchQuery
@@ -79,7 +79,7 @@ const importConfirmationController = {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle: 'ImportConfirmation',
+          pageTitle: 'Import to country selection',
           heading: 'ImportConfirmation',
           errors,
           errorMessage

@@ -36,7 +36,7 @@ const searchPageController = {
         const getHelpSection = data?.getHelpSection
         const countrySearchQuery = request.yar.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
-          pageTitle: 'Country',
+          pageTitle: 'Import from country selection',
           heading: 'Country',
           getHelpSection,
           mainContent,
@@ -65,7 +65,7 @@ const searchPageController = {
           getHelpSection,
           searchQuery,
           frontendUrl,
-          pageTitle: 'Search',
+          pageTitle: 'Plant search',
           heading: 'Search',
           errors,
           errorMessage

@@ -114,7 +114,7 @@ const formatPageController = {
           countrySearchQuery,
           searchQuery,
           fullSearchQuery,
-          pageTitle: 'Format',
+          pageTitle: 'Plant format',
           heading: 'Format',
           errors,
           errorMessage
