@@ -28,7 +28,7 @@
     eppoCode: eppoCode
     } %}
     {% include "partials/identity.njk" %}
-    <h2 class="govuk-heading-m">
+    <h2 class="govuk-heading-m govuk-!-padding-top-3">
       {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
     </h2>
     {% if (outcome) and (outcome === 'Prohibited') %}
@@ -63,15 +63,15 @@
     {{mainContent.pestHeader}}
     </h2>
      {% if (pest_names.length === 0) %}
-        <p class="govuk-body-s">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
+        <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
       {% else %}
-        <p class="govuk-body-s">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
+        <p class="govuk-body">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
           {{mainContent.pestContentHundredPercentText2}} 
           {{countrySearchQuery.value | capitalize}} 
           {{mainContent.pestContentHundredPercentText3}} 
           {{mainContent.pestContentHundredPercentText4}}
           </p>
-          <p class="govuk-body-s">
+          <p class="govuk-body">
             {{mainContent.pestContentHundredPercentText5}}
             <a class="govuk-link"
                   href="https://www.gov.uk/guidance/contact-apha#plant-health-reports-and-other-queries">report any suspicions of these pests or diseases to the relevant authority.
@@ -88,14 +88,18 @@
           </thead>
           <tbody class="govuk-table__body">
             {% for item in pest_names %}
-              {% if (item.status === 'Present')or (item.status === 'Present (Limited)') or (item.status === 'Present (Unknown Distribution)') or (item.status === 'Present (Widespread)') %}
+              {% if (item.pest_country['STATUS'] === 'Present') or (item.pest_country['STATUS'] === 'Present (Limited)') or (item.pest_country['STATUS'] === 'Present (Unknown Distribution)') or (item.pest_country['STATUS'] === 'Present (Widespread)') %}
                 <tr class="govuk-table__row">
-                {% if (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
+                {% if (item.quarantine_indicator) and (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
                   <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
-                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  {% if item.name[1].NAME?.length > 0 %}
+                   <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  {% else %}
+                   <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                  {% endif %}
                   <td class="govuk-table__cell">{{item.regulated_indicator}}</td>
-                {% else %}
-                {% if item.quarantine_indicator !== "R"%}
+               {% else %}
+               {% if (item.quarantine_indicator) and item.quarantine_indicator !== "R"%}
                   {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
                     <td class="govuk-table__cell">{{item.name[0].NAME}}
                       <br>
@@ -103,12 +107,16 @@
                       <p class="govuk-body-s">{{mainContent.checkAnnex3Text}}&nbsp;<a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">Plant Health Regulations</a>&nbsp;{{mainContent.checkAnnex3Text1}}&nbsp;{{mainContent.checkAnnex3Text2}}<p>
                     </td>
                   {% else %}
-                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                   <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
                   {% endif %}
-                  <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  {% if item.name[1].NAME.length > 0 %}
+                   <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  {% else %}
+                   <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                  {% endif %}
                   <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
-                {% endif %}
-                {% endif %}
+               {% endif %}
+              {% endif %}
                 </tr>
               {% endif %}  
             {% endfor %}

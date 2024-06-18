@@ -1,16 +1,16 @@
 <span class="govuk-caption-l">
 {{data.mainContent.headerText}}
 </span>
-<h1 class="govuk-heading-m">
+<h1 class="govuk-heading-xl">
 {{data.searchQuery.value | capitalize}}
 </h1>
-<h2 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}
-</h2>
+</h3>
 <p>{{preferredName}}</p>
-<h2 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.commonNameHeading}}
-</h2>
+</h3>
 <ul class="govuk-list">
 {% if data.commonNames.length > 0 %}
 {% for item in data.commonNames %}

@@ -29,7 +29,7 @@
   },
   "errors": {
     "titleText": "There is a problem",
-    "formatPageErrorListText1": "Select which format of",
-    "formatPageErrorListText2": "are you importing?"
+    "formatPageErrorListText1": "Select the format of",
+    "formatPageErrorListText2": "you are importing"
   }
 }
