@@ -19,7 +19,7 @@ const purposeOfVisitController = {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle: 'Plant',
+          pageTitle: 'Import to country selection',
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
@@ -31,7 +31,7 @@ const purposeOfVisitController = {
         return h.view('plant-health/service-unavailable.njk', {
           getHelpSection,
           serviceUnavailablePage,
-          pageTitle: 'Plant',
+          pageTitle: 'NI not supported',
           heading: 'Plant'
         })
       } else {
@@ -55,7 +55,7 @@ const purposeOfVisitController = {
         return h.view('plant-health/index', {
           mainContent,
           getHelpSection,
-          pageTitle: 'Plant',
+          pageTitle: 'Select journey',
           heading: 'Plant',
           radiobuttonValue,
           errors,

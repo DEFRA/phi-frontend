@@ -24,7 +24,7 @@ const countrySearchController = {
         value: request.yar?.get('eppoCode')?.value
       })
       request.yar.set('format', {
-        value: decodeURI(request.query.format)
+        value: request?.yar?.get('format')?.value
       })
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value

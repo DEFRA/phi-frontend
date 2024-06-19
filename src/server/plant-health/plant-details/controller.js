@@ -84,7 +84,7 @@ const plantDetailsPageController = {
           hostRef,
           eppoCode,
           fullSearchQuery,
-          pageTitle: 'Format',
+          pageTitle: 'Plant Format',
           heading: 'Format',
           errors,
           errorMessage
