@@ -242,6 +242,10 @@
         liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
         liNew.textContent = "No results found"
         searchResults.appendChild(liNew);
+        var hostRefElement = document.getElementById('hostRef');
+      var eppoCodeElement = document.getElementById('eppoCode');
+      hostRefElement.value = ''
+      eppoCodeElement.value = ''
         searchResults.style.display = 'inline-block';
       } else {
         filterResults.forEach(function(resultSet) {

@@ -19,12 +19,6 @@ const importConfirmationController = {
           request.yar.set('searchQuery', {
             value: request.query.searchQuery
           })
-          request.yar.set('hostRef', {
-            value: request.query.hostRef
-          })
-          request.yar.set('eppoCode', {
-            value: request.query.eppoCode
-          })
         }
         const searchQuery = request.yar?.get('searchQuery')
         const searchData = getDefaultLocaleData('search')
@@ -33,6 +27,8 @@ const importConfirmationController = {
         const frontendUrl = config.get('frontendUrl')
         const hostRef = request.yar.get('hostRef')?.value
         const eppoCode = request.yar.get('eppoCode')?.value
+        request.yar.set('hostRef', null)
+        request.yar.set('eppoCode', null)
         return h.view('plant-health/search/index', {
           pageTitle: 'Plant search',
           heading: 'Search',

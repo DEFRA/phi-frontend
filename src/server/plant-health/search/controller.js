@@ -49,7 +49,8 @@ const searchPageController = {
         })
       } else {
         const searchQuery = request.yar?.get('searchQuery')
-        if (request.query.searchQuery === '') {
+        const hostRef = request?.yar?.get('hostRef')?.value
+        if (request.query.searchQuery === '' || hostRef === '') {
           const errorData = getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
