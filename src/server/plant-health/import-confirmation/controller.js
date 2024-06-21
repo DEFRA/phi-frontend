@@ -25,10 +25,16 @@ const importConfirmationController = {
         const mainContent = searchData?.mainContent
         const getHelpSection = searchData?.getHelpSection
         const frontendUrl = config.get('frontendUrl')
+        const hostRef = request.yar.get('hostRef')?.value
+        const eppoCode = request.yar.get('eppoCode')?.value
+        request.yar.set('hostRef', null)
+        request.yar.set('eppoCode', null)
         return h.view('plant-health/search/index', {
-          pageTitle: 'Search',
+          pageTitle: 'Plant search',
           heading: 'Search',
           getHelpSection,
+          hostRef,
+          eppoCode,
           mainContent,
           frontendUrl,
           searchQuery
@@ -42,7 +48,7 @@ const importConfirmationController = {
           {
             serviceUnavailablePage,
             getHelpSection,
-            pageTitle: 'ImportConfirmation',
+            pageTitle: 'NI not supported',
             heading: 'ImportConfirmation'
           }
         )
@@ -52,7 +58,7 @@ const importConfirmationController = {
         })
         const searchQuery = request.yar?.get('searchQuery')
         return h.view('plant-health/country-search/index', {
-          pageTitle: 'Country',
+          pageTitle: 'Import from country selection',
           heading: 'Country',
           getHelpSection,
           searchQuery
@@ -79,7 +85,7 @@ const importConfirmationController = {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle: 'ImportConfirmation',
+          pageTitle: 'Import to country selection',
           heading: 'ImportConfirmation',
           errors,
           errorMessage

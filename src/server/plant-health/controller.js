@@ -14,7 +14,7 @@ const plantHealthController = {
       return h.view('plant-health/index', {
         mainContent,
         getHelpSection,
-        pageTitle: 'Plant',
+        pageTitle: 'Select journey',
         heading: 'Plant',
         radiobuttonValue
       })

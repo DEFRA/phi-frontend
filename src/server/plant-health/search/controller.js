@@ -36,7 +36,7 @@ const searchPageController = {
         const getHelpSection = data?.getHelpSection
         const countrySearchQuery = request.yar.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
-          pageTitle: 'Country',
+          pageTitle: 'Import from country selection',
           heading: 'Country',
           getHelpSection,
           mainContent,
@@ -49,7 +49,8 @@ const searchPageController = {
         })
       } else {
         const searchQuery = request.yar?.get('searchQuery')
-        if (request.query.searchQuery === '') {
+        const hostRef = request?.yar?.get('hostRef')?.value
+        if (request.query.searchQuery === '' || hostRef === '') {
           const errorData = getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
@@ -65,7 +66,7 @@ const searchPageController = {
           getHelpSection,
           searchQuery,
           frontendUrl,
-          pageTitle: 'Search',
+          pageTitle: 'Plant search',
           heading: 'Search',
           errors,
           errorMessage

@@ -15,6 +15,6 @@
   },
   "errors": {
     "titleText": "There is a problem",
-    "searchErrorListText": "Select What plant or plant product are you importing"
+    "searchErrorListText": "Enter the name of the plant or plant product you are importing"
   }
 }

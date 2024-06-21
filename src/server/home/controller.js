@@ -34,7 +34,7 @@ const homeController = {
       textAfterStartNowSection,
       relatedContentSection,
       getHelpSection,
-      pageTitle: 'Home',
+      pageTitle: 'Start page',
       heading: '',
       breadcrumbs: [
         {

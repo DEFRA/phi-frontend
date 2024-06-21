@@ -1,8 +1,14 @@
-<h2 class="govuk-heading-m">
+<h3 class="govuk-heading-s">
     {{data.mainContent.prohibitedHeader}}
-</h2>
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
-    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}
 </h3>
-<p class="govuk-body-s govuk-!-margin-top-0">{{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive"></span>
+    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}
+   </strong>
+   </div> 
+<div class="govuk-body">   
+ <p class="govuk-body govuk-!-margin-top-0">{{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
             href={{data.url}}>{{data.urlText}}</a></p>
+</div>            

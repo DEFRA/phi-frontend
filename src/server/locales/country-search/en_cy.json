@@ -16,7 +16,7 @@
   },
   "errors": {
     "titleText": "Mae yna broblem",
-    "searchErrorListText1": "Dewiswch pa wlad ydych chi'n ei mewnforio",
-    "searchErrorListText2": "o?"
+    "searchErrorListText1": "Rhowch enw'r wlad rydych chi'n ei mewnforio",
+    "searchErrorListText2": "o"
   }
 }

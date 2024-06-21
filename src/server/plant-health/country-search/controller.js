@@ -24,7 +24,7 @@ const countrySearchController = {
         value: request.yar?.get('eppoCode')?.value
       })
       request.yar.set('format', {
-        value: decodeURI(request.query.format)
+        value: request?.yar?.get('format')?.value
       })
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
@@ -39,7 +39,7 @@ const countrySearchController = {
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
         return h.view('plant-health/format/index', {
-          pageTitle: 'Format',
+          pageTitle: 'Plant format',
           heading: 'Format',
           getHelpSection,
           mainContent,
@@ -75,7 +75,7 @@ const countrySearchController = {
           countrySearchQuery,
           searchQuery,
           fullSearchQuery,
-          pageTitle: 'Country Search',
+          pageTitle: 'Import from country selection',
           heading: 'Country Search',
           errors,
           errorMessage

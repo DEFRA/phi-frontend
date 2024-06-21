@@ -24,7 +24,7 @@
           {{mainContent.headerText}}
         </label>
       </h1>
-      <label class="govuk-label" for="event-name">
+      <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
         {{mainContent.searchText1}}
       </label>
       {% if errorMessage.message %}
@@ -40,8 +40,8 @@
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
-    <input id="hostRef" name="hostRef" style="display: none;"></input>
-    <input id="eppoCode" name="eppoCode" style="display: none;"></input>
+    <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
+    <input id="eppoCode" name="eppoCode" style="display: none;" value={{eppoCode}}></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -242,6 +242,10 @@
         liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
         liNew.textContent = "No results found"
         searchResults.appendChild(liNew);
+        var hostRefElement = document.getElementById('hostRef');
+      var eppoCodeElement = document.getElementById('eppoCode');
+      hostRefElement.value = ''
+      eppoCodeElement.value = ''
         searchResults.style.display = 'inline-block';
       } else {
         filterResults.forEach(function(resultSet) {
