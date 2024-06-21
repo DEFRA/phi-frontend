@@ -259,17 +259,6 @@
             createAndAppendLiElement(item, synonymIndex)
           })
         });
-
-      searchResults.addEventListener('click', function(e) {
-        var autocompleteInputValue = document.getElementById('query');
-        autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
-        var hostRefElement = document.getElementById('hostRef');
-        var eppoCodeElement = document.getElementById('eppoCode');
-        hostRefElement.value = document.getElementById('hostRef'+e.target.id.slice(-1)).value;
-        eppoCodeElement.value =document.getElementById('eppoCode'+e.target.id.slice(-1)).value;
-        searchResults.innerHTML = '';
-        searchResults.style.display = 'none';
-    });
       }
     }
 
@@ -300,11 +289,11 @@
       li.id = 'synonymName' + i;
       li.appendChild(division)
       var inputHref = document.createElement('input');
-      inputHref.id = 'hostRef'+i;
+      inputHref.id = 'hostRef'+ sname +i;
       inputHref.style = 'display:none'
       inputHref.setAttribute('value', item.hostRef);
       var inputEppo = document.createElement('input');
-      inputEppo.id = 'eppoCode'+i;
+      inputEppo.id = 'eppoCode'+ sname +i;
       inputEppo.style = 'display:none'
       inputEppo.setAttribute('value', item.eppoCode);
       li.appendChild(inputHref)
@@ -407,7 +396,17 @@
     searchResults.style.display = 'inline-block';
  
   }
-
+  
+   searchResults.addEventListener('click', function(e) {
+    var autocompleteInputValue = document.getElementById('query');
+    autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
+    var hostRefElement = document.getElementById('hostRef');
+    var eppoCodeElement = document.getElementById('eppoCode');
+    hostRefElement.value = document.getElementById('hostRef'+e.target.id).value;
+    eppoCodeElement.value =document.getElementById('eppoCode'+e.target.id).value;
+    searchResults.innerHTML = '';
+    searchResults.style.display = 'none';
+    });
 
 </script>
 
