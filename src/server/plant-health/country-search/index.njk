@@ -39,6 +39,7 @@
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 342px; display: none; overflow: auto"></ul>
+    <input class="govuk-input" id="emptyCountrySearchQuery" name="emptyCountrySearchQuery" autocomplete="off" type="text"  style="display: none;">
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -115,6 +116,8 @@
       liNew.textContent = "No results found"
       searchResults.appendChild(liNew);
       searchResults.style.display = 'inline-block';
+      var autocompleteInputValue = document.getElementById('emptyCountrySearchQuery');
+      autocompleteInputValue.value = true;
     }
   }
   
