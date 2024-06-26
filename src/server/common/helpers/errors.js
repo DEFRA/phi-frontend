@@ -28,6 +28,8 @@ function setErrorMessage(request, titleText, errorListText) {
   request.yar.set('errorMessage', {
     message: { text: errorListText }
   })
+
+  return true
 }
 
 function catchAll(request, h) {

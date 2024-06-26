@@ -14,7 +14,7 @@ const searchPageController = {
       })
       request.yar.set('searchQuery', {
         value: decodeURI(
-          request.query.searchQuery.replace(/ *\([^)]*\) */g, '')
+          request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
         )
       })
       request.yar.set('hostRef', {

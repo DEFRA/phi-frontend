@@ -32,7 +32,8 @@ const countrySearchController = {
       const searchValue = searchInput?.value
       const radiobuttonValue = request?.yar?.get('format')?.value
       const searchQuery = request.yar?.get('searchQuery')
-      if (searchValue && !request.query.emptyCountrySearchQuery) {
+
+      if (searchValue && request.query.emptyCountrySearchQuery === 'false') {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const data = getDefaultLocaleData('format')
@@ -56,7 +57,8 @@ const countrySearchController = {
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         if (
           request.query.countrySearchQuery === '' ||
-          request.query.emptyCountrySearchQuery
+          (request.query.emptyCountrySearchQuery === 'true' &&
+            request.query.countrySearchQuery !== '')
         ) {
           const errorData = getDefaultLocaleData('country-search')
           const errorSection = errorData?.errors

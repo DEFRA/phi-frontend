@@ -36,5 +36,9 @@
 {{mainContent.eppoCodeHeading}}
 </h3>
 <p>
-{{eppoCode}}
+{% if eppoCode !== '' %}
+ {{eppoCode}}
+{%else%}
+ {{data.mainContent.noneText}}
+{%endif%}
 </p>

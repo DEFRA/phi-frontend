@@ -52,17 +52,6 @@ const importConfirmationController = {
             heading: 'ImportConfirmation'
           }
         )
-      } else if (request.query.searchQuery) {
-        request.yar.set('searchQuery', {
-          value: decodeURI(request.query.searchQuery)
-        })
-        const searchQuery = request.yar?.get('searchQuery')
-        return h.view('plant-health/country-search/index', {
-          pageTitle: 'Import from country selection',
-          heading: 'Country',
-          getHelpSection,
-          searchQuery
-        })
       } else {
         request.yar.set('errors', '')
         request.yar.set('errorMessage', '')
