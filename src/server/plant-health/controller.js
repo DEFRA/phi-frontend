@@ -6,6 +6,13 @@ const plantHealthController = {
     const getHelpSection = data?.getHelpSection
 
     if (request != null) {
+      if (request.query.findanotherpest === 'true') {
+        request.yar.set('purposeOfVisitRadiooption', null)
+        request.yar.set('importConfirmationRadiooption', null)
+        request.yar.set('searchQuery', null)
+        request.yar.set('countrySearchQuery', null)
+        request.yar.set('format', null)
+      }
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
       request.yar.set('errorMessageRadio', '')

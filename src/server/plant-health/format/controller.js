@@ -96,6 +96,7 @@ const formatPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
+        const hostRef = request?.yar?.get('hostRef')?.value
         setErrorMessage(
           request,
           errorSection.titleText,
@@ -114,6 +115,7 @@ const formatPageController = {
           countrySearchQuery,
           searchQuery,
           fullSearchQuery,
+          hostRef,
           pageTitle: 'Plant format',
           heading: 'Format',
           errors,
