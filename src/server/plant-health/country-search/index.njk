@@ -66,6 +66,8 @@
   });
   function fetchSuggestions(query) { // Mock API endpoint URL
     var apiUrl = '/search/countries?searchQuery=' + query;
+    var emptyCoutrySearchValue = document.getElementById('emptyCountrySearchQuery');
+      emptyCoutrySearchValue.value = true;
     fetch(apiUrl)
       .then(response => response.json())
       .then(data => {
