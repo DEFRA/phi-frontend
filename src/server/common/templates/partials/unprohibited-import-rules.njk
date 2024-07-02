@@ -1,0 +1,124 @@
+<h3 class="govuk-heading-s">
+    {{data.mainContent.importRulesHeader}}
+</h3>
+{% if (data.result.annex11RulesArr.length > 1)%}
+ {% for item in data.result.annex11RulesArr%}
+  {% if item['BTOM_EUSL'] === '11A'%}
+    <div class="govuk-body"> 
+      <h3 class="govuk-heading-s">
+      {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1%}  
+        {{data.format | capitalize}}(other than {{item['SERVICE_SUBFORMAT_EXCLUDED']}})
+      {% else %}
+        {{data.format | capitalize}}
+      {% endif %}
+     </h3>  
+      <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}
+      </p>    
+      <ul class="govuk-list govuk-list--bullet">
+          <li>
+            <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#get-a-phytosanitary-certificate-pc">register to import</a> if you're a first-time importer
+          </li>
+          <li>
+            get a <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">phytosanitary certificate from your exporter</a>
+          </li>
+          <li>
+            meet the <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">ISPM 15 international standard</a> for any wood packaging material&nbsp;you use
+          </li>
+          <li>
+            <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/">notify the relevant authorities about your import</a>
+          </li>
+          <li>
+            comply with documentary, <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="#">identity and physical checks</a> at the border
+          </li>
+          <li>
+          pay <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="#">fees for plant health checks</a>
+          </li>
+        </ul>
+      <div class="govuk-inset-text">
+        You may need to include an additional declaration on the phytosanitary certificate. To find out,  <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool (opens in a new tab)</a>.
+      </div>
+    </div>  
+  {% endif %}  
+  {% if item['BTOM_EUSL'] === '11B'%}
+    <div class="govuk-body">   
+      <h3 class="govuk-heading-s"> 
+        {% if data.result.hybridIndicator.length >= 1 %}
+        hybrid
+        {% endif %}
+      
+        {% if data.result.dormantIndicator.length >= 1 %}
+        dormant
+        {% endif %} 
+        
+        {% if data.result.seedIndicator.length >= 1 %}
+        seeds
+        {% endif %}
+      
+        {% if data.result.fruitIndicator.length >= 1 %}
+        fruit
+        {% endif %}
+        
+        {% if data.result.bonsaiIndicator.length >= 1 %}
+        naturally and artificially dwarfed
+        {% endif %}
+        
+        {% if data.result.invintroIndicator.length >= 1 %}
+        invitro material
+        {% endif %}
+      </h3>
+           
+      <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}
+      </p>    
+      <ul class="govuk-list govuk-list--bullet">
+          <li>
+            get a <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#get-a-phytosanitary-certificate-pc">phytosanitary certificate from the National Plant Protection Organisation of the exporting country </a> 
+          </li>
+          <li>
+            meet the <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a>for any wood packaging material you use 
+          </li>
+        </ul>
+      <div class="govuk-inset-text">
+        <p>The phytosanitary certificate may need an additional declaration.</p> <p>To find out,  <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool (opens in a new tab)</a>.</p>
+      </div>
+    </div>  
+  {% endif %}   
+  {% if item['BTOM_EUSL'] === '11C'%}
+    <div class="govuk-body">  
+      <h3 class="govuk-heading-s"> 
+        {% if data.result.hybridIndicator.length >= 1 %}
+        hybrid
+        {% endif %}
+      
+        {% if data.result.dormantIndicator.length >= 1 %}
+        dormant
+        {% endif %} 
+        
+        {% if data.result.seedIndicator.length >= 1 %}
+        seeds
+        {% endif %}
+      
+        {% if data.result.fruitIndicator.length >= 1 %}
+        fruit
+        {% endif %}
+        
+        {% if data.result.bonsaiIndicator.length >= 1 %}
+        naturally and artificially dwarfed
+        {% endif %}
+        
+        {% if data.result.invintroIndicator.length >= 1 %}
+        invitro material
+        {% endif %}
+      </h3>
+           
+      <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
+      </p>    
+     <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+          You can <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods</a>
+      </p>
+    </div>  
+  {% endif %}   
+ {% endfor %} 
+{%endif%}

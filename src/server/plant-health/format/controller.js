@@ -42,7 +42,7 @@ const formatPageController = {
         const mainContent = plantData?.mainContent
         const getHelpSection = plantData?.getHelpSection
         const format = request.yar?.get('format')?.value
-
+        let ulIndicatorFlag = false
         if (request.yar?.get('hostRef')?.value) {
           const plantDetails = {
             hostRef: parseInt(request.yar?.get('hostRef')?.value),
@@ -50,8 +50,16 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          ulIndicatorFlag =
+            ulIndicatorFlag ||
+            result.annex11RulesArr.some((annex11Rules) => {
+              return (
+                annex11Rules.SERVICE_SUBFORMAT_EXCLUDED.split(',').length > 0
+              )
+            })
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
+            ulIndicatorFlag,
             pageTitle: 'Plant Details',
             heading: 'Plant Details',
             getHelpSection,
@@ -59,6 +67,7 @@ const formatPageController = {
             hostRef,
             format,
             outcome: result.outcome,
+            result,
             annexSixRule: result.annexSixRule,
             annexElevenRule: result.annexElevenRule,
             eppoCode: result.eppoCode,

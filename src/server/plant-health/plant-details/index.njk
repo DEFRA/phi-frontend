@@ -20,6 +20,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
       {% set data = {
+    result: result,
     mainContent: mainContent,
     searchQuery: searchQuery,
     commonNames: commonNames,
@@ -35,6 +36,7 @@
      
       {% if (annexSixRule) and (annexSixRule === 'INNS') %}
         {% set data = {
+        result: result,
         mainContent: mainContent,
         countrySearchQuery: countrySearchQuery,
         format: format,
@@ -44,8 +46,9 @@
         } %}
         {% include "partials/import-rules.njk" %}
       {% else %}
-      {% if (annexSixRule) and (annexSixRule !== 'INNS') %}
+       {% if (annexSixRule) and (annexSixRule !== 'INNS') and (result.subformat !== 'x') %}
         {% set data = {
+        result: result,
         mainContent: mainContent,
         countrySearchQuery: countrySearchQuery,
         format: format,
@@ -54,10 +57,37 @@
         url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
         } %}
         {% include "partials/import-rules.njk" %}
+      {% else %}  
+        {% if (annexSixRule) and (annexSixRule !== 'INNS') and (result.subformat === 'x') %}
+          {% set data = {
+          result: result,
+          mainContent: mainContent,
+          countrySearchQuery: countrySearchQuery,
+          format: format,
+          searchQuery: searchQuery,
+          urlText: "apply for authorisation to import your plant or plant product.",
+          url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
+          } %}
+          {% include "partials/partially-prohibited-import-rules.njk" %}
+          {% include "partials/unprohibited-import-rules.njk" %}
+        {%endif%}  
       {% endif %}
       
       {%endif%}
      
+    {% else %}
+     {% if (outcome) and (outcome === 'not prohibited') %}
+        {% set data = {
+        result: result,
+        mainContent: mainContent,
+        countrySearchQuery: countrySearchQuery,
+        format: format,
+        searchQuery: searchQuery,
+        urlText: "apply for authorisation to import your plant or plant product.",
+        url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
+        } %}
+        {% include "partials/unprohibited-import-rules.njk" %}
+     {% endif %}
     {% endif %}
     <h2 class="govuk-heading-m">
     {{mainContent.pestHeader}}

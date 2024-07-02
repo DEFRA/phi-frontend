@@ -8,7 +8,7 @@
     "noneText": "None",
     "importRulesHeaderText1": "Importing",
     "importRulesHeaderText2": "from",
-    "prohibitedHeader": "Prohibited information",
+    "prohibitedHeader": "Prohibition information",
     "prohibitedContentText1": "You must not import",
     "prohibitedContentText2": "as",
     "prohibitedContentText3": "Despite import restrictions, you may be able to",
@@ -26,7 +26,14 @@
     "allFormatText": "All Formats",
     "checkAnnex3Text": "This pest is only a concern in certain areas of Great Britain. Check Annex 3 of the",
     "checkAnnex3Text1": "2020",
-    "checkAnnex3Text2": "for details."
+    "checkAnnex3Text2": "for details.",
+    "exceptionHeader": "Prohibition exceptions",
+    "exceptionHelpText": "This prohibition does not apply to",
+    "prohibitionClarificationHeader": "Prohibition details",
+    "importRulesHeader": "Import Rules",
+    "unprohibitedHelpText1": "To import",
+    "unprohibitedHelpText2": "from",
+    "unprohibitedHelpText3": "you will need to"
   },
   "getHelpSection": {
     "titleText": "Get help with this service",
