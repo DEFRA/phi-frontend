@@ -58,7 +58,8 @@ const countrySearchController = {
         if (
           request.query.countrySearchQuery === '' ||
           (request.query.emptyCountrySearchQuery === 'true' &&
-            request.query.countrySearchQuery !== '')
+            request.query.countrySearchQuery !== '') ||
+          request.query.emptyCountrySearchQuery === ''
         ) {
           const errorData = getDefaultLocaleData('country-search')
           const errorSection = errorData?.errors

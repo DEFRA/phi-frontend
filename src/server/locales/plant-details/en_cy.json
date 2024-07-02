@@ -26,7 +26,14 @@
     "allFormatText": "Pob fformat",
     "checkAnnex3Text": "Dim ond mewn rhai ardaloedd o Brydain Fawr y mae'r pla hwn yn bryder. Gwiriwch Atodiad 3 y",
     "checkAnnex3Text1": "2020",
-    "checkAnnex3Text2": "am fanylion."
+    "checkAnnex3Text2": "am fanylion.",
+    "exceptionHeader": "Eithriadau gwahardd",
+    "exceptionHelpText": "Nid yw'r gwaharddiad hwn yn berthnasol i",
+    "ProhibitionClarificationHeader": "Manylion y gwaharddiad",
+    "importRulesHeader": "Rheolau Mewnforio",
+    "unprohibitedHelpText1": "I fewnforio",
+    "unprohibitedHelpText2": "rhag",
+    "unprohibitedHelpText3": "bydd angen i chi (mae'r dolenni canlynol yn agor mewn tab newydd)"
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",
