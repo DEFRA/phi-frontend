@@ -50,13 +50,15 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          ulIndicatorFlag =
-            ulIndicatorFlag ||
-            result.annex11RulesArr.some((annex11Rules) => {
-              return (
-                annex11Rules.SERVICE_SUBFORMAT_EXCLUDED.split(',').length > 0
-              )
-            })
+          if (result.annex11RulesArr?.length > 0) {
+            ulIndicatorFlag =
+              ulIndicatorFlag ||
+              result.annex11RulesArr.some((annex11Rules) => {
+                return (
+                  annex11Rules.SERVICE_SUBFORMAT_EXCLUDED.split(',').length > 0
+                )
+              })
+          }
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
