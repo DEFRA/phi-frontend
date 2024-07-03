@@ -79,7 +79,7 @@ const config = convict({
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
-    default: `http://localhost:3049`,
+    default: `https://phi-frontend.dev.cdp-int.defra.cloud`,
     env: 'BACKEND_API_URL'
   },
   frontendUrl: {
