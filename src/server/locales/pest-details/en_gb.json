@@ -1,0 +1,43 @@
+{
+  "mainContent": {
+    "headerText": "Pest or disease",
+    "preferredNameHeading": "Preferred name",
+    "commonNameHeading": "Common names",
+    "synonymNameHeading": "Synonyms",
+    "eppoCodeHeading": "EPPO code",
+    "noneText": "None",
+    "HeaderText1": "Plant health publications about",
+    "HeaderText3": "Reporting suspicions of ",
+    "content1":"You must report the suspicions of",
+    "content2":",wherever found.To report suspicions,you must",
+    "content7":"contact the relevant authority",
+    "content9":"if found in certain areas of Great Britain.​",
+    "content10":"For details of these areas, check ​",
+    "content11":"check Annex 3 of the Plant Health Regulations 2020. ​",
+    "content12":"To report suspicions,you must​",
+  
+   "content3":"If",
+    "HeaderTextFact": "Factsheet",
+    "HeaderTextOtherObs": "Other publications",
+    "HeaderTextFactTable1": "Date",
+    "HeaderTextFactTable2": "Title",
+    "content4":"is found on any of the listed plant-format combinations during routine plant health inspections,you will be asked to take action",
+    "HeaderText4": "Plants that are known to carry ",
+    "HeaderTextScientific": "Scientific name",
+    "HeaderTextCommon": "Commmon names",
+    "Planthealthfiletext": "These files may not be used of assistive technology",
+    "prohibitedHeader": "Prohibited information",
+    "prohibitedContentText1": "! You must not import",
+    "prohibitedContentText2": "as",
+    "prohibitedContentText3": "Despite import restrictions, you may be able to"
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "If you have any queries or you need technical support, email"
+    },
+    "betabannertext1": "This is a new service - your",
+    "betabannertext2": "will help us to improve it.",
+    "betaText": "BETA"
+  }
+}

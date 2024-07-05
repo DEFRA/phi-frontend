@@ -79,16 +79,36 @@ const config = convict({
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
-    default: `https://phi-etl-fera-backend.dev.cdp-int.defra.cloud`,
+    default: `http://localhost:3049`,
     env: 'BACKEND_API_URL'
   },
   frontendUrl: {
     doc: 'Frontend url',
     format: String,
-    default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    default: `http://localhost:3000`,
     env: 'FRONTEND_URL'
+  },
+  photoURL: {
+    doc: 'photo url',
+    format: String,
+    default: `https://gd.eppo.int/taxon/`,
+    env: 'phot_URL'
+  },
+  Annex3: {
+    doc: 'Annex3',
+    format: String,
+    default: `https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made`,
+    env: 'Annex3'
+  },
+  contactAuthorities: {
+    doc: 'contactAuthorities',
+    format: String,
+    default: `https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/`,
+    env: 'contactAuthorities'
   }
 })
+
+
 
 config.validate({ allowed: 'strict' })
 
