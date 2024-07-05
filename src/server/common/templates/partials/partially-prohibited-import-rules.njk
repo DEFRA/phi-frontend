@@ -18,7 +18,6 @@
     </h3>
     <div class="govuk-body">   
     <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">{{data.mainContent.exceptionHelpText}}
-        {% if data.result.annex11RulesArr.length > 1 %}
         {% if ulIndicatorFlag %}
             <ul>
                 {% if data.result.hybridIndicator.length === 1 %}
@@ -96,7 +95,6 @@
             <p class="govuk-!-margin-bottom-0">invitro({{data.result.invintroIndicator}})</p>
             {% endif %}
         {% endif %}
-    {% endif %}
     </div>
 {% endif %}
 {% if data.result.ProhibitionClarification.length > 1 %}
