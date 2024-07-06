@@ -87,6 +87,18 @@ const config = convict({
     format: String,
     default: `https://phi-frontend.test.cdp-int.defra.cloud`,
     env: 'FRONTEND_URL'
+  },
+  redis: {
+    useSingleInstanceCache: {
+      doc: 'Enable the use of a single instance Redis Cache',
+      format: Boolean,
+      default: true
+    },
+    redisHost: {
+      doc: 'Redis host name/IP',
+      format: String,
+      default: 'localhost'
+    }
   }
 })
 

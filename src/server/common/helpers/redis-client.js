@@ -17,30 +17,30 @@ function buildRedisClient() {
   const db = 0
   let redisClient
 
-  if (config.get('useSingleInstanceCache')) {
+  if (config.get('redis.useSingleInstanceCache')) {
     redisClient = new IoRedis({
       port,
-      host: config.get('redisHost'),
+      host: config.get('redis.redisHost'),
       db
     })
   } else {
     redisClient = new IoRedis.Cluster(
       [
         {
-          host: config.get('redisHost'),
+          host: config.get('redis.redisHost'),
           port
         }
-      ],
-      {
-        slotsRefreshTimeout: 10000,
-        dnsLookup: (address, callback) => callback(null, address),
-        redisOptions: {
-          username: config.get('redisUsername'),
-          password: config.get('redisPassword'),
-          db,
-          tls: {}
-        }
-      }
+      ]
+      // {
+      //   slotsRefreshTimeout: 10000,
+      //   dnsLookup: (address, callback) => callback(null, address),
+      //   redisOptions: {
+      //     username: config.get('redisUsername'),
+      //     password: config.get('redisPassword'),
+      //     db,
+      //     tls: {}
+      //   }
+      // }
     )
   }
 
