@@ -50,12 +50,14 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          // return result
           const subFormatArray = [
             result.hybridIndicator,
             result.dormantIndicator,
             result.seedIndicator,
             result.fruitIndicator,
-            result.bonsaiIndicator
+            result.bonsaiIndicator,
+            result.FormatClarification
           ]
           if (subFormatArray.join('').split('').length > 1) {
             ulIndicatorFlag = true

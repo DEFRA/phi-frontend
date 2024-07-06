@@ -33,7 +33,6 @@
       {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
     </h2>
     {% if (outcome) and (outcome.toLowerCase() === 'prohibited') %}
-     
       {% if (annexSixRule) and (annexSixRule === 'INNS') %}
         {% set data = {
         result: result,
@@ -57,24 +56,8 @@
         url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
         } %}
         {% include "partials/import-rules.njk" %}
-      {% else %}  
-        {% if (annexSixRule) and (annexSixRule !== 'INNS')%}
-          {% set data = {
-          result: result,
-          mainContent: mainContent,
-          countrySearchQuery: countrySearchQuery,
-          format: format,
-          searchQuery: searchQuery,
-          urlText: "apply for authorisation to import your plant or plant product.",
-          url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
-          } %}
-          {% include "partials/partially-prohibited-import-rules.njk" %}
-          {% include "partials/unprohibited-import-rules.njk" %}
-        {%endif%}  
       {% endif %}
-      
       {%endif%}
-     
     {% else %}
      {% if (outcome) and (outcome === 'partially-prohibited')%}
           {% set data = {
@@ -86,6 +69,7 @@
           urlText: "apply for authorisation to import your plant or plant product.",
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}
+          {% include "partials/partially-prohibited-with-exceptions.njk" %}
           {% include "partials/partially-prohibited-import-rules.njk" %}
       {%endif%}      
      {% if (outcome) and (outcome === 'un-prohibited') %}
@@ -98,7 +82,6 @@
         urlText: "apply for authorisation to import your plant or plant product.",
         url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
         } %}
-        {% include "partials/partially-prohibited-import-rules.njk" %}
         {% include "partials/unprohibited-import-rules.njk" %}
      {% endif %}
     {% endif %}
@@ -147,24 +130,17 @@
                     <td class="govuk-table__cell">{{item.name[0].NAME}}
                       <br>
                       <br>
-                      <p class="govuk-body-s">{{mainContent.checkAnnex3Text}}&nbsp;<a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">Plant Health Regulations</a>&nbsp;{{mainContent.checkAnnex3Text1}}&nbsp;{{mainContent.checkAnnex3Text2}}<p>
+                      <p class="govuk-body-s">This pest is only a concern in <a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">certain areas of Great Britain<a></p>
                     </td>
-                     {% if item.name[1].NAME.length > 0 %}
-                     <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
-                    {% else %}
-                     <td class="govuk-table__cell">{{mainContent.noneText}}</td>
-                     {% endif %}
-                     <td class="govuk-table__cell">This pest is only a concern in <a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">certain areas of Great Britain<a></td>
                   {% else %}
                    <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  {% endif %}
                    {% if item.name[1].NAME.length > 0 %}
                     <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
                    {% else %}
                     <td class="govuk-table__cell">{{mainContent.noneText}}</td>
-                    {% endif %}
-                   <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
-                  {% endif %}
-                 
+                   {% endif %}
+                    <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
                {% endif %}
               {% endif %}
                 </tr>
