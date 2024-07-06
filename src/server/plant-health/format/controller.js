@@ -50,14 +50,17 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          if (result.annex11RulesArr?.length > 0) {
-            ulIndicatorFlag =
-              ulIndicatorFlag ||
-              result.annex11RulesArr.some((annex11Rules) => {
-                return (
-                  annex11Rules.SERVICE_SUBFORMAT_EXCLUDED.split(',').length > 0
-                )
-              })
+          // return result
+          const subFormatArray = [
+            result.hybridIndicator,
+            result.dormantIndicator,
+            result.seedIndicator,
+            result.fruitIndicator,
+            result.bonsaiIndicator,
+            result.FormatClarification
+          ]
+          if (subFormatArray.join('').split('').length > 1) {
+            ulIndicatorFlag = true
           }
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
