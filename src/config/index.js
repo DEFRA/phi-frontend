@@ -99,6 +99,27 @@ const config = convict({
       format: String,
       default: 'localhost'
     }
+  },
+  phiPassword: {
+    doc: 'password for phi',
+    format: '*',
+    default: 'password',
+    sensitive: true,
+    env: 'PHI_PASSWORD'
+  },
+  cookiePassword: {
+    doc: 'password for  cookie',
+    format: '*',
+    default: 'the-password-must-be-at-least-32-characters-long',
+    sensitive: true,
+    env: 'COOKIE_PASSWORD'
+  },
+  sessionCookiePassword: {
+    doc: 'session password for  cookie',
+    format: '*',
+    default: 'the-password-must-be-at-least-32-characters-long',
+    sensitive: true,
+    env: 'SESSION_COOKIE_PASSWORD'
   }
 })
 

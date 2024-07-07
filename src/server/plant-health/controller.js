@@ -6,7 +6,7 @@ const plantHealthController = {
     const getHelpSection = data?.getHelpSection
 
     if (request != null) {
-      if (request.query.findanotherpest === 'true') {
+      if (request.query?.findanotherpest === 'true') {
         request.yar.set('purposeOfVisitRadiooption', null)
         request.yar.set('importConfirmationRadiooption', null)
         request.yar.set('searchQuery', null)
