@@ -46,6 +46,7 @@ function catchAll(request, h) {
 
   return h
     .view('error/index', {
+      statusCode,
       pageTitle: errorMessage,
       heading: statusCode,
       message: errorMessage
