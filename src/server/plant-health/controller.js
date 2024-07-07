@@ -1,7 +1,7 @@
 import { getDefaultLocaleData } from '../localisation'
 const plantHealthController = {
-  handler: (request, h) => {
-    const data = getDefaultLocaleData('plant-health')
+  handler: async (request, h) => {
+    const data = await getDefaultLocaleData('plant-health')
     const mainContent = data?.mainContent
     const getHelpSection = data?.getHelpSection
 

@@ -2,9 +2,9 @@ import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
 const searchPageController = {
-  handler: (request, h) => {
+  handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('search')
+      const data = await getDefaultLocaleData('search')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
@@ -31,7 +31,7 @@ const searchPageController = {
       if (searchValue && hostRef) {
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar.get('fullSearchQuery')
-        const data = getDefaultLocaleData('country-search')
+        const data = await getDefaultLocaleData('country-search')
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
         const countrySearchQuery = request.yar.get('countrySearchQuery')
@@ -51,7 +51,7 @@ const searchPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
         if (request.query.searchQuery === '' || hostRef === '') {
-          const errorData = getDefaultLocaleData('search')
+          const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
             request,
