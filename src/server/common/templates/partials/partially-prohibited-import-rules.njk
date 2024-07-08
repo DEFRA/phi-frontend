@@ -47,7 +47,7 @@
   {% endif %}  
   {% if item['BTOM_EUSL'] === '11B'%}
     <div class="govuk-body">   
-      {% if ulIndicatorFlag %}
+       {% if ulIndicatorFlag %}
         <h3 class="govuk-heading-s"> 
           {% if data.result.hybridIndicator.length >= 1 %}
           Hybrid or
@@ -70,7 +70,10 @@
           {% endif %}
           
           {% if data.result.invintroIndicator.length >= 1 %}
-          Invitro material
+          Invitro material or
+          {% endif %}
+         {% if data.result.FormatClarification.length > 1 %}
+          {{data.result.FormatClarification}}
           {% endif %}
         </h3>
       {% else %}
@@ -98,8 +101,12 @@
           {% if data.result.invintroIndicator.length >= 1 %}
           Invitro material
           {% endif %}
+
+          {% if data.result.FormatClarification.length > 1 %}
+          {{data.result.FormatClarification}}
+          {% endif %}
         </h3>
-      {% endif %}  
+      {% endif %} 
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}
