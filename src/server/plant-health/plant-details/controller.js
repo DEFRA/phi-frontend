@@ -1,9 +1,9 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const plantDetailsPageController = {
-  handler: (request, h) => {
+  handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('format')
+      const data = await getDefaultLocaleData('format')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
 
@@ -37,7 +37,7 @@ const plantDetailsPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const formatData = getDefaultLocaleData('format')
+        const formatData = await getDefaultLocaleData('format')
         const mainContent = formatData?.mainContent
         const getHelpSection = formatData?.getHelpSection
 
@@ -57,7 +57,7 @@ const plantDetailsPageController = {
         request.yar.set('errorMessage', '')
         request.yar.set('errorMessageRadio', '')
         radiobuttonValue = request?.yar?.get('format')
-        const errorData = getDefaultLocaleData('format')
+        const errorData = await getDefaultLocaleData('format')
         const errorSection = errorData?.errors
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')

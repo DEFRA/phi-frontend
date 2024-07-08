@@ -103,6 +103,14 @@ Run:
 docker run -p 3000:3000 phi-frontend
 ```
 
+## Api endpoints
+
+| Endpoint                 | Description                                                  |
+| :----------------------- | :----------------------------------------------------------- |
+| `POST: /search/plants`   | get plant info for seach input from user                     |
+| `GET: /search/countries` | writes plant data into collection                            |
+| `POST: /workflow`        | initiates workflow to get annex6 and annex11 rules for plant |
+
 ## Licence
 
 THIS INFORMATION IS LICENSED UNDER THE CONDITIONS OF THE OPEN GOVERNMENT LICENCE found at:

@@ -6,7 +6,7 @@ const axios = require('axios')
 const formatPageController = {
   handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('format')
+      const data = await getDefaultLocaleData('format')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
 
@@ -38,7 +38,7 @@ const formatPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const plantData = getDefaultLocaleData('plant-details')
+        const plantData = await getDefaultLocaleData('plant-details')
         const mainContent = plantData?.mainContent
         const getHelpSection = plantData?.getHelpSection
         const format = request.yar?.get('format')?.value
@@ -50,7 +50,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
           const subFormatArray = [
             result.hybridIndicator,
             result.dormantIndicator,
@@ -105,7 +104,7 @@ const formatPageController = {
         request.yar.set('errorMessage', '')
         request.yar.set('errorMessageRadio', '')
         radiobuttonValue = request?.yar?.get('format')
-        const errorData = getDefaultLocaleData('format')
+        const errorData = await getDefaultLocaleData('format')
         const errorSection = errorData?.errors
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
