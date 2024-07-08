@@ -30,17 +30,17 @@ function buildRedisClient() {
           host: config.get('redis.redisHost'),
           port
         }
-      ]
-      // {
-      //   slotsRefreshTimeout: 10000,
-      //   dnsLookup: (address, callback) => callback(null, address),
-      //   redisOptions: {
-      //     username: config.get('redisUsername'),
-      //     password: config.get('redisPassword'),
-      //     db,
-      //     tls: {}
-      //   }
-      // }
+      ],
+      {
+        slotsRefreshTimeout: 10000,
+        dnsLookup: (address, callback) => callback(null, address),
+        redisOptions: {
+          username: config.get('redisUsername'),
+          password: config.get('redisPassword'),
+          db,
+          tls: {}
+        }
+      }
     )
   }
 
