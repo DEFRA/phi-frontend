@@ -47,31 +47,59 @@
   {% endif %}  
   {% if item['BTOM_EUSL'] === '11B'%}
     <div class="govuk-body">   
-      <h3 class="govuk-heading-s"> 
-        {% if data.result.hybridIndicator.length >= 1 %}
-        hybrid
-        {% endif %}
-      
-        {% if data.result.dormantIndicator.length >= 1 %}
-        dormant
-        {% endif %} 
+      {% if ulIndicatorFlag %}
+        <h3 class="govuk-heading-s"> 
+          {% if data.result.hybridIndicator.length >= 1 %}
+          Hybrid or
+          {% endif %}
         
-        {% if data.result.seedIndicator.length >= 1 %}
-        seeds
-        {% endif %}
-      
-        {% if data.result.fruitIndicator.length >= 1 %}
-        fruit
-        {% endif %}
+          {% if data.result.dormantIndicator.length >= 1 %}
+          Dormant or
+          {% endif %} 
+          
+          {% if data.result.seedIndicator.length >= 1 %}
+          Seeds or
+          {% endif %}
         
-        {% if data.result.bonsaiIndicator.length >= 1 %}
-        naturally and artificially dwarfed
-        {% endif %}
+          {% if data.result.fruitIndicator.length >= 1 %}
+          Fruit or
+          {% endif %}
+          
+          {% if data.result.bonsaiIndicator.length >= 1 %}
+          Naturally and artificially dwarfed or
+          {% endif %}
+          
+          {% if data.result.invintroIndicator.length >= 1 %}
+          Invitro material
+          {% endif %}
+        </h3>
+      {% else %}
+          <h3 class="govuk-heading-s"> 
+          {% if data.result.hybridIndicator.length >= 1 %}
+          Hybrid
+          {% endif %}
         
-        {% if data.result.invintroIndicator.length >= 1 %}
-        invitro material
-        {% endif %}
-      </h3>
+          {% if data.result.dormantIndicator.length >= 1 %}
+          Dormant
+          {% endif %} 
+          
+          {% if data.result.seedIndicator.length >= 1 %}
+          Seeds
+          {% endif %}
+        
+          {% if data.result.fruitIndicator.length >= 1 %}
+          Fruit
+          {% endif %}
+          
+          {% if data.result.bonsaiIndicator.length >= 1 %}
+          Naturally and artificially dwarfed
+          {% endif %}
+          
+          {% if data.result.invintroIndicator.length >= 1 %}
+          Invitro material
+          {% endif %}
+        </h3>
+      {% endif %}  
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}
@@ -91,31 +119,66 @@
   {% endif %}   
   {% if item['BTOM_EUSL'] === '11C'%}
     <div class="govuk-body">  
-      <h3 class="govuk-heading-s"> 
-        {% if data.result.hybridIndicator.length >= 1 %}
-        Hybrid
-        {% endif %}
-      
-        {% if data.result.dormantIndicator.length >= 1 %}
-        Dormant
-        {% endif %} 
+       {% if ulIndicatorFlag %}
+        <h3 class="govuk-heading-s"> 
+          {% if data.result.hybridIndicator.length >= 1 %}
+          Hybrid or
+          {% endif %}
         
-        {% if data.result.seedIndicator.length >= 1 %}
-        Seeds
-        {% endif %}
-      
-        {% if data.result.fruitIndicator.length >= 1 %}
-        Fruit
-        {% endif %}
+          {% if data.result.dormantIndicator.length >= 1 %}
+          Dormant or
+          {% endif %} 
+          
+          {% if data.result.seedIndicator.length >= 1 %}
+          Seeds or
+          {% endif %}
         
-        {% if data.result.bonsaiIndicator.length >= 1 %}
-        Naturally and artificially dwarfed
-        {% endif %}
+          {% if data.result.fruitIndicator.length >= 1 %}
+          Fruit or
+          {% endif %}
+          
+          {% if data.result.bonsaiIndicator.length >= 1 %}
+          Naturally and artificially dwarfed or
+          {% endif %}
+          
+          {% if data.result.invintroIndicator.length >= 1 %}
+          Invitro material or
+          {% endif %}
+         {% if data.result.FormatClarification.length > 1 %}
+          {{data.result.FormatClarification}}
+          {% endif %}
+        </h3>
+      {% else %}
+          <h3 class="govuk-heading-s"> 
+          {% if data.result.hybridIndicator.length >= 1 %}
+          Hybrid
+          {% endif %}
         
-        {% if data.result.invintroIndicator.length >= 1 %}
-        Invitro material
-        {% endif %}
-      </h3>
+          {% if data.result.dormantIndicator.length >= 1 %}
+          Dormant
+          {% endif %} 
+          
+          {% if data.result.seedIndicator.length >= 1 %}
+          Seeds
+          {% endif %}
+        
+          {% if data.result.fruitIndicator.length >= 1 %}
+          Fruit
+          {% endif %}
+          
+          {% if data.result.bonsaiIndicator.length >= 1 %}
+          Naturally and artificially dwarfed
+          {% endif %}
+          
+          {% if data.result.invintroIndicator.length >= 1 %}
+          Invitro material
+          {% endif %}
+
+          {% if data.result.FormatClarification.length > 1 %}
+          {{data.result.FormatClarification}}
+          {% endif %}
+        </h3>
+      {% endif %}  
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} in the above format, you will need to meet the <a class="govuk-link" rel="noreferrer noopener" target="_blank" href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
