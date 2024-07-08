@@ -50,7 +50,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
           const subFormatArray = [
             result.hybridIndicator,
             result.dormantIndicator,
