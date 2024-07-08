@@ -5,8 +5,7 @@ const axios = require('axios')
 const pestSearchController = {
   handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('pest-search')
-      //console.log("pest-searchlocal data",request)
+      const data = getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
@@ -26,140 +25,113 @@ const pestSearchController = {
       request.yar.set('eppoCode', {
         value: request.query.eppoCode
       })
-     
+
       const cslRef = request?.yar?.get('cslRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
       const searchInput = request?.yar?.get('pestSearchQuery')
       const searchValue = searchInput?.value
       const searchQuery = request.yar?.get('searchQuery')
-      // console.log("searchValue",searchValue);
-      // console.log("CSL Ref of search value:",cslRef);
-      // console.log("eppoCodeof search value:",eppoCode);
+
       if (searchValue) {
         const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-       
-        const pestData = getDefaultLocaleData('pest-details')
-        const mainContent = pestData?.mainContent
-        const getHelpSection = pestData?.getHelpSection
 
         const pestDetails = {
-          cslRef: parseInt(request.yar?.get('cslRef')?.value)         
+          cslRef: parseInt(request.yar?.get('cslRef')?.value)
         }
-        
 
+        const result = await invokepestdetailsAPI(pestDetails)
 
+        const plantLinkMap = new Map()
 
+        let resultofPhoto
+        const Annex3URL = config.get('Annex3')
+        const ContactAuthURL = config.get('contactAuthorities')
 
-        let result
-        result = await invokepestdetailsAPI(pestDetails)
-        const plantLink = result.pest_detail[0].PLANT_LINK
-        //console.log("PLANTLINKDETAILS_full",plantLink)
-        const plantLinkMap = new Map();
-        let photores;
-        let resultofPhoto;
-        let Annex3URL=config.get('Annex3') ;
-        let ContactAuthURL=config.get('contactAuthorities') ;
-        // config.get('photoURL') + '/search/pestdetails',
-         let photoURL =config.get('photoURL') + eppoCode
-       //  console.log("photoURL",photoURL);
-         photores=pingWebsite(photoURL);
-       //  console.log("photores",photores)
+        const photoURL = config.get('photoURL') + eppoCode
 
-         function getPublicationDate(date)
-         {
-          var today = new Date(date); // yyyy-mm-dd
+        const photores = pingWebsite(photoURL)
+
+        function getPublicationDate(date) {
+          const today = new Date(date) // yyyy-mm-dd
 
           // Getting short month name (e.g. "Oct")
-          var month = today.toLocaleString('default', { month: 'long' });
-        
-          //console.log("pl date",month + " "+ today.getFullYear());
-          return month + " "+ today.getFullYear();
-         }
-         async function pingWebsite(url) {
-           try {
-             const response = await axios.get(url);
-             // Evaluate the response 
-             if (response.status === 200) {
-              resultofPhoto =config.get('photoURL') + eppoCode;
-               console.log('Ping successful!');
-              // console.log('Response data of photo:', response.data);
-             } else {
-             
-              console.log(`Received unexpected status code: ${response.status}`); }
-           } catch (error) {
-             console.log("errorphoto", error)
-           }
-         }
-        // console.log("resultofPhoto",resultofPhoto);
-         //console.log("Document Link",result.pest_detail[0].DOCUMENT_LINK);
-         let documentLink= result.pest_detail[0].DOCUMENT_LINK;
-         let factsheetlinks = [] ;
-         let otherPublications = [];
-         
+          const month = today.toLocaleString('default', { month: 'long' })
+
+          return month + ' ' + today.getFullYear()
+        }
+        async function pingWebsite(url) {
+          try {
+            const response = await axios.get(url)
+            // Evaluate the response
+            if (response.status === 200) {
+              resultofPhoto = config.get('photoURL') + eppoCode
+            } else {
+              resultofPhoto = ''
+            }
+          } catch (error) {}
+        }
+
+        const factsheetlinks = []
+        const otherPublications = []
+
         // let publicationDateFormated;
-         let fc= "factsheet".toUpperCase()
-        // console.log("fc",fc);
-        
-         for(var i=0;i<result.pest_detail[0].DOCUMENT_LINK.length;i++)
-          {
-            if(result.pest_detail[0].DOCUMENT_LINK[i].VISIBLE_ON_PHI_INDICATOR == 1)
-              {
+        const fc = 'factsheet'.toUpperCase()
 
-            if(result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TYPE.toUpperCase() === fc )
-              {
-            
-           let res =getPublicationDate(result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE)
-           //console.log( "res",res);
-           let fcl=result.pest_detail[0].DOCUMENT_LINK[i];
-           fcl.PUBLICATION_DATE_FORMATTED = res;
-           fcl.TITLE=result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split(".");
-          
-           let fileExtension= fcl.TITLE[1].toUpperCase()
-           fcl.FILE_EXTENSION =fileExtension
-                factsheetlinks.push (fcl)
-                }
-              else
-              {
-                let ocl=result.pest_detail[0].DOCUMENT_LINK[i];
-               
-                let res1 =getPublicationDate(result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE)
-                ocl.PUBLICATION_DATE_FORMATTED=res1;
-                ocl.TITLE=result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split(".");
-               let fileExtension= ocl.TITLE[1].toUpperCase()
-               ocl.FILE_EXTENSION =fileExtension
-                otherPublications.push(ocl)
+        for (let i = 0; i < result.pest_detail[0].DOCUMENT_LINK.length; i++) {
+          if (
+            result.pest_detail[0].DOCUMENT_LINK[i].VISIBLE_ON_PHI_INDICATOR ===
+            1
+          ) {
+            if (
+              result.pest_detail[0].DOCUMENT_LINK[
+                i
+              ].DOCUMENT_TYPE.toUpperCase() === fc
+            ) {
+              const res = getPublicationDate(
+                result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
+              )
 
-              }
+              const fcl = result.pest_detail[0].DOCUMENT_LINK[i]
+              fcl.PUBLICATION_DATE_FORMATTED = res
+              fcl.TITLE =
+                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
+
+              const fileExtension = fcl.TITLE[1].toUpperCase()
+              fcl.FILE_EXTENSION = fileExtension
+              factsheetlinks.push(fcl)
+            } else {
+              const ocl = result.pest_detail[0].DOCUMENT_LINK[i]
+
+              const res1 = getPublicationDate(
+                result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
+              )
+              ocl.PUBLICATION_DATE_FORMATTED = res1
+              ocl.TITLE =
+                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
+              const fileExtension = ocl.TITLE[1].toUpperCase()
+              ocl.FILE_EXTENSION = fileExtension
+              otherPublications.push(ocl)
             }
           }
-          // console.log("factsheetlinks",factsheetlinks);
-          // console.log("otherPublications",otherPublications);
-          // console.log("quarantine indicator",result.pest_detail[0].QUARANTINE_INDICATOR);
-        for(var i=0;i<result.pest_detail[0].PLANT_LINK.length;i++)
-          {
-            let item=result.pest_detail[0].PLANT_LINK[i].PLANT_NAME
-           // console.log("item",item)
-            let commonmNames =[];
-            for(var j=0;j<item.length;j++)
-              {
-           let commonnameofPlants=item[j] ;
-           
-           if(item[j].type=='COMMON_NAME')
-            {
-          //console.log("item[j]",item[j].NAME);
-          commonmNames.push(item[j].NAME);
+        }
+
+        for (let a = 0; a < result.pest_detail[0].PLANT_LINK.length; a++) {
+          const item = result.pest_detail[0].PLANT_LINK[a].PLANT_NAME
+
+          const commonmNames = []
+          for (let j = 0; j < item.length; j++) {
+            if (item[j].type === 'COMMON_NAME') {
+              commonmNames.push(item[j].NAME)
             }
-            
-              }
-             
-              plantLinkMap.set(result.pest_detail[0].PLANT_LINK[i].LATIN_NAME,commonmNames)
-            
           }
-          
-         
-       //console.log("plmaps",plantLinkMap)
-        
+
+          plantLinkMap.set(
+            result.pest_detail[0].PLANT_LINK[a].LATIN_NAME,
+            commonmNames
+          )
+        }
+
         return h.view('plant-health/pest-details/index', {
           pageTitle: 'Pestdetails',
           heading: 'Pestdetails',
@@ -169,10 +141,11 @@ const pestSearchController = {
           eppoCode,
           resultofPhoto,
           photoURL,
+          photores,
           Annex3URL,
           ContactAuthURL,
-          quarantineIndicator:result.pest_detail[0].QUARANTINE_INDICATOR,
-          preferredName:result.pest_detail[0].PEST_NAME[0].NAME,
+          quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
+          preferredName: result.pest_detail[0].PEST_NAME[0].NAME,
           commonNames: result.pest_detail[0].PEST_NAME[1].NAME,
           synonymNames: result.pest_detail[0].PEST_NAME[2].NAME,
           plantLinkMap,
@@ -181,24 +154,20 @@ const pestSearchController = {
           fullSearchQuery,
           pestSearchQuery,
           searchQuery
-          
         })
-      
+
         async function invokepestdetailsAPI(payload) {
           try {
-            console.log("invoking pest details")
             const response = await axios.post(
               config.get('backendApiUrl') + '/search/pestdetails',
               { pestDetails: payload }
             )
-            console.log("responsepest",response.data)
+
             return response.data
-           
           } catch (error) {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-
       } else {
         const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const searchQuery = request.yar?.get('searchQuery')
@@ -235,5 +204,3 @@ const pestSearchController = {
 }
 
 export { pestSearchController }
-
- 

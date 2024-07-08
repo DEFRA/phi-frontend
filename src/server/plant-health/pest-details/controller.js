@@ -6,7 +6,7 @@ const pestDetailsPageController = {
       const data = getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
-console.log("requestof pest details",request.cslRef);
+
       let radiobuttonValue
       request.yar.set('searchQuery', {
         value: decodeURI(request.yar?.get('searchQuery')?.value)
@@ -27,7 +27,7 @@ console.log("requestof pest details",request.cslRef);
         value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
       })
       const cslRef = request?.yar?.get('cslRef')?.value
-      console.log("CSLREFGO",cslRef);
+
       const eppoCode = request?.yar?.get('eppoCode')?.value
 
       if (request.query.format !== undefined) {
@@ -39,7 +39,7 @@ console.log("requestof pest details",request.cslRef);
         const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const formatData = getDefaultLocaleData('format')
-        const mainContent = formatData?.mainContent
+
         const getHelpSection = formatData?.getHelpSection
 
         return h.view('plant-health/pest-details/index', {
@@ -49,7 +49,8 @@ console.log("requestof pest details",request.cslRef);
           cslRef,
           eppoCode,
           pestSearchQuery,
-          fullSearchQuery,         
+          fullSearchQuery,
+          mainContent,
           searchQuery
         })
       } else {
@@ -79,6 +80,7 @@ console.log("requestof pest details",request.cslRef);
           radiobuttonValue,
           pestSearchQuery,
           searchQuery,
+
           fullSearchQuery,
           pageTitle: 'Format',
           heading: 'Format',
