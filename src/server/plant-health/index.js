@@ -15,7 +15,6 @@ const plantHealth = {
           path: '/pest-details',
           ...pestSearchController
         }
-
       ])
     }
   }

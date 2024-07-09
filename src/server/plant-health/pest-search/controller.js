@@ -137,10 +137,6 @@ const pestSearchController = {
           )
         }
 
-        //  const hostref = plantLinl
-
-        // const plantlinlkformat = await invokepestplantRnpqAPI(hostref)
-
         return h.view('plant-health/pest-details/index', {
           pageTitle: 'Pestdetails',
           heading: 'Pestdetails',
@@ -177,19 +173,6 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-
-        // async function invokepestplantRnpqAPI(payload) {
-        //   try {
-        //     const response = await axios.post(
-        //       config.get('backendApiUrl') + '/search/pestlink',
-        //       { hostref: payload }
-        //     )
-
-        //     return response.data
-        //   } catch (error) {
-        //     return error // Rethrow the error so it can be handled appropriately
-        //   }
-        // }
       } else {
         const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const searchQuery = request.yar?.get('searchQuery')
