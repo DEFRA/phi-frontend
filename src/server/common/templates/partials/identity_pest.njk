@@ -1,0 +1,141 @@
+<span class="govuk-caption-l">
+{{data.mainContent.headerText}}
+</span>
+<h2 class="govuk-heading-m">
+{{data.preferredName | capitalize}}
+</h2>
+{% if data.quarantineIndicator =='Q'  %} 
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+ 
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+      {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content2}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}} >{{data.mainContent.content7}} </a>
+  </strong>
+  </div>
+ {%endif%}
+  {% if data.quarantineIndicator =='P'  %} 
+  <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+      {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content9}} 
+       {{data.mainContent.content10}} <a class="govuk-link govuk-body" href={{data.Annex3URL}} >{{data.mainContent.content11}} </a>
+        {{data.mainContent.content12}}<a class="govuk-link govuk-body" href={{data.ContactAuthURL}} >{{data.mainContent.content7}} </a>
+  </strong>
+  </div>
+ {%endif%}
+
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.preferredNameHeading}}
+</h3>
+<p>
+{{data.preferredName | capitalize}}
+</p>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.commonNameHeading}}
+</h3>
+<ul class="govuk-list">
+{% if data.commonNames.length > 0 %}
+{% for item in data.commonNames %}
+    <li>{{item}}</li>
+{% endfor %}
+{%else%}
+    <p>{{data.mainContent.noneText}}</p>
+{%endif%}
+</ul>
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.synonymNameHeading}}
+</h3>
+<ul class="govuk-list">
+{% if data.synonymNames.length > 0 %}
+{% for item in data.synonymNames %}
+    <li>{{item}}</li>
+{% endfor %}
+{%else%}
+    <p>{{data.mainContent.noneText}}</p>
+{%endif%}
+</ul>
+{% if resultofPhoto !=""%}
+<p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in EPPO Global Database </a> </p>
+        {% endif %} 
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.HeaderText1}} {{data.preferredName }}
+
+<p>{{data.mainContent.Planthealthfiletext}}</p>
+<details class="govuk-details">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      Request an accessible format
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+   If you use assisitive technology ( such as screen reader) and need a version of this document in a more accessible format.please email plantpestsrisk@defra.gov.uk.Please tell us what format you need.It will help us if you say what assisitive technology you use.
+  </div>
+</details>
+{% if data.factsheetlinks != "" %}
+<h2 class="govuk-heading-m">
+{{mainContent.HeaderTextFact | capitalize}}
+</h2>
+  
+ <table class="govuk-table">
+ 
+   <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextFactTable1}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextFactTable2}}</th>
+               </tr>
+          </thead>
+ <tbody class="govuk-table__body">
+                   {% for item in data.factsheetlinks %}
+                <tr class="govuk-table__row">
+              
+                  <td class="govuk-table__cell"> {{item.PUBLICATION_DATE_FORMATTED}}</td>
+                  
+                   <td class="govuk-table__cell">  <a class="govuk-link govuk-body" href={{item.DOCUMENT_HYPER_LINK}} >{{item.DOCUMENT_TYPE}} - {{item.TITLE[0]}} </a>
+                   <br> ({{item.FILE_EXTENSION}})
+                   </td>               
+                   
+        </tr>
+        {% endfor %}
+          </tbody>
+        </table>
+          {% endif %}
+          {% if data.otherPublications != "" %}      
+         {% if data.factsheetlinks != "" %}
+<h2 class="govuk-heading-m">
+{{mainContent.HeaderTextOtherObs | capitalize}}
+</h2>
+   {% endif %}
+ <table class="govuk-table">
+ 
+   <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextFactTable1}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextFactTable2}}</th>
+               </tr>
+          </thead>
+ <tbody class="govuk-table__body">
+                   {% for item in data.otherPublications %}
+                <tr class="govuk-table__row">
+              
+                  <td class="govuk-table__cell"> {{item.PUBLICATION_DATE_FORMATTED}}</td>
+                  
+                   <td class="govuk-table__cell">  <a class="govuk-link govuk-body" href={{item.DOCUMENT_HYPER_LINK}} > {{item.DOCUMENT_TYPE}} - {{item.TITLE[0]}} </a>
+                    <br> ({{item.FILE_EXTENSION}})
+                   </td>               
+                   
+        </tr>
+        {% endfor %}
+          </tbody>
+        </table>
+          {% endif %}
+                
+
+
+
+
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.HeaderText4}} {{data.preferredName }}
+
+</p>

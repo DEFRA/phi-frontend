@@ -88,6 +88,24 @@ const config = convict({
     default: `https://phi-frontend.test.cdp-int.defra.cloud`,
     env: 'FRONTEND_URL'
   },
+  photoURL: {
+    doc: 'photo url',
+    format: String,
+    default: `https://gd.eppo.int/taxon/`,
+    env: 'phot_URL'
+  },
+  Annex3: {
+    doc: 'Annex3',
+    format: String,
+    default: `https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made`,
+    env: 'Annex3'
+  },
+  contactAuthorities: {
+    doc: 'contactAuthorities',
+    format: String,
+    default: `https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/`,
+    env: 'contactAuthorities'
+  },
   redis: {
     enabled: {
       doc: 'Enable Redis on your Frontend. Before you enable Redis, contact the CDP platform team as we need to set up config so you can run Redis in CDP environments',

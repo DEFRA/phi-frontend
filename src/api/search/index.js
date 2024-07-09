@@ -11,6 +11,11 @@ const search = {
         },
         {
           method: 'GET',
+          path: '/search/pests',
+          handler: searchController.handler
+        },
+        {
+          method: 'GET',
           path: '/search/countries',
           handler: searchController.handler
         }

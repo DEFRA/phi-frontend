@@ -28,11 +28,11 @@ const purposeOfVisitController = {
         })
         const plantHealthdata = await await getDefaultLocaleData('plant-health')
         const getHelpSection = plantHealthdata?.getHelpSection
-        return h.view('plant-health/service-unavailable.njk', {
+        return h.view('plant-health/pest-search/index', {
           getHelpSection,
           serviceUnavailablePage,
-          pageTitle: 'NI not supported',
-          heading: 'Plant'
+          pageTitle: 'Pest',
+          heading: 'Pest'
         })
       } else {
         const plantHealthdata = await getDefaultLocaleData('plant-health')
