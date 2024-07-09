@@ -1,9 +1,9 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const pestDetailsPageController = {
-  handler: (request, h) => {
+  handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('pest-details')
+      const data = await getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
 

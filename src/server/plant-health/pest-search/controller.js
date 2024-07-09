@@ -5,7 +5,7 @@ const axios = require('axios')
 const pestSearchController = {
   handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('pest-details')
+      const data = await getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
