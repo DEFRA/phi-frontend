@@ -8,6 +8,7 @@ const pestSearchController = {
       const data = await getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
+
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
       request.yar.set('pestSearchQuery', {

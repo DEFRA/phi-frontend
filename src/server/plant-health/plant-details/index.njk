@@ -114,12 +114,13 @@
           </thead>
           <tbody class="govuk-table__body">
             {% for item in pest_names %}
+           
               {% if (item.pest_country['STATUS'] === 'Present') or (item.pest_country['STATUS'] === 'Present (Limited)') or (item.pest_country['STATUS'] === 'Present (Unknown Distribution)') or (item.pest_country['STATUS'] === 'Present (Widespread)') %}
                 <tr class="govuk-table__row">
                 {% if (item.quarantine_indicator) and (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
-                  <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                  <td class="govuk-table__cell">  <a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
                   {% if item.name[1].NAME?.length > 0 %}
-                   <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                   <td class="govuk-table__cell"><a class="govuk-link"  >{{item.name[1].NAME}}</a></td>
                   {% else %}
                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
                   {% endif %}
@@ -127,13 +128,13 @@
                {% else %}
                {% if (item.quarantine_indicator) and item.quarantine_indicator !== "R"%}
                   {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
-                    <td class="govuk-table__cell">{{item.name[0].NAME}}
+                    <td class="govuk-table__cell"><a class="govuk-link"   href="/pest-details?getcsl={{item.csl_ref}}"> {{item.name[0].NAME}}</a>
                       <br>
                       <br>
-                      <p class="govuk-body-s">This pest is only a concern in <a class="govuk-link" href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">certain areas of Great Britain<a></p>
+                      <p class="govuk-body-s">This pest is only a concern in  href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">certain areas of Great Britain<a></p>
                     </td>
                   {% else %}
-                   <td class="govuk-table__cell">{{item.name[0].NAME}}</td>
+                   <td class="govuk-table__cell"><a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
                   {% endif %}
                    {% if item.name[1].NAME.length > 0 %}
                     <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
