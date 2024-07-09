@@ -79,32 +79,74 @@ const config = convict({
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
-    default: `http://localhost:3049`,
+    default: `https://phi-etl-fera-backend.dev.cdp-int.defra.cloud`,
     env: 'BACKEND_API_URL'
   },
   frontendUrl: {
     doc: 'Frontend url',
     format: String,
-    default: `http://localhost:3000`,
+    default: `https://phi-frontend.test.cdp-int.defra.cloud`,
     env: 'FRONTEND_URL'
   },
-  photoURL: {
-    doc: 'photo url',
-    format: String,
-    default: `https://gd.eppo.int/taxon/`,
-    env: 'phot_URL'
+  redis: {
+    enabled: {
+      doc: 'Enable Redis on your Frontend. Before you enable Redis, contact the CDP platform team as we need to set up config so you can run Redis in CDP environments',
+      format: Boolean,
+      default: false,
+      env: 'REDIS_ENABLED'
+    },
+    host: {
+      doc: 'Redis cache host',
+      format: String,
+      default: '127.0.0.1',
+      env: 'REDIS_HOST'
+    },
+    username: {
+      doc: 'Redis cache username',
+      format: String,
+      default: '',
+      env: 'REDIS_USERNAME'
+    },
+    password: {
+      doc: 'Redis cache password',
+      format: '*',
+      default: '',
+      sensitive: true,
+      env: 'REDIS_PASSWORD'
+    },
+    keyPrefix: {
+      doc: 'Redis cache key prefix name used to isolate the cached results across multiple clients',
+      format: String,
+      default: 'phi-frontend',
+      env: 'REDIS_KEY_PREFIX'
+    },
+    useSingleInstanceCache: {
+      doc: 'Enable the use of a single instance Redis Cache',
+      format: Boolean,
+      default: process.env.NODE_ENV !== 'production',
+      env: 'USE_SINGLE_INSTANCE_CACHE'
+    }
   },
-  Annex3: {
-    doc: 'Annex3',
-    format: String,
-    default: `https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made`,
-    env: 'Annex3'
+  phiPassword: {
+    doc: 'password for phi',
+    format: '*',
+    default: 'demo123',
+    sensitive: true,
+    env: 'PHI_PASSWORD'
   },
-  contactAuthorities: {
-    doc: 'contactAuthorities',
-    format: String,
-    default: `https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/`,
-    env: 'contactAuthorities'
+  cookiePassword: {
+    doc: 'password for  cookie',
+    format: '*',
+    default: 'the-password-must-be-at-least-32-characters-long',
+    sensitive: true,
+    env: 'COOKIE_PASSWORD'
+  },
+  sessionCookiePassword: {
+    doc: 'session password for  cookie',
+    format: '*',
+    default: 'the-password-must-be-at-least-32-characters-long',
+    sensitive: true,
+    env: 'SESSION_COOKIE_PASSWORD'
   }
 })
 

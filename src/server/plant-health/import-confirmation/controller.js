@@ -2,9 +2,9 @@ import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
 const importConfirmationController = {
-  handler: (request, h) => {
+  handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('import-confirmation')
+      const data = await getDefaultLocaleData('import-confirmation')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
       const serviceUnavailablePage = data?.serviceUnavailablePage
@@ -21,7 +21,7 @@ const importConfirmationController = {
           })
         }
         const searchQuery = request.yar?.get('searchQuery')
-        const searchData = getDefaultLocaleData('search')
+        const searchData = await getDefaultLocaleData('search')
         const mainContent = searchData?.mainContent
         const getHelpSection = searchData?.getHelpSection
         const frontendUrl = config.get('frontendUrl')
@@ -58,7 +58,7 @@ const importConfirmationController = {
         request.yar.set('errorMessageRadio', '')
         const radiooption = request?.yar?.get('importConfirmationRadiooption')
         radiobuttonValue = radiooption?.whereareyouimportinginto
-        const errorData = getDefaultLocaleData('import-confirmation')
+        const errorData = await getDefaultLocaleData('import-confirmation')
         const errorSection = errorData?.errors
 
         if (!radiobuttonValue) {

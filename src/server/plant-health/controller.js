@@ -1,12 +1,12 @@
 import { getDefaultLocaleData } from '../localisation'
 const plantHealthController = {
-  handler: (request, h) => {
-    const data = getDefaultLocaleData('plant-health')
+  handler: async (request, h) => {
+    const data = await getDefaultLocaleData('plant-health')
     const mainContent = data?.mainContent
     const getHelpSection = data?.getHelpSection
 
     if (request != null) {
-      if (request.query.findanotherpest === 'true') {
+      if (request.query?.findanotherpest === 'true') {
         request.yar.set('purposeOfVisitRadiooption', null)
         request.yar.set('importConfirmationRadiooption', null)
         request.yar.set('searchQuery', null)

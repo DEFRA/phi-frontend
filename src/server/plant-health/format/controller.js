@@ -6,7 +6,7 @@ const axios = require('axios')
 const formatPageController = {
   handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('format')
+      const data = await getDefaultLocaleData('format')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
 
@@ -38,7 +38,7 @@ const formatPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const plantData = getDefaultLocaleData('plant-details')
+        const plantData = await getDefaultLocaleData('plant-details')
         const mainContent = plantData?.mainContent
         const getHelpSection = plantData?.getHelpSection
         const format = request.yar?.get('format')?.value
@@ -50,14 +50,16 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          if (result.annex11RulesArr?.length > 0) {
-            ulIndicatorFlag =
-              ulIndicatorFlag ||
-              result.annex11RulesArr.some((annex11Rules) => {
-                return (
-                  annex11Rules.SERVICE_SUBFORMAT_EXCLUDED.split(',').length > 0
-                )
-              })
+          const subFormatArray = [
+            result.hybridIndicator,
+            result.dormantIndicator,
+            result.seedIndicator,
+            result.fruitIndicator,
+            result.bonsaiIndicator,
+            result.FormatClarification
+          ]
+          if (subFormatArray.join('').split('').length > 1) {
+            ulIndicatorFlag = true
           }
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
@@ -102,7 +104,7 @@ const formatPageController = {
         request.yar.set('errorMessage', '')
         request.yar.set('errorMessageRadio', '')
         radiobuttonValue = request?.yar?.get('format')
-        const errorData = getDefaultLocaleData('format')
+        const errorData = await getDefaultLocaleData('format')
         const errorSection = errorData?.errors
         const searchQuery = request.yar?.get('searchQuery')
         const countrySearchQuery = request.yar?.get('countrySearchQuery')

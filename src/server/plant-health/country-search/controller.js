@@ -1,9 +1,9 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const countrySearchController = {
-  handler: (request, h) => {
+  handler: async (request, h) => {
     if (request != null) {
-      const data = getDefaultLocaleData('country-search')
+      const data = await getDefaultLocaleData('country-search')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
@@ -36,7 +36,7 @@ const countrySearchController = {
       if (searchValue && request.query.emptyCountrySearchQuery === 'false') {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const data = getDefaultLocaleData('format')
+        const data = await getDefaultLocaleData('format')
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
         return h.view('plant-health/format/index', {
@@ -61,7 +61,7 @@ const countrySearchController = {
             request.query.countrySearchQuery !== '') ||
           request.query.emptyCountrySearchQuery === ''
         ) {
-          const errorData = getDefaultLocaleData('country-search')
+          const errorData = await getDefaultLocaleData('country-search')
           const errorSection = errorData?.errors
           setErrorMessage(
             request,

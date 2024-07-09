@@ -1,6 +1,6 @@
 import { getDefaultLocaleData } from '../localisation'
 const homeController = {
-  handler: (request, h) => {
+  handler: async (request, h) => {
     // ========== ========== ========== ========== ==========
     // set null if there are any
     // cookies on click of start now button
@@ -11,7 +11,7 @@ const homeController = {
     request.yar.set('countrySearchQuery', null)
     request.yar.set('format', null)
 
-    const data = getDefaultLocaleData('home')
+    const data = await getDefaultLocaleData('home')
     const govukHeading = data?.govukheading
     const govukCaption = data?.govukcaption
     const govukBodyTitle = data?.govukbodytitle
