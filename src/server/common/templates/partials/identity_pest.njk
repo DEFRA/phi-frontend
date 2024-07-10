@@ -1,18 +1,18 @@
 <span class="govuk-caption-l">
 {{data.mainContent.headerText}}
 </span>
-<h2 class="govuk-heading-m">
+<h1 class="govuk-heading-xl">
 {{data.preferredName | capitalize}}
 </h2>
 {% if data.quarantineIndicator =='Q'  %} 
 <div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
- 
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span> 
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">Warning</span>
-      {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content2}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}} >{{data.mainContent.content7}} </a>
+      {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content2}} 
   </strong>
-  </div>
+   <p>{{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
+  </div> 
  {%endif%}
   {% if data.quarantineIndicator =='P'  %} 
   <div class="govuk-warning-text">
@@ -20,9 +20,10 @@
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">Warning</span>
       {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content9}} 
-       {{data.mainContent.content10}} <a class="govuk-link govuk-body" href={{data.Annex3URL}} >{{data.mainContent.content11}} </a>
-        {{data.mainContent.content12}}<a class="govuk-link govuk-body" href={{data.ContactAuthURL}} >{{data.mainContent.content7}} </a>
-  </strong>
+        </strong>
+      <p> {{data.mainContent.content10}}<a class="govuk-link govuk-body" href={{data.Annex3URL}}>{{data.mainContent.content11}} </a></p>
+     <p> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
+
   </div>
  {%endif%}
 
@@ -56,8 +57,10 @@
     <p>{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
-{% if resultofPhoto !=""%}
-<p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in EPPO Global Database </a> </p>
+{% if resultofPhoto !="Fail"%}
+<div class="govuk-inset-text">
+  <p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in EPPO Global Database </a> </p></div>
+
         {% endif %} 
 <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText1}} {{data.preferredName }}
@@ -70,8 +73,7 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-   If you use assisitive technology ( such as screen reader) and need a version of this document in a more accessible format.please email plantpestsrisk@defra.gov.uk.Please tell us what format you need.It will help us if you say what assisitive technology you use.
-  </div>
+   If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email plantpestsrisks@defra.gov.uk. Please tell us what format you need. It will help us if you say what assistive technology you use.​ </div>
 </details>
 {% if data.factsheetlinks != "" %}
 <h2 class="govuk-heading-m">

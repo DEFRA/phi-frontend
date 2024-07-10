@@ -46,7 +46,7 @@ const pestSearchController = {
             if (response.status === 200) {
               resultofPhoto = config.get('photoURL') + eppoCode
             } else {
-              resultofPhoto = ''
+              resultofPhoto = 'Fail'
             }
           } catch (error) {}
         }
@@ -65,6 +65,12 @@ const pestSearchController = {
 
         // let publicationDateFormated;
         const fc = 'factsheet'.toUpperCase()
+        const commanNamearray = result.pest_detail[0].PEST_NAME[1].NAME
+        const commonNameSorted = commanNamearray.sort()
+        // console.log("cmn",cmn);
+        const syNamearray = result.pest_detail[0].PEST_NAME[2].NAME
+        const SynonymNameSorted = syNamearray.sort()
+        // console.log("cmn",syn);
 
         for (let i = 0; i < result.pest_detail[0].DOCUMENT_LINK.length; i++) {
           if (
@@ -104,6 +110,9 @@ const pestSearchController = {
           }
         }
         const plantLinl = []
+        // const array1=result.pest_detail[0].PLANT_LINK;
+        // const ar2 = array1.sort();
+        // console.log("array1",array1);
         for (let a = 0; a < result.pest_detail[0].PLANT_LINK.length; a++) {
           if (result.pest_detail[0].QUARANTINE_INDICATOR === 'R') {
             plantLinl.push(result.pest_detail[0].PLANT_LINK[a].HOST_REF)
@@ -123,6 +132,7 @@ const pestSearchController = {
             commonmNames
           )
         }
+        const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
         return h.view('plant-health/pest-details/index', {
           pageTitle: 'Pestdetails',
@@ -138,9 +148,9 @@ const pestSearchController = {
           ContactAuthURL,
           quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
           preferredName: result.pest_detail[0].PEST_NAME[0].NAME,
-          commonNames: result.pest_detail[0].PEST_NAME[1].NAME,
-          synonymNames: result.pest_detail[0].PEST_NAME[2].NAME,
-          plantLinkMap,
+          commonNames: commonNameSorted,
+          synonymNames: SynonymNameSorted,
+          plantLinkMapsorted,
           otherPublications,
           factsheetlinks
         })
