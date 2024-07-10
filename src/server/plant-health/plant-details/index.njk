@@ -61,6 +61,7 @@
     {% else %}
      {% if (outcome) and (outcome === 'partially-prohibited')%}
           {% set data = {
+          processedData: processedData,
           ulIndicatorFlag: ulIndicatorFlag,
           result: result,
           mainContent: mainContent,

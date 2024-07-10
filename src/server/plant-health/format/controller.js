@@ -49,17 +49,38 @@ const formatPageController = {
             serviceFormat: request.query.format,
             country: request?.yar?.get('countrySearchQuery')?.value
           }
+
           result = await invokeWorkflowApi(plantDetails)
+          const subFormatArray = []
+          if (result.hybridIndicator.length > 0) {
+            subFormatArray.push('Hybrid')
+          }
+          if (result.dormantIndicator.length > 0) {
+            subFormatArray.push('Dormant')
+          }
+
+          if (result.fruitIndicator.length > 0) {
+            subFormatArray.push('Fruit')
+          }
+          if (result.bonsaiIndicator.length > 0) {
+            subFormatArray.push('Naturally and artificially dwarfed')
+          }
+          if (result.invintroIndicator.length > 0) {
+            subFormatArray.push('Invintro material')
+          }
+          if (result.FormatClarification.length > 0) {
+            subFormatArray.push(result.FormatClarification)
+          }
           // return result
-          const subFormatArray = [
-            result.hybridIndicator,
-            result.dormantIndicator,
-            result.seedIndicator,
-            result.fruitIndicator,
-            result.bonsaiIndicator,
-            result.FormatClarification
-          ]
-          if (subFormatArray.join('').split('').length > 1) {
+          let processedData = []
+          for (let i = 0; i < subFormatArray.length; i++) {
+            processedData.push(subFormatArray[i])
+            if (i < subFormatArray.length - 1) {
+              processedData.push('or')
+            }
+          }
+          processedData = processedData.join(' ').split(',')
+          if (subFormatArray.length > 1) {
             ulIndicatorFlag = true
           }
           const pestDetails = result.pestDetails
@@ -69,6 +90,7 @@ const formatPageController = {
             heading: 'Plant Details',
             getHelpSection,
             radiobuttonValue,
+            processedData,
             hostRef,
             format,
             outcome: result.outcome,
