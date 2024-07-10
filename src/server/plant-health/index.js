@@ -1,5 +1,5 @@
 import { plantHealthController } from '~/src/server/plant-health/controller'
-
+import { pestSearchController } from '~/src/server/plant-health/pest-search/controller'
 const plantHealth = {
   plugin: {
     name: 'plant-health',
@@ -9,6 +9,11 @@ const plantHealth = {
           method: 'GET',
           path: '/plant-health',
           ...plantHealthController
+        },
+        {
+          method: 'GET',
+          path: '/pest-details',
+          ...pestSearchController
         }
       ])
     }

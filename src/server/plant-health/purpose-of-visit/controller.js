@@ -1,8 +1,8 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const purposeOfVisitController = {
-  handler: (request, h) => {
-    const data = getDefaultLocaleData('purpose-of-visit')
+  handler: async (request, h) => {
+    const data = await await getDefaultLocaleData('purpose-of-visit')
     const serviceUnavailablePage = data?.serviceUnavailablePage
     const mainContent = data?.mainContent
     const getHelpSection = data?.getHelpSection
@@ -26,19 +26,19 @@ const purposeOfVisitController = {
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
-        const plantHealthdata = getDefaultLocaleData('plant-health')
+        const plantHealthdata = await await getDefaultLocaleData('plant-health')
         const getHelpSection = plantHealthdata?.getHelpSection
-        return h.view('plant-health/service-unavailable.njk', {
+        return h.view('plant-health/pest-search/index', {
           getHelpSection,
           serviceUnavailablePage,
-          pageTitle: 'NI not supported',
-          heading: 'Plant'
+          pageTitle: 'Pest',
+          heading: 'Pest'
         })
       } else {
-        const plantHealthdata = getDefaultLocaleData('plant-health')
+        const plantHealthdata = await getDefaultLocaleData('plant-health')
         const mainContent = plantHealthdata?.mainContent
         const getHelpSection = plantHealthdata?.getHelpSection
-        const errorData = getDefaultLocaleData('purpose-of-visit')
+        const errorData = await getDefaultLocaleData('purpose-of-visit')
         const errorSection = errorData?.errors
         const radiooption = request?.yar?.get('purposeOfVisitRadiooption')
         radiobuttonValue = radiooption?.purposeOfVisit

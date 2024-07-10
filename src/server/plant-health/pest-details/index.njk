@@ -1,0 +1,83 @@
+{% extends 'layouts/page.njk' %}
+{% block beforeContent %}
+  {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+
+  {{ govukPhaseBanner({
+  tag: {
+    text: getHelpSection.betaText
+  },
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+}) }}
+  {# todo add back link #}
+   <a  href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a> 
+{% endblock %}
+{% block content %}
+  {% from "govuk/components/radios/macro.njk" import govukRadios %}
+  {% call appPageBody() %}
+  {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+  {% if errors.list %}
+    {{ govukErrorSummary(errors.list) }}
+  {% endif %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {% set data = {
+    mainContent: mainContent,
+    preferredName:preferredName,
+    searchQuery: pestSearchQuery,
+    commonNames: commonNames,
+    synonymNames: synonymNames,
+    factsheetlinks : factsheetlinks ,
+    quarantineIndicator:quarantineIndicator,
+    otherPublications : otherPublications,
+    Annex3URL : Annex3URL,
+    ContactAuthURL : ContactAuthURL     
+    
+    } %}
+  
+    {% include "partials/identity_pest.njk" %}
+    
+    <table class="govuk-table">
+ 
+   <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
+               </tr>
+          </thead>
+ <tbody class="govuk-table__body">
+             {% for item,values in plantLinkMapsorted %}
+             
+                <tr class="govuk-table__row">
+              
+                  <td class="govuk-table__cell">{{item}}</td>
+                   {% if plantLinkMapsorted.get(item)!=""%}
+                   <td class="govuk-table__cell">{{plantLinkMapsorted.get(item)}}</td>
+                  {% else %}
+                   <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                  {% endif %}
+                
+                  
+            {% endfor %}
+          </tbody>
+        </table>
+        
+    
+     {% from "govuk/components/button/macro.njk" import govukButton %}
+
+                
+    {{ govukButton({
+      text: "Find another plant or pest",
+       href: "/plant-health?findanotherpest=true"
+    }) }}
+    </div>
+  </div>
+
+  {% set supportSection = {
+    title: getHelpSection.titleText,
+    supportMail: getHelpSection.supportUrl.href,
+    email: getHelpSection.supportUrl.email,
+    description: getHelpSection.supportUrl.text
+  } %}
+  {% include "partials/get-help.njk" %}
+  {% endcall %}
+{% endblock %}

@@ -1,9 +1,9 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
-const plantDetailsPageController = {
+const pestDetailsPageController = {
   handler: async (request, h) => {
     if (request != null) {
-      const data = await getDefaultLocaleData('format')
+      const data = await getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
 
@@ -14,11 +14,11 @@ const plantDetailsPageController = {
       request.yar.set('fullSearchQuery', {
         value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
       })
-      request.yar.set('countrySearchQuery', {
-        value: request.yar?.get('countrySearchQuery')?.value
+      request.yar.set('pestSearchQuery', {
+        value: request.yar?.get('pestSearchQuery')?.value
       })
-      request.yar.set('hostRef', {
-        value: request.yar?.get('hostRef')?.value
+      request.yar.set('cslRef', {
+        value: request.yar?.get('cslRef')?.value
       })
       request.yar.set('eppoCode', {
         value: request.yar?.get('eppoCode')?.value
@@ -26,7 +26,8 @@ const plantDetailsPageController = {
       request.yar.set('commonName', {
         value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
       })
-      const hostRef = request?.yar?.get('hostRef')?.value
+      const cslRef = request?.yar?.get('cslRef')?.value
+
       const eppoCode = request?.yar?.get('eppoCode')?.value
 
       if (request.query.format !== undefined) {
@@ -35,19 +36,19 @@ const plantDetailsPageController = {
           value: radiobuttonValue
         })
         const searchQuery = request.yar?.get('searchQuery')
-        const countrySearchQuery = request.yar?.get('countrySearchQuery')
+        const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const formatData = await getDefaultLocaleData('format')
-        const mainContent = formatData?.mainContent
+        const formatData = getDefaultLocaleData('format')
+
         const getHelpSection = formatData?.getHelpSection
 
-        return h.view('plant-health/plant-details/index', {
-          pageTitle: 'Plant Details',
-          heading: 'Plant Details',
+        return h.view('plant-health/pest-details/index', {
+          pageTitle: 'pest-details-page',
+          heading: 'pest-details-page',
           getHelpSection,
-          hostRef,
+          cslRef,
           eppoCode,
-          countrySearchQuery,
+          pestSearchQuery,
           fullSearchQuery,
           mainContent,
           searchQuery
@@ -57,13 +58,11 @@ const plantDetailsPageController = {
         request.yar.set('errorMessage', '')
         request.yar.set('errorMessageRadio', '')
         radiobuttonValue = request?.yar?.get('format')
-        const errorData = await getDefaultLocaleData('format')
+        const errorData = getDefaultLocaleData('format')
         const errorSection = errorData?.errors
         const searchQuery = request.yar?.get('searchQuery')
-        const countrySearchQuery = request.yar?.get('countrySearchQuery')
+        const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const hostRef = request?.yar?.get('hostRef')?.value
-        const eppoCode = request?.yar?.get('eppoCode')?.value
         setErrorMessage(
           request,
           errorSection.titleText,
@@ -75,16 +74,15 @@ const plantDetailsPageController = {
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
-        return h.view('plant-health/plant-details/index', {
+        return h.view('plant-health/pest-details/index', {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          countrySearchQuery,
+          pestSearchQuery,
           searchQuery,
-          hostRef,
-          eppoCode,
+
           fullSearchQuery,
-          pageTitle: 'Plant Format',
+          pageTitle: 'Format',
           heading: 'Format',
           errors,
           errorMessage
@@ -94,4 +92,4 @@ const plantDetailsPageController = {
   }
 }
 
-export { plantDetailsPageController }
+export { pestDetailsPageController }

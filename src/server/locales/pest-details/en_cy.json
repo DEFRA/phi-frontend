@@ -1,0 +1,25 @@
+{
+  "mainContent": {
+    "headerText": "Planhigyn neu gynnyrch planhigion",
+    "preferredNameHeading": "Enw a Ffefrir",
+    "commonNameHeading": "Enwau cyffredin",
+    "synonymNameHeading": "Cyfystyron",
+    "eppoCodeHeading": "Llun plentyn",
+    "noneText": "Dim",
+    "importRulesHeaderText1": "Mewnforio",
+    "importRulesHeaderText2": "rhag",
+    "prohibitedHeader": "Gwybodaeth waharddedig",
+    "prohibitedContentText1": "! Ni ddylech fewnforio",
+    "prohibitedContentText2": "fel",
+    "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu"
+  },
+  "getHelpSection": {
+    "titleText": "Cael help gyda'r gwasanaeth hwn",
+    "supportUrl": {
+      "text": "os oes gennych unrhyw ymholiadau neu os oes angen cymorth technegol arnoch, e-bostiwch"
+    },
+    "betabannertext1": "Mae hwn yn wasanaeth newydd - eich",
+    "betabannertext2": "bydd yn ein helpu i'w wella.",
+    "betaText": "BETA"
+  }
+}

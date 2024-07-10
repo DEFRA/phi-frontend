@@ -9,12 +9,19 @@ import { searchPage } from '~/src/server/plant-health/search'
 import { countrySearchPage } from '~/src/server/plant-health/country-search'
 import { formatPage } from '~/src/server/plant-health/format'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
+import { pestSearchPage } from '~/src/server/plant-health/pest-search'
+
+import { pestDetailsPage } from '~/src/server/plant-health/pest-details'
 import { search } from '~/src/api/search'
+import { config } from '~/src/config'
+import { login } from '~/src/server/login'
+
+const sessionCookiePassword = config.get('sessionCookiePassword')
 
 const options = {
   storeBlank: false,
   cookieOptions: {
-    password: 'the-password-must-be-at-least-32-characters-long',
+    password: sessionCookiePassword,
     isSecure: true
   }
 }
@@ -34,6 +41,10 @@ const router = {
         countrySearchPage,
         formatPage,
         search,
+        pestSearchPage,
+        pestDetailsPage,
+
+        login,
         serveStaticFiles
       ])
       await server.register({
