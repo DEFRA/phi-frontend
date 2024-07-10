@@ -1,66 +1,44 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
-import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
 const axios = require('axios')
 const pestSearchController = {
   handler: async (request, h) => {
     if (request != null) {
       const data = await getDefaultLocaleData('pest-details')
-      const mainContent = data?.mainContent
-      const getHelpSection = data?.getHelpSection
-
-      request.yar.set('errors', '')
-      request.yar.set('errorMessage', '')
-      request.yar.set('pestSearchQuery', {
-        value: decodeURI(request.query.pestSearchQuery)
-      })
-      request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
-      })
-      request.yar.set('searchQuery', {
-        value: decodeURI(request.yar?.get('searchQuery')?.value)
-      })
-      request.yar.set('cslRef', {
-        value: request.query.cslRef
-      })
-      request.yar.set('eppoCode', {
-        value: request.query.eppoCode
-      })
-
-      const cslRef = request?.yar?.get('cslRef')?.value
-      const eppoCode = request?.yar?.get('eppoCode')?.value
-      const searchInput = request?.yar?.get('pestSearchQuery')
-      const searchValue = searchInput?.value
-      const searchQuery = request.yar?.get('searchQuery')
-
-      if (searchValue) {
-        const pestSearchQuery = request.yar?.get('pestSearchQuery')
-        const fullSearchQuery = request.yar?.get('fullSearchQuery')
-
+      if (request.query?.getcsl !== '') {
         const pestDetails = {
-          cslRef: parseInt(request.yar?.get('cslRef')?.value)
+          cslRef: parseInt(request.query?.getcsl)
         }
 
         const result = await invokepestdetailsAPI(pestDetails)
+        async function invokepestdetailsAPI(payload) {
+          try {
+            const response = await axios.post(
+              config.get('backendApiUrl') + '/search/pestdetails',
+              { pestDetails: payload }
+            )
+
+            return response.data
+          } catch (error) {
+            return error // Rethrow the error so it can be handled appropriately
+          }
+        }
+
+        const mainContent = data?.mainContent
+        const getHelpSection = data?.getHelpSection
+        request.yar.set('errors', '')
+        request.yar.set('errorMessage', '')
 
         const plantLinkMap = new Map()
 
         let resultofPhoto
         const Annex3URL = config.get('Annex3')
         const ContactAuthURL = config.get('contactAuthorities')
+        const eppoCode = result.pest_detail[0].EPPO_CODE
 
         const photoURL = config.get('photoURL') + eppoCode
 
         const photores = pingWebsite(photoURL)
-
-        function getPublicationDate(date) {
-          const today = new Date(date) // yyyy-mm-dd
-
-          // Getting short month name (e.g. "Oct")
-          const month = today.toLocaleString('default', { month: 'long' })
-
-          return month + ' ' + today.getFullYear()
-        }
         async function pingWebsite(url) {
           try {
             const response = await axios.get(url)
@@ -71,6 +49,15 @@ const pestSearchController = {
               resultofPhoto = ''
             }
           } catch (error) {}
+        }
+
+        function getPublicationDate(date) {
+          const today = new Date(date) // yyyy-mm-dd
+
+          // Getting short month name (e.g. "Oct")
+          const month = today.toLocaleString('default', { month: 'long' })
+
+          return month + ' ' + today.getFullYear()
         }
 
         const factsheetlinks = []
@@ -142,7 +129,7 @@ const pestSearchController = {
           heading: 'Pestdetails',
           getHelpSection,
           mainContent,
-          cslRef,
+          cslRef: result.pest_detail[0].CSL_REF,
           eppoCode,
           resultofPhoto,
           photoURL,
@@ -155,53 +142,7 @@ const pestSearchController = {
           synonymNames: result.pest_detail[0].PEST_NAME[2].NAME,
           plantLinkMap,
           otherPublications,
-          factsheetlinks,
-          fullSearchQuery,
-          pestSearchQuery,
-          searchQuery
-        })
-
-        async function invokepestdetailsAPI(payload) {
-          try {
-            const response = await axios.post(
-              config.get('backendApiUrl') + '/search/pestdetails',
-              { pestDetails: payload }
-            )
-
-            return response.data
-          } catch (error) {
-            return error // Rethrow the error so it can be handled appropriately
-          }
-        }
-      } else {
-        const pestSearchQuery = request.yar?.get('pestSearchQuery')
-        const searchQuery = request.yar?.get('searchQuery')
-        const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        if (request.query.pestSearchQuery === '') {
-          const errorData = getDefaultLocaleData('pest-search')
-          const errorSection = errorData?.errors
-          setErrorMessage(
-            request,
-            errorSection.titleText,
-            errorSection.searchErrorListText1 +
-              ' ' +
-              request.yar?.get('searchQuery').value +
-              ' ' +
-              errorSection.searchErrorListText2
-          )
-        }
-        const errors = request.yar?.get('errors')
-        const errorMessage = request.yar?.get('errorMessage')
-        return h.view('plant-health/pest-details/index', {
-          mainContent,
-          getHelpSection,
-          pestSearchQuery,
-          searchQuery,
-          fullSearchQuery,
-          pageTitle: 'Pest details',
-          heading: 'Pest details',
-          errors,
-          errorMessage
+          factsheetlinks
         })
       }
     }
