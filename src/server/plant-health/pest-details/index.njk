@@ -9,7 +9,7 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   {# todo add back link #}
-  {# <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}" class="govuk-back-link" type='button'>Back</a> #}
+   <a  href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a> 
 {% endblock %}
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -45,13 +45,13 @@
                </tr>
           </thead>
  <tbody class="govuk-table__body">
-             {% for item,values in plantLinkMap %}
+             {% for item,values in plantLinkMapsorted %}
              
                 <tr class="govuk-table__row">
               
                   <td class="govuk-table__cell">{{item}}</td>
-                   {% if plantLinkMap.get(item)!=""%}
-                   <td class="govuk-table__cell">{{plantLinkMap.get(item)}}</td>
+                   {% if plantLinkMapsorted.get(item)!=""%}
+                   <td class="govuk-table__cell">{{plantLinkMapsorted.get(item)}}</td>
                   {% else %}
                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
                   {% endif %}
