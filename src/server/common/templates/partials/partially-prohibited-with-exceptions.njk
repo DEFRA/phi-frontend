@@ -1,6 +1,70 @@
 <h3 class="govuk-heading-s">
     {{data.mainContent.prohibitedHeader}}
 </h3>
+{% if data.result.hybridIndicator.length >= 1 %}
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-warning-text__assistive"></span>
+    {% if processedData.length > 1%}
+     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}} unless it is:
+    {% else %}
+     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}
+    {% endif %}
+    {% if data.result.subformat.length ===1 %} 
+        {% if ulIndicatorFlag %}           
+        <h3 class="govuk-heading-s">
+            {{data.mainContent.exceptionHeader}}
+        </h3>
+        <div class="govuk-body govuk-!-margin-bottom-0 govuk-!-padding-bottom-0">   
+            <ul>
+                {% if data.result.hybridIndicator.length > 1 %}
+                    <li>hybrid({{data.result.hybridIndicator}})</li>
+                {% endif %}
+                {% if data.result.dormantIndicator.length === 1 %}
+                    <li class="govuk-!-margin-bottom-0">dormant</li>
+                {% endif %} 
+                {% if data.result.dormantIndicator.length > 1 %}
+                    <li class="govuk-!-margin-bottom-0">dormant({{data.result.dormantIndicator}})</li>
+                {% endif %}
+                {% if data.result.seedIndicator.length === 1 %}
+                    <li class="govuk-!-margin-bottom-0">seeds</li>
+                {% endif %}
+                {% if data.result.seedIndicator.length > 1 %}
+                    <li class="govuk-!-margin-bottom-0">seeds({{data.result.seedIndicator}})</li>
+                {% endif %}
+                {% if data.result.fruitIndicator.length === 1 %}
+                    <li class="govuk-!-margin-bottom-0">fruit</li>
+                {% endif %}
+                {% if data.result.fruitIndicator.length > 1 %}
+                    <li class="govuk-!-margin-bottom-0">fruit({{data.result.fruitIndicator}})</li>
+                {% endif %}
+                {% if data.result.bonsaiIndicator.length === 1 %}
+                    <li class="govuk-!-margin-bottom-0">naturally and artificially dwarfed</li>
+                {% endif %}
+                {% if data.result.bonsaiIndicator.length > 1 %}
+                    <li class="govuk-!-margin-bottom-0">naturally and artificially dwarfed({{data.result.bonsaiIndicator}})</li>
+                {% endif %}
+                {% if data.result.invintroIndicator.length === 1 %}
+                    <li class="govuk-!-margin-bottom-0">invitro</li>
+                {% endif %}
+                {% if data.result.invintroIndicator.length > 1 %}
+                    <li class="govuk-!-margin-bottom-0">invitro({{data.result.invintroIndicator}})</li>
+                {% endif %}
+                {% if data.result.FormatClarification.length > 1 %}
+                <li>{{data.result.FormatClarification}}</li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+    {% endif %}
+   </strong>
+   </div> 
+    <div class="govuk-body">   
+    <p class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">{{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
+                href={{data.url}}>{{data.urlText}}</a></p>
+    </div>            
+{% else %}
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
@@ -102,6 +166,7 @@
             {% endif %}
         {% endif %}
     </div>
+{% endif %}
 {% endif %}
 {% if data.result.ProhibitionClarification.length > 1 %}
     <h3 class="govuk-heading-s">
