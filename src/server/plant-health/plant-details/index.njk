@@ -74,7 +74,13 @@
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}
           {% include "partials/partially-prohibited-with-exceptions.njk" %}
-          {% include "partials/partially-prohibited-import-rules.njk" %}
+          {% if result.isEUSL === 'true'%}
+          {% include "partials/partially-prohibited-eusl-import-rules.njk" %}
+          {% else %}
+          {% if result.isEUSL === 'false'%}
+          {% include "partials/partially-prohibited-non-eusl-import-rules.njk" %}
+          {% endif %}
+          {% endif %}
       {%endif%}      
      {% if (outcome) and (outcome === 'un-prohibited') %}
         {% set data = {

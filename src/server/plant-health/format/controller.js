@@ -76,7 +76,6 @@ const formatPageController = {
             subFormatArray.push(result.FormatClarification)
           }
           const ulIndicatorList = [
-            { name: 'hybrid', flag: result.hybridIndicator },
             { name: 'dormant', flag: result.dormantIndicator },
             { name: 'seeds', flag: result.seedIndicator },
             { name: 'fruit', flag: result.fruitIndicator },
@@ -84,9 +83,8 @@ const formatPageController = {
               name: 'naturally and artificially dwarfed',
               flag: result.bonsaiIndicator
             },
-            { name: 'invitro', flag: result.invintroIndicator }
+            { name: 'invitro material', flag: result.invintroIndicator }
           ]
-          // return result
           let processedData = []
           for (let i = 0; i < subFormatArray.length; i++) {
             processedData.push(subFormatArray[i])

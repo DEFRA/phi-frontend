@@ -74,10 +74,10 @@
         {% else %}
             {% for itr in ulIndicatorList %}
                 {% if itr.flag.length === 1 %}
-                    <p>{{itr.name}}</p>
+                    {{itr.name}}
                 {% endif %}
                 {% if itr.flag.length > 1 %}
-                    <p>{{itr.name}}({{itr.flag}})</p>
+                    {{itr.name}}({{itr.flag}})
                 {% endif %}
             {% endfor %}
             {% if data.result.FormatClarification.length > 1 %}
