@@ -9,7 +9,6 @@ const pestSearchController = {
         const pestDetails = {
           cslRef: parseInt(request.query?.getcsl)
         }
-
         const result = await invokepestdetailsAPI(pestDetails)
         async function invokepestdetailsAPI(payload) {
           try {
@@ -62,15 +61,15 @@ const pestSearchController = {
 
         const factsheetlinks = []
         const otherPublications = []
-
+        const Rnpmap = []
+        const Othermap = []
         // let publicationDateFormated;
         const fc = 'factsheet'.toUpperCase()
         const commanNamearray = result.pest_detail[0].PEST_NAME[1].NAME
         const commonNameSorted = commanNamearray.sort()
-        // console.log("cmn",cmn);
+
         const syNamearray = result.pest_detail[0].PEST_NAME[2].NAME
         const SynonymNameSorted = syNamearray.sort()
-        // console.log("cmn",syn);
 
         for (let i = 0; i < result.pest_detail[0].DOCUMENT_LINK.length; i++) {
           if (
@@ -110,16 +109,11 @@ const pestSearchController = {
           }
         }
         const plantLinl = []
-        // const array1=result.pest_detail[0].PLANT_LINK;
-        // const ar2 = array1.sort();
-        // console.log("array1",array1);
         for (let a = 0; a < result.pest_detail[0].PLANT_LINK.length; a++) {
           if (result.pest_detail[0].QUARANTINE_INDICATOR === 'R') {
             plantLinl.push(result.pest_detail[0].PLANT_LINK[a].HOST_REF)
           }
-
           const item = result.pest_detail[0].PLANT_LINK[a].PLANT_NAME
-
           const commonmNames = []
           for (let j = 0; j < item.length; j++) {
             if (item[j].type === 'COMMON_NAME') {
@@ -131,6 +125,101 @@ const pestSearchController = {
             result.pest_detail[0].PLANT_LINK[a].LATIN_NAME,
             commonmNames
           )
+        }
+
+        if (result.pest_detail[0].QUARANTINE_INDICATOR === 'R') {
+          const Plantdetails = await invokepestplantLinkAPI(plantLinl)
+
+          const array1 = Plantdetails.pest_link
+
+          const RArray = []
+          const OtherArray = []
+          const Rmap = new Map()
+          const Omap = new Map()
+          for (let ar = 0; ar < array1.length; ar++) {
+            for (let r = 0; r < array1[ar].PEST_LINK.length; r++) {
+              if (
+                array1[ar].PEST_LINK[r].CSL_REF ===
+                result.pest_detail[0].CSL_REF
+              ) {
+                if (array1[ar].PEST_LINK[r].QUARANTINE_INDICATOR === 'R') {
+                  const ra = []
+                  ra.HOSTREF = array1[ar].HOST_REF
+                  ra.FORMAT = array1[ar].PEST_LINK[r].REGULATION_INDICATOR
+                  RArray.push(ra.HOSTREF)
+                  Rmap.set(ra.HOSTREF, ra.FORMAT)
+                } else {
+                  const ra = []
+                  ra.HOSTREF = array1[ar].HOST_REF
+                  ra.FORMAT = array1[ar].PEST_LINK[r].REGULATION_INDICATOR
+                  OtherArray.push(ra.HOSTREF)
+                  Omap.set(ra.HOSTREF, ra.FORMAT)
+                }
+              }
+            }
+          }
+
+          for (let a = 0; a < result.pest_detail[0].PLANT_LINK.length; a++) {
+            if (result.pest_detail[0].QUARANTINE_INDICATOR === 'R') {
+              // RArray = RArray.map(Number)
+
+              RArray.forEach((element) => {
+                if (element === result.pest_detail[0].PLANT_LINK[a].HOST_REF) {
+                  const item = result.pest_detail[0].PLANT_LINK[a].PLANT_NAME
+
+                  const commonmNames = []
+                  for (let j = 0; j < item.length; j++) {
+                    if (item[j].type === 'COMMON_NAME') {
+                      commonmNames.push(item[j].NAME)
+                    }
+                  }
+                  const va = []
+                  va.LATIN_NAME = result.pest_detail[0].PLANT_LINK[a].LATIN_NAME
+                  va.COMMAN_NAME = commonmNames
+                  va.FORMAT = Rmap.get(
+                    result.pest_detail[0].PLANT_LINK[a].HOST_REF
+                  )
+                  Rnpmap.push(va)
+                }
+              })
+
+              OtherArray.forEach((element) => {
+                if (element === result.pest_detail[0].PLANT_LINK[a].HOST_REF) {
+                  const item = result.pest_detail[0].PLANT_LINK[a].PLANT_NAME
+
+                  const commonmNames = []
+                  for (let j = 0; j < item.length; j++) {
+                    if (item[j].type === 'COMMON_NAME') {
+                      commonmNames.push(item[j].NAME)
+                    }
+                  }
+                  const va = []
+                  va.LATIN_NAME = result.pest_detail[0].PLANT_LINK[a].LATIN_NAME
+                  va.COMMAN_NAME = commonmNames
+                  va.FORMAT = Rmap.get(
+                    result.pest_detail[0].PLANT_LINK[a].HOST_REF
+                  )
+                  Othermap.push(va)
+                }
+              })
+            }
+          }
+        } else {
+          Rnpmap.push()
+          Othermap.push()
+        }
+
+        async function invokepestplantLinkAPI(payload) {
+          try {
+            const response = await axios.post(
+              config.get('backendApiUrl') + '/search/pestlink',
+              { hostRefs: payload }
+            )
+
+            return response.data
+          } catch (error) {
+            return error // Rethrow the error so it can be handled appropriately
+          }
         }
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
@@ -152,7 +241,9 @@ const pestSearchController = {
           synonymNames: SynonymNameSorted,
           plantLinkMapsorted,
           otherPublications,
-          factsheetlinks
+          factsheetlinks,
+          Rnpmap,
+          Othermap
         })
       }
     }

@@ -26,6 +26,18 @@
 
   </div>
  {%endif%}
+ {% if data.quarantineIndicator =='R'  %} 
+  <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+      {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content13}} 
+        </strong>
+     
+     <p> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
+
+  </div>
+ {%endif%}
 
 <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}
@@ -132,12 +144,15 @@
           </tbody>
         </table>
           {% endif %}
-                
+                {% if data.quarantineIndicator =='R'  %} 
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.HeaderText3}} {{data.preferredName }}
+ <p>{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}} </p>
+<p>{{data.mainContent.content3}} {{data.preferredName }} {{data.mainContent.content4}}</p>
 
-
-
-
+      {% endif %}
+ {% if data.quarantineIndicator !='R'  %} 
 <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText4}} {{data.preferredName }}
-
+   {% endif %}
 </p>
