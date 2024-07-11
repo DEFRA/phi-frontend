@@ -62,12 +62,14 @@
      {% if (outcome) and (outcome === 'partially-prohibited')%}
           {% set data = {
           processedData: processedData,
+          removedSeedsData: removedSeedsData,
           ulIndicatorFlag: ulIndicatorFlag,
           result: result,
           mainContent: mainContent,
           countrySearchQuery: countrySearchQuery,
           format: format,
           searchQuery: searchQuery,
+          ulIndicatorList: ulIndicatorList,
           urlText: "apply for authorisation to import your plant or plant product.",
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}

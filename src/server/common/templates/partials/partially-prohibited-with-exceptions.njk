@@ -18,39 +18,14 @@
         </h3>
         <div class="govuk-body govuk-!-margin-bottom-0 govuk-!-padding-bottom-0">   
             <ul>
-                {% if data.result.hybridIndicator.length > 1 %}
-                    <li>hybrid({{data.result.hybridIndicator}})</li>
+                {% for itr in ulIndicatorList %}
+                {% if itr.flag.length === 1 %}
+                    <li>{{itr.name}}</li>
                 {% endif %}
-                {% if data.result.dormantIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">dormant</li>
-                {% endif %} 
-                {% if data.result.dormantIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">dormant({{data.result.dormantIndicator}})</li>
+                 {% if itr.flag.length > 1 %}
+                    <li>{{itr.name}}({{itr.flag}})</li>
                 {% endif %}
-                {% if data.result.seedIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">seeds</li>
-                {% endif %}
-                {% if data.result.seedIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">seeds({{data.result.seedIndicator}})</li>
-                {% endif %}
-                {% if data.result.fruitIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">fruit</li>
-                {% endif %}
-                {% if data.result.fruitIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">fruit({{data.result.fruitIndicator}})</li>
-                {% endif %}
-                {% if data.result.bonsaiIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">naturally and artificially dwarfed</li>
-                {% endif %}
-                {% if data.result.bonsaiIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">naturally and artificially dwarfed({{data.result.bonsaiIndicator}})</li>
-                {% endif %}
-                {% if data.result.invintroIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">invitro</li>
-                {% endif %}
-                {% if data.result.invintroIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">invitro({{data.result.invintroIndicator}})</li>
-                {% endif %}
+                {% endfor %}
                 {% if data.result.FormatClarification.length > 1 %}
                 <li>{{data.result.FormatClarification}}</li>
                 {% endif %}
@@ -84,84 +59,28 @@
     <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">{{data.mainContent.exceptionHelpText}}
         {% if ulIndicatorFlag %}
             <ul>
-                {% if data.result.hybridIndicator.length === 1 %}
-                    <li>hybrid</li>
+                {% for itr in ulIndicatorList %}
+                {% if itr.flag.length === 1 %}
+                    <li>{{itr.name}}</li>
                 {% endif %}
-                {% if data.result.hybridIndicator.length > 1 %}
-                    <li>hybrid({{data.result.hybridIndicator}})</li>
+                 {% if itr.flag.length > 1 %}
+                    <li>{{itr.name}}({{itr.flag}})</li>
                 {% endif %}
-                {% if data.result.dormantIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">dormant</li>
-                {% endif %} 
-                {% if data.result.dormantIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">dormant({{data.result.dormantIndicator}})</li>
-                {% endif %}
-                {% if data.result.seedIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">seeds</li>
-                {% endif %}
-                {% if data.result.seedIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">seeds({{data.result.seedIndicator}})</li>
-                {% endif %}
-                {% if data.result.fruitIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">fruit</li>
-                {% endif %}
-                {% if data.result.fruitIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">fruit({{data.result.fruitIndicator}})</li>
-                {% endif %}
-                {% if data.result.bonsaiIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">naturally and artificially dwarfed</li>
-                {% endif %}
-                {% if data.result.bonsaiIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">naturally and artificially dwarfed({{data.result.bonsaiIndicator}})</li>
-                {% endif %}
-                {% if data.result.invintroIndicator.length === 1 %}
-                    <li class="govuk-!-margin-bottom-0">invitro</li>
-                {% endif %}
-                {% if data.result.invintroIndicator.length > 1 %}
-                    <li class="govuk-!-margin-bottom-0">invitro({{data.result.invintroIndicator}})</li>
-                {% endif %}
+                {% endfor %}
                 {% if data.result.FormatClarification.length > 1 %}
                 <li>{{data.result.FormatClarification}}</li>
                 {% endif %}
             </ul>
         {% else %}
-            {% if data.result.hybridIndicator.length === 1 %}
-            hybrid
-            {% endif %}
-            {% if data.result.hybridIndicator.length > 1 %}
-            hybrid({{data.result.hybridIndicator}})
-            {% endif %}
-            {% if data.result.dormantIndicator.length === 1 %}
-            dormant
-            {% endif %} 
-            {% if data.result.dormantIndicator.length > 1 %}
-            dormant({{data.result.dormantIndicator}})
-            {% endif %}
-            {% if data.result.seedIndicator.length === 1 %}
-            seeds
-            {% endif %}
-            {% if data.result.seedIndicator.length > 1 %}
-            seeds({{data.result.seedIndicator}})
-            {% endif %}
-            {% if data.result.fruitIndicator.length === 1 %}
-            fruit
-            {% endif %}
-            {% if data.result.fruitIndicator.length > 1 %}
-            fruit({{data.result.fruitIndicator}})
-            {% endif %}
-            {% if data.result.bonsaiIndicator.length === 1 %}
-             naturally and artificially dwarfed
-            {% endif %}
-            {% if data.result.bonsaiIndicator.length > 1 %}
-             naturally and artificially dwarfed({{data.result.bonsaiIndicator}})
-            {% endif %}
-            {% if data.result.invintroIndicator.length === 1 %}
-             invitro
-            {% endif %}
-            {% if data.result.invintroIndicator.length > 1 %}
-             invitro({{data.result.invintroIndicator}})
-            {% endif %}
-             {% if data.result.FormatClarification.length > 1 %}
+            {% for itr in ulIndicatorList %}
+                {% if itr.flag.length === 1 %}
+                    <p>{{itr.name}}</p>
+                {% endif %}
+                {% if itr.flag.length > 1 %}
+                    <p>{{itr.name}}({{itr.flag}})</p>
+                {% endif %}
+            {% endfor %}
+            {% if data.result.FormatClarification.length > 1 %}
              {{data.result.FormatClarification}}
             {% endif %}
         {% endif %}

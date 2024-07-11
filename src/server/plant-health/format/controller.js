@@ -59,6 +59,10 @@ const formatPageController = {
             subFormatArray.push('Dormant')
           }
 
+          if (result.seedIndicator.length > 0) {
+            subFormatArray.push('Seeds')
+          }
+
           if (result.fruitIndicator.length > 0) {
             subFormatArray.push('Fruit')
           }
@@ -71,6 +75,17 @@ const formatPageController = {
           if (result.FormatClarification.length > 0) {
             subFormatArray.push(result.FormatClarification)
           }
+          const ulIndicatorList = [
+            { name: 'hybrid', flag: result.hybridIndicator },
+            { name: 'dormant', flag: result.dormantIndicator },
+            { name: 'seeds', flag: result.seedIndicator },
+            { name: 'fruit', flag: result.fruitIndicator },
+            {
+              name: 'naturally and artificially dwarfed',
+              flag: result.bonsaiIndicator
+            },
+            { name: 'invitro', flag: result.invintroIndicator }
+          ]
           // return result
           let processedData = []
           for (let i = 0; i < subFormatArray.length; i++) {
@@ -83,6 +98,7 @@ const formatPageController = {
           if (subFormatArray.length > 1) {
             ulIndicatorFlag = true
           }
+          const removedSeedsData = processedData[0].replace('Seeds or', '')
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
@@ -91,6 +107,7 @@ const formatPageController = {
             getHelpSection,
             radiobuttonValue,
             processedData,
+            removedSeedsData,
             hostRef,
             format,
             outcome: result.outcome,
@@ -107,7 +124,8 @@ const formatPageController = {
             countrySearchQuery,
             fullSearchQuery,
             mainContent,
-            searchQuery
+            searchQuery,
+            ulIndicatorList
           })
         }
 
