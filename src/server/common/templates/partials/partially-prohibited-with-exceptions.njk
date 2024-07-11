@@ -1,89 +1,136 @@
 <h3 class="govuk-heading-s">
     {{data.mainContent.prohibitedHeader}}
 </h3>
+{% if processedData[0].split(' or ').length > 0%}
+{% set colon = ':'%}
+{% else %}
+{% set colon = ''%}
+{%endif%}
 {% if data.result.hybridIndicator.length >= 1 %}
-<div class="govuk-warning-text">
-  <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-  <strong class="govuk-warning-text__text">
-    <span class="govuk-warning-text__assistive"></span>
-    {% if processedData.length > 1%}
-     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}} unless it is:
-    {% else %}
-     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}
-    {% endif %}
-    {% if data.result.subformat.length ===1 %} 
-        {% if ulIndicatorFlag %}           
-        <h3 class="govuk-heading-s">
-            {{data.mainContent.exceptionHeader}}
-        </h3>
-        <div class="govuk-body govuk-!-margin-bottom-0 govuk-!-padding-bottom-0">   
-            <ul>
+    <div class="govuk-warning-text govuk-!-margin-bottom-0">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive"></span>
+        {% if processedData.length > 1%}
+        {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format}} unless it is:
+        {% else %}
+        {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+        {% endif %}
+        </strong>
+    </div>    
+    {% if data.result.subformat.length ===1 and processedData.length > 0 %} 
+       <div class="govuk-body govuk-!-margin-bottom-0">  
+            {% if ulIndicatorFlag %} 
+                {% if processedData[0].split(' or ').length === 2 %}
+                <h3 class="govuk-heading-s">
+                {{data.mainContent.exceptionHeader}}
+                </h3>
+                <p class="govuk-!-margin-top-0 govuk-!-margin-bottom-0">{{data.mainContent.exceptionHelpText}}{{colon}}
+                    {% for itr in ulIndicatorList %}
+                    {% if itr.flag.length === 1 %}
+                        {{itr.name}}.
+                    {% endif %}
+                    {% if itr.flag.length > 1 %}
+                        {{itr.name}}( {{itr.flag}} ).
+                    {% endif %}
+                    {% endfor %}
+                    {% if data.result.FormatClarification.length > 1 %}
+                        {{data.result.FormatClarification}}.
+                    {% endif %}
+                </p>
+                {% else %}
+                 <h3 class="govuk-heading-s">
+                {{data.mainContent.exceptionHeader}}
+                </h3>
+                <p class="govuk-!-margin-top-0 govuk-!-margin-bottom-0">{{data.mainContent.exceptionHelpText}}{{colon}}
+                <ul>
+                    {% for itr in ulIndicatorList %}
+                    {% if itr.flag.length === 1 %}
+                        <li>{{itr.name}}</li>
+                    {% endif %}
+                    {% if itr.flag.length > 1 %}
+                        <li>{{itr.name}}( {{itr.flag}} )</li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if data.result.FormatClarification.length > 1 %}
+                    <li>{{data.result.FormatClarification}}</li>
+                    {% endif %}
+                </ul>
+                </p>
+                {% endif %} 
+            {% else %}  
+                {% if processedData.length > 1 %}
+                 <h3 class="govuk-heading-s">
+                {{data.mainContent.exceptionHeader}}
+                </h3>
+                <p class="govuk-!-margin-top-0 govuk-!-margin-bottom-0">{{data.mainContent.exceptionHelpText}}{{colon}}  
                 {% for itr in ulIndicatorList %}
+                {{itr.name}}
                 {% if itr.flag.length === 1 %}
-                    <li>{{itr.name}}</li>
+                    {{itr.name}}.
                 {% endif %}
-                 {% if itr.flag.length > 1 %}
-                    <li>{{itr.name}}({{itr.flag}})</li>
+                {% if itr.flag.length > 1 %}
+                    {{itr.name}}( {{itr.flag}} ).
                 {% endif %}
                 {% endfor %}
                 {% if data.result.FormatClarification.length > 1 %}
-                <li>{{data.result.FormatClarification}}</li>
+                    {{data.result.FormatClarification}}.
                 {% endif %}
-            </ul>
-        {% endif %}
-    </div>
+                {% endif %}
+                </p>
+            {% endif %}
+       </div>
     {% endif %}
-   </strong>
-   </div> 
-    <div class="govuk-body">   
-    <p class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">{{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
-                href={{data.url}}>{{data.urlText}}</a></p>
-    </div>            
+<div class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">   
+ {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
+ href={{data.url}}>{{data.urlText}}</a>
+</div>            
 {% else %}
-<div class="govuk-warning-text">
+<div class="govuk-warning-text govuk-!-margin-bottom-0">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-warning-text__assistive"></span>
-    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}
+    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
    </strong>
-   </div> 
-<div class="govuk-body">   
- <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">{{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
-            href={{data.url}}>{{data.urlText}}</a></p>
-
+</div> 
+<div class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">   
+ {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
+ href={{data.url}}>{{data.urlText}}</a>
+</div>
 {% if data.result.subformat.length ===1 %}            
     <h3 class="govuk-heading-s">
         {{data.mainContent.exceptionHeader}}
     </h3>
     <div class="govuk-body">   
-    <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">{{data.mainContent.exceptionHelpText}}
-        {% if ulIndicatorFlag %}
-            <ul>
+        <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-0">{{data.mainContent.exceptionHelpText}}{{colon}}
+            {% if ulIndicatorFlag %}
+                <ul>
+                    {% for itr in ulIndicatorList %}
+                    {% if itr.flag.length === 1 %}
+                        <li>{{itr.name}}</li>
+                    {% endif %}
+                    {% if itr.flag.length > 1 %}
+                        <li>{{itr.name}}( {{itr.flag}} )</li>
+                    {% endif %}
+                    {% endfor %}
+                    {% if data.result.FormatClarification.length > 1 %}
+                    <li>{{data.result.FormatClarification}}</li>
+                    {% endif %}
+                </ul>
+            {% else %}
                 {% for itr in ulIndicatorList %}
-                {% if itr.flag.length === 1 %}
-                    <li>{{itr.name}}</li>
-                {% endif %}
-                 {% if itr.flag.length > 1 %}
-                    <li>{{itr.name}}({{itr.flag}})</li>
-                {% endif %}
+                    {% if itr.flag.length === 1 %}
+                        {{itr.name}}.
+                    {% endif %}
+                    {% if itr.flag.length > 1 %}
+                        {{itr.name}}( {{itr.flag}} ).
+                    {% endif %}
                 {% endfor %}
                 {% if data.result.FormatClarification.length > 1 %}
-                <li>{{data.result.FormatClarification}}</li>
+                {{data.result.FormatClarification}}.
                 {% endif %}
-            </ul>
-        {% else %}
-            {% for itr in ulIndicatorList %}
-                {% if itr.flag.length === 1 %}
-                    {{itr.name}}
-                {% endif %}
-                {% if itr.flag.length > 1 %}
-                    {{itr.name}}({{itr.flag}})
-                {% endif %}
-            {% endfor %}
-            {% if data.result.FormatClarification.length > 1 %}
-             {{data.result.FormatClarification}}
             {% endif %}
-        {% endif %}
+        </p>
     </div>
 {% endif %}
 {% endif %}
@@ -93,5 +140,5 @@
     </h3>
     <p>{{data.result.ProhibitionClarification}}</p>
 {% endif %}
-</div>
+
 

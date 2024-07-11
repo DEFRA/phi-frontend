@@ -19,86 +19,91 @@
   {% endif %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      {% set data = {
-    result: result,
-    mainContent: mainContent,
-    searchQuery: searchQuery,
-    commonNames: commonNames,
-    synonymNames: synonymNames,
-    preferredName: preferredName,
-    eppoCode: eppoCode
-    } %}
-    {% include "partials/identity.njk" %}
-    <h2 class="govuk-heading-m govuk-!-padding-top-3">
-      {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
-    </h2>
-    {% if (outcome) and (outcome.toLowerCase() === 'prohibited') %}
-      {% if (annexSixRule) and (annexSixRule === 'INNS') %}
-        {% set data = {
-        result: result,
-        mainContent: mainContent,
-        countrySearchQuery: countrySearchQuery,
-        format: format,
-        searchQuery: searchQuery,
-        urlText: "apply for a permit to move your plant or plant product.",
-        url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application"
-        } %}
-        {% include "partials/import-rules.njk" %}
-      {% else %}
-       {% if (annexSixRule) and (annexSixRule !== 'INNS') %}
-        {% set data = {
-        result: result,
-        mainContent: mainContent,
-        countrySearchQuery: countrySearchQuery,
-        format: format,
-        searchQuery: searchQuery,
-        urlText: "apply for authorisation to import your plant or plant product.",
-        url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
-        } %}
-        {% include "partials/import-rules.njk" %}
+      {% if format.toLowerCase() === 'parts of a plant'%}
+      {% set newFormat = 'parts of plants'%}
+      {%else%}
+      {%set newFormat = format%}
       {% endif %}
-      {%endif%}
-    {% else %}
-     {% if (outcome) and (outcome === 'partially-prohibited')%}
+      {% set data = {
+      result: result,
+      mainContent: mainContent,
+      searchQuery: searchQuery,
+      commonNames: commonNames,
+      synonymNames: synonymNames,
+      preferredName: preferredName,
+      eppoCode: eppoCode
+      } %}
+      {% include "partials/identity.njk" %}
+      <h2 class="govuk-heading-m govuk-!-padding-top-3">
+        {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
+      </h2>
+      {% if (outcome) and (outcome.toLowerCase() === 'prohibited') %}
+        {% if (annexSixRule) and (annexSixRule === 'INNS') %}
           {% set data = {
-          processedData: processedData,
-          removedSeedsData: removedSeedsData,
-          ulIndicatorFlag: ulIndicatorFlag,
           result: result,
           mainContent: mainContent,
           countrySearchQuery: countrySearchQuery,
-          format: format,
+          format: newFormat,
           searchQuery: searchQuery,
-          ulIndicatorList: ulIndicatorList,
+          urlText: "apply for a permit to move your plant or plant product.",
+          url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application"
+          } %}
+          {% include "partials/import-rules.njk" %}
+        {% else %}
+        {% if (annexSixRule) and (annexSixRule !== 'INNS') %}
+          {% set data = {
+          result: result,
+          mainContent: mainContent,
+          countrySearchQuery: countrySearchQuery,
+          format: newFormat,
+          searchQuery: searchQuery,
           urlText: "apply for authorisation to import your plant or plant product.",
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}
-          {% include "partials/partially-prohibited-with-exceptions.njk" %}
-          {% if result.isEUSL === 'true'%}
-          {% include "partials/partially-prohibited-eusl-import-rules.njk" %}
-          {% else %}
-          {% if result.isEUSL === 'false'%}
-          {% include "partials/partially-prohibited-non-eusl-import-rules.njk" %}
-          {% endif %}
-          {% endif %}
-      {%endif%}      
-     {% if (outcome) and (outcome === 'un-prohibited') %}
-        {% set data = {
-        result: result,
-        mainContent: mainContent,
-        countrySearchQuery: countrySearchQuery,
-        format: format,
-        searchQuery: searchQuery,
-        urlText: "apply for authorisation to import your plant or plant product.",
-        url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
-        } %}
-        {% include "partials/unprohibited-import-rules.njk" %}
-     {% endif %}
-    {% endif %}
-    <h2 class="govuk-heading-m">
-    {{mainContent.pestHeader}}
-    </h2>
-     {% if (pest_names.length === 0) %}
+          {% include "partials/import-rules.njk" %}
+        {% endif %}
+        {%endif%}
+      {% else %}
+      {% if (outcome) and (outcome === 'partially-prohibited')%}
+            {% set data = {
+            processedData: processedData,
+            removedSeedsData: removedSeedsData,
+            ulIndicatorFlag: ulIndicatorFlag,
+            result: result,
+            mainContent: mainContent,
+            countrySearchQuery: countrySearchQuery,
+            format: newFormat,
+            searchQuery: searchQuery,
+            ulIndicatorList: ulIndicatorList,
+            urlText: "apply for authorisation to import your plant or plant product.",
+            url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
+            } %}
+            {% include "partials/partially-prohibited-with-exceptions.njk" %}
+            {% if result.isEUSL === 'true'%}
+            {% include "partials/partially-prohibited-eusl-import-rules.njk" %}
+            {% else %}
+            {% if result.isEUSL === 'false'%}
+            {% include "partials/partially-prohibited-non-eusl-import-rules.njk" %}
+            {% endif %}
+            {% endif %}
+        {%endif%}      
+      {% if (outcome) and (outcome === 'un-prohibited') %}
+          {% set data = {
+          result: result,
+          mainContent: mainContent,
+          countrySearchQuery: countrySearchQuery,
+          format: newFormat,
+          searchQuery: searchQuery,
+          urlText: "apply for authorisation to import your plant or plant product.",
+          url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
+          } %}
+          {% include "partials/unprohibited-import-rules.njk" %}
+      {% endif %}
+      {% endif %}
+      <h2 class="govuk-heading-m">
+       {{mainContent.pestHeader}}
+      </h2>
+      {% if (pest_names.length === 0) %}
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
       {% else %}
         <p class="govuk-body">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
@@ -160,12 +165,12 @@
           </tbody>
         </table>
       {% endif %}
-    {% from "govuk/components/button/macro.njk" import govukButton %}
+      {% from "govuk/components/button/macro.njk" import govukButton %}
 
-    {{ govukButton({
-      text: "Find another plant or pest",
-       href: "/plant-health?findanotherpest=true"
-    }) }}
+      {{ govukButton({
+        text: "Find another plant or pest",
+        href: "/plant-health?findanotherpest=true"
+      }) }}
     </div>
   </div>
 
