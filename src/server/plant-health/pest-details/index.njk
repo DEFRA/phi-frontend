@@ -30,12 +30,78 @@
     quarantineIndicator:quarantineIndicator,
     otherPublications : otherPublications,
     Annex3URL : Annex3URL,
-    ContactAuthURL : ContactAuthURL     
+    ContactAuthURL : ContactAuthURL,
+     Rnpmap:Rnpmap,
+        Othermap:  Othermap
     
     } %}
   
     {% include "partials/identity_pest.njk" %}
-    
+
+{% if data.quarantineIndicator =='R'  %} 
+{% if Rnpmap.length > 0 %} 
+     <table class="govuk-table"> 
+   <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
+                <th scope="col" class="govuk-table__header">{{mainContent.HeaderFormatTable}}</th>
+               </tr>
+          </thead>
+ <tbody class="govuk-table__body">
+             {% for item in Rnpmap %}
+             
+                <tr class="govuk-table__row">
+              
+                  <td class="govuk-table__cell">{{item.LATIN_NAME}}</td>
+                   {% if item.COMMAN_NAME !="" %} 
+                   <td class="govuk-table__cell">{{item.COMMAN_NAME}}</td>
+                   {%endif%}
+                    {% if item.COMMAN_NAME == "" %} 
+                   <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                   {%endif%}
+                   <td class="govuk-table__cell">{{item.FORMAT}}</td>
+                  
+                
+                  
+            {% endfor %}
+          </tbody>
+        </table>
+ {%endif%}
+{% if Othermap.length > 0 %} 
+
+<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+{{data.mainContent.HeaderText4}} {{data.preferredName }}
+         <table class="govuk-table"> 
+   <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
+             
+               </tr>
+          </thead>
+ <tbody class="govuk-table__body">
+             {% for item in Othermap %}
+             
+                <tr class="govuk-table__row">
+              
+                  <td class="govuk-table__cell">{{item.LATIN_NAME}}</td>
+                  {% if item.COMMAN_NAME !="" %} 
+                   <td class="govuk-table__cell">{{item.COMMAN_NAME}}</td>
+                   {%endif%}
+                    {% if item.COMMAN_NAME == "" %} 
+                   <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                   {%endif%}
+                  
+                
+                  
+            {% endfor %}
+          </tbody>
+        </table>
+        {%endif%}
+ {%endif%}
+    {% if data.quarantineIndicator !='R'  %} 
+
     <table class="govuk-table">
  
    <thead class="govuk-table__head">
@@ -60,7 +126,7 @@
             {% endfor %}
           </tbody>
         </table>
-        
+         {%endif%}
     
      {% from "govuk/components/button/macro.njk" import govukButton %}
 

@@ -76,16 +76,28 @@ const config = convict({
     default: null,
     env: 'CDP_HTTPS_PROXY'
   },
+  // backendApiUrl: {
+  //   doc: 'Backend api url',
+  //   format: String,
+  //   default: `https://phi-etl-fera-backend.dev.cdp-int.defra.cloud`,
+  //   env: 'BACKEND_API_URL'
+  // },
+  // frontendUrl: {
+  //   doc: 'Frontend url',
+  //   format: String,
+  //   default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+  //   env: 'FRONTEND_URL'
+  // },
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
-    default: `https://phi-etl-fera-backend.dev.cdp-int.defra.cloud`,
+    default: `http://localhost:3049`,
     env: 'BACKEND_API_URL'
   },
   frontendUrl: {
     doc: 'Frontend url',
     format: String,
-    default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    default: `http://localhost:3000`,
     env: 'FRONTEND_URL'
   },
   photoURL: {
