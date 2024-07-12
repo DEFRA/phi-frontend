@@ -85,7 +85,7 @@ const config = convict({
   frontendUrl: {
     doc: 'Frontend url',
     format: String,
-    default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    default: `http://localhost:3000`,
     env: 'FRONTEND_URL'
   },
   photoURL: {
