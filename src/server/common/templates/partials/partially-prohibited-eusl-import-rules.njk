@@ -93,6 +93,11 @@
       </li>
       {% endif %}
       </ul>
+      {% if item['BTOM_CLARIFICATION'].length > 0 %}
+       <div class='govuk-body'>
+        {{item['BTOM_CLARIFICATION']}}
+       </div>
+      {% endif %}
       <div class="govuk-inset-text">
     The phytosanitary certificate may need an additional declaration.
     To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.
@@ -155,7 +160,12 @@
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format}}, {{data.mainContent.unprohibitedHelpText3}}
-      </p>    
+      </p> 
+      {% if item['BTOM_CLARIFICATION'].length > 0 %}
+       <div class='govuk-body'>
+        {{item['BTOM_CLARIFICATION']}}
+       </div>
+      {% endif %}   
       <ul class="govuk-list govuk-list--bullet">
           <li>
             get a <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#get-a-phytosanitary-certificate-pc">phytosanitary certificate from the National Plant Protection Organisation of the exporting country </a> 
@@ -230,11 +240,74 @@
          {% set aboveFormatText = 'in the above format'%}
         {% endif %}
         {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{aboveFormatText}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
-      </p>    
+      </p>
+      {% if item['BTOM_CLARIFICATION'].length > 0 %}
+       <div class='govuk-body'>
+        {{item['BTOM_CLARIFICATION']}}
+       </div>
+      {% endif %}    
      <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods</a>
       </p>
     </div>  
-  {% endif %}   
+  {% endif %} 
+ {% if  item['BTOM_NON_EUSL'] === 'UNK'%}
+ {% if item['BTOM_CLARIFICATION'].length > 0 %}
+    <div class='govuk-body'>
+    {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
+    {% if data.result.hybridIndicator.length >= 1 %}
+     <h3 class="govuk-heading-s">{{data.format}}</h3>
+    {% else %}
+     <h3 class="govuk-heading-s">Seeds</h3>
+    {% endif %}
+  {% else %}
+    {% if ulIndicatorFlag %}
+      {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
+      <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
+      {% else %}
+      <h3 class="govuk-heading-s">
+        {{data.removedSeedsData}}
+      </h3>
+      {% endif %}
+    {% else %}
+     {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
+      <h3 class="govuk-heading-s">{{formatHeader}}</h3>
+     {% else %}
+       <h3 class="govuk-heading-s">
+          {% if data.result.hybridIndicator.length >= 1 %}
+            {{data.format}}
+          {% endif %}
+
+          {% if data.result.dormantIndicator.length >= 1 %}
+          Dormant
+          {% endif %}
+
+          {% if data.result.fruitIndicator.length >= 1 %}
+          Fruit
+          {% endif %}
+
+          {% if data.result.bonsaiIndicator.length >= 1 %}
+          Naturally and artificially dwarfed
+          {% endif %}
+
+          {% if data.result.seedIndicator.length >= 1 %}
+          Seeds
+          {% endif %}
+
+          {% if data.result.invintroIndicator.length >= 1 %}
+          Invitro material
+          {% endif %}
+
+          {% if data.result.FormatClarification.length > 1 %}
+          {{data.result.FormatClarification}}
+          {% endif %}
+       </h3>
+     {% endif %}
+    {% endif %}
+  {% endif %}
+    {{item['BTOM_CLARIFICATION']}}
+    </div>
+{% endif %}
+{%endif%}  
  {% endfor %} 
 {%endif%}

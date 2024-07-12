@@ -97,7 +97,11 @@
           urlText: "apply for authorisation to import your plant or plant product.",
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}
-          {% include "partials/unprohibited-import-rules.njk" %}
+          {% if result.isEUSL === 'true'%}
+          {% include "partials/unprohibited-eusl-import-rules.njk" %}
+          {% else %}
+          {% include "partials/unprohibited-non-eusl-import-rules.njk" %}
+          {% endif %}
       {% endif %}
       {% endif %}
       <h2 class="govuk-heading-m">
