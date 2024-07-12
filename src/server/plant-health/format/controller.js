@@ -52,37 +52,51 @@ const formatPageController = {
 
           result = await invokeWorkflowApi(plantDetails)
           const subFormatArray = []
-          if (result.hybridIndicator.length > 0) {
+          if (result.hybridIndicator?.length > 0) {
             subFormatArray.push('Hybrid')
           }
-          if (result.dormantIndicator.length > 0) {
+          if (result.dormantIndicator?.length > 0) {
             subFormatArray.push('Dormant')
           }
 
-          if (result.fruitIndicator.length > 0) {
+          if (result.seedIndicator?.length > 0) {
+            subFormatArray.push('Seeds')
+          }
+
+          if (result.fruitIndicator?.length > 0) {
             subFormatArray.push('Fruit')
           }
-          if (result.bonsaiIndicator.length > 0) {
+          if (result.bonsaiIndicator?.length > 0) {
             subFormatArray.push('Naturally and artificially dwarfed')
           }
-          if (result.invintroIndicator.length > 0) {
+          if (result.invintroIndicator?.length > 0) {
             subFormatArray.push('Invintro material')
           }
-          if (result.FormatClarification.length > 0) {
+          if (result.FormatClarification?.length > 0) {
             subFormatArray.push(result.FormatClarification)
           }
-          // return result
+          const ulIndicatorList = [
+            { name: 'dormant', flag: result.dormantIndicator },
+            { name: 'seeds', flag: result.seedIndicator },
+            { name: 'fruit', flag: result.fruitIndicator },
+            {
+              name: 'naturally and artificially dwarfed',
+              flag: result.bonsaiIndicator
+            },
+            { name: 'invitro material', flag: result.invintroIndicator }
+          ]
           let processedData = []
-          for (let i = 0; i < subFormatArray.length; i++) {
+          for (let i = 0; i < subFormatArray?.length; i++) {
             processedData.push(subFormatArray[i])
             if (i < subFormatArray.length - 1) {
               processedData.push('or')
             }
           }
-          processedData = processedData.join(' ').split(',')
-          if (subFormatArray.length > 1) {
+          processedData = processedData?.join(' ')?.split(',')
+          if (subFormatArray?.length > 1) {
             ulIndicatorFlag = true
           }
+          const removedSeedsData = processedData[0]?.replace('Seeds or', '')
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
@@ -91,6 +105,7 @@ const formatPageController = {
             getHelpSection,
             radiobuttonValue,
             processedData,
+            removedSeedsData,
             hostRef,
             format,
             outcome: result.outcome,
@@ -107,7 +122,8 @@ const formatPageController = {
             countrySearchQuery,
             fullSearchQuery,
             mainContent,
-            searchQuery
+            searchQuery,
+            ulIndicatorList
           })
         }
 
