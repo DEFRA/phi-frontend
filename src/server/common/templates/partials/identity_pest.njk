@@ -1,4 +1,4 @@
-<span class="govuk-caption-l">
+<span class="govuk-caption-xl">
 {{data.mainContent.headerText}}
 </span>
 <h1 class="govuk-heading-xl">
@@ -11,6 +11,7 @@
     <span class="govuk-visually-hidden">Warning</span>
       {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content2}} 
   </strong>
+  <br>
    <p>{{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
   </div> 
  {%endif%}
@@ -21,6 +22,7 @@
     <span class="govuk-visually-hidden">Warning</span>
       {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content9}} 
         </strong>
+         <br>
       <p> {{data.mainContent.content10}}<a class="govuk-link govuk-body" href={{data.Annex3URL}}>{{data.mainContent.content11}} </a></p>
      <p> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
 
@@ -33,19 +35,19 @@
     <span class="govuk-visually-hidden">Warning</span>
       {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content13}} 
         </strong>
-     
+      <br>
      <p> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
 
   </div>
  {%endif%}
 
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}
 </h3>
 <p>
 {{data.preferredName | capitalize}}
 </p>
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.commonNameHeading}}
 </h3>
 <ul class="govuk-list">
@@ -57,7 +59,7 @@
     <p>{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.synonymNameHeading}}
 </h3>
 <ul class="govuk-list">
@@ -71,10 +73,10 @@
 </ul>
 {% if resultofPhoto !="Fail"%}
 <div class="govuk-inset-text">
-  <p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in EPPO Global Database </a> </p></div>
+  <p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in EPPO Global Database. </a> </p></div>
 
         {% endif %} 
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText1}} {{data.preferredName }}
 
 <p>{{data.mainContent.Planthealthfiletext}}</p>
@@ -147,12 +149,13 @@
                 {% if data.quarantineIndicator =='R'  %} 
 <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText3}} {{data.preferredName }}
- <p>{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}} </p>
+ <p>{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}} </p>
 <p>{{data.mainContent.content3}} {{data.preferredName }} {{data.mainContent.content4}}</p>
 
       {% endif %}
  {% if data.quarantineIndicator !='R'  %} 
 <h3 class="govuk-heading-s govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText4}} {{data.preferredName }}
+ <p>{{data.preferredName }} {{data.mainContent.content19}}</p>
    {% endif %}
 </p>
