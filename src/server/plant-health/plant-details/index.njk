@@ -34,7 +34,7 @@
       eppoCode: eppoCode
       } %}
       {% include "partials/identity.njk" %}
-      <h2 class="govuk-heading-m govuk-!-padding-top-3">
+      <h2 class="govuk-heading-l govuk-!-padding-top-3">
         {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value | capitalize}}
       </h2>
       {% if (outcome) and (outcome.toLowerCase() === 'prohibited') %}
@@ -104,7 +104,7 @@
           {% endif %}
       {% endif %}
       {% endif %}
-      <h2 class="govuk-heading-m">
+      <h2 class="govuk-heading-l">
        {{mainContent.pestHeader}}
       </h2>
       {% if (pest_names.length === 0) %}
