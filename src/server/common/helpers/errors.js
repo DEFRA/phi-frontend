@@ -47,7 +47,8 @@ function catchAll(request, h) {
   return h
     .view('error/index', {
       statusCode,
-      pageTitle: errorMessage,
+      pageTitle:
+        'Error: Check plant health information and import rules - GOV.UK',
       heading: statusCode,
       message: errorMessage
     })

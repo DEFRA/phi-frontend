@@ -143,7 +143,8 @@ const formatPageController = {
 
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
-            pageTitle: 'Plant Details',
+            pageTitle:
+              'Check plant health information and import rules - GOV.UK',
             heading: 'Plant Details',
             getHelpSection,
             radiobuttonValue,
@@ -211,7 +212,7 @@ const formatPageController = {
           searchQuery,
           fullSearchQuery,
           hostRef,
-          pageTitle: 'Plant format',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

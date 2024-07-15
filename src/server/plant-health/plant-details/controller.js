@@ -42,7 +42,7 @@ const plantDetailsPageController = {
         const getHelpSection = formatData?.getHelpSection
 
         return h.view('plant-health/plant-details/index', {
-          pageTitle: 'Plant Details',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Plant Details',
           getHelpSection,
           hostRef,
@@ -84,7 +84,7 @@ const plantDetailsPageController = {
           hostRef,
           eppoCode,
           fullSearchQuery,
-          pageTitle: 'Plant Format',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

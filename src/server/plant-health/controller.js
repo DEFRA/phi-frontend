@@ -21,7 +21,7 @@ const plantHealthController = {
       return h.view('plant-health/index', {
         mainContent,
         getHelpSection,
-        pageTitle: 'Select journey',
+        pageTitle: 'Check plant health information and import rules - GOV.UK',
         heading: 'Plant',
         radiobuttonValue
       })

@@ -19,7 +19,7 @@ const purposeOfVisitController = {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle: 'Import to country selection',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
@@ -31,7 +31,7 @@ const purposeOfVisitController = {
         return h.view('plant-health/pest-search/index', {
           getHelpSection,
           serviceUnavailablePage,
-          pageTitle: 'Pest',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Pest'
         })
       } else {
@@ -55,7 +55,7 @@ const purposeOfVisitController = {
         return h.view('plant-health/index', {
           mainContent,
           getHelpSection,
-          pageTitle: 'Select journey',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Plant',
           radiobuttonValue,
           errors,
