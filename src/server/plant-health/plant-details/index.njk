@@ -67,7 +67,7 @@
       {% if (outcome) and (outcome === 'partially-prohibited')%}
             {% set data = {
             processedData: processedData,
-            removedSeedsData: removedSeedsData,
+            removedProcessedData: removedProcessedData,
             ulIndicatorFlag: ulIndicatorFlag,
             result: result,
             mainContent: mainContent,
@@ -92,6 +92,7 @@
           result: result,
           mainContent: mainContent,
           countrySearchQuery: countrySearchQuery,
+          removedProcessedData: removedProcessedData,
           format: newFormat,
           searchQuery: searchQuery,
           urlText: "apply for authorisation to import your plant or plant product.",

@@ -49,11 +49,10 @@ const formatPageController = {
             serviceFormat: request.query.format,
             country: request?.yar?.get('countrySearchQuery')?.value
           }
-
           result = await invokeWorkflowApi(plantDetails)
           const subFormatArray = []
-          if (result.hybridIndicator?.length > 0) {
-            subFormatArray.push('Hybrid')
+          function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1)
           }
           if (result.dormantIndicator?.length > 0) {
             subFormatArray.push('Dormant')
@@ -70,11 +69,14 @@ const formatPageController = {
             subFormatArray.push('Naturally and artificially dwarfed')
           }
           if (result.invintroIndicator?.length > 0) {
-            subFormatArray.push('Invintro material')
+            subFormatArray.push('Invitro material')
           }
           if (result.FormatClarification?.length > 0) {
-            subFormatArray.push(result.FormatClarification)
+            subFormatArray.push(
+              capitalizeFirstLetter(result.FormatClarification)
+            )
           }
+
           const ulIndicatorList = [
             { name: 'dormant', flag: result.dormantIndicator },
             { name: 'seeds', flag: result.seedIndicator },
@@ -96,8 +98,49 @@ const formatPageController = {
           if (subFormatArray?.length > 1) {
             ulIndicatorFlag = true
           }
-          const removedSeedsData = processedData[0]?.replace('Seeds or', '')
+          let removedProcessedData = []
+          result.annex11RulesArr.forEach(function (annex11) {
+            if (
+              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
+            ) {
+              removedProcessedData = processedData[0]?.replace('Seeds', '')
+            }
+            if (
+              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
+            ) {
+              removedProcessedData = processedData[0]?.replace('Seeds', '')
+            }
+            if (
+              annex11.SERVICE_SUBFORMAT.toLowerCase() ===
+              'root and tubercle vegetables'
+            ) {
+              removedProcessedData = processedData[0]?.push('Produce')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
+              // removedProcessedData =  processedData[0]?.replace('Fruit or', '')
+              removedProcessedData = processedData[0]?.replace('Fruit', '')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
+              removedProcessedData = processedData[0]?.push('Produce')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
+              removedProcessedData = processedData[0]?.push('Parts of plants')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging') {
+              removedProcessedData = processedData[0]?.push('Wood')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') {
+              removedProcessedData = processedData[0]?.push('Wood')
+            }
+          })
+
+          if (removedProcessedData?.split(' or ')?.length === 2) {
+            removedProcessedData = removedProcessedData
+              ?.split(' or ')
+              ?.join(' ')
+          }
           const pestDetails = result.pestDetails
+
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
             pageTitle: 'Plant Details',
@@ -105,7 +148,7 @@ const formatPageController = {
             getHelpSection,
             radiobuttonValue,
             processedData,
-            removedSeedsData,
+            removedProcessedData,
             hostRef,
             format,
             outcome: result.outcome,

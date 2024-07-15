@@ -3,36 +3,77 @@
   {{data.mainContent.importRulesHeader}}
 </h3>
 {% for item in data.result.annex11RulesArr%}
+{% if (item.SERVICE_SUBFORMAT === '')%}
+   {% set processedData =  data.removedProcessedData %}
+ {% else %}
+  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting')%}
+   {% set processedData =  'Seeds'  %}
+ {% endif %}
+  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating')%}
+    {% set  processedData =   'Seeds' %}
+  {% endif %}
+  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'root and tubercle vegetables')%}
+    {% set processedData =  'Produce' %}
+   {% endif %}
+   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') %}
+   {% set processedData =  'Fruit' %}
+ {% endif %}
+ {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'grain') %}
+   {% set processedData =  'Produce' %}
+  {% endif %}
+   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') %}
+    {% set processedData =  'Parts of plants' %}
+  {% endif %} 
+  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging') %}
+    {% set processedData =  'Wood' %}
+  {% endif %}
+   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') %}
+    {% set processedData =  'Wood' %}
+  {% endif %}
+ {% endif %}
+ 
+ 
+
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1%}  
     {% set formatHeader = data.format + '( other than ' + item.SERVICE_SUBFORMAT_EXCLUDED +')' %}
   {% else %}
     {% set formatHeader = data.format %}
   {% endif %}
-{% if item['BTOM_NON_EUSL'] === '11A'%}
+{% set 11AimportRules = 'false' %}  
+{% if ulIndicatorFlag %} 
+  {% if item['BTOM_NON_EUSL'] === '11A'%}
+  {% set 11AimportRules  = 'true'%}
+  {% endif %} 
+{% else %}
+  {% if item['BTOM_NON_EUSL'] === '11A' and  item['SERVICE_SUBFORMAT'].length > 0 %}
+  {% set 11AimportRules = 'true'%}
+  {% endif %}
+{% endif %}
+{% if 11AimportRules === 'true'%}
 <div class="govuk-body">
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length >= 0 %}
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-   {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
-        <h3 class="govuk-heading-s">{{formatHeader}}</h3>
+   {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
+        <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
   {% else %}
-  <h3 class="govuk-heading-s">Seeds</h3>
+  <h3 class="govuk-heading-s"> {{processedData}}</h3>
   {% endif %}
   {% else %}
   {% if ulIndicatorFlag %}
-  {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
+  {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
   <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
   {% else %}
   <h3 class="govuk-heading-s">
-    {{data.removedSeedsData}}
+    {{processedData}}
   </h3>
   {% endif %}
   {% else %}
-  {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0  %}
+  {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0  %}
   <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
   {% else %}
   <h3 class="govuk-heading-s">
     {% if data.result.hybridIndicator.length >= 1 %}
-    {{data.format}}
+    {{data.format | capitalize}}
     {% endif %}
     {% if data.result.dormantIndicator.length >= 1 %}
     Dormant
@@ -93,7 +134,7 @@
             comply with documentary, <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain#fees-for-plant-health-checks">identity and physical checks</a> at the border
           </li>
           <li>
-          pay <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#fees-for-plant-health-checks">fees for plant health checks</a>
+          pay <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain#fees-for-plant-health-checks">fees for plant health checks</a>
        </li>
     {% endif %}
   </ul>
@@ -106,16 +147,36 @@
     The phytosanitary certificate may need an additional declaration.
     To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.
   </div>
+  <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+    You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
+  </p>
 </div>
 {% endif %}
 {% endif %}
-{% if item['BTOM_NON_EUSL'] === '11B'%}
+
+{% set 11BimportRules = 'false' %}  
+{% if ulIndicatorFlag %} 
+  {% if item['BTOM_NON_EUSL'] === '11B'%}
+  {% set 11BimportRules  = 'true'%}
+  {% endif %} 
+{% else %}
+  {% if item['BTOM_NON_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length > 0 %}
+  {% set 11BimportRules = 'true'%}
+  {% endif %}
+{% endif %} 
+{% if 11BimportRules === 'true'%}
+  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set aboveFormatText = 'in the above formats'%}
+    {% else %}
+    {% set aboveFormatText = 'in the above format'%}
+    {% endif %}
+ 
 <div class="govuk-body">
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-   {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
-        <h3 class="govuk-heading-s">{{formatHeader}}</h3>
+   {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
+        <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
   {% else %}
-  <h3 class="govuk-heading-s">Seeds</h3>
+  <h3 class="govuk-heading-s">{{processedData}}</h3>
   {% endif %}
   {% else %}
   {% if ulIndicatorFlag %}
@@ -123,16 +184,16 @@
   <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
   {% else %}
   <h3 class="govuk-heading-s">
-    {{data.removedSeedsData}}
+    {{processedData}}
   </h3>
   {% endif %}
   {% else %}
-  {%if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0  %}
+  {%if data.result.hybridIndicator.length >= 1 and processedData.length === 0  %}
   <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
   {% else %}
   <h3 class="govuk-heading-s">
      {% if data.result.hybridIndicator.length >= 1 %}
-    {{data.format}}
+    {{data.format | capitalize}}
     {% endif %}
     {% if data.result.dormantIndicator.length >= 1 %}
     Dormant
@@ -167,8 +228,7 @@
     {{data.searchQuery.value | capitalize}}
     {{data.mainContent.importRulesHeaderText2}}
     {{data.countrySearchQuery.value | capitalize}}
-    {{data.mainContent.prohibitedContentText2}}
-    {{data.format}}, {{data.mainContent.unprohibitedHelpText3}}
+    {{aboveFormatText}}, {{data.mainContent.unprohibitedHelpText3}}
   </p>
   {% if item['BTOM_CLARIFICATION'].length > 0 %}
     <div class='govuk-body'>
@@ -189,32 +249,45 @@
     The phytosanitary certificate may need an additional declaration.
     To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.
   </div>
+  <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
+    </p>
 </div>
 {% endif %}
-{% if  item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR'%}
+{% set 11CimportRules = 'false' %}  
+{% if ulIndicatorFlag %} 
+  {% if item['BTOM_NON_EUSL'] === '11C'%}
+  {% set 11CimportRules  = 'true'%}
+  {% endif %} 
+{% else %}
+  {% if (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and  item['SERVICE_SUBFORMAT'].length > 0 %}
+  {% set 11CimportRules = 'true'%}
+  {% endif %}
+{% endif %}
+{% if 11CimportRules === 'true'%}
   <div class="govuk-body">
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-    {% if data.result.hybridIndicator.length >= 1 %}
-     <h3 class="govuk-heading-s">{{data.format}}</h3>
+    {% if data.result.hybridIndicator.length >= 1  and processedData.length === 0  %}
+     <h3 class="govuk-heading-s">{{data.format | capitalize}}</h3>
     {% else %}
-     <h3 class="govuk-heading-s">Seeds</h3>
+     <h3 class="govuk-heading-s">{{processedData}}</h3>
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
-      {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
+      {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
       <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
-        {{data.removedSeedsData}}
+        {{processedData}}
       </h3>
       {% endif %}
     {% else %}
-     {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
-      <h3 class="govuk-heading-s">{{formatHeader}}</h3>
+     {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
+      <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
      {% else %}
        <h3 class="govuk-heading-s">
           {% if data.result.hybridIndicator.length >= 1 %}
-            {{data.format}}
+            {{data.format  | capitalize}}
           {% endif %}
 
           {% if data.result.dormantIndicator.length >= 1 %}
@@ -251,13 +324,12 @@
     {% else %}
     {% set aboveFormatText = 'in the above format'%}
     {% endif %}
-    {% if data.result.isEusl === 'false'%}
+    {% if data.result.isEUSL === 'false'%}
         {{data.mainContent.unprohibitedHelpText1}}
         {{data.searchQuery.value | capitalize}}
         {{data.mainContent.importRulesHeaderText2}}
         {{data.countrySearchQuery.value | capitalize}}
         {{aboveFormatText}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
-    {% endif %}
     </p>
     {% if item['BTOM_CLARIFICATION'].length > 0 %}
        <div class='govuk-body'>
@@ -265,7 +337,7 @@
        </div>
     {% endif %}
     <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods</a>
+        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
     </p>
  </div>
 {% endif %}
@@ -274,26 +346,27 @@
     <div class='govuk-body'>
     {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
     {% if data.result.hybridIndicator.length >= 1 %}
-     <h3 class="govuk-heading-s">{{data.format}}</h3>
+     <h3 class="govuk-heading-s">{{data.format  | capitalize}}</h3>
     {% else %}
-     <h3 class="govuk-heading-s">Seeds</h3>
+     <h3 class="govuk-heading-s">{{processedData}}</h3>
+    {% endif %}
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
-      {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
+      {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
       <h3 class="govuk-heading-s">{{item['SERVICE_SUBFORMAT_EXCLUDED'] | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
-        {{data.removedSeedsData}}
+        {{processedData}}
       </h3>
       {% endif %}
     {% else %}
-     {% if data.result.hybridIndicator.length >= 1 and data.processedData.length === 0 %}
-      <h3 class="govuk-heading-s">{{formatHeader}}</h3>
+     {% if data.result.hybridIndicator.length >= 1 and processedData.length === 0 %}
+      <h3 class="govuk-heading-s">{{formatHeader  | capitalize}}</h3>
      {% else %}
        <h3 class="govuk-heading-s">
           {% if data.result.hybridIndicator.length >= 1 %}
-            {{data.format}}
+            {{data.format  | capitalize}}
           {% endif %}
 
           {% if data.result.dormantIndicator.length >= 1 %}
