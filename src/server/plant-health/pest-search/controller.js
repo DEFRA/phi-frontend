@@ -35,21 +35,57 @@ const pestSearchController = {
         const ContactAuthURL = config.get('contactAuthorities')
         const eppoCode = result.pest_detail[0].EPPO_CODE
 
-        const photoURL = config.get('photoURL') + eppoCode
-
-        const photores = pingWebsite(photoURL)
+        const photoURL = config.get('photoURL') + eppoCode + "/photos"
+      
+      // const photoURL="https://gd.eppo.int/taxon/EUWAWH/photos"
+        const photores =  await pingWebsite(photoURL)
+      var successPhotovar ;
+      
         async function pingWebsite(url) {
           try {
+            ///console.log("URLOFPHOTO",url);
             const response = await axios.get(url)
+          
+           // console.log("responseofPhoto",response.status);
             // Evaluate the response
             if (response.status === 200) {
-              resultofPhoto = config.get('photoURL') + eppoCode
+             
+            successPhotovar = "success"
+             // resultofPhoto == 'success'
+             // return success
             } else {
-              resultofPhoto = 'Fail'
+          successPhotovar = "Error"
+             // resultofPhoto == 'Error'
+              return Fail
             }
-          } catch (error) {}
+          } catch (error) {
+            if(error.response)
+              {
+            successPhotovar = "Error"
+              // console.log('Server responded with an error:', error.response.status);
+              //    console.log('Response data:', error.response.data); 
+                 successPhotovar = "404"
+              }
+              else
+              {
+                if(error.request) 
+                  { 
+                    // resultofPhoto = 'Error'
+                 successPhotovar =  "Error"
+                  
+                  } 
+                  else { 
+                   //  resultofPhoto = 'Error'
+                 successPhotovar = "Error"              
+                                   
+              }
+            
+          }
         }
-
+      }
+   
+       
+        
         function getPublicationDate(date) {
           const today = new Date(date) // yyyy-mm-dd
 
@@ -224,12 +260,13 @@ const pestSearchController = {
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
         return h.view('plant-health/pest-details/index', {
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle: 'Pestdetails',
           heading: 'Pestdetails',
           getHelpSection,
           mainContent,
           cslRef: result.pest_detail[0].CSL_REF,
           eppoCode,
+          successPhotovar,
           resultofPhoto,
           photoURL,
           photores,

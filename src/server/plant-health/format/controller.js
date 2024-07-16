@@ -80,13 +80,13 @@ const formatPageController = {
 
           const ulIndicatorList = [
             { name: 'dormant', flag: result.dormantIndicator },
-            { name: 'seeds', flag: result.seedIndicator },
             { name: 'fruit', flag: result.fruitIndicator },
+            { name: 'invitro material', flag: result.invintroIndicator },
             {
               name: 'naturally and artificially dwarfed',
               flag: result.bonsaiIndicator
             },
-            { name: 'invitro material', flag: result.invintroIndicator }
+            { name: 'seeds', flag: result.seedIndicator }
           ]
           let processedData = []
           for (let i = 0; i < subFormatArray?.length; i++) {
