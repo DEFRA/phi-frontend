@@ -19,7 +19,8 @@ const purposeOfVisitController = {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'Where are you importing your plant or plant product to? - Check plant health information and import rules - GOV.UK',
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
@@ -31,7 +32,8 @@ const purposeOfVisitController = {
         return h.view('plant-health/service-unavailable.njk', {
           getHelpSection,
           serviceUnavailablePage,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'This service does not include import and plant health information for Northern Ireland - Check plant health information and import rules - GOV.UK',
           heading: 'Pest'
         })
       } else {
@@ -55,7 +57,8 @@ const purposeOfVisitController = {
         return h.view('plant-health/index', {
           mainContent,
           getHelpSection,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'What do you want to find out? - Check plant health information and import rules - GOV.UK',
           heading: 'Plant',
           radiobuttonValue,
           errors,

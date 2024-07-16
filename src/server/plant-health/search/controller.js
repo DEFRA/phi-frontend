@@ -36,7 +36,10 @@ const searchPageController = {
         const getHelpSection = data?.getHelpSection
         const countrySearchQuery = request.yar.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'Which country, state or territory are you importing ' +
+            searchQuery.value +
+            ' - Check plant health information and import rules - GOV.UK',
           heading: 'Country',
           getHelpSection,
           mainContent,
@@ -66,7 +69,8 @@ const searchPageController = {
           getHelpSection,
           searchQuery,
           frontendUrl,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'What plant or plant product are you importing? - Check plant health information and import rules - GOV.UK',
           heading: 'Search',
           errors,
           errorMessage

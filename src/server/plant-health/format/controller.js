@@ -152,12 +152,25 @@ const formatPageController = {
               }
             }
           })
+          function compareQuarantineIndicator(a, b) {
+            if (a.quarantine_indicator > b.quarantine_indicator) {
+              return -1
+            }
+            if (a.quarantine_indicator < b.quarantine_indicator) {
+              return 1
+            }
+            return 0
+          }
+
           const pestDetails = result.pestDetails
+            .sort(compareQuarantineIndicator)
+            .reverse()
 
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
             pageTitle:
-              'Check plant health information and import rules - GOV.UK',
+              searchQuery.value +
+              ' - Check plant health information and import rules - GOV.UK',
             heading: 'Plant Details',
             getHelpSection,
             radiobuttonValue,
@@ -225,7 +238,10 @@ const formatPageController = {
           searchQuery,
           fullSearchQuery,
           hostRef,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'Which format of ' +
+            searchQuery.value +
+            ' are you importing? - Check plant health information and import rules - GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

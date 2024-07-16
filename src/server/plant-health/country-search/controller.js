@@ -40,7 +40,10 @@ const countrySearchController = {
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
         return h.view('plant-health/format/index', {
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'Which format of ' +
+            searchQuery.value +
+            ' are you importing? - Check plant health information and import rules - GOV.UK',
           heading: 'Format',
           getHelpSection,
           mainContent,
@@ -81,7 +84,10 @@ const countrySearchController = {
           countrySearchQuery,
           searchQuery,
           fullSearchQuery,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle:
+            'Which country, state or territory are you importing ' +
+            searchQuery.value +
+            ' - Check plant health information and import rules - GOV.UK',
           heading: 'Country Search',
           errors,
           errorMessage
