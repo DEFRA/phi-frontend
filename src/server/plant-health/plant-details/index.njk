@@ -139,8 +139,8 @@
                 <tr class="govuk-table__row">
                 {% if (item.quarantine_indicator) and (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
                   <td class="govuk-table__cell">  <a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
-                  {% if item.name[1].NAME?.length > 0 %}
-                   <td class="govuk-table__cell"><a class="govuk-link"  >{{item.name[1].NAME}}</a></td>
+                  {% if item.name[1].NAME.length > 0 %}
+                   <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
                   {% else %}
                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
                   {% endif %}
