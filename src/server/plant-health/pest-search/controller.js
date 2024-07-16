@@ -35,57 +35,46 @@ const pestSearchController = {
         const ContactAuthURL = config.get('contactAuthorities')
         const eppoCode = result.pest_detail[0].EPPO_CODE
 
-        const photoURL = config.get('photoURL') + eppoCode + "/photos"
-      
-      // const photoURL="https://gd.eppo.int/taxon/EUWAWH/photos"
-        const photores =  await pingWebsite(photoURL)
-      var successPhotovar ;
-      
+        const photoURL = config.get('photoURL') + eppoCode + '/photos'
+
+        // const photoURL="https://gd.eppo.int/taxon/EUWAWH/photos"
+        const photores = await pingWebsite(photoURL)
+        let successPhotovar
+
         async function pingWebsite(url) {
           try {
-            ///console.log("URLOFPHOTO",url);
+            /// console.log("URLOFPHOTO",url);
             const response = await axios.get(url)
-          
-           // console.log("responseofPhoto",response.status);
+
+            // console.log("responseofPhoto",response.status);
             // Evaluate the response
             if (response.status === 200) {
-             
-            successPhotovar = "success"
-             // resultofPhoto == 'success'
-             // return success
+              successPhotovar = 'success'
+              // resultofPhoto == 'success'
+              // return success
             } else {
-          successPhotovar = "Error"
-             // resultofPhoto == 'Error'
-              return Fail
+              successPhotovar = 'Error'
+              // resultofPhoto == 'Error'
+              // return Fail
             }
           } catch (error) {
-            if(error.response)
-              {
-            successPhotovar = "Error"
+            if (error.response) {
+              successPhotovar = 'Error'
               // console.log('Server responded with an error:', error.response.status);
-              //    console.log('Response data:', error.response.data); 
-                 successPhotovar = "404"
+              //    console.log('Response data:', error.response.data);
+              successPhotovar = '404'
+            } else {
+              if (error.request) {
+                // resultofPhoto = 'Error'
+                successPhotovar = 'Error'
+              } else {
+                //  resultofPhoto = 'Error'
+                successPhotovar = 'Error'
               }
-              else
-              {
-                if(error.request) 
-                  { 
-                    // resultofPhoto = 'Error'
-                 successPhotovar =  "Error"
-                  
-                  } 
-                  else { 
-                   //  resultofPhoto = 'Error'
-                 successPhotovar = "Error"              
-                                   
-              }
-            
+            }
           }
         }
-      }
-   
-       
-        
+
         function getPublicationDate(date) {
           const today = new Date(date) // yyyy-mm-dd
 
