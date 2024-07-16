@@ -57,7 +57,7 @@
           countrySearchQuery: countrySearchQuery,
           format: newFormat,
           searchQuery: searchQuery,
-          urlText: "apply for authorisation to import your plant or plant product.",
+          urlText: "apply for authorisation to import your goods.",
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}
           {% include "partials/import-rules.njk" %}
@@ -75,7 +75,7 @@
             format: newFormat,
             searchQuery: searchQuery,
             ulIndicatorList: ulIndicatorList,
-            urlText: "apply for authorisation to import your plant or plant product.",
+            urlText: "apply for authorisation to import your goods.",
             url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
             } %}
             {% include "partials/partially-prohibited-with-exceptions.njk" %}
@@ -95,7 +95,7 @@
           removedProcessedData: removedProcessedData,
           format: newFormat,
           searchQuery: searchQuery,
-          urlText: "apply for authorisation to import your plant or plant product.",
+          urlText: "apply for authorisation to import your goods.",
           url: "https://www.gov.uk/guidance/moving-prohibited-plants-plant-pests-pathogens-and-soil"
           } %}
           {% if result.isEUSL === 'true'%}
@@ -139,8 +139,8 @@
                 <tr class="govuk-table__row">
                 {% if (item.quarantine_indicator) and (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
                   <td class="govuk-table__cell">  <a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
-                  {% if item.name[1].NAME?.length > 0 %}
-                   <td class="govuk-table__cell"><a class="govuk-link"  >{{item.name[1].NAME}}</a></td>
+                  {% if item.name[1].NAME.length > 0 %}
+                   <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
                   {% else %}
                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
                   {% endif %}
