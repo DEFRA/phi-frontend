@@ -26,9 +26,9 @@ const purposeOfVisitController = {
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
-        const plantHealthdata = await await getDefaultLocaleData('plant-health')
+        const plantHealthdata = getDefaultLocaleData('plant-health')
         const getHelpSection = plantHealthdata?.getHelpSection
-        return h.view('plant-health/pest-search/index', {
+        return h.view('plant-health/service-unavailable.njk', {
           getHelpSection,
           serviceUnavailablePage,
           pageTitle: 'Check plant health information and import rules - GOV.UK',
