@@ -54,17 +54,19 @@
         </div>
       {% else%}
         {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+        #ghghh
           {% set flag = 'as' + ' ' + format%}
         {%endif %}
       {% endif %}
    {% else%}
-    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
      {% if item['BTOM_CLARIFICATION'].length > 0 %}
       <div class='govuk-body'>
       {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
       </div>
      {% else%}
-      {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+      {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
+      kjkjkj
         {% set flag = 'as' + ' ' + format%}
       {%endif %}
       {% endif %}

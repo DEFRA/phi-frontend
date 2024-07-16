@@ -50,13 +50,13 @@
         {%endif %}
       {% endif %}
    {% else%}
-    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
      {% if item['BTOM_CLARIFICATION'].length > 0 %}
       <div class='govuk-body'>
       {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
       </div>
      {% else%}
-      {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+      {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
         {% set flag = 'as' + ' ' + format%}
       {%endif %}
       {% endif %}
@@ -261,7 +261,7 @@
         {{data.searchQuery.value | capitalize}}
         {{data.mainContent.importRulesHeaderText2}}
         {{data.countrySearchQuery.value | capitalize}}
-        {{aboveFormatText}}, {{data.mainContent.unprohibitedHelpText3}}
+        {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>
       <ul class="govuk-list govuk-list--bullet">
         <li>
