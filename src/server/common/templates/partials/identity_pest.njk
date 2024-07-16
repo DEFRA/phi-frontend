@@ -71,9 +71,14 @@
     <p>{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
-{% if resultofPhoto !="Fail"%}
+{% if successPhotovar != "404"%}
 <div class="govuk-inset-text">
-  <p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in EPPO Global Database. </a> </p></div>
+  <p>You can  <a class="govuk-link govuk-body" href={{photoURL}} > view photos of {{data.preferredName}} in the EPPO Global Database. </a> </p></div>
+
+        {% endif %} 
+        {% if successPhotovar == "404"%}
+<div class="govuk-inset-text">
+  <p>There are no photos of {{data.preferredName}} to view in the EPPO Global Database.</p></div>
 
         {% endif %} 
 <h3 class="govuk-heading-l govuk-!-margin-bottom-0">
