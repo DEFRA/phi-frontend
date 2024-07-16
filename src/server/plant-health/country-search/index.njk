@@ -6,7 +6,7 @@
   tag: {
     text: getHelpSection.betaText
   },
-  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   <a href="/plant-health/import-confirmation?whereareyouimportinginto=gb&searchQuery={{fullSearchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
@@ -25,6 +25,9 @@
       </h1>
       <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
         {{mainContent.searchText1}}
+      </label>
+      <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
+        {{mainContent.searchText2}}
       </label>
       {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">

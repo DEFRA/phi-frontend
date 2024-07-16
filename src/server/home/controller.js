@@ -34,7 +34,7 @@ const homeController = {
       textAfterStartNowSection,
       relatedContentSection,
       getHelpSection,
-      pageTitle: 'Start page',
+      pageTitle: 'Check plant health information and import rules - GOV.UK',
       heading: '',
       breadcrumbs: [
         {

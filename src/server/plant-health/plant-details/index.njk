@@ -6,7 +6,7 @@
   tag: {
     text: getHelpSection.betaText
   },
-  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="#">feedback</a>'+" "+getHelpSection.betabannertext2
+  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   <a href="/plant-health/country-search?countrySearchQuery={{countrySearchQuery.value}}&emptyCountrySearchQuery=false&format={{format}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
@@ -67,7 +67,7 @@
       {% if (outcome) and (outcome === 'partially-prohibited')%}
             {% set data = {
             processedData: processedData,
-            removedSeedsData: removedSeedsData,
+            removedProcessedData: removedProcessedData,
             ulIndicatorFlag: ulIndicatorFlag,
             result: result,
             mainContent: mainContent,
@@ -92,6 +92,7 @@
           result: result,
           mainContent: mainContent,
           countrySearchQuery: countrySearchQuery,
+          removedProcessedData: removedProcessedData,
           format: newFormat,
           searchQuery: searchQuery,
           urlText: "apply for authorisation to import your plant or plant product.",
@@ -108,7 +109,7 @@
        {{mainContent.pestHeader}}
       </h2>
       {% if (pest_names.length === 0) %}
-        <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}</p>
+        <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
         <p class="govuk-body">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
           {{mainContent.pestContentHundredPercentText2}} 
@@ -119,7 +120,7 @@
           <p class="govuk-body">
             {{mainContent.pestContentHundredPercentText5}}
             <a class="govuk-link"
-                  href="https://www.gov.uk/guidance/contact-apha#plant-health-reports-and-other-queries">report any suspicions of these pests or diseases to the relevant authority.
+                  href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/">report any suspicions of these pests or diseases to the relevant authority.
             </a>
           </p>
           <p>{{mainContent.pestContentHundredPercentText6}}</p>

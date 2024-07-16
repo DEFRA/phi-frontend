@@ -49,11 +49,11 @@ const formatPageController = {
             serviceFormat: request.query.format,
             country: request?.yar?.get('countrySearchQuery')?.value
           }
-
           result = await invokeWorkflowApi(plantDetails)
+          // return result
           const subFormatArray = []
-          if (result.hybridIndicator?.length > 0) {
-            subFormatArray.push('Hybrid')
+          function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1)
           }
           if (result.dormantIndicator?.length > 0) {
             subFormatArray.push('Dormant')
@@ -70,11 +70,14 @@ const formatPageController = {
             subFormatArray.push('Naturally and artificially dwarfed')
           }
           if (result.invintroIndicator?.length > 0) {
-            subFormatArray.push('Invintro material')
+            subFormatArray.push('Invitro material')
           }
           if (result.FormatClarification?.length > 0) {
-            subFormatArray.push(result.FormatClarification)
+            subFormatArray.push(
+              capitalizeFirstLetter(result.FormatClarification)
+            )
           }
+
           const ulIndicatorList = [
             { name: 'dormant', flag: result.dormantIndicator },
             { name: 'seeds', flag: result.seedIndicator },
@@ -92,20 +95,74 @@ const formatPageController = {
               processedData.push('or')
             }
           }
-          processedData = processedData?.join(' ')?.split(',')
+          if (processedData.length > 0) {
+            processedData = processedData?.join(' ')?.split(',')
+          }
           if (subFormatArray?.length > 1) {
             ulIndicatorFlag = true
           }
-          const removedSeedsData = processedData[0]?.replace('Seeds or', '')
+          let removedProcessedData = processedData
+          result.annex11RulesArr?.forEach(function (annex11) {
+            if (result.hybridIndicator.length === 0) {
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
+              ) {
+                removedProcessedData = processedData[0]?.replace('or Seeds', '')
+                removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
+              ) {
+                removedProcessedData = processedData[0]?.replace('or Seeds', '')
+                removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() ===
+                'root and tubercle vegetables'
+              ) {
+                removedProcessedData = processedData[0]?.push(
+                  'Root and tubercle vegetables'
+                )
+              }
+              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
+                removedProcessedData = processedData[0]?.replace('or Fruit', '')
+                removedProcessedData = processedData[0]?.replace('Fruit or', '')
+                removedProcessedData = processedData[0]?.replace('Fruit', '')
+              }
+              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
+                removedProcessedData = processedData[0]?.push('Grain')
+              }
+              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
+                removedProcessedData = processedData[0]?.push('Cut flowers')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging'
+              ) {
+                removedProcessedData = processedData[0]?.push('Wood packaging')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products'
+              ) {
+                removedProcessedData = processedData[0]?.push('Cooper products')
+              }
+              if (annex11.BTOM_CLARIFICATION.length > 0) {
+                removedProcessedData = processedData[0]?.push(
+                  annex11.BTOM_CLARIFICATION
+                )
+              }
+            }
+          })
           const pestDetails = result.pestDetails
+
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
-            pageTitle: 'Plant Details',
+            pageTitle:
+              'Check plant health information and import rules - GOV.UK',
             heading: 'Plant Details',
             getHelpSection,
             radiobuttonValue,
             processedData,
-            removedSeedsData,
+            removedProcessedData,
             hostRef,
             format,
             outcome: result.outcome,
@@ -168,7 +225,7 @@ const formatPageController = {
           searchQuery,
           fullSearchQuery,
           hostRef,
-          pageTitle: 'Plant format',
+          pageTitle: 'Check plant health information and import rules - GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

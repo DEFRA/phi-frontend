@@ -15,7 +15,7 @@
     "pestHeader": "Pests and diseases you must report",
     "pestContentText1": "There are currently no pests or diseases from",
     "pestContentText2": "to report for this plant or plant product",
-    "pestContentHundredPercentText1": "Different format of",
+    "pestContentHundredPercentText1": "Different formats of",
     "pestContentHundredPercentText2": "might carry the pests or diseases from",
     "pestContentHundredPercentText3": "listed at the bottom of the page.",
     "pestContentHundredPercentText4": "These pests and diseases are considered a risk to Great Britain's agriculture, horticulture or wildlife. Consignments may be destroyed because of these pests.",
@@ -42,6 +42,6 @@
     },
     "betabannertext1": "This is a new service - your",
     "betabannertext2": "will help us to improve it.",
-    "betaText": "BETA"
+    "betaText": "Beta"
   }
 }
