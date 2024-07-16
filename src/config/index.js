@@ -76,7 +76,7 @@ const config = convict({
     default: null,
     env: 'CDP_HTTPS_PROXY'
   },
-  
+
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
@@ -89,8 +89,6 @@ const config = convict({
     default: `https://phi-frontend.test.cdp-int.defra.cloud`,
     env: 'FRONTEND_URL'
   },
-
-
 
   photoURL: {
     doc: 'photo url',
