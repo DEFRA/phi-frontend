@@ -75,16 +75,18 @@ const formatPageController = {
           if (result.FormatClarification?.length > 0) {
             subFormatArray.push(result.FormatClarification)
           }
+
           const ulIndicatorList = [
             { name: 'dormant', flag: result.dormantIndicator },
-            { name: 'seeds', flag: result.seedIndicator },
             { name: 'fruit', flag: result.fruitIndicator },
+            { name: 'invitro material', flag: result.invintroIndicator },
             {
               name: 'naturally and artificially dwarfed',
               flag: result.bonsaiIndicator
             },
-            { name: 'invitro material', flag: result.invintroIndicator }
+            { name: 'seeds', flag: result.seedIndicator }
           ]
+
           let processedData = []
           for (let i = 0; i < subFormatArray?.length; i++) {
             processedData.push(subFormatArray[i])
@@ -96,6 +98,7 @@ const formatPageController = {
           if (subFormatArray?.length > 1) {
             ulIndicatorFlag = true
           }
+
           const removedSeedsData = processedData[0]?.replace('Seeds or', '')
           const pestDetails = result.pestDetails
           return h.view('plant-health/plant-details/index', {

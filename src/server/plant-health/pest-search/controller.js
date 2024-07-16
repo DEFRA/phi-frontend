@@ -35,19 +35,30 @@ const pestSearchController = {
         const ContactAuthURL = config.get('contactAuthorities')
         const eppoCode = result.pest_detail[0].EPPO_CODE
 
-        const photoURL = config.get('photoURL') + eppoCode
-
-        const photores = pingWebsite(photoURL)
+        const photoURL = config.get('photoURL') + eppoCode + '/photos'
+        const photores = await pingWebsite(photoURL)
+        let successPhotovar
         async function pingWebsite(url) {
           try {
             const response = await axios.get(url)
-            // Evaluate the response
+
             if (response.status === 200) {
-              resultofPhoto = config.get('photoURL') + eppoCode
+              successPhotovar = 'success'
             } else {
-              resultofPhoto = 'Fail'
+              successPhotovar = 'Error'
             }
-          } catch (error) {}
+          } catch (error) {
+            if (error.response) {
+              successPhotovar = 'Error'
+              successPhotovar = '404'
+            } else {
+              if (error.request) {
+                successPhotovar = 'Error'
+              } else {
+                successPhotovar = 'Error'
+              }
+            }
+          }
         }
 
         function getPublicationDate(date) {
@@ -230,6 +241,7 @@ const pestSearchController = {
           mainContent,
           cslRef: result.pest_detail[0].CSL_REF,
           eppoCode,
+          successPhotovar,
           resultofPhoto,
           photoURL,
           photores,
