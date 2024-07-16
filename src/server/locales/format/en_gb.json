@@ -11,7 +11,7 @@
     "radioButtonText4": "Wood",
     "hint4": "This includes wood which has not kept its natural round surface, wood packaging, waste wood, heat treated wood and coopers products.",
     "radioButtonText5": "Isolated bark",
-    "hint5": "This includes bark chippings",
+    "hint5": "This includes bark chippings.",
     "buttonText": "Continue"
   },
   "getHelpSection": {
@@ -21,7 +21,7 @@
     },
     "betabannertext1": "This is a new service - your",
     "betabannertext2": "will help us to improve it.",
-    "betaText": "BETA"
+    "betaText": "Beta"
   },
   "serviceUnavailablePage": {
     "headerText": "This service does not include import and plant health information for Northern Ireland",

@@ -50,6 +50,7 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1)
@@ -94,51 +95,63 @@ const formatPageController = {
               processedData.push('or')
             }
           }
-          processedData = processedData?.join(' ')?.split(',')
+          if (processedData.length > 0) {
+            processedData = processedData?.join(' ')?.split(',')
+          }
           if (subFormatArray?.length > 1) {
             ulIndicatorFlag = true
           }
-          let removedProcessedData = []
-          result.annex11RulesArr.forEach(function (annex11) {
-            if (
-              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
-            ) {
-              removedProcessedData = processedData[0]?.replace('Seeds', '')
-            }
-            if (
-              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
-            ) {
-              removedProcessedData = processedData[0]?.replace('Seeds', '')
-            }
-            if (
-              annex11.SERVICE_SUBFORMAT.toLowerCase() ===
-              'root and tubercle vegetables'
-            ) {
-              removedProcessedData = processedData[0]?.push('Produce')
-            }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
-              // removedProcessedData =  processedData[0]?.replace('Fruit or', '')
-              removedProcessedData = processedData[0]?.replace('Fruit', '')
-            }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
-              removedProcessedData = processedData[0]?.push('Produce')
-            }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
-              removedProcessedData = processedData[0]?.push('Parts of plants')
-            }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging') {
-              removedProcessedData = processedData[0]?.push('Wood')
-            }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') {
-              removedProcessedData = processedData[0]?.push('Wood')
+          let removedProcessedData = processedData
+          result.annex11RulesArr?.forEach(function (annex11) {
+            if (result.hybridIndicator.length === 0) {
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
+              ) {
+                removedProcessedData = processedData[0]?.replace('or Seeds', '')
+                removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
+              ) {
+                removedProcessedData = processedData[0]?.replace('or Seeds', '')
+                removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() ===
+                'root and tubercle vegetables'
+              ) {
+                removedProcessedData = processedData[0]?.push(
+                  'Root and tubercle vegetables'
+                )
+              }
+              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
+                removedProcessedData = processedData[0]?.replace('or Fruit', '')
+                removedProcessedData = processedData[0]?.replace('Fruit or', '')
+                removedProcessedData = processedData[0]?.replace('Fruit', '')
+              }
+              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
+                removedProcessedData = processedData[0]?.push('Grain')
+              }
+              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
+                removedProcessedData = processedData[0]?.push('Cut flowers')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging'
+              ) {
+                removedProcessedData = processedData[0]?.push('Wood packaging')
+              }
+              if (
+                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products'
+              ) {
+                removedProcessedData = processedData[0]?.push('Cooper products')
+              }
+              if (annex11.BTOM_CLARIFICATION.length > 0) {
+                removedProcessedData = processedData[0]?.push(
+                  annex11.BTOM_CLARIFICATION
+                )
+              }
             }
           })
-
-          if (removedProcessedData?.split(' or ')?.length === 2) {
-            removedProcessedData = removedProcessedData
-              ?.split(' or ')
-              ?.join(' ')
-          }
           const pestDetails = result.pestDetails
 
           return h.view('plant-health/plant-details/index', {

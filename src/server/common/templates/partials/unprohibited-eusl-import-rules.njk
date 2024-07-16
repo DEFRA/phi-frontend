@@ -3,28 +3,59 @@
     {{data.mainContent.importRulesHeader}}
 </h3>
  {% for item in data.result.annex11RulesArr%}
+    {% set btom_clarification = item['BTOM_CLARIFICATION'] %}
+ {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+  {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'] + ')'%}
+ {% else %}
+ {% if item['SERVICE_SUBFORMAT'].length > 0%}
+  {%if (btom_clarification.length > 0)%}
+  {% set header = item['SERVICE_SUBFORMAT'] | capitalize + ' ' + btom_clarification %}
+  {%else%}  
+  {% set header = item['SERVICE_SUBFORMAT'] | capitalize %}
+  {%endif%}
+{%else%}  
+  {%set header = data.format | capitalize %}
+{% endif %}
+{% endif %}
+ {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0 %}
+  {% if item['BTOM_CLARIFICATION'].length > 0 %}
+  <div class='govuk-body'>
+  {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
+  </div>
+  {% else%}
+  {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+    {% set flag = 'as' + ' ' + format%}
+  {%endif %}
+  {% endif %}
+{% else%}
+ {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+    {% if item['BTOM_CLARIFICATION'].length > 0 %}
+  <div class='govuk-body'>
+  {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
+  </div>
+  {% else%}
+  {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+    {% set flag = 'as' + ' ' + format%}
+  {%endif %}
+  {% endif %}
+  {% else %}
+  {% set flag = 'in the above format'%}  
+  {%endif %}
+{% endif %}
   {% if item['BTOM_EUSL'] === '11A'%}
     <div class="govuk-body"> 
       <h3 class="govuk-heading-s">
-       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1%}  
-        {{data.format | capitalize}}(other than {{item['SERVICE_SUBFORMAT_EXCLUDED']}})
-      {% else %}
-      {%  if item['SERVICE_SUBFORMAT'].length > 1%}
-        {{item['SERVICE_SUBFORMAT']}}
-      {%else%}  
-        {{data.format | capitalize}}
-      {% endif %}
-      {% endif %}
+      {{header}}
      </h3>  
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>    
       <ul class="govuk-list govuk-list--bullet">
           <li>
-            <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#get-a-phytosanitary-certificate-pc">register to import</a> if you're a first-time importer
+            <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#register-to-import">register to import</a> if you're a first-time importer
           </li>
           <li>
-            get a <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">phytosanitary certificate from your exporter</a>
+            get a <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#get-a-phytosanitary-certificate">phytosanitary certificate from your exporter</a>
           </li>
           <li>
             meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">ISPM 15 international standard</a> for any wood packaging material&nbsp;you use
@@ -52,22 +83,13 @@
       </p>
     </div>  
   {% endif %}  
-  {% if (item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1 )  and (item['BTOM_EUSL'] === '11B')%}
+  {% if (item['BTOM_EUSL'] === '11B')%}
     <div class="govuk-body">   
       <h3 class="govuk-heading-s"> 
-      {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1%}  
-        {{data.format | capitalize}}(other than {{item['SERVICE_SUBFORMAT_EXCLUDED']}})
-      {% else %}
-      {%  if item['SERVICE_SUBFORMAT'].length > 1%}
-        {{item['SERVICE_SUBFORMAT']}}
-      {%else%}  
-        {{data.format | capitalize}}
-      {% endif %}
-      {% endif %}
+     {{header}}
       </h3>
-           
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format | capitalize}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>
       {% if item['BTOM_CLARIFICATION'].length > 0 %}
        <div class='govuk-body'>
@@ -93,19 +115,11 @@
   {% if  (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')%}
     <div class="govuk-body">  
       <h3 class="govuk-heading-s"> 
-      {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1%}  
-        {{data.format | capitalize}}(other than {{item['SERVICE_SUBFORMAT_EXCLUDED']}})
-      {% else %}
-      {%  if item['SERVICE_SUBFORMAT'].length > 1%}
-        {{item['SERVICE_SUBFORMAT']}}
-      {%else%}  
-        {{data.format | capitalize}}
-      {% endif %}
-      {% endif %}
+      {{header}}
       </h3>
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} in the above format, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flag}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
       </p> 
       {% if item['BTOM_CLARIFICATION'].length > 0 %}
        <div class='govuk-body'>
