@@ -26,13 +26,13 @@ const purposeOfVisitController = {
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
-        const plantHealthdata = await await getDefaultLocaleData('plant-health')
+        const plantHealthdata = getDefaultLocaleData('plant-health')
         const getHelpSection = plantHealthdata?.getHelpSection
-        return h.view('plant-health/pest-search/index', {
+        return h.view('plant-health/service-unavailable.njk', {
           getHelpSection,
           serviceUnavailablePage,
-          pageTitle: 'Pest',
-          heading: 'Pest'
+          pageTitle: 'Plant',
+          heading: 'Plant'
         })
       } else {
         const plantHealthdata = await getDefaultLocaleData('plant-health')
