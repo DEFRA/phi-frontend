@@ -36,12 +36,15 @@ const pestSearchController = {
         const eppoCode = result.pest_detail[0].EPPO_CODE
 
         const photoURL = config.get('photoURL') + eppoCode + '/photos'
+
         const photores = await pingWebsite(photoURL)
         let successPhotovar
+
         async function pingWebsite(url) {
           try {
             const response = await axios.get(url)
 
+            // Evaluate the response
             if (response.status === 200) {
               successPhotovar = 'success'
             } else {
@@ -49,7 +52,6 @@ const pestSearchController = {
             }
           } catch (error) {
             if (error.response) {
-              successPhotovar = 'Error'
               successPhotovar = '404'
             } else {
               if (error.request) {
