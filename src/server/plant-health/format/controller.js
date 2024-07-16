@@ -50,7 +50,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
             return string.charAt(0).toUpperCase() + string.slice(1)
