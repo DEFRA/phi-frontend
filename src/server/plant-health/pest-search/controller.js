@@ -37,26 +37,26 @@ const pestSearchController = {
 
         const photoURL = config.get('photoURL') + eppoCode + '/photos'
 
-        const photores = await pingWebsite(photoURL)
+        // const photores = await pingWebsite(photoURL)
+        const photores = true
+        // async function pingWebsite(url) {
+        //   try {
+        //     const response = await axios.get(url)
 
-        async function pingWebsite(url) {
-          try {
-            const response = await axios.get(url)
-
-            // Evaluate the response
-            if (response.status === 200) {
-              return true
-            } else {
-              return false
-            }
-          } catch (error) {
-            if (error.response.status === 404) {
-              return false
-            } else {
-              return false
-            }
-          }
-        }
+        //     // Evaluate the response
+        //     if (response.status === 200) {
+        //       return true
+        //     } else {
+        //       return false
+        //     }
+        //   } catch (error) {
+        //     if (error.response.status === 404) {
+        //       return false
+        //     } else {
+        //       return false
+        //     }
+        //   }
+        // }
 
         function getPublicationDate(date) {
           const today = new Date(date) // yyyy-mm-dd
