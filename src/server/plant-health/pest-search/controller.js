@@ -51,11 +51,11 @@ const pestSearchController = {
             if (response.status === 200) {
               successPhotovar = 'success'
               // resultofPhoto == 'success'
-              // return success
+              return 'success'
             } else {
               successPhotovar = 'Error'
               // resultofPhoto == 'Error'
-              // return Fail
+              return 'Fail'
             }
           } catch (error) {
             if (error.response) {
@@ -249,9 +249,7 @@ const pestSearchController = {
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
         return h.view('plant-health/pest-details/index', {
-          pageTitle:
-            result.pest_detail[0].PEST_NAME[0].NAME +
-            ' - Check plant health information and import rules - GOV.UK',
+          pageTitle: 'Pestdetails',
           heading: 'Pestdetails',
           getHelpSection,
           mainContent,
