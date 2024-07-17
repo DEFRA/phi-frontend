@@ -102,53 +102,46 @@ const formatPageController = {
           }
           let removedProcessedData = processedData
           result.annex11RulesArr?.forEach(function (annex11) {
-            if (result.hybridIndicator.length === 0) {
-              if (
-                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
-              ) {
-                removedProcessedData = processedData[0]?.replace('or Seeds', '')
-                removedProcessedData = processedData[0]?.replace('Seeds or', '')
-              }
-              if (
-                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
-              ) {
-                removedProcessedData = processedData[0]?.replace('or Seeds', '')
-                removedProcessedData = processedData[0]?.replace('Seeds or', '')
-              }
-              if (
-                annex11.SERVICE_SUBFORMAT.toLowerCase() ===
-                'root and tubercle vegetables'
-              ) {
-                removedProcessedData = processedData[0]?.push(
-                  'Root and tubercle vegetables'
-                )
-              }
-              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
-                removedProcessedData = processedData[0]?.replace('or Fruit', '')
-                removedProcessedData = processedData[0]?.replace('Fruit or', '')
-                removedProcessedData = processedData[0]?.replace('Fruit', '')
-              }
-              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
-                removedProcessedData = processedData[0]?.push('Grain')
-              }
-              if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
-                removedProcessedData = processedData[0]?.push('Cut flowers')
-              }
-              if (
-                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging'
-              ) {
-                removedProcessedData = processedData[0]?.push('Wood packaging')
-              }
-              if (
-                annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products'
-              ) {
-                removedProcessedData = processedData[0]?.push('Cooper products')
-              }
-              if (annex11.BTOM_CLARIFICATION.length > 0) {
-                removedProcessedData = processedData[0]?.push(
-                  annex11.BTOM_CLARIFICATION
-                )
-              }
+            if (
+              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
+            ) {
+              removedProcessedData = processedData[0]?.replace('or Seeds', '')
+              removedProcessedData = processedData[0]?.replace('Seeds or', '')
+            }
+            if (
+              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
+            ) {
+              removedProcessedData = processedData[0]?.replace('or Seeds', '')
+              removedProcessedData = processedData[0]?.replace('Seeds or', '')
+            }
+            if (
+              annex11.SERVICE_SUBFORMAT.toLowerCase() ===
+              'root and tubercle vegetables'
+            ) {
+              removedProcessedData = processedData?.push(
+                'Root and tubercle vegetables'
+              )
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
+              removedProcessedData = processedData[0]?.replace('or Fruit', '')
+              removedProcessedData = processedData[0]?.replace('Fruit or', '')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
+              removedProcessedData = processedData?.push('Grain')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
+              removedProcessedData = processedData?.push('Cut flowers')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging') {
+              removedProcessedData = processedData?.push('Wood packaging')
+            }
+            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') {
+              removedProcessedData = processedData?.push('Cooper products')
+            }
+            if (annex11.BTOM_CLARIFICATION.length > 0) {
+              removedProcessedData = processedData.push(
+                annex11.BTOM_CLARIFICATION
+              )
             }
           })
           function compareQuarantineIndicator(a, b) {
