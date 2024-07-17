@@ -3,7 +3,6 @@
     {{data.mainContent.importRulesHeader}}
 </h3>
  {% for item in data.result.annex11RulesArr%}
- {% if result.hybridIndicator.length === 0%}
   {% if (item.SERVICE_SUBFORMAT === '')%}
    {% set processedData =  data.removedProcessedData %}
  {% else %}
@@ -35,7 +34,6 @@
     {% set processedData =  'Wood' %}
   {% endif %}
  {% endif %}
-{% endif %}
 
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 and ulIndicatorFlag and processedData[0].length > 1%}
     {% set flag = 'in the above formats'%}
@@ -83,7 +81,7 @@
   {% if item['BTOM_EUSL'] === '11A' and  item['SERVICE_SUBFORMAT'].length > 0 %}
   {% set 11AimportRules = 'true'%}
   {% else %}
-  {% if item['BTOM_NON_EUSL'] === '11A'%}
+  {% if item['BTOM_EUSL'] === '11A'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11AimportRules  = 'true'%}
   {% endif %}
   {% endif %}
@@ -175,9 +173,6 @@
       The phytosanitary certificate may need an additional declaration.
       To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.
       </div>
-    <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
-    </p>  
     </div>
    {% endif %} 
   {% endif %}  
@@ -190,7 +185,7 @@
   {% if item['BTOM_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length > 0 %}
   {% set 11BimportRules = 'true'%}
   {% else %}
-  {% if item['BTOM_NON_EUSL'] === '11B'%}
+  {% if item['BTOM_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11AimportRules  = 'true'%}
   {% endif %}
   {% endif %}
@@ -279,9 +274,6 @@
       <div class="govuk-inset-text">
         <p>The phytosanitary certificate may need an additional declaration.</p> <p>To find out,  <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.</p>
       </div>
-      <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
-      </p>
     </div>  
   {% endif %} 
 {% set 11CimportRules = 'false' %}  
@@ -290,11 +282,18 @@
   {% set 11CimportRules  = 'true'%}
   {% endif %} 
 {% else %}
+  {% if (item['BTOM_EUSL'] === '11C' and item['BTOM_EUSL'] === 'UNR') and  item['SERVICE_SUBFORMAT'].length > 0%}
+  {% set 11CimportRules = 'true'%}
+  {% else %}
+  {% if item['BTOM_EUSL'] === '11C'  and item['BTOM_EUSL'] === 'UNR'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
+  {% set 11CimportRules  = 'true'%}
+  {% endif %}
+  {% endif %}
   {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  item['SERVICE_SUBFORMAT'].length > 0 %}
   {% set 11CimportRules = 'true'%}
   {% else %}
-  {% if item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR'%}
-  {% set 11AimportRules  = 'true'%}
+  {% if item['BTOM_EUSL'] === '11C'  or item['BTOM_EUSL'] === 'UNR'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
+  {% set 11CimportRules  = 'true'%}
   {% endif %}
   {% endif %}
 {% endif %}
@@ -365,9 +364,6 @@
         {{item['BTOM_CLARIFICATION']}}
        </div>
       {% endif %}    
-     <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
-      </p>
     </div>  
   {% endif %} 
  {% if  item['BTOM_EUSL'] === 'UNK'%}
@@ -429,4 +425,7 @@
 {% endif %}
 {%endif%}  
  {% endfor %} 
+   <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
+    </p>  
 {%endif%}

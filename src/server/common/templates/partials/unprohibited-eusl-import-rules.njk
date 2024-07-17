@@ -78,9 +78,6 @@
       <div class="govuk-inset-text">
         You may need to include an additional declaration on the phytosanitary certificate. To find out,  <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool (opens in a new tab)</a>.
       </div>
-      <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
-      </p>
     </div>  
   {% endif %}  
   {% if (item['BTOM_EUSL'] === '11B')%}
@@ -107,9 +104,6 @@
       <div class="govuk-inset-text">
         <p>The phytosanitary certificate may need an additional declaration.</p> <p>To find out,  <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool (opens in a new tab)</a>.</p>
       </div>
-       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
-      </p>
     </div>  
   {% endif %}   
   {% if  (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')%}
@@ -151,4 +145,7 @@
   {% endif %}
   {%endif%}   
  {% endfor %} 
+ <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+   You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
+  </p>
 {%endif%}
