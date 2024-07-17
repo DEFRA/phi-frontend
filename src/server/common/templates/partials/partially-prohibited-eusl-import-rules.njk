@@ -87,12 +87,7 @@
   {% endif %}
 {% endif %}
  {% if 11AimportRules === 'true'%}
-    <div class="govuk-body">
-       {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}         
+    <div class="govuk-body">         
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length >= 0 %}  
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}  
         {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
@@ -251,13 +246,7 @@
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{data.mainContent.prohibitedContentText2}} {{data.format}}, {{data.mainContent.unprohibitedHelpText3}}
       </p> 
-      </p> 
-      {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}   
-      </p>    
+       
       {% if item['BTOM_CLARIFICATION'].length > 0 %}
        <div class='govuk-body'>
         {{item['BTOM_CLARIFICATION']}}
@@ -358,12 +347,7 @@
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
         {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{aboveFormatText}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
-      </p> 
-      {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}    
+      </p>    
     </div>  
   {% endif %} 
  {% if  item['BTOM_EUSL'] === 'UNK'%}

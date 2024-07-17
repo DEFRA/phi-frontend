@@ -6,7 +6,11 @@
  {% for item in data.result.annex11RulesArr%}
    {% set btom_clarification = item['BTOM_CLARIFICATION'] %}
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-  {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'] + ')'%}
+   {% if item['BTOM_CLARIFICATION'].length > 0 %}
+      {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'] + ')' + ' ' + btom_clarification%}
+    {% else %}
+      {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'] + ')' %}
+  {% endif %}
  {% else %}
  {% if item['SERVICE_SUBFORMAT'].length > 0%}
   {%if (btom_clarification.length > 0)%}
@@ -25,31 +29,18 @@
   </div>
   {% else%}
   {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% set flag = 'as' + ' ' + format%}
+    {% set flag = 'in the above format'%}  
   {%endif %}
   {% endif %}
 {% else%}
- {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% if item['BTOM_CLARIFICATION'].length > 0 %}
-  <div class='govuk-body'>
-  {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
-  </div>
-  {% else%}
   {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% set flag = 'as' + ' ' + format%}
-  {%endif %}
-  {% endif %}
+    {% set flag = 'in the above format'%}
   {% else %}
-  {% set flag = 'in the above format'%}  
+    {% set flag = 'as' + ' ' + format%}
   {%endif %}
 {% endif %}
   {% if item['BTOM_NON_EUSL'] === '11A'%}
     <div class="govuk-body"> 
-      {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}
       <h3 class="govuk-heading-s">
        {{header}}
      </h3>  
@@ -83,11 +74,6 @@
   {% endif %}  
   {% if (item['BTOM_NON_EUSL'] === '11B')%}
     <div class="govuk-body">
-      {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}
       <h3>   
      {{header}}
       </h3>
@@ -110,13 +96,8 @@
       </div>
     </div>  
   {% endif %} 
-  {% if  (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR')%}
+  {% if (item['BTOM_NON_EUSL'] === '11C' and item['BTOM_NON_EUSL'] === 'UNR') or (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR')%}
     <div class="govuk-body"> 
-      {# {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}  #}
       <h3 class="govuk-heading-s"> 
         {{header}}
       </h3>

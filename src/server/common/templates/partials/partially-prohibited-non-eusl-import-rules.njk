@@ -85,12 +85,7 @@
   {% endif %} 
 {% endif %}
 {% if 11AimportRules === 'true'%}
-<div class="govuk-body">
-  {% if item['BTOM_CLARIFICATION'].length > 0 %}
-    <div class='govuk-body'>
-    {{item['BTOM_CLARIFICATION']}}
-    </div>
-  {% endif %}  
+<div class="govuk-body">  
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length >= 0 %}
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
@@ -195,11 +190,6 @@
 {% endif %} 
 {% if 11BimportRules === 'true'%}
     <div class="govuk-body">
-       {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}  
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
       {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
@@ -297,11 +287,6 @@
 {% endif %}
 {% if 11CimportRules === 'true'%}
   <div class="govuk-body">
-     {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}  
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
     {% if data.result.hybridIndicator.length > 0  and processedData.length === 0  %}
      <h3 class="govuk-heading-s">{{data.format | capitalize}}</h3>
