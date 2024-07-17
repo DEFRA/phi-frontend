@@ -37,40 +37,23 @@ const pestSearchController = {
 
         const photoURL = config.get('photoURL') + eppoCode + '/photos'
 
-        // const photoURL="https://gd.eppo.int/taxon/EUWAWH/photos"
         const photores = await pingWebsite(photoURL)
-        let successPhotovar
 
         async function pingWebsite(url) {
           try {
-            /// console.log("URLOFPHOTO",url);
             const response = await axios.get(url)
 
-            // console.log("responseofPhoto",response.status);
             // Evaluate the response
             if (response.status === 200) {
-              successPhotovar = 'success'
-              // resultofPhoto == 'success'
-              return 'success'
+              return true
             } else {
-              successPhotovar = 'Error'
-              // resultofPhoto == 'Error'
-              return 'Fail'
+              return false
             }
           } catch (error) {
-            if (error.response) {
-              successPhotovar = 'Error'
-              // console.log('Server responded with an error:', error.response.status);
-              //    console.log('Response data:', error.response.data);
-              successPhotovar = '404'
+            if (error.response.status === 404) {
+              return false
             } else {
-              if (error.request) {
-                // resultofPhoto = 'Error'
-                successPhotovar = 'Error'
-              } else {
-                //  resultofPhoto = 'Error'
-                successPhotovar = 'Error'
-              }
+              return false
             }
           }
         }
@@ -257,7 +240,6 @@ const pestSearchController = {
           mainContent,
           cslRef: result.pest_detail[0].CSL_REF,
           eppoCode,
-          successPhotovar,
           resultofPhoto,
           photoURL,
           photores,
