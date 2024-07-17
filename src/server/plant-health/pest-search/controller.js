@@ -51,11 +51,11 @@ const pestSearchController = {
             if (response.status === 200) {
               successPhotovar = 'success'
               // resultofPhoto == 'success'
-              // return success
+              return 'success'
             } else {
               successPhotovar = 'Error'
               // resultofPhoto == 'Error'
-              // return Fail
+              return 'Fail'
             }
           } catch (error) {
             if (error.response) {
