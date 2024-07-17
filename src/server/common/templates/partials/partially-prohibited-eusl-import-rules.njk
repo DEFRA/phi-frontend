@@ -7,11 +7,6 @@
   {% if (item.SERVICE_SUBFORMAT === '')%}
    {% set processedData =  data.removedProcessedData %}
  {% else %}
- {% else %}
-  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'fruit, seeds for eating')%}
-   {% set processedData =  'Fruit or Seeds'  %}
- {% endif %}
-  {% else %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'fruit, seeds for eating')%}
    {% set processedData =  'Fruit or Seeds'  %}
  {% endif %}
@@ -54,7 +49,6 @@
         </div>
       {% else%}
         {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-        #ghghh
           {% set flag = 'as' + ' ' + format%}
         {%endif %}
       {% endif %}
@@ -66,7 +60,6 @@
       </div>
      {% else%}
       {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
-      kjkjkj
         {% set flag = 'as' + ' ' + format%}
       {%endif %}
       {% endif %}
@@ -107,7 +100,7 @@
         {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData}}</h3>
+        <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -115,7 +108,7 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
             {% else %}
              <h3 class="govuk-heading-s"> 
-              {{processedData}}
+              {{processedData | capitalize}}
             </h3>
             {% endif %}
        {% else %}
@@ -213,7 +206,7 @@
        {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData}}</h3>
+        <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -221,7 +214,7 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
             {% else %}
              <h3 class="govuk-heading-s"> 
-              {{processedData}}
+              {{processedData | capitalize}}
             </h3>
             {% endif %}
        {% else %}
@@ -316,7 +309,7 @@
         {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData}}</h3>
+        <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -324,7 +317,7 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
             {% else %}
              <h3 class="govuk-heading-s"> 
-              {{processedData}}
+              {{processedData | capitalize}}
             </h3>
             {% endif %}
        {% else %}
@@ -366,14 +359,7 @@
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
         {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{aboveFormatText}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
-      </p>
-      </p>
-      {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}    
-      </p>  
+      </p> 
       {% if item['BTOM_CLARIFICATION'].length > 0 %}
        <div class='govuk-body'>
         {{item['BTOM_CLARIFICATION']}}
@@ -391,7 +377,7 @@
     {% if data.result.hybridIndicator.length > 0 %}
      <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
     {% else %}
-     <h3 class="govuk-heading-s">{{processedData}}</h3>
+     <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
@@ -399,7 +385,7 @@
       <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
-        {{processedData}}
+        {{processedData | capitalize}}
       </h3>
       {% endif %}
     {% else %}
