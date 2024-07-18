@@ -1,5 +1,6 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { config } from '~/src/config'
+import { proxyFetch } from '~/src/server/common/helpers/proxy-fetch'
 const axios = require('axios')
 const pestSearchController = {
   handler: async (request, h) => {
@@ -35,21 +36,22 @@ const pestSearchController = {
         const ContactAuthURL = config.get('contactAuthorities')
         const eppoCode = result.pest_detail[0].EPPO_CODE
 
-        const photoURL = config.get('photoURL') + eppoCode
+        const photoURL = config.get('photoURL') + eppoCode + '/photos'
 
-        const photores = pingWebsite(photoURL)
-        async function pingWebsite(url) {
-          try {
-            const response = await axios.get(url)
-            // Evaluate the response
-            if (response.status === 200) {
-              resultofPhoto = config.get('photoURL') + eppoCode
-            } else {
-              resultofPhoto = 'Fail'
-            }
-          } catch (error) {}
+        const proxyVar = await proxyFetch(photoURL, null)
+        const proxyVarstatus = proxyVar.status
+
+        const photores = await getstatus(proxyVarstatus)
+
+        async function getstatus(proxyVarstatus) {
+          const status = Number(proxyVarstatus)
+          // Evaluate the response
+          if (status === 200) {
+            return true
+          } else {
+            return false
+          }
         }
-
         function getPublicationDate(date) {
           const today = new Date(date) // yyyy-mm-dd
 
@@ -92,6 +94,8 @@ const pestSearchController = {
 
               const fileExtension = fcl.TITLE[1].toUpperCase()
               fcl.FILE_EXTENSION = fileExtension
+              const st = fcl.PUBLICATION_DATE_FORMATTED.split(' ')
+              fcl.INDEX = Number(st[1])
               factsheetlinks.push(fcl)
             } else {
               const ocl = result.pest_detail[0].DOCUMENT_LINK[i]
@@ -104,10 +108,20 @@ const pestSearchController = {
                 result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
               const fileExtension = ocl.TITLE[1].toUpperCase()
               ocl.FILE_EXTENSION = fileExtension
+              const st = ocl.PUBLICATION_DATE_FORMATTED.split(' ')
+              ocl.INDEX = Number(st[1])
               otherPublications.push(ocl)
             }
           }
         }
+        // Sorting documents based on new one first
+        factsheetlinks.sort(function (a, b) {
+          return b.INDEX - a.INDEX
+        })
+        otherPublications.sort(function (a, b) {
+          return b.INDEX - a.INDEX
+        })
+
         const plantLinl = []
         for (let a = 0; a < result.pest_detail[0].PLANT_LINK.length; a++) {
           if (result.pest_detail[0].QUARANTINE_INDICATOR === 'R') {
@@ -224,7 +238,10 @@ const pestSearchController = {
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
         return h.view('plant-health/pest-details/index', {
-          pageTitle: 'Check plant health information and import rules — GOV.UK',
+
+          pageTitle:
+            result.pest_detail[0].PEST_NAME[0].NAME +
+            ' — Check plant health information and import rules — GOV.UK',
           heading: 'Pestdetails',
           getHelpSection,
           mainContent,

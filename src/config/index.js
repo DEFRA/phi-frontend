@@ -76,6 +76,7 @@ const config = convict({
     default: null,
     env: 'CDP_HTTPS_PROXY'
   },
+
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
