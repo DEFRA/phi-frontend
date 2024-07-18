@@ -97,7 +97,7 @@
  {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
  href={{data.url}}>{{data.urlText}}</a>
 </div>
-{% if data.result.subformat.length ===1 %}            
+{% if data.result.subformat.length ===1 and processedData[0].length > 1 %}            
     <h3 class="govuk-heading-s">
         {{data.mainContent.exceptionHeader}}
     </h3>
