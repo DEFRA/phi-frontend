@@ -31,7 +31,7 @@
     {% set processedData =  'Wood' %}
   {% endif %}
   {% if (item.BTOM_CLARIFICATION.length > 0)%}
-   {% set processedData = processedData +' (' + item.BTOM_CLARIFICATION + ')'%}
+   {% set processedData = processedData +' ' + item.BTOM_CLARIFICATION%}
   {% endif %}
  {% endif %}
 

@@ -34,7 +34,7 @@
     {% set processedData =  'Wood' %}
   {% endif %}
   {% if (item.BTOM_CLARIFICATION.length > 0)%}
-   {% set processedData = processedData +' (' + item.BTOM_CLARIFICATION + ')'%}
+   {% set processedData = processedData +' '+ item.BTOM_CLARIFICATION %}
   {% endif %}
  {% endif %}
 
@@ -405,6 +405,6 @@
 {%endif%}  
  {% endfor %} 
    <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
+        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often inspections at the border have resulted in the destruction of goods.</a>
     </p>  
 {%endif%}

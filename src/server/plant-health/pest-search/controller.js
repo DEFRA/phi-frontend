@@ -224,7 +224,7 @@ const pestSearchController = {
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
         return h.view('plant-health/pest-details/index', {
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle: 'Check plant health information and import rules — GOV.UK',
           heading: 'Pestdetails',
           getHelpSection,
           mainContent,

@@ -162,7 +162,7 @@ const formatPageController = {
             ulIndicatorFlag,
             pageTitle:
               searchQuery.value +
-              ' - Check plant health information and import rules - GOV.UK',
+              ' — Check plant health information and import rules — GOV.UK',
             heading: 'Plant Details',
             getHelpSection,
             radiobuttonValue,
@@ -233,7 +233,7 @@ const formatPageController = {
           pageTitle:
             'Which format of ' +
             searchQuery.value +
-            ' are you importing? - Check plant health information and import rules - GOV.UK',
+            ' are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

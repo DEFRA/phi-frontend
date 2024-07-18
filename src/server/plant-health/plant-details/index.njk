@@ -146,8 +146,8 @@
                   {% endif %}
                   <td class="govuk-table__cell">
                     {% if item.regulated_indicator.split('\n')[1].length > 0%}
-                    <p>{{item.regulated_indicator.split('\n')[0]}}</p>
-                    <p> {{item.regulated_indicator.split('\n')[1]}}</p>
+                    {{item.regulated_indicator.split('\n')[0]}}
+                    <p>{{item.regulated_indicator.split('\n')[1]}}</p>
                     {% else %}
                     {{item.regulated_indicator}}
                     {% endif %}

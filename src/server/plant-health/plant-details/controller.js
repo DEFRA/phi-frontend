@@ -44,7 +44,7 @@ const plantDetailsPageController = {
         return h.view('plant-health/plant-details/index', {
           pageTitle:
             searchQuery.value +
-            ' - Check plant health information and import rules - GOV.UK',
+            ' — Check plant health information and import rules — GOV.UK',
           heading: 'Plant Details',
           getHelpSection,
           hostRef,
@@ -88,7 +88,7 @@ const plantDetailsPageController = {
           fullSearchQuery,
           pageTitle:
             searchQuery.value +
-            ' - Check plant health information and import rules - GOV.UK',
+            ' — Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
           errorMessage
