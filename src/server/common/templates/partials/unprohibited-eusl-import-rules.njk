@@ -22,22 +22,20 @@
 {% endif %}
 {% endif %}
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0 %}
-  {% if item['BTOM_CLARIFICATION'].length > 0 %}
-  <div class='govuk-body'>
-  {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
-  </div>
+    {% if item['BTOM_CLARIFICATION'].length > 0 %}
+      <div class='govuk-body'>
+      {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
+      </div>
+    {% else%}
+      <div class='govuk-body'>
+      {% set flag = 'as' + ' ' + format%}
+      </div>
+    {% endif %}
   {% else%}
-  {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% set flag = 'in the above format'%}  
-  {%endif %}
+    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 or item['SERVICE_SUBFORMAT'].length > 0%}
+      {% set flag = 'in the above format'%}  
+    {%endif %}
   {% endif %}
-{% else%}
-  {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% set flag = 'in the above format'%}
-  {% else %}
-    {% set flag = 'as' + ' ' + format%}
-  {%endif %}
-{% endif %}
   {% if item['BTOM_EUSL'] === '11A'%}
     <div class="govuk-body"> 
       <h3 class="govuk-heading-s">
