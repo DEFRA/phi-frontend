@@ -30,6 +30,9 @@
    {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') %}
     {% set processedData =  'Wood' %}
   {% endif %}
+  {% if (item.BTOM_CLARIFICATION.length > 0)%}
+   {% set processedData = processedData +' (' + item.BTOM_CLARIFICATION + ')'%}
+  {% endif %}
  {% endif %}
 
 {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 and ulIndicatorFlag and processedData[0].length > 1%}

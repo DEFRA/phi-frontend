@@ -141,9 +141,8 @@ const formatPageController = {
               removedProcessedData = processedData?.push('Cooper products')
             }
             if (annex11.BTOM_CLARIFICATION?.length > 0) {
-              removedProcessedData = processedData?.push(
-                annex11.BTOM_CLARIFICATION
-              )
+              removedProcessedData =
+                processedData[0] + ' (' + annex11.BTOM_CLARIFICATION + ')'
             }
           })
           function compareQuarantineIndicator(a, b) {
