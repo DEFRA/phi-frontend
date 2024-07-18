@@ -240,7 +240,7 @@ const pestSearchController = {
         return h.view('plant-health/pest-details/index', {
           pageTitle:
             result.pest_detail[0].PEST_NAME[0].NAME +
-            ' - Check plant health information and import rules - GOV.UK',
+            ' — Check plant health information and import rules — GOV.UK',
           heading: 'Pestdetails',
           getHelpSection,
           mainContent,
