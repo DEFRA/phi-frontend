@@ -12,7 +12,7 @@
       {{data.mainContent.content1}} {{data.preferredName}}{{data.mainContent.content2}} 
   </strong>
   <br>
-   <p>{{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
+   <p class="govuk-body">{{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
   </div> 
  {%endif%}
   {% if data.quarantineIndicator =='P'  %} 
@@ -23,8 +23,8 @@
       {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content9}} 
         </strong>
          <br>
-      <p> {{data.mainContent.content10}}<a class="govuk-link govuk-body" href={{data.Annex3URL}}>{{data.mainContent.content11}} </a></p>
-     <p> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
+      <p class="govuk-body"> {{data.mainContent.content10}}<a class="govuk-link govuk-body" href={{data.Annex3URL}}>{{data.mainContent.content11}} </a></p>
+     <p class="govuk-body"> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
 
   </div>
  {%endif%}
@@ -36,7 +36,7 @@
       {{data.mainContent.content1}} {{data.preferredName}} {{data.mainContent.content13}} 
         </strong>
       <br>
-     <p> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
+     <p class="govuk-body"> {{data.mainContent.content7}} <a class="govuk-link govuk-body" href={{data.ContactAuthURL}}>{{data.mainContent.content8}}</a></p>
 
   </div>
  {%endif%}
@@ -44,7 +44,7 @@
 <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}
 </h3>
-<p>
+<p class="govuk-body">
 {{data.preferredName | capitalize}}
 </p>
 <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
@@ -56,7 +56,7 @@
     <li>{{item}}</li>
 {% endfor %}
 {%else%}
-    <p>{{data.mainContent.noneText}}</p>
+    <p class="govuk-body">{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
 <h3 class="govuk-heading-m govuk-!-margin-bottom-0">
@@ -68,23 +68,23 @@
     <li>{{item}}</li>
 {% endfor %}
 {%else%}
-    <p>{{data.mainContent.noneText}}</p>
+    <p class="govuk-body">{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
 {% if photores %}
 <div class="govuk-inset-text">
-  <p>You can  <a class="govuk-link govuk-body" href={{data.photoURL}} > view photos of {{data.preferredName}} in the EPPO Global Database. </a> </p></div>
+  <p class="govuk-body">You can  <a class="govuk-link govuk-body" href={{data.photoURL}} > view photos of {{data.preferredName}} in the EPPO Global Database. </a> </p></div>
 {% else %}
 <div class="govuk-inset-text">
-  <p>There are no photos of {{data.preferredName}} to view in the EPPO Global Database.</p></div>
+  <p class="govuk-body">There are no photos of {{data.preferredName}} to view in the EPPO Global Database.</p></div>
         {% endif %} 
-
-{% if data.factsheetlinks != "" %}
-
+        
+{% if (data.factsheetlinks != "") or (data.otherPublications != "") %}
 <h3 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText1}} {{data.preferredName }}
-<p>
-<p>{{data.mainContent.Planthealthfiletext}}</p>
+<p class="govuk-body"></p>
+
+<p class="govuk-body">{{data.mainContent.Planthealthfiletext}}</p>
 <details class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -94,6 +94,10 @@
   <div class="govuk-details__text">
    If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email plantpestsrisks@defra.gov.uk. Please tell us what format you need. It will help us if you say what assistive technology you use.​ </div>
 </details>
+    {% endif %} 
+{% if data.factsheetlinks != "" %}
+
+
 <h2 class="govuk-heading-m">
 {{mainContent.HeaderTextFact | capitalize}}
 </h2>
@@ -122,19 +126,7 @@
         </table>
           {% endif %}
           {% if data.otherPublications != "" %}   
-          <h3 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText1}} {{data.preferredName }}
-
-<p>{{data.mainContent.Planthealthfiletext}}</p>
-<details class="govuk-details">
-  <summary class="govuk-details__summary">
-    <span class="govuk-details__summary-text">
-      Request an accessible format
-    </span>
-  </summary>
-  <div class="govuk-details__text">
-   If you use assistive technology (such as a screen reader) and need a version of this document in a more accessible format, please email plantpestsrisks@defra.gov.uk. Please tell us what format you need. It will help us if you say what assistive technology you use.​ </div>
-</details>   
+         
          {% if data.factsheetlinks != "" %}
 <h2 class="govuk-heading-m">
 {{mainContent.HeaderTextOtherObs | capitalize}}
@@ -164,16 +156,18 @@
         </table>
           {% endif %}
                 {% if data.quarantineIndicator =='R'  %} 
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText3}} {{data.preferredName }}
- <p>{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}} {{data.mainContent.content18}} </p>
+<p class="govuk-body">
+ <p class="govuk-body">{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}} {{data.mainContent.content18}} </p>
 
-<p>{{data.mainContent.content3}} {{data.preferredName }} {{data.mainContent.content4}}</p>
+<p class="govuk-body">{{data.mainContent.content3}} {{data.preferredName }} {{data.mainContent.content4}}</p>
 
       {% endif %}
  {% if data.quarantineIndicator !='R'  %} 
-<h3 class="govuk-heading-s govuk-!-margin-bottom-0">
+<h3 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText4}} {{data.preferredName }}
- <p>{{data.preferredName }} {{data.mainContent.content19}}</p>
+<p class="govuk-body">
+ <p class="govuk-body">{{data.preferredName }} {{data.mainContent.content19}}</p>
    {% endif %}
 </p>
