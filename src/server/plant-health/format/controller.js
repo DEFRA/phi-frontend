@@ -50,6 +50,7 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
             return string.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -103,16 +104,11 @@ const formatPageController = {
           let removedProcessedData = processedData
           result.annex11RulesArr?.forEach(function (annex11) {
             if (
-              annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for planting'
-            ) {
-              removedProcessedData = processedData[0]?.replace('or Seeds', '')
-              removedProcessedData = processedData[0]?.replace('Seeds or', '')
-            }
-            if (
+              annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
+                'seeds for planting' ||
               annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for eating'
             ) {
-              removedProcessedData = processedData[0]?.replace('or Seeds', '')
-              removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              removedProcessedData = processedData[0]?.replace('Seeds', '')
             }
             if (
               annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
@@ -123,8 +119,7 @@ const formatPageController = {
               )
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'fruit') {
-              removedProcessedData = processedData[0]?.replace('or Fruit', '')
-              removedProcessedData = processedData[0]?.replace('Fruit or', '')
+              removedProcessedData = processedData[0]?.replace('Fruit', '')
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'grain') {
               removedProcessedData = processedData?.push('Grain')
@@ -145,6 +140,10 @@ const formatPageController = {
                 processedData[0] + ' (' + annex11.BTOM_CLARIFICATION + ')'
             }
           })
+
+          if (removedProcessedData?.split('or ').length === 2) {
+            removedProcessedData = removedProcessedData?.replace(' or ', '')
+          }
           function compareQuarantineIndicator(a, b) {
             if (a.quarantine_indicator > b.quarantine_indicator) {
               return -1

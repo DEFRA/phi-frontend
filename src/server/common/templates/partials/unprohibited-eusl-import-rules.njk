@@ -6,9 +6,9 @@
      {% set btom_clarification = item['BTOM_CLARIFICATION'] %}
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% if item['BTOM_CLARIFICATION'].length > 0 %}
-      {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'] + ')' + ' ' + btom_clarification%}
+      {%set header = data.format | capitalize + ' (other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'].trim() + ')' + ' ' + btom_clarification%}
     {% else %}
-      {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'] + ')' %}
+      {%set header = data.format | capitalize + ' (other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'].trim() + ')' %}
   {% endif %}
  {% else %}
  {% if item['SERVICE_SUBFORMAT'].length > 0%}
