@@ -52,7 +52,7 @@ const formatPageController = {
           result = await invokeWorkflowApi(plantDetails)
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1)
+            return string.charAt(0)?.toUpperCase() + string?.slice(1)
           }
           if (result.dormantIndicator?.length > 0) {
             subFormatArray.push('Dormant')
@@ -103,45 +103,46 @@ const formatPageController = {
           let removedProcessedData = processedData
           result.annex11RulesArr?.forEach(function (annex11) {
             if (
-              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting'
+              annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for planting'
             ) {
               removedProcessedData = processedData[0]?.replace('or Seeds', '')
               removedProcessedData = processedData[0]?.replace('Seeds or', '')
             }
             if (
-              annex11.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating'
+              annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for eating'
             ) {
               removedProcessedData = processedData[0]?.replace('or Seeds', '')
               removedProcessedData = processedData[0]?.replace('Seeds or', '')
             }
             if (
-              annex11.SERVICE_SUBFORMAT.toLowerCase() ===
+              annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
               'root and tubercle vegetables'
             ) {
               removedProcessedData = processedData?.push(
                 'Root and tubercle vegetables'
               )
             }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'fruit') {
+            if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'fruit') {
               removedProcessedData = processedData[0]?.replace('or Fruit', '')
               removedProcessedData = processedData[0]?.replace('Fruit or', '')
             }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'grain') {
+            if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'grain') {
               removedProcessedData = processedData?.push('Grain')
             }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cut flowers') {
+            if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'cut flowers') {
               removedProcessedData = processedData?.push('Cut flowers')
             }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'wood packaging') {
+            if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'wood packaging') {
               removedProcessedData = processedData?.push('Wood packaging')
             }
-            if (annex11.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') {
+            if (
+              annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'cooper products'
+            ) {
               removedProcessedData = processedData?.push('Cooper products')
             }
-            if (annex11.BTOM_CLARIFICATION.length > 0) {
-              removedProcessedData = processedData.push(
-                annex11.BTOM_CLARIFICATION
-              )
+            if (annex11.BTOM_CLARIFICATION?.length > 0) {
+              removedProcessedData =
+                processedData[0] + ' (' + annex11.BTOM_CLARIFICATION + ')'
             }
           })
           function compareQuarantineIndicator(a, b) {
@@ -153,16 +154,15 @@ const formatPageController = {
             }
             return 0
           }
-
           const pestDetails = result.pestDetails
-            .sort(compareQuarantineIndicator)
-            .reverse()
+            ?.sort(compareQuarantineIndicator)
+            ?.reverse()
 
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
             pageTitle:
               searchQuery.value +
-              ' - Check plant health information and import rules - GOV.UK',
+              ' — Check plant health information and import rules — GOV.UK',
             heading: 'Plant Details',
             getHelpSection,
             radiobuttonValue,
@@ -233,7 +233,7 @@ const formatPageController = {
           pageTitle:
             'Which format of ' +
             searchQuery.value +
-            ' are you importing? - Check plant health information and import rules - GOV.UK',
+            ' are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

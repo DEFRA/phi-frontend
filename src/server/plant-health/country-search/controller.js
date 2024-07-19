@@ -43,7 +43,7 @@ const countrySearchController = {
           pageTitle:
             'Which format of ' +
             searchQuery.value +
-            ' are you importing? - Check plant health information and import rules - GOV.UK',
+            ' are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           getHelpSection,
           mainContent,
@@ -87,7 +87,7 @@ const countrySearchController = {
           pageTitle:
             'Which country, state or territory are you importing ' +
             searchQuery.value +
-            ' - Check plant health information and import rules - GOV.UK',
+            ' — Check plant health information and import rules — GOV.UK',
           heading: 'Country Search',
           errors,
           errorMessage

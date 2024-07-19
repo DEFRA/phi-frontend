@@ -43,7 +43,7 @@ const pestDetailsPageController = {
         const getHelpSection = formatData?.getHelpSection
 
         return h.view('plant-health/pest-details/index', {
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle: 'Check plant health information and import rules — GOV.UK',
           heading: 'pest-details-page',
           getHelpSection,
           cslRef,
@@ -82,7 +82,7 @@ const pestDetailsPageController = {
           searchQuery,
 
           fullSearchQuery,
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle: 'Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

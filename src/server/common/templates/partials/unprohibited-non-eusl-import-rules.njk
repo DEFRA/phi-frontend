@@ -18,27 +18,24 @@
   {%else%}  
   {% set header = item['SERVICE_SUBFORMAT'] | capitalize %}
   {%endif%}
-{%else%}  
-  {%set header = data.format | capitalize %}
+
 {% endif %}
 {% endif %}
- {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0 %}
-  {% if item['BTOM_CLARIFICATION'].length > 0 %}
-  <div class='govuk-body'>
-  {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
-  </div>
+  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0 %}
+    {% if item['BTOM_CLARIFICATION'].length > 0 %}
+      <div class='govuk-body'>
+      {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
+      </div>
+    {% else%}
+      <div class='govuk-body'>
+      {% set flag = 'as' + ' ' + format%}
+      </div>
+    {% endif %}
   {% else%}
-  {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% set flag = 'in the above format'%}  
-  {%endif %}
+    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 or item['SERVICE_SUBFORMAT'].length > 0%}
+      {% set flag = 'in the above format'%}  
+    {%endif %}
   {% endif %}
-{% else%}
-  {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-    {% set flag = 'in the above format'%}
-  {% else %}
-    {% set flag = 'as' + ' ' + format%}
-  {%endif %}
-{% endif %}
   {% if item['BTOM_NON_EUSL'] === '11A'%}
     <div class="govuk-body"> 
       <h3 class="govuk-heading-s">
@@ -68,13 +65,13 @@
          </li>
       </ul>
       <div class="govuk-inset-text">
-        You may need to include an additional declaration on the phytosanitary certificate. To find out,  <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool </a>.
+        The phytosanitary certificate may need an additional declaration.To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.
       </div>
     </div>  
   {% endif %}  
   {% if (item['BTOM_NON_EUSL'] === '11B')%}
     <div class="govuk-body">
-      <h3>   
+      <h3 class="govuk-heading-s">   
      {{header}}
       </h3>
            
@@ -92,7 +89,7 @@
     {% endif %}
   </ul>
       <div class="govuk-inset-text">
-        <p>The phytosanitary certificate may need an additional declaration.</p> <p>To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.</p>
+        The phytosanitary certificate may need an additional declaration.To find out, <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/imports-from-the-eu/import-requirements/import-special-requirements/requirement-for-additional-declarations-ads-on-phytosanitary-certificate-pcs/">check the additional declaration tool</a>.
       </div>
     </div>  
   {% endif %} 
@@ -104,7 +101,7 @@
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flag}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
-      </p>   
+      </p>  
     </div>  
   {% endif %} 
   {% if  item['BTOM_NON_EUSL'] === 'UNK'%}

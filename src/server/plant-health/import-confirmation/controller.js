@@ -30,7 +30,7 @@ const importConfirmationController = {
         request.yar.set('hostRef', null)
         request.yar.set('eppoCode', null)
         return h.view('plant-health/search/index', {
-          pageTitle: 'Check plant health information and import rules - GOV.UK',
+          pageTitle: 'Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           getHelpSection,
           hostRef,
@@ -49,7 +49,7 @@ const importConfirmationController = {
             serviceUnavailablePage,
             getHelpSection,
             pageTitle:
-              'Check plant health information and import rules - GOV.UK',
+              'Check plant health information and import rules — GOV.UK',
             heading: 'ImportConfirmation'
           }
         )
@@ -76,7 +76,7 @@ const importConfirmationController = {
           getHelpSection,
           radiobuttonValue,
           pageTitle:
-            'Where are you importing your plant or plant product to? - Check plant health information and import rules - GOV.UK',
+            'Where are you importing your plant or plant product to? — Check plant health information and import rules — GOV.UK',
           heading: 'ImportConfirmation',
           errors,
           errorMessage

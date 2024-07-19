@@ -10,7 +10,7 @@ const loginController = {
       request.yar.set('errors', null)
       request.yar.set('errorMessage', null)
       return h.view('login/index', {
-        pageTitle: 'Check plant health information and import rules - GOV.UK',
+        pageTitle: 'Check plant health information and import rules — GOV.UK',
         heading: 'Login Page',
         page: 'home',
         serviceName: '',

@@ -3,7 +3,7 @@
     {{data.mainContent.importRulesHeader}}
 </h3>
  {% for item in data.result.annex11RulesArr%}
-  {% if (item.SERVICE_SUBFORMAT === '')%}
+ {%if (item.SERVICE_SUBFORMAT === '')%}
    {% set processedData =  data.removedProcessedData %}
  {% else %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'fruit, seeds for eating')%}
@@ -33,6 +33,9 @@
    {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'cooper products') %}
     {% set processedData =  'Wood' %}
   {% endif %}
+  {% if (item.BTOM_CLARIFICATION.length > 0)%}
+   {% set processedData = processedData +' '+ item.BTOM_CLARIFICATION %}
+  {% endif %}
  {% endif %}
 
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 and ulIndicatorFlag and processedData[0].length > 1%}
@@ -46,24 +49,16 @@
         {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
         </div>
       {% else%}
-        {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+        {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 or item['SERVICE_SUBFORMAT'].length > 0 or processedData[0].length > 0  %}
+         <div class='govuk-body'>
+         {% set flag = 'in the above format'%}
+        </div> 
+        {% else%}
           {% set flag = 'as' + ' ' + format%}
-        {%endif %}
-      {% endif %}
+        {% endif %}
+      {% endif %}  
    {% else%}
-    {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
-     {% if item['BTOM_CLARIFICATION'].length > 0 %}
-      <div class='govuk-body'>
-      {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
-      </div>
-     {% else%}
-      {%if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0  and processedData.length === 0%}
-        {% set flag = 'as' + ' ' + format%}
-      {%endif %}
-      {% endif %}
-    {% else %}
-      {% set flag = 'in the above format'%}  
-    {%endif %}
+       {% set flag = 'in the above format'%}
 {% endif %}
 {% endif %}
  
@@ -93,7 +88,7 @@
         {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
+        <h3 class="govuk-heading-s">{{processedData}}</h3>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -101,7 +96,7 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
             {% else %}
              <h3 class="govuk-heading-s"> 
-              {{processedData | capitalize}}
+              {{processedData}}
             </h3>
             {% endif %}
        {% else %}
@@ -196,7 +191,7 @@
        {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
+        <h3 class="govuk-heading-s">{{processedData}}</h3>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -204,7 +199,7 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
             {% else %}
              <h3 class="govuk-heading-s"> 
-              {{processedData | capitalize}}
+              {{processedData}}
             </h3>
             {% endif %}
        {% else %}
@@ -297,7 +292,7 @@
         {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
+        <h3 class="govuk-heading-s">{{processedData}}</h3>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -305,7 +300,7 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
             {% else %}
              <h3 class="govuk-heading-s"> 
-              {{processedData | capitalize}}
+              {{processedData}}
             </h3>
             {% endif %}
        {% else %}
@@ -357,7 +352,7 @@
     {% if data.result.hybridIndicator.length > 0 %}
      <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
     {% else %}
-     <h3 class="govuk-heading-s">{{processedData | capitalize}}</h3>
+     <h3 class="govuk-heading-s">{{processedData}}</h3>
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
@@ -365,7 +360,7 @@
       <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
-        {{processedData | capitalize}}
+        {{processedData}}
       </h3>
       {% endif %}
     {% else %}
@@ -410,6 +405,6 @@
 {%endif%}  
  {% endfor %} 
    <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often instructions at the border have resulted in the destruction of goods.</a>
+        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often inspections at the border have resulted in the destruction of goods.</a>
     </p>  
 {%endif%}
