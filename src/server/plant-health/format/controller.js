@@ -103,16 +103,15 @@ const formatPageController = {
           let removedProcessedData = processedData
           result.annex11RulesArr?.forEach(function (annex11) {
             if (
-              annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for planting'
-            ) {
-              removedProcessedData = processedData[0]?.replace('or Seeds', '')
-              removedProcessedData = processedData[0]?.replace('Seeds or', '')
-            }
-            if (
+              annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
+                'seeds for planting' ||
               annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for eating'
             ) {
-              removedProcessedData = processedData[0]?.replace('or Seeds', '')
-              removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              if (processedData[0]?.replace('or Seeds', '').length > 0) {
+                removedProcessedData = processedData[0]?.replace('or Seeds', '')
+              } else if (processedData[0]?.replace('Seeds or', '').length > 0) {
+                removedProcessedData = processedData[0]?.replace('Seeds or', '')
+              }
             }
             if (
               annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
@@ -123,8 +122,11 @@ const formatPageController = {
               )
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'fruit') {
-              removedProcessedData = processedData[0]?.replace('or Fruit', '')
-              removedProcessedData = processedData[0]?.replace('Fruit or', '')
+              if (processedData[0]?.replace('or Fruit', '').length > 0) {
+                removedProcessedData = processedData[0]?.replace('or Fruit', '')
+              } else if (processedData[0]?.replace('Fruit or', '').length > 0) {
+                removedProcessedData = processedData[0]?.replace('Fruit or', '')
+              }
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'grain') {
               removedProcessedData = processedData?.push('Grain')

@@ -3,9 +3,12 @@
     {{data.mainContent.importRulesHeader}}
 </h3>
  {% for item in data.result.annex11RulesArr%}
- {%if (item.SERVICE_SUBFORMAT === '')%}
+ {% if item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0%}
+  {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
+ {%else %}
+  {% if (item.SERVICE_SUBFORMAT === '')%}
    {% set processedData =  data.removedProcessedData %}
- {% else %}
+  {% endif %}  
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'fruit, seeds for eating')%}
    {% set processedData =  'Fruit or Seeds'  %}
  {% endif %}
@@ -78,6 +81,10 @@
   {% else %}
   {% if item['BTOM_EUSL'] === '11A'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11AimportRules  = 'true'%}
+   {% else %}
+  {% if item['BTOM_EUSL'] === '11A' and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+   {% set 11AimportRules  = 'true'%}
+  {% endif %} 
   {% endif %}
   {% endif %}
 {% endif %}
@@ -177,6 +184,10 @@
   {% else %}
   {% if item['BTOM_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11AimportRules  = 'true'%}
+   {% else %}
+  {% if item['BTOM_EUSL'] === '11B' and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+   {% set 11BimportRules  = 'true'%}
+  {% endif %} 
   {% endif %}
   {% endif %}
 {% endif %} 
@@ -278,6 +289,10 @@
   {% else %}
   {% if item['BTOM_EUSL'] === '11C'  or item['BTOM_EUSL'] === 'UNR'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11CimportRules  = 'true'%}
+   {% else %}
+  {% if item['BTOM_EUSL'] === '11C' and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+   {% set 11CimportRules  = 'true'%}
+  {% endif %} 
   {% endif %}
   {% endif %}
 {% endif %}
