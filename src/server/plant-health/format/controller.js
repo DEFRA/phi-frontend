@@ -141,9 +141,6 @@ const formatPageController = {
             }
           })
 
-          if (removedProcessedData?.split('or ').length === 2) {
-            removedProcessedData = removedProcessedData?.replace(' or ', '')
-          }
           function compareQuarantineIndicator(a, b) {
             if (a.quarantine_indicator > b.quarantine_indicator) {
               return -1
