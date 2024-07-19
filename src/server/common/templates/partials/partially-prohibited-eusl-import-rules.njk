@@ -63,7 +63,7 @@
 {% endif %}
  
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}  
-    {% set formatHeader = data.format + '(other than ' + item.SERVICE_SUBFORMAT_EXCLUDED +')' %}
+    {% set formatHeader = data.format + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
   {% else %}
     {% set formatHeader = item.SERVICE_SUBFORMAT | capitalize %}
   {% endif %}
