@@ -124,18 +124,18 @@ const formatPageController = {
             ) {
               removedProcessedData = []
               if (
-                result.dormantIndicator.length > 0 &&
-                result.ProhibitionClarification.length > 0
+                result.dormantIndicator?.length > 0 &&
+                result.ProhibitionClarification?.length > 0
               ) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
                     ' (other than ' +
-                    annex11.SERVICE_SUBFORMAT_EXCLUDED.trim() +
+                    annex11.SERVICE_SUBFORMAT_EXCLUDED?.trim() +
                     ')'
                 )
               } else {
-                if (result.dormantIndicator.length > 0) {
+                if (result.dormantIndicator?.length > 0) {
                   processedData = []
                   removedProcessedData = processedData?.push('Dormant')
                 }
@@ -147,8 +147,8 @@ const formatPageController = {
             ) {
               removedProcessedData = []
               if (
-                result.dormantIndicator.length > 0 &&
-                result.ProhibitionClarification.length > 0
+                result.dormantIndicator?.length > 0 &&
+                result.ProhibitionClarification?.length > 0
               ) {
                 processedData = []
                 removedProcessedData = processedData?.push(
@@ -159,9 +159,9 @@ const formatPageController = {
                 )
               } else {
                 if (
-                  result.dormantIndicator.length > 0 &&
-                  result.invintroIndicator.length === 0 &&
-                  result.bonsoiIndicator.length === 0
+                  result.dormantIndicator?.length > 0 &&
+                  result.invintroIndicator?.length === 0 &&
+                  result.bonsoiIndicator?.length === 0
                 ) {
                   processedData = []
                   removedProcessedData = processedData?.push('Dormant')
