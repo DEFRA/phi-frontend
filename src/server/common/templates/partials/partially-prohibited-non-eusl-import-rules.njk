@@ -83,7 +83,7 @@
   {% if item['BTOM_NON_EUSL'] === '11A' and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 %}
   {% set 11AimportRules  = 'true'%}
   {% else %}
-  {% if item['BTOM_NON_EUSL'] === '11A' and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+  {% if item['BTOM_NON_EUSL'] === '11A' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% set 11AimportRules  = 'true'%}
   {% endif %} 
   {% endif %}
@@ -93,14 +93,14 @@
 <div class="govuk-body">  
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length >= 0 %}
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-  {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
+  {% if data.result.hybridIndicator.length > 0  %}
     <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
   {% else %} 
     <h3 class="govuk-heading-s"> {{processedData}}</h3>
   {% endif %}
   {% else %}
   {% if ulIndicatorFlag %}
-  {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
+  {% if data.result.hybridIndicator.length > 0  %}
   <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
   {% else %}
   <h3 class="govuk-heading-s">
@@ -108,7 +108,7 @@
   </h3>
   {% endif %}
   {% else %}
-  {% if data.result.hybridIndicator.length > 0 and processedData.length === 0  %}
+  {% if data.result.hybridIndicator.length > 0   %}
   <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
   {% else %}
   <h3 class="govuk-heading-s">
@@ -191,7 +191,7 @@
   {% if item['BTOM_NON_EUSL'] === '11B'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11BimportRules  = 'true'%}
   {% else %}
-  {% if item['BTOM_NON_EUSL'] === '11B' and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+  {% if item['BTOM_NON_EUSL'] === '11B' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% set 11BimportRules  = 'true'%}
   {% endif %}
   {% endif %}
@@ -200,8 +200,8 @@
 {% if 11BimportRules === 'true'%}
     <div class="govuk-body">
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-      {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
-            <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
+      {% if data.result.hybridIndicator.length > 0 %}
+         <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">{{processedData}}</h3>
       {% endif %}
@@ -215,12 +215,12 @@
       </h3>
       {% endif %}
       {% else %}
-      {%if data.result.hybridIndicator.length > 0 and processedData.length === 0  %}
+      {%if data.result.hybridIndicator.length > 0  %}
       <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
         {% if data.result.hybridIndicator.length > 0 %}
-        {{data.format | capitalize}}
+        {{formatHeader | capitalize}}
         {% endif %}
         {% if data.result.dormantIndicator.length > 0 %}
         Dormant
@@ -292,7 +292,7 @@
   {% if item['BTOM_NON_EUSL'] === '11C'  or item['BTOM_NON_EUSL'] === 'UNR'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
   {% set 11CimportRules  = 'true'%}
   {% else %}
-  {% if item['BTOM_NON_EUSL'] === '11C'  or item['BTOM_NON_EUSL'] === 'UNR'  and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
+  {% if item['BTOM_NON_EUSL'] === '11C'  or item['BTOM_NON_EUSL'] === 'UNR' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% set 11CimportRules  = 'true'%}
   {% endif %} 
   {% endif %}
@@ -308,7 +308,7 @@
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
-      {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
+      {% if data.result.hybridIndicator.length > 0  %}
       <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
@@ -316,7 +316,7 @@
       </h3>
       {% endif %}
     {% else %}
-     {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
+     {% if data.result.hybridIndicator.length > 0  %}
       <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
      {% else %}
        <h3 class="govuk-heading-s">
@@ -375,7 +375,7 @@
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
-      {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
+      {% if data.result.hybridIndicator.length > 0  %}
       <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
       {% else %}
       <h3 class="govuk-heading-s">
@@ -383,7 +383,7 @@
       </h3>
       {% endif %}
     {% else %}
-     {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
+     {% if data.result.hybridIndicator.length > 0  %}
       <h3 class="govuk-heading-s">{{formatHeader  | capitalize}}</h3>
      {% else %}
        <h3 class="govuk-heading-s">

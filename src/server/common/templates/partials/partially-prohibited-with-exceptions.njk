@@ -59,13 +59,12 @@
                 </p>
                 {% endif %} 
             {% else %}  
-                {% if processedData.length > 1 %}
+                {% if processedData.length > 0 %}
                  <h3 class="govuk-heading-s">
                 {{data.mainContent.exceptionHeader}}
                 </h3>
                 <p class="govuk-!-margin-top-0 govuk-!-margin-bottom-0">{{data.mainContent.exceptionHelpText}}{{colon}}  
                 {% for itr in ulIndicatorList %}
-                {{itr.name}}
                 {% if itr.flag.trim().length === 1 %}
                     {{itr.name}}.
                 {% endif %}
@@ -81,7 +80,7 @@
             {% endif %}
        </div>
     {% endif %}
-<div class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">   
+<div class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-1">   
  {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
  href={{data.url}}>{{data.urlText}}</a>
 </div>            
