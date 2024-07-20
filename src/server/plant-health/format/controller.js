@@ -118,6 +118,56 @@ const formatPageController = {
                 'Root and tubercle vegetables'
               )
             }
+            if (
+              annex11.SERVICE_SUBFORMAT === '' &&
+              format.toLowerCase() === 'produce'
+            ) {
+              removedProcessedData = []
+              if (
+                result.dormantIndicator.length > 0 &&
+                result.ProhibitionClarification.length > 0
+              ) {
+                processedData = []
+                removedProcessedData = processedData?.push(
+                  capitalizeFirstLetter(format) +
+                    ' (other than ' +
+                    annex11.SERVICE_SUBFORMAT_EXCLUDED.trim() +
+                    ')'
+                )
+              } else {
+                if (result.dormantIndicator.length > 0) {
+                  processedData = []
+                  removedProcessedData = processedData?.push('Dormant')
+                }
+              }
+            }
+            if (
+              annex11.SERVICE_SUBFORMAT === '' &&
+              format.toLowerCase() === 'plants for planting'
+            ) {
+              removedProcessedData = []
+              if (
+                result.dormantIndicator.length > 0 &&
+                result.ProhibitionClarification.length > 0
+              ) {
+                processedData = []
+                removedProcessedData = processedData?.push(
+                  capitalizeFirstLetter(format) +
+                    ' (other than ' +
+                    annex11.SERVICE_SUBFORMAT_EXCLUDED.trim() +
+                    ')'
+                )
+              } else {
+                if (
+                  result.dormantIndicator.length > 0 &&
+                  result.invintroIndicator.length === 0 &&
+                  result.bonsoiIndicator.length === 0
+                ) {
+                  processedData = []
+                  removedProcessedData = processedData?.push('Dormant')
+                }
+              }
+            }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'fruit') {
               removedProcessedData = processedData[0]?.replace('Fruit', '')
             }

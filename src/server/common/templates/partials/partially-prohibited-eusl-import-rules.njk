@@ -3,10 +3,8 @@
     {{data.mainContent.importRulesHeader}}
 </h3>
  {% for item in data.result.annex11RulesArr%}
- {% if data.result.hybridIndicator.length > 0 and data.removedProcessedData.length === 0%}
   {% if item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and data.result.FormatClarification.length === 0%}
   {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
-  {% endif %}
  {%else %}
   {% if (item.SERVICE_SUBFORMAT === '')%}
    {% set processedData =  data.removedProcessedData %}
@@ -39,7 +37,7 @@
    {% set processedData = processedData +' ' + item.BTOM_CLARIFICATION%}
   {% endif %}
  {% endif %}
-  {% endif %}
+{%endif%}
 
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 and ulIndicatorFlag and processedData[0].length > 1%}
     {% set flag = 'in the above formats'%}
@@ -150,13 +148,13 @@
         <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#register-to-import">register to import</a> if you're a first-time importer
       </li>
       <li>
-        get a <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#get-a-phytosanitary-certificate">phytosanitary certificate from your exporter</a>
+        get a <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#get-a-phytosanitary-certificate">phytosanitary certificate from the National Plant Protection Organisation of the exporting country</a>
       </li>
       <li>
         meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material&nbsp;you use
       </li>
       <li>
-        <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain#notify-the-relevant-authorities-about-your-import">notify the relevant authorities about your import</a>
+        <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#notify-the-relevant-authorities-about-your-import">notify the relevant authorities about your import</a>
       </li>
       <li>
         comply with documentary, <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain#fees-for-plant-health-checks">identity and physical checks</a> at the border
