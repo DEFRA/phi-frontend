@@ -50,7 +50,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
             return string.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -108,7 +107,11 @@ const formatPageController = {
                 'seeds for planting' ||
               annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for eating'
             ) {
-              removedProcessedData = processedData[0]?.replace('Seeds', '')
+              removedProcessedData = processedData[0]
+                ?.split(' or ')
+                ?.filter(function (el) {
+                  return el !== 'Seeds'
+                })
             }
             if (
               annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
@@ -169,7 +172,11 @@ const formatPageController = {
               }
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'fruit') {
-              removedProcessedData = processedData[0]?.replace('Fruit', '')
+              removedProcessedData = processedData[0]
+                ?.split(' or ')
+                ?.filter(function (el) {
+                  return el !== 'Fruit'
+                })
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'grain') {
               removedProcessedData = processedData?.push('Grain')
@@ -190,6 +197,17 @@ const formatPageController = {
                 processedData[0] + ' (' + annex11.BTOM_CLARIFICATION + ')'
             }
           })
+          const resultHeaderArray = []
+          for (let i = 0; i < removedProcessedData?.length; i++) {
+            resultHeaderArray?.push(removedProcessedData[i])
+            if (i < removedProcessedData?.length - 1) {
+              resultHeaderArray?.push('or')
+            }
+          }
+          removedProcessedData = resultHeaderArray
+          if (removedProcessedData?.length > 0) {
+            removedProcessedData = removedProcessedData?.join(' ')?.split(',')
+          }
 
           function compareQuarantineIndicator(a, b) {
             if (a.quarantine_indicator > b.quarantine_indicator) {
