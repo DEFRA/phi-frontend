@@ -41,15 +41,15 @@
   </div>
  {%endif%}
 
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}
-</h3>
+</h2>
 <p class="govuk-body">
 {{data.preferredName | capitalize}}
 </p>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.commonNameHeading}}
-</h3>
+</h2>
 <ul class="govuk-list">
 {% if data.commonNames.length > 0 %}
 {% for item in data.commonNames %}
@@ -59,9 +59,9 @@
     <p class="govuk-body">{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.synonymNameHeading}}
-</h3>
+</h2>
 <ul class="govuk-list">
 {% if data.synonymNames.length > 0 %}
 {% for item in data.synonymNames %}
@@ -80,8 +80,9 @@
         {% endif %} 
         
 {% if (data.factsheetlinks != "") or (data.otherPublications != "") %}
-<h3 class="govuk-heading-l govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText1}} {{data.preferredName }}
+</h2>
 <p class="govuk-body"></p>
 
 <p class="govuk-body">{{data.mainContent.Planthealthfiletext}}</p>
@@ -98,9 +99,9 @@
 {% if data.factsheetlinks != "" %}
 
 
-<h2 class="govuk-heading-m">
+<h3 class="govuk-heading-m">
 {{mainContent.HeaderTextFact | capitalize}}
-</h2>
+</h3>
   
  <table class="govuk-table">
  
@@ -128,9 +129,9 @@
           {% if data.otherPublications != "" %}   
          
          {% if data.factsheetlinks != "" %}
-<h2 class="govuk-heading-m">
+<h3 class="govuk-heading-m">
 {{mainContent.HeaderTextOtherObs | capitalize}}
-</h2>
+</h3>
    {% endif %}
  <table class="govuk-table">
  
@@ -156,8 +157,9 @@
         </table>
           {% endif %}
                 {% if data.quarantineIndicator =='R'  %} 
-<h3 class="govuk-heading-l govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText3}} {{data.preferredName }}
+</h2>
 <p class="govuk-body">
  <p class="govuk-body">{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}} {{data.mainContent.content18}} </p>
 
@@ -165,8 +167,9 @@
 
       {% endif %}
  {% if data.quarantineIndicator !='R'  %} 
-<h3 class="govuk-heading-l govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText4}} {{data.preferredName }}
+</h2>
 <p class="govuk-body">
  <p class="govuk-body">{{data.preferredName }} {{data.mainContent.content19}}</p>
    {% endif %}
