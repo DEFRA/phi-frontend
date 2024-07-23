@@ -57,8 +57,12 @@ const pestSearchController = {
 
           // Getting short month name (e.g. "Oct")
           const month = today.toLocaleString('default', { month: 'long' })
-
-          return month + ' ' + today.getFullYear()
+          const datef = month + ' ' + today.getFullYear()
+          if (datef === 'Invalid Date NaN' || datef === ' ') {
+            return 'Not available'
+          } else {
+            return datef
+          }
         }
 
         const factsheetlinks = []
