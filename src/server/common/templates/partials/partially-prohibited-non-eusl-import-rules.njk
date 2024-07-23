@@ -2,8 +2,8 @@
 <h3 class="govuk-heading-m">
   {{data.mainContent.importRulesHeader}}
 </h3>
-{% for item in data.result.annex11RulesArr%}
-  {% if item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and data.result.FormatClarification.length === 0%}
+  {% for item in data.result.annex11RulesArr%}
+  {% if not(ulIndicatorFlag) and item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and data.result.FormatClarification.length === 0%}
   {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
  {%else %}
   {% if (item.SERVICE_SUBFORMAT === '')%}
@@ -73,9 +73,24 @@
   {% endif %}
 {% set 11AimportRules = 'false' %}  
 {% if ulIndicatorFlag %} 
-  {% if item['BTOM_NON_EUSL'] === '11A'%}
-  {% set 11AimportRules  = 'true'%}
+  {% if data.result.seedIndicator.length > 0%}
+   {% if item['BTOM_NON_EUSL'] === '11A' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+   {% set 11AimportRules  = 'true'%}
+   {% endif %}
+  {% else %}
+    {% if item['BTOM_NON_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11AimportRules  = 'true'%}
+    {% endif %}  
   {% endif %} 
+  {% if data.result.fruitIndicator.length > 0 %} 
+    {% if  item['BTOM_NON_EUSL'] === '11A' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% set 11AimportRules  = 'true'%}
+    {% endif %}
+  {% else %}
+    {% if item['BTOM_NON_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11AimportRules  = 'true'%}
+    {% endif %}   
+  {%endif%}
 {% else %}
   {% if item['BTOM_NON_EUSL'] === '11A' and  item['SERVICE_SUBFORMAT'].length > 0 %}
   {% set 11AimportRules = 'true'%}
@@ -181,9 +196,24 @@
 
 {% set 11BimportRules = 'false' %}  
 {% if ulIndicatorFlag %} 
-  {% if item['BTOM_NON_EUSL'] === '11B'%}
-  {% set 11BimportRules  = 'true'%}
+  {% if data.result.seedIndicator.length > 0%}
+   {% if item['BTOM_NON_EUSL'] === '11B' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+   {% set 11BimportRules  = 'true'%}
+   {% endif %}
+  {% else %}
+    {% if item['BTOM_NON_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11BimportRules  = 'true'%}
+    {% endif %}  
   {% endif %} 
+  {% if data.result.fruitIndicator.length > 0 %} 
+    {% if  item['BTOM_NON_EUSL'] === '11B' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% set 11BimportRules  = 'true'%}
+    {% endif %}
+  {% else %}
+    {% if item['BTOM_NON_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11BimportRules  = 'true'%}
+    {% endif %}   
+  {%endif%} 
 {% else %}
   {% if item['BTOM_NON_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length > 0 %}
   {% set 11BimportRules = 'true'%}
@@ -275,9 +305,24 @@
 {% endif %}
 {% set 11CimportRules = 'false' %}  
 {% if ulIndicatorFlag %} 
-  {% if item['BTOM_NON_EUSL'] === '11C'  or item['BTOM_NON_EUSL'] === 'UNR'%}
-  {% set 11CimportRules  = 'true'%}
+  {% if data.result.seedIndicator.length > 0%}
+   {% if (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+   {% set 11CimportRules  = 'true'%}
+   {% endif %}
+  {% else %}
+    {% if (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11CimportRules  = 'true'%}
+    {% endif %}  
   {% endif %} 
+  {% if data.result.fruitIndicator.length > 0 %} 
+    {% if  (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% set 11CimportRules  = 'true'%}
+    {% endif %}
+  {% else %}
+    {% if (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11CimportRules  = 'true'%}
+    {% endif %}   
+  {%endif%} 
 {% else %}
   {% if (item['BTOM_NON_EUSL'] === '11C' and item['BTOM_NON_EUSL'] === 'UNR') and  item['SERVICE_SUBFORMAT'].length > 0%}
   {% set 11CimportRules = 'true'%}

@@ -7,9 +7,9 @@
    {% set btom_clarification = item['BTOM_CLARIFICATION'] %}
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% if item['BTOM_CLARIFICATION'].length > 0 %}
-      {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'].trim() + ')' + ' ' + btom_clarification%}
+      {%set header = data.format | capitalize + ' (other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'].trim() + ')' + ' ' + btom_clarification%}
     {% else %}
-      {%set header = data.format | capitalize + '(other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'].trim() + ')' %}
+      {%set header = data.format | capitalize + ' (other than' + ' ' + item['SERVICE_SUBFORMAT_EXCLUDED'].trim() + ')' %}
   {% endif %}
  {% else %}
  {% if item['SERVICE_SUBFORMAT'].length > 0%}
@@ -109,7 +109,7 @@
     <div class='govuk-body'>
       <h3 class="govuk-heading-s"> 
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 1%}  
-        {{data.format | capitalize}}(other than {{item['SERVICE_SUBFORMAT_EXCLUDED']}})
+        {{data.format | capitalize}} (other than {{item['SERVICE_SUBFORMAT_EXCLUDED']}})
       {% else %}
       {%  if item['SERVICE_SUBFORMAT'].length > 1%}
         {{item['SERVICE_SUBFORMAT']}}
