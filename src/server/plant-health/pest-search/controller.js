@@ -53,18 +53,16 @@ const pestSearchController = {
           }
         }
         function getPublicationDate(date) {
-
           const today = new Date(date) // yyyy-mm-dd
 
           // Getting short month name (e.g. "Oct")
           const month = today.toLocaleString('default', { month: 'long' })
           const datef = month + ' ' + today.getFullYear()
-          if (datef === "Invalid Date NaN" || datef === " ") {
-            return "Not available"
+          if (datef === 'Invalid Date NaN' || datef === ' ') {
+            return 'Not available'
           } else {
             return datef
           }
-
         }
 
         const factsheetlinks = []
@@ -92,7 +90,7 @@ const pestSearchController = {
               const res = getPublicationDate(
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
-             
+
               const fcl = result.pest_detail[0].DOCUMENT_LINK[i]
               fcl.PUBLICATION_DATE_FORMATTED = res
               fcl.TITLE =
