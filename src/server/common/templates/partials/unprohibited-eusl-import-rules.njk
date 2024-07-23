@@ -17,8 +17,6 @@
   {%else%}  
   {% set header = item['SERVICE_SUBFORMAT'] | capitalize %}
   {%endif%}
-{%else%}  
-  {%set header = data.format | capitalize %}
 {% endif %}
 {% endif %}
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0 %}
