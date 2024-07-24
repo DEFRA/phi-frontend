@@ -126,10 +126,7 @@ const formatPageController = {
               format.toLowerCase() === 'produce'
             ) {
               removedProcessedData = []
-              if (
-                result.dormantIndicator?.length > 0 &&
-                result.ProhibitionClarification?.length > 0
-              ) {
+              if (result.ProhibitionClarification?.length > 0) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
@@ -149,10 +146,7 @@ const formatPageController = {
               format.toLowerCase() === 'plants for planting'
             ) {
               removedProcessedData = []
-              if (
-                result.dormantIndicator?.length > 0 &&
-                result.ProhibitionClarification?.length > 0
-              ) {
+              if (result.ProhibitionClarification?.length > 0) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
