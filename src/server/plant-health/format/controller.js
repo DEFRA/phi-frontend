@@ -50,7 +50,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
             return string.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -127,10 +126,7 @@ const formatPageController = {
               format.toLowerCase() === 'produce'
             ) {
               removedProcessedData = []
-              if (
-                result.dormantIndicator?.length > 0 &&
-                result.ProhibitionClarification?.length > 0
-              ) {
+              if (result.ProhibitionClarification?.length > 0) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
@@ -150,10 +146,7 @@ const formatPageController = {
               format.toLowerCase() === 'plants for planting'
             ) {
               removedProcessedData = []
-              if (
-                result.dormantIndicator?.length > 0 &&
-                result.ProhibitionClarification?.length > 0
-              ) {
+              if (result.ProhibitionClarification?.length > 0) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
