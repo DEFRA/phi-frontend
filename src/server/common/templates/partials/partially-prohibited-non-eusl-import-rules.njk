@@ -93,6 +93,8 @@
   {% else %}
     {% if item['BTOM_NON_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11AimportRules  = 'true'%}
+    {%elif item['BTOM_NON_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11AimportRules  = 'true'%}
     {% endif %}   
   {%endif%}
 {% else %}
@@ -220,6 +222,8 @@
   {% else %}
     {% if item['BTOM_NON_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11BimportRules  = 'true'%}
+    {%elif item['BTOM_NON_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11BimportRules  = 'true'%}
     {% endif %}   
   {%endif%} 
 {% else %}
@@ -321,6 +325,8 @@
    {% endif %}
   {% else %}
     {% if (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11CimportRules  = 'true'%}
+    {%elif (item['BTOM_NON_EUSL'] === '11C' or item['BTOM_NON_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11CimportRules  = 'true'%}
     {% endif %}  
   {% endif %} 
