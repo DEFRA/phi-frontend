@@ -112,6 +112,7 @@
       var emptyCoutrySearchValue = document.getElementById('emptyCountrySearchQuery');
       emptyCoutrySearchValue.value = true;
       searchResults.style.display = 'inline-block';
+      
        searchResults.addEventListener('click', function(e) {
        var autocompleteInputValue = document.getElementById('query');
       autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 

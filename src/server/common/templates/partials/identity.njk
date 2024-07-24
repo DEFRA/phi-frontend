@@ -4,13 +4,13 @@
 <h1 class="govuk-heading-xl">
 {{data.searchQuery.value | capitalize}}
 </h1>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}
-</h3>
+</h2>
 <p>{{preferredName}}</p>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.commonNameHeading}}
-</h3>
+</h2>
 <ul class="govuk-list">
 {% if data.commonNames.length > 0 %}
 {% for item in data.commonNames %}
@@ -20,9 +20,9 @@
     <p>{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.synonymNameHeading}}
-</h3>
+</h2>
 <ul class="govuk-list">
 {% if data.synonymNames.length > 0 %}
 {% for item in data.synonymNames %}
@@ -32,9 +32,9 @@
     <p>{{data.mainContent.noneText}}</p>
 {%endif%}
 </ul>
-<h3 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{mainContent.eppoCodeHeading}}
-</h3>
+</h2>
 <p>
 {% if eppoCode !== '' %}
  {{eppoCode}}

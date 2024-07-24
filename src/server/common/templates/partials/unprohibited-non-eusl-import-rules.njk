@@ -1,7 +1,7 @@
 {% if (data.result.annex11RulesArr.length > 0)%}
-<h3 class="govuk-heading-m">
+<h2 class="govuk-heading-m">
     {{data.mainContent.importRulesHeader}}
-</h3>
+</h2>
 {% set btom_clarification = '' %}
  {% for item in data.result.annex11RulesArr%}
    {% set btom_clarification = item['BTOM_CLARIFICATION'] %}
