@@ -23,6 +23,9 @@ const searchPageController = {
       request.yar.set('eppoCode', {
         value: request.query.eppoCode
       })
+      request.yar.set('countryCode', {
+        value: request.query.countryCode
+      })
       const frontendUrl = config.get('frontendUrl')
       const searchInput = request?.yar?.get('searchQuery')
       const searchValue = searchInput?.value
@@ -35,6 +38,7 @@ const searchPageController = {
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
         const countrySearchQuery = request.yar.get('countrySearchQuery')
+        const countryCode = request.yar.get('countryCode').value
         return h.view('plant-health/country-search/index', {
           pageTitle:
             'Which country, state or territory are you importing ' +
@@ -43,6 +47,7 @@ const searchPageController = {
           heading: 'Country',
           getHelpSection,
           mainContent,
+          countryCode,
           searchQuery,
           countrySearchQuery,
           fullSearchQuery,

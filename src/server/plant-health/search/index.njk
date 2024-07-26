@@ -41,8 +41,8 @@
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
-    <input id="hostRef" name="hostRef" style="display: none;"></input>
-    <input id="eppoCode" name="eppoCode" style="display: none;"></input>
+    <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
+    <input id="eppoCode" name="eppoCode" style="display: none;" value={{hostRef}}></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -57,6 +57,10 @@
   var searchResults = document.getElementById('searchResults');
   var inputValue;
   searchInput.addEventListener('input', function() {
+   var hostRefElement = document.getElementById('hostRef');
+    var eppoCodeElement = document.getElementById('eppoCode');
+    hostRefElement.value = '';
+    eppoCodeElement.value = '';
     inputValue = this
       .value.toLowerCase();
     if (inputValue.length > 2) {

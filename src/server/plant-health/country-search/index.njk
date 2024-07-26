@@ -16,7 +16,7 @@
  {% if errors.list %}
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
-  <form action='/plant-health/country-search' method="get">
+  <form action='/plant-health/country-search' method="get" autocomplete="off">
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
@@ -43,6 +43,7 @@
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 450px; display: none; overflow: auto"></ul>
     <input class="govuk-input" id="emptyCountrySearchQuery" name="emptyCountrySearchQuery" autocomplete="off" type="text"  style="display: none;">
+     <input id="countryCode" name="countryCode" style="display: none;" value={{countryCode}}></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -58,6 +59,8 @@
     var searchResults = document.getElementById('searchResults');
     var inputValue;
     searchInput.addEventListener('input', function () {
+    var countryCodeElement = document.getElementById('countryCode');
+    countryCodeElement.setAttribute('value', '');    
       inputValue = this
         .value;
     if (inputValue.length > 0) {
@@ -112,8 +115,11 @@
       var emptyCoutrySearchValue = document.getElementById('emptyCountrySearchQuery');
       emptyCoutrySearchValue.value = true;
       searchResults.style.display = 'inline-block';
-       searchResults.addEventListener('click', function(e) {
-       var autocompleteInputValue = document.getElementById('query');
+      searchResults.addEventListener('click', function(e) {
+      var inputCodeValue = document.getElementById('inputCode'+e.target.id.slice(-1));
+      var countryCodeElement = document.getElementById('countryCode');
+      countryCodeElement.setAttribute('value', inputCodeValue.value); 
+      var autocompleteInputValue = document.getElementById('query');
       autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 
        searchResults.innerHTML = '';
       searchResults.style.display = 'none';
@@ -139,9 +145,14 @@
   function createAndAppendLiElement(suggestions, regexValue){
    suggestions.forEach(function (item, index) {
       console.log(item)
+      var inputCode = document.createElement('input');
+      inputCode.id = 'inputCode' +index;
+      inputCode.style = 'display:none'
+      inputCode.setAttribute('value', item.COUNTRY_CODE);
       var li = document.createElement('li');
       li.className = "govuk-task-list__item govuk-task-list__item--with-link";
       li.id = 'searchResults'+index;
+      li.appendChild(inputCode)
       searchResults.appendChild(li);
       var division = document.createElement('div');
       division.className = "govuk-task-list__name-and-hint";
