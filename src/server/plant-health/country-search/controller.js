@@ -62,6 +62,7 @@ const countrySearchController = {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
+        const countryCode = request?.yar?.get('countryCode')?.value
         if (
           request.query.countrySearchQuery === '' ||
           (request.query.emptyCountrySearchQuery === 'true' &&
@@ -87,6 +88,7 @@ const countrySearchController = {
           getHelpSection,
           countrySearchQuery,
           searchQuery,
+          countryCode,
           fullSearchQuery,
           pageTitle:
             'Which country, state or territory are you importing ' +
