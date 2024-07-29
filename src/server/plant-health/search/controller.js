@@ -24,7 +24,7 @@ const searchPageController = {
         value: request.query.eppoCode
       })
       request.yar.set('countryCode', {
-        value: request.query.countryCode
+        value: request.yar?.get('countryCode')?.value
       })
       const frontendUrl = config.get('frontendUrl')
       const searchInput = request?.yar?.get('searchQuery')
