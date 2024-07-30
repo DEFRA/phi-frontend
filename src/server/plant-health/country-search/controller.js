@@ -15,16 +15,18 @@ const countrySearchController = {
         value: request.query.countryCode
       })
       request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
+        value: decodeURI(request.query.searchQuery)
       })
       request.yar.set('searchQuery', {
-        value: decodeURI(request.yar?.get('searchQuery')?.value)
+        value: decodeURI(
+          request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
+        )
       })
       request.yar.set('hostRef', {
-        value: request.yar?.get('hostRef')?.value
+        value: request.query.hostRef
       })
       request.yar.set('eppoCode', {
-        value: request.yar?.get('eppoCode')?.value
+        value: request.query.eppoCode
       })
       request.yar.set('format', {
         value: request?.yar?.get('format')?.value
@@ -36,11 +38,7 @@ const countrySearchController = {
       const radiobuttonValue = request?.yar?.get('format')?.value
       const searchQuery = request.yar?.get('searchQuery')
       const countryCode = request?.yar?.get('countryCode')?.value
-      if (
-        searchValue &&
-        countryCode !== '' &&
-        request.query.emptyCountrySearchQuery === 'false'
-      ) {
+      if (searchValue && countryCode !== '') {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const data = await getDefaultLocaleData('format')

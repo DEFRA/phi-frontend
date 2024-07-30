@@ -17,6 +17,10 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <form action='/plant-health/country-search' method="get" autocomplete="off">
+   <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
+    <input id="eppoCode" name="eppoCode" style="display: none;" value={{eppoCode}}></input>
+    <input id="searchQuery" name="searchQuery" style="display: none;" value='{{searchQuery.value}}'></input>
+    <input id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
@@ -34,7 +38,6 @@
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
   <input class="govuk-input govuk-input--error" id="query" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
-  <input id="countryCode" name="countryCode" style="display: none;" value={{countryCode}}></input>
  {% else %}
     {% if countrySearchQuery.value %}
     <input class="govuk-input" id="query" name="countrySearchQuery" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
