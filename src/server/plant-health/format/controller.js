@@ -131,13 +131,15 @@ const formatPageController = {
             ) {
               removedProcessedData = []
               if (result.ProhibitionClarification?.length > 0) {
-                processedData = []
-                removedProcessedData = processedData?.push(
-                  capitalizeFirstLetter(format) +
-                    ' (other than ' +
-                    annex11.SERVICE_SUBFORMAT_EXCLUDED?.trim() +
-                    ')'
-                )
+                if (annex11.SERVICE_SUBFORMAT_EXCLUDED?.length > 0) {
+                  processedData = []
+                  removedProcessedData = processedData?.push(
+                    capitalizeFirstLetter(format) +
+                      ' (other than ' +
+                      annex11.SERVICE_SUBFORMAT_EXCLUDED?.trim() +
+                      ')'
+                  )
+                }
               } else {
                 if (result.dormantIndicator?.length > 0) {
                   processedData = []
@@ -151,13 +153,15 @@ const formatPageController = {
             ) {
               removedProcessedData = []
               if (result.ProhibitionClarification?.length > 0) {
-                processedData = []
-                removedProcessedData = processedData?.push(
-                  capitalizeFirstLetter(format) +
-                    ' (other than ' +
-                    annex11.SERVICE_SUBFORMAT_EXCLUDED.trim() +
-                    ')'
-                )
+                if (annex11.SERVICE_SUBFORMAT_EXCLUDED?.length > 0) {
+                  processedData = []
+                  removedProcessedData = processedData?.push(
+                    capitalizeFirstLetter(format) +
+                      ' (other than ' +
+                      annex11.SERVICE_SUBFORMAT_EXCLUDED.trim() +
+                      ')'
+                  )
+                }
               } else {
                 if (
                   result.dormantIndicator?.length > 0 &&
@@ -219,6 +223,13 @@ const formatPageController = {
           const pestDetails = result.pestDetails
             ?.sort(compareQuarantineIndicator)
             ?.reverse()
+          const checkProcessedData = ulIndicatorList.filter(function (item) {
+            if (item.flag !== '') {
+              return item
+            } else {
+              return null
+            }
+          })
 
           return h.view('plant-health/plant-details/index', {
             ulIndicatorFlag,
@@ -235,6 +246,7 @@ const formatPageController = {
             countryCode,
             outcome: result.outcome,
             result,
+            checkProcessedData,
             annexSixRule: result.annexSixRule,
             annexElevenRule: result.annexElevenRule,
             eppoCode: result.eppoCode,

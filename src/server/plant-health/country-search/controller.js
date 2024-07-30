@@ -36,7 +36,11 @@ const countrySearchController = {
       const radiobuttonValue = request?.yar?.get('format')?.value
       const searchQuery = request.yar?.get('searchQuery')
       const countryCode = request?.yar?.get('countryCode')?.value
-      if (searchValue && countryCode !== '') {
+      if (
+        searchValue &&
+        countryCode !== '' &&
+        request.query.emptyCountrySearchQuery === 'false'
+      ) {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const data = await getDefaultLocaleData('format')
@@ -63,6 +67,8 @@ const countrySearchController = {
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const countryCode = request?.yar?.get('countryCode')?.value
+        const hostRef = request?.yar?.get('hostRef')?.value
+        const eppoCode = request?.yar?.get('eppoCode')?.value
         if (
           request.query.countrySearchQuery === '' ||
           (request.query.emptyCountrySearchQuery === 'true' &&
@@ -89,6 +95,8 @@ const countrySearchController = {
           countrySearchQuery,
           searchQuery,
           countryCode,
+          hostRef,
+          eppoCode,
           fullSearchQuery,
           pageTitle:
             'Which country, state or territory are you importing ' +

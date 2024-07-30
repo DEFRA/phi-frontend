@@ -119,7 +119,9 @@
       searchResults.addEventListener('click', function(e) {
       var inputCodeValue = document.getElementById('inputCode'+e.target.id.slice(-1));
       var countryCodeElement = document.getElementById('countryCode');
-      countryCodeElement.setAttribute('value', inputCodeValue.value); 
+      if(inputCodeValue.value.length > 0){
+        countryCodeElement.setAttribute('value', inputCodeValue.value);
+      } 
       var autocompleteInputValue = document.getElementById('query');
       autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 
        searchResults.innerHTML = '';
