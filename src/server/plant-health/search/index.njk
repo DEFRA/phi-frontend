@@ -202,7 +202,7 @@
       commonNames: commonArray,
       synonymNames: synonymArray
     }]
-    console.log('RESULTS', resultSet)
+  
     if (inputValue.length > 2){
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
@@ -297,10 +297,10 @@
       li.appendChild(division)
       var inputHref = document.createElement('input');
       inputHref.id = 'hostRef'+ sname +i;
-      console.log("inputHref.id",inputHref.id)
+     
       inputHref.style = 'display:none'
       inputHref.setAttribute('value', item.hostRef);
-      console.log("item.hostRef",item.hostRef)
+   
       var inputEppo = document.createElement('input');
       inputEppo.id = 'eppoCode'+ sname +i;
       inputEppo.style = 'display:none'
@@ -317,7 +317,7 @@
   }
 
   function createAndAppendLiElement(item, index) {
-    console.log('FILTER', item)
+ 
     var liOne = document.createElement('li');
     liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
     liOne.id = index;
@@ -419,22 +419,18 @@
 
 
 document.getElementById('query').addEventListener('keydown', function(e)  {
-     console.log("Comes to keydown event",e);
+    
 
       const dropdownButton = document.getElementById('query'); 
     const dropdownContent = document.getElementById('searchResults');
   
-     const dropdownOptions = dropdownContent.getElementsByTagName("li")
-      console.log("dropdownButton",dropdownButton)
-       console.log("dropdownContent",dropdownContent)
-    console.log("dropdownOptions",dropdownOptions)
+     const dropdownOptions = dropdownContent.getElementsByTagName("li")    
    
-    console.log("dropdownOptions",dropdownOptions.length)
-    console.log("event.key",event.key);
+   
     if (dropdownOptions.length > 0) {    
 
   if (event.keyCode === 40) {
-  console.log("comes to arrowdown")
+ 
      
         event.preventDefault();
         currentIndex = (currentIndex + 1) % dropdownOptions.length;
@@ -444,38 +440,37 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
 
  
       else if (event.key ==='ArrowUp') {
-       console.log("currentIndex arrowup before",currentIndex);
+     
         event.preventDefault();
         currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
   addActive(dropdownOptions[currentIndex]);
-        console.log("currentIndex arrowup after",currentIndex);
+       
         
       } else if (event.key === 'Enter') {
 
 
-      console.log("event enter",event);
+  
         event.preventDefault();
         if (currentIndex > -1) {
-        console.log("comes to 456 enter")
+     
           searchInput.value = dropdownOptions[currentIndex].textContent;
-          console.log("dropdownOptions[currentIndex]",dropdownOptions[currentIndex]);
+        
           
           searchResults.style.display = 'none';
           searchInput.setAttribute('aria-expanded', 'false');
           const element = dropdownOptions[currentIndex];
           {# var autocompleteInputValue = document.getElementById('query');
-           console.log("eventtargetid in enter",edropdownOptions[currentIndex].id);
+        
     autocompleteInputValue.value = document.getElementById('div-' + dropdownOptions[currentIndex].id).textContent;
     console.log(" autocompleteInputValue.value", autocompleteInputValue.value); #}
     var hostRefElement = document.getElementById('hostRef');
     
     var eppoCodeElement = document.getElementById('eppoCode');
-    console.log("Enter eppoCodeElement",eppoCodeElement);
+   
     hostRefElement.value = document.getElementById('hostRef'+dropdownOptions[currentIndex].id).value;
     eppoCodeElement.value =document.getElementById('eppoCode'+dropdownOptions[currentIndex].id).value;
-        console.log("hostRefElement",hostRefElement.value);
-        console.log("eppoCodeElement.value",eppoCodeElement.value.value);
+       
 
         }
       } else if (event.key === 'Escape') {
