@@ -170,7 +170,11 @@
 <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText4}} {{data.preferredName }}
 </h2>
+   {% endif %}
+{% if data.quarantineIndicator =='R'  %} 
 <p class="govuk-body">
+
  <p class="govuk-body">{{data.preferredName }} {{data.mainContent.content19}}</p>
    {% endif %}
+
 </p>
