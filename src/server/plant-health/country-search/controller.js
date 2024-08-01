@@ -15,16 +15,18 @@ const countrySearchController = {
         value: request.query.countryCode
       })
       request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
+        value: decodeURI(request.query.searchQuery)
       })
       request.yar.set('searchQuery', {
-        value: decodeURI(request.yar?.get('searchQuery')?.value)
+        value: decodeURI(
+          request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
+        )
       })
       request.yar.set('hostRef', {
-        value: request.yar?.get('hostRef')?.value
+        value: request.query.hostRef
       })
       request.yar.set('eppoCode', {
-        value: request.yar?.get('eppoCode')?.value
+        value: request.query.eppoCode
       })
       request.yar.set('format', {
         value: request?.yar?.get('format')?.value
@@ -63,6 +65,8 @@ const countrySearchController = {
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const countryCode = request?.yar?.get('countryCode')?.value
+        const hostRef = request?.yar?.get('hostRef')?.value
+        const eppoCode = request?.yar?.get('eppoCode')?.value
         if (
           request.query.countrySearchQuery === '' ||
           (request.query.emptyCountrySearchQuery === 'true' &&
@@ -89,6 +93,8 @@ const countrySearchController = {
           countrySearchQuery,
           searchQuery,
           countryCode,
+          hostRef,
+          eppoCode,
           fullSearchQuery,
           pageTitle:
             'Which country, state or territory are you importing ' +

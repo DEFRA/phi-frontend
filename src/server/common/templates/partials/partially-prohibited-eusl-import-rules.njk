@@ -4,8 +4,8 @@
 </h2>
  {% for item in data.result.annex11RulesArr%}
   {% if not(ulIndicatorFlag) and item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and data.result.FormatClarification.length === 0%}
-  {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
- {%else %}
+   {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
+{%else %}
   {% if data.result.ProhibitionClarification.length > 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 %}
   {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
   {%endif%}
@@ -87,7 +87,7 @@
     {% set 11AimportRules  = 'true'%}
     {% endif %}
   {%endif%}
-  {% if data.result.dormantIndicator.length > 0 or data.result.bonsoiIndicator.length > 0 or data.result.invintroIndicator.length > 0 or data.result.FormatClarification.length > 0 or data.result.ProhibitionClarification.length > 0 %} 
+  {% if data.result.dormantIndicator.length > 0 or data.result.hybridIndicator.length > 0 or data.result.bonsoiIndicator.length > 0 or data.result.invintroIndicator.length > 0 or data.result.FormatClarification.length > 0 or data.result.ProhibitionClarification.length > 0 %} 
     {% if item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11AimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
@@ -105,7 +105,17 @@
    {% else %}
   {% if item['BTOM_EUSL'] === '11A' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% set 11AimportRules  = 'true'%}
-  {% endif %} 
+   {% else %}
+    {% if data.result.ProhibitionClarification.length > 0 %}
+    {% if item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11AimportRules  = 'true'%}
+    {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11AimportRules  = 'true'%}
+    {%elif item['BTOM_EUSL'] === '11A'%}
+    {% set 11AimportRules  = 'true'%}
+    {% endif %}
+   {% endif %} 
+  {% endif %}  
   {% endif %}
   {% endif %}
 {% endif %}
@@ -134,29 +144,8 @@
              <h3 class="govuk-heading-s"> 
               {% if data.result.hybridIndicator.length > 0 %}
               {{formatHeader | capitalize}}
-              {% endif %}
-              {% if data.result.dormantIndicator.length > 0 %}
-              Dormant
-              {% endif %} 
-            
-              {% if data.result.fruitIndicator.length > 0 %}
-              Fruit
-              {% endif %}
-              
-              {% if data.result.bonsaiIndicator.length > 0 %}
-              Naturally and artificially dwarfed
-              {% endif %}
-
-              {% if data.result.seedIndicator.length > 0 %}
-              Seeds
-              {% endif %}
-              
-              {% if data.result.invintroIndicator.length > 0 %}
-              Invitro material
-              {% endif %}
-
-              {% if data.result.FormatClarification.length > 1 %}
-              {{data.result.FormatClarification | capitalize}}
+              {% else %}
+              {{processedData}}
               {% endif %}
              </h3>
             {% endif %}
@@ -210,7 +199,7 @@
     {% set 11BimportRules  = 'true'%}
     {% endif %}
   {%endif%} 
-  {% if data.result.dormantIndicator.length > 0 or data.result.bonsoiIndicator.length > 0 or data.result.invintroIndicator.length > 0 or data.result.FormatClarification.length > 0 or data.result.ProhibitionClarification.length > 0 %} 
+  {% if data.result.dormantIndicator.length > 0 or data.result.hybridIndicator.length > 0 or data.result.bonsoiIndicator.length > 0 or data.result.invintroIndicator.length > 0 or data.result.FormatClarification.length > 0 or data.result.ProhibitionClarification.length > 0 %} 
     {% if item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11BimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
@@ -228,6 +217,16 @@
    {% else %}
   {% if item['BTOM_EUSL'] === '11B' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% set 11BimportRules  = 'true'%}
+  {% else %}
+  {% if data.result.ProhibitionClarification.length > 0%}
+  {% if item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11BimportRules  = 'true'%}
+    {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11BimportRules  = 'true'%}
+    {%elif item['BTOM_EUSL'] === '11B'%}
+    {% set 11BimportRules  = 'true'%}
+    {% endif %}
+  {% endif %}   
   {% endif %} 
   {% endif %}
   {% endif %}
@@ -260,30 +259,9 @@
           {% else %}
              <h3 class="govuk-heading-s"> 
               {% if data.result.hybridIndicator.length > 0 %}
-              {{formatHeader | capitalize}}
-              {% endif %}
-              {% if data.result.dormantIndicator.length > 0 %}
-              Dormant
-              {% endif %} 
-            
-              {% if data.result.fruitIndicator.length > 0 %}
-              Fruit
-              {% endif %}
-              
-              {% if data.result.bonsaiIndicator.length > 0 %}
-              Naturally and artificially dwarfed
-              {% endif %}
-
-              {% if data.result.seedIndicator.length > 0 %}
-              Seeds
-              {% endif %}
-              
-              {% if data.result.invintroIndicator.length > 0 %}
-              Invitro material
-              {% endif %}
-
-              {% if data.result.FormatClarification.length > 1 %}
-              {{data.result.FormatClarification | capitalize}}
+                {{formatHeader | capitalize}}
+              {% else %}
+                {{processedData}}
               {% endif %}
              </h3>
             {% endif %}
@@ -328,7 +306,7 @@
     {% set 11CimportRules  = 'true'%}
     {% endif %}
   {% endif %}
-  {% if data.result.dormantIndicator.length > 0 or data.result.bonsoiIndicator.length > 0 or data.result.invintroIndicator.length > 0 or data.result.FormatClarification.length > 0 or data.result.ProhibitionClarification.length > 0 %} 
+  {% if data.result.dormantIndicator.length > 0 or data.result.hybridIndicator.length > 0 or data.result.bonsoiIndicator.length > 0 or data.result.invintroIndicator.length > 0 or data.result.FormatClarification.length > 0 or data.result.ProhibitionClarification.length > 0 %} 
     {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11CimportRules  = 'true'%}
     {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
@@ -353,6 +331,16 @@
    {% else %}
   {% if item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
    {% set 11CimportRules  = 'true'%}
+  {% else %}
+  {% if data.result.ProhibitionClarification.length > 0%}
+  {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
+    {% set 11CimportRules  = 'true'%}
+    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11CimportRules  = 'true'%}
+    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')%}
+    {% set 11CimportRules  = 'true'%}
+    {% endif %}
+  {%endif%}   
   {% endif %} 
   {% endif %}
   {% endif %}
@@ -384,32 +372,10 @@
             <h3 class="govuk-heading-s">{{formatHeader | capitalize}}</h3>
           {% else %}
              <h3 class="govuk-heading-s"> 
-              {% if data.result.hybridIndicator.length > 0 %}
-              {{formatHeader | capitalize}}
-              {% endif %}
-            
-              {% if data.result.dormantIndicator.length > 0 %}
-              Dormant
-              {% endif %} 
-            
-              {% if data.result.fruitIndicator.length > 0 %}
-              Fruit
-              {% endif %}
-              
-              {% if data.result.bonsaiIndicator.length > 0 %}
-              Naturally and artificially dwarfed
-              {% endif %}
-
-              {% if data.result.seedIndicator.length > 0 %}
-              Seeds
-              {% endif %}
-              
-              {% if data.result.invintroIndicator.length > 0 %}
-              Invitro material
-              {% endif %}
-
-              {% if data.result.FormatClarification.length > 1 %}
-              {{data.result.FormatClarification | capitalize}}
+             {% if data.result.hybridIndicator.length > 0 %}
+                {{formatHeader | capitalize}}
+              {% else %}
+                {{processedData}}
               {% endif %}
              </h3>
             {% endif %}
@@ -445,33 +411,10 @@
      {% else %}
        <h3 class="govuk-heading-s">
           {% if data.result.hybridIndicator.length > 0 %}
-            {{formatHeader | capitalize}}
-          {% endif %}
-
-          {% if data.result.dormantIndicator.length > 0 %}
-          Dormant
-          {% endif %}
-
-          {% if data.result.fruitIndicator.length > 0 %}
-          Fruit
-          {% endif %}
-
-          {% if data.result.bonsaiIndicator.length > 0 %}
-          Naturally and artificially dwarfed
-          {% endif %}
-
-          {% if data.result.seedIndicator.length > 0 %}
-          Seeds
-          {% endif %}
-
-          {% if data.result.invintroIndicator.length > 0 %}
-          Invitro material
-          {% endif %}
-
-          {% if data.result.FormatClarification.length > 1 %}
-          {{data.result.FormatClarification | capitalize}}
-          {% endif %}
-       </h3>
+                {{formatHeader | capitalize}}
+              {% else %}
+                {{processedData}}
+              {% endif %}       </h3>
      {% endif %}
     {% endif %}
   {% endif %}
