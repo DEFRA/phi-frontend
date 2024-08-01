@@ -27,8 +27,6 @@ const importConfirmationController = {
         const frontendUrl = config.get('frontendUrl')
         const hostRef = request.yar.get('hostRef')?.value
         const eppoCode = request.yar.get('eppoCode')?.value
-        request.yar.set('hostRef', null)
-        request.yar.set('eppoCode', null)
         return h.view('plant-health/search/index', {
           pageTitle:
             'What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',

@@ -20,6 +20,9 @@ const formatPageController = {
       request.yar.set('countrySearchQuery', {
         value: request.yar?.get('countrySearchQuery')?.value
       })
+      request.yar.set('countryCode', {
+        value: request.yar?.get('countryCode')?.value
+      })
       request.yar.set('hostRef', {
         value: request.yar?.get('hostRef')?.value
       })
@@ -42,6 +45,7 @@ const formatPageController = {
         const mainContent = plantData?.mainContent
         const getHelpSection = plantData?.getHelpSection
         const format = request.yar?.get('format')?.value
+        const countryCode = request.yar?.get('countryCode')?.value
         let ulIndicatorFlag = false
         if (request.yar?.get('hostRef')?.value) {
           const plantDetails = {
@@ -126,10 +130,7 @@ const formatPageController = {
               format.toLowerCase() === 'produce'
             ) {
               removedProcessedData = []
-              if (
-                result.dormantIndicator?.length > 0 &&
-                result.ProhibitionClarification?.length > 0
-              ) {
+              if (result.ProhibitionClarification?.length > 0) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
@@ -149,10 +150,7 @@ const formatPageController = {
               format.toLowerCase() === 'plants for planting'
             ) {
               removedProcessedData = []
-              if (
-                result.dormantIndicator?.length > 0 &&
-                result.ProhibitionClarification?.length > 0
-              ) {
+              if (result.ProhibitionClarification?.length > 0) {
                 processedData = []
                 removedProcessedData = processedData?.push(
                   capitalizeFirstLetter(format) +
@@ -234,6 +232,7 @@ const formatPageController = {
             removedProcessedData,
             hostRef,
             format,
+            countryCode,
             outcome: result.outcome,
             result,
             annexSixRule: result.annexSixRule,
