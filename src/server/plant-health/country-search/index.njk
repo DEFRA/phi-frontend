@@ -97,8 +97,23 @@
     }
     return false;
 }
+    async function sortList() {
+      // Select the ul element
+      const ul = document.getElementById('searchResults');
+      // Get the li elements
+      const liElements = ul.getElementsByTagName('li');
+      // Convert HTMLCollection to an array
+      const liArray = Array.from(liElements);
+      // Sort the array based on the text content of the li elements
+      liArray.sort((a, b) => a.textContent.localeCompare(b.textContent));
+      // Clear the ul element
+      ul.innerHTML = '';
+      // Append the sorted li elements back to the ul element
+      liArray.forEach(li => ul.appendChild(li));
+    }
+
   var regexValue;
-  function renderSuggestions(suggestions) {
+  async function renderSuggestions(suggestions) {
    
     var searchInput = document.getElementById('query')?.value;
     searchResults.innerHTML = '';
@@ -118,6 +133,7 @@
     if (suggestions.length > 0 && inputValue !== '') {
       var emptyCoutrySearchValue = document.getElementById('emptyCountrySearchQuery');
       emptyCoutrySearchValue.value = true;
+      await sortList()
       searchResults.style.display = 'inline-block';
       searchResults.addEventListener('click', function(e) {
       var inputCodeValue = document.getElementById('inputCode'+e.target.id.slice(-1));
@@ -172,8 +188,8 @@
        strongElement.textContent = item.COUNTRY_NAME.match(new RegExp(regexValue, "gi"));
        result = capitalizeFirstLetter(item.COUNTRY_NAME).replace(new RegExp(regexValue, "gi"), strongElement.outerHTML);
       }else {
-       strongElement.textContent = inputValue
-       result = capitalizeFirstLetter(item.COUNTRY_NAME).replace(inputValue, strongElement.outerHTML);
+       strongElement.textContent = inputValue;
+       result = item.COUNTRY_NAME.replace(new RegExp(inputValue, "gi"), strongElement.outerHTML);
       }
       
       division.innerHTML = result;
