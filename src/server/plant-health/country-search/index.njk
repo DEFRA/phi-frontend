@@ -188,7 +188,12 @@
        strongElement.textContent = item.COUNTRY_NAME.match(new RegExp(regexValue, "gi"));
        result = capitalizeFirstLetter(item.COUNTRY_NAME).replace(new RegExp(regexValue, "gi"), strongElement.outerHTML);
       }else {
-       strongElement.textContent = inputValue;
+      if (item.COUNTRY_NAME.substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()){
+        strongElement.textContent = item.COUNTRY_NAME.substr(0, inputValue.length);
+      }
+      else {
+        strongElement.textContent = inputValue
+      }
        result = item.COUNTRY_NAME.replace(new RegExp(inputValue, "gi"), strongElement.outerHTML);
       }
       
