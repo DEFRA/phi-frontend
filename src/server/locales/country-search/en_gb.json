@@ -3,7 +3,7 @@
     "headerText1": "Which country, state or territory are you importing",
     "headerText2": "from?",
     "searchText1": "This is where the phytosanitary certificate is issued, if one is needed.",
-    "searchText2": "If the country, state or territory is not part of the Intergovernmental Panel on Climate Change, it is not included in this service.",
+    "searchText2": "If the country, state or territory is not part of the International Plant Protection Convention, it is not included in this service.",
     "buttonText": "Continue"
   },
   "getHelpSection": {

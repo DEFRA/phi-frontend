@@ -54,9 +54,10 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
-            return string.charAt(0)?.toUpperCase() + string?.slice(1)
+            return string?.charAt(0)?.toUpperCase() + string?.slice(1)
           }
           if (result.dormantIndicator?.length > 0) {
             subFormatArray.push('Dormant')
@@ -73,7 +74,7 @@ const formatPageController = {
             subFormatArray.push('Naturally and artificially dwarfed')
           }
           if (result.invintroIndicator?.length > 0) {
-            subFormatArray.push('Invitro material')
+            subFormatArray.push('In vitro material')
           }
           if (result.FormatClarification?.length > 0) {
             subFormatArray.push(
@@ -92,12 +93,9 @@ const formatPageController = {
             { name: 'seeds', flag: result.seedIndicator }
           ]
           let processedData = []
-          for (let i = 0; i < subFormatArray?.length; i++) {
-            processedData.push(subFormatArray[i])
-            if (i < subFormatArray.length - 1) {
-              processedData.push('or')
-            }
-          }
+          processedData.push(
+            capitalizeFirstLetter(subFormatArray?.join(' or ')?.toLowerCase())
+          )
           if (processedData.length > 0) {
             processedData = processedData?.join(' ')?.split(',')
           }
@@ -114,7 +112,7 @@ const formatPageController = {
               removedProcessedData = processedData[0]
                 ?.split(' or ')
                 ?.filter(function (el) {
-                  return el !== 'Seeds'
+                  return el.toLowerCase() !== 'seeds'
                 })
             }
             if (
@@ -177,7 +175,7 @@ const formatPageController = {
               removedProcessedData = processedData[0]
                 ?.split(' or ')
                 ?.filter(function (el) {
-                  return el !== 'Fruit'
+                  return el.toLowerCase() !== 'fruit'
                 })
             }
             if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'grain') {
