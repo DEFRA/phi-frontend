@@ -491,7 +491,10 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
     removeActive(x);
     if (currentIndex >= x.length) currentIndex = 0;
     if (currentIndex < 0) currentIndex = (x.length - 1);
-    const element1 =document.getElementById('div-latinName'+currentIndex)  
+   console.log("x in addactivr",x)   
+    const element1 =x.querySelector("div")
+    console.log("currentIndex",currentIndex); 
+    console.log("element1 in active",element1);
     element1.style.color="white"
     x.classList.add("autocomplete-active");
   }
@@ -503,6 +506,7 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
     /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < options.length; i++) {   
     const element1 =options[i].querySelector("div");
+    console.log("element1",element1);
    element1.style.color="black"
      options[i].classList.remove("autocomplete-active");
           }
@@ -521,7 +525,6 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
 <style>
 .autocomplete-active {
   background-color: #1D70B8 !important; 
- color:white
 }
 </style>
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}

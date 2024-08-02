@@ -24,7 +24,7 @@
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
-          {{mainContent.headerText1}} {{searchQuery.value}} {{mainContent.headerText2}}
+          {{mainContent.headerText1}} {{searchQuery.value  | replace(")", "") }}  {{mainContent.headerText2}}
         </label>
       </h1>
       <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
@@ -179,6 +179,7 @@
       }
       
       division.innerHTML = result;
+      console.log("result in strong",result)
       var anchor = document.createElement('a');
       anchor.className = "govuk-link govuk-task-list__link";
       anchor.href = "#";

@@ -87,7 +87,7 @@
         {{headerA}}
        </h3>  
         <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-            {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flagA}}, {{data.mainContent.unprohibitedHelpText3}}
+            {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value}} {{flagA}}, {{data.mainContent.unprohibitedHelpText3}}
         </p>    
         <ul class="govuk-list govuk-list--bullet">
             <li>
@@ -121,7 +121,7 @@
       </h3>
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flagB}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flagB}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>   
        <ul class="govuk-list govuk-list--bullet">
         <li>
@@ -145,7 +145,7 @@
       </h3>
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value | capitalize}} {{flagC}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flagC}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/importing-plants-fruit-vegetables-or-plant-material-to-the-uk#making-a-pre-notification">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
       </p> 
   </div>  
 {% endif %}
