@@ -17,6 +17,7 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <form action='/plant-health/search' method="get">
+  <label for="Plantsearch"></label>
     <div id="frontendUrl" style="display: none;">{{frontendUrl}}</div>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
@@ -55,7 +56,9 @@
   var searchInput = document.getElementById('query');
   var searchResults = document.getElementById('searchResults');
   var inputValue;
+  let currentIndex = -1;
   searchInput.addEventListener('input', function() {
+  currentIndex = -1;
    var hostRefElement = document.getElementById('hostRef');
     var eppoCodeElement = document.getElementById('eppoCode');
     hostRefElement.value = '';
@@ -201,7 +204,7 @@
       commonNames: commonArray,
       synonymNames: synonymArray
     }]
-    console.log('RESULTS', resultSet)
+  
     if (inputValue.length > 2){
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
@@ -336,7 +339,7 @@
     }
 
   function createAndAppendLiElement(item, index) {
-    console.log('FILTER', item)
+ 
     var liOne = document.createElement('li');
     liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
     liOne.id = index;
@@ -452,8 +455,113 @@
     searchResults.style.display = 'none';
     });
 
-</script>
 
+document.getElementById('query').addEventListener('keydown', function(e)  {
+    
+
+      const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');
+  
+     const dropdownOptions = dropdownContent.getElementsByTagName("li")    
+   
+   
+    if (dropdownOptions.length > 0) {    
+
+  if (event.keyCode === 40) {
+ 
+     
+        event.preventDefault();
+        currentIndex = (currentIndex + 1) % dropdownOptions.length;
+        dropdownOptions[currentIndex].focus();
+         addActive(dropdownOptions[currentIndex]);
+      } 
+
+ 
+      else if (event.key ==='ArrowUp') {
+     
+        event.preventDefault();
+        currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
+        dropdownOptions[currentIndex].focus();
+  addActive(dropdownOptions[currentIndex]);
+       
+        
+      } else if (event.key === 'Enter') {
+
+
+  
+        event.preventDefault();
+        if (currentIndex > -1) {
+     
+          searchInput.value = dropdownOptions[currentIndex].textContent;
+        
+          
+          searchResults.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+          const element = dropdownOptions[currentIndex];
+          {# var autocompleteInputValue = document.getElementById('query');
+        
+    autocompleteInputValue.value = document.getElementById('div-' + dropdownOptions[currentIndex].id).textContent;
+    console.log(" autocompleteInputValue.value", autocompleteInputValue.value); #}
+    var hostRefElement = document.getElementById('hostRef');
+    
+    var eppoCodeElement = document.getElementById('eppoCode');
+   
+    hostRefElement.value = document.getElementById('hostRef'+dropdownOptions[currentIndex].id).value;
+    eppoCodeElement.value =document.getElementById('eppoCode'+dropdownOptions[currentIndex].id).value;
+       
+
+        }
+      } else if (event.key === 'Escape') {
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
+        searchInput.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+
+
+
+  function addActive(x) {
+
+    if (!x) return false;
+  
+    removeActive(x);
+    if (currentIndex >= x.length) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = (x.length - 1);
+    const element1 =document.getElementById('div-latinName'+currentIndex)  
+    element1.style.color="white"
+    x.classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+  const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');
+    const options = dropdownContent.getElementsByTagName("li");
+   
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < options.length; i++) {   
+    const element1 =options[i].querySelector("div");
+   element1.style.color="black"
+     options[i].classList.remove("autocomplete-active");
+          }
+  }
+
+
+  document.addEventListener('click', (event) => {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+      searchResults.style.display = 'none';
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+
+</script>
+<style>
+.autocomplete-active {
+  background-color: #1D70B8 !important; 
+ color:white
+}
+</style>
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
   {% include "partials/get-help.njk" %}
   

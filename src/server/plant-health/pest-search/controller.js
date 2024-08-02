@@ -57,8 +57,12 @@ const pestSearchController = {
 
           // Getting short month name (e.g. "Oct")
           const month = today.toLocaleString('default', { month: 'long' })
-
-          return month + ' ' + today.getFullYear()
+          const datef = month + ' ' + today.getFullYear()
+          if (datef === 'Invalid Date NaN' || datef === ' ') {
+            return 'Not available'
+          } else {
+            return datef
+          }
         }
 
         const factsheetlinks = []
@@ -92,8 +96,34 @@ const pestSearchController = {
               fcl.TITLE =
                 result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
 
-              const fileExtension = fcl.TITLE[1].toUpperCase()
-              fcl.FILE_EXTENSION = fileExtension
+              if (
+                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE !== ''
+              ) {
+                const lastIndex =
+                  result.pest_detail[0].DOCUMENT_LINK[
+                    i
+                  ].DOCUMENT_TITLE.lastIndexOf('.')
+
+                const s1 = result.pest_detail[0].DOCUMENT_LINK[
+                  i
+                ].DOCUMENT_TITLE.substring(0, lastIndex)
+                fcl.TITLE = s1
+              } else {
+                fcl.TITLE = ' '
+              }
+              let docFormat
+              if (
+                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_FORMAT !== ''
+              ) {
+                docFormat =
+                  result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_FORMAT.split(
+                    '/'
+                  )
+              } else {
+                docFormat = ''
+              }
+
+              fcl.FILE_EXTENSION = docFormat[1].toUpperCase()
               const st = fcl.PUBLICATION_DATE_FORMATTED.split(' ')
               fcl.INDEX = Number(st[1])
               factsheetlinks.push(fcl)
@@ -104,10 +134,34 @@ const pestSearchController = {
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
               ocl.PUBLICATION_DATE_FORMATTED = res1
-              ocl.TITLE =
-                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
-              const fileExtension = ocl.TITLE[1].toUpperCase()
-              ocl.FILE_EXTENSION = fileExtension
+              if (
+                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE !== ''
+              ) {
+                const lastIndexp =
+                  result.pest_detail[0].DOCUMENT_LINK[
+                    i
+                  ].DOCUMENT_TITLE.lastIndexOf('.')
+
+                const s2 = result.pest_detail[0].DOCUMENT_LINK[
+                  i
+                ].DOCUMENT_TITLE.substring(0, lastIndexp)
+                ocl.TITLE = s2
+              } else {
+                ocl.TITLE = ' '
+              }
+              let docFormat1
+              if (
+                result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_FORMAT !== ''
+              ) {
+                docFormat1 =
+                  result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_FORMAT.split(
+                    '/'
+                  )
+              } else {
+                docFormat1 = ''
+              }
+
+              ocl.FILE_EXTENSION = docFormat1[1].toUpperCase()
               const st = ocl.PUBLICATION_DATE_FORMATTED.split(' ')
               ocl.INDEX = Number(st[1])
               otherPublications.push(ocl)
