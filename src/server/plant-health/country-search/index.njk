@@ -62,7 +62,9 @@
     var searchInput = document.getElementById('query');
     var searchResults = document.getElementById('searchResults');
     var inputValue;
+   let currentIndex = -1;
     searchInput.addEventListener('input', function () {
+    currentIndex = -1;
     var countryCodeElement = document.getElementById('countryCode');
     countryCodeElement.setAttribute('value', '');    
       inputValue = this
@@ -205,8 +207,113 @@
       division.appendChild(anchor);
     });
   }
-  </script>
+  document.getElementById('query').addEventListener('keydown', function(e) {    
+      const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');
 
+     const dropdownOptions = dropdownContent.getElementsByTagName("li")   
+     
+    if (dropdownOptions.length > 0) {    
+
+  if (event.keyCode === 40) {
+     
+        event.preventDefault();
+        currentIndex = (currentIndex + 1) % dropdownOptions.length;
+        dropdownOptions[currentIndex].focus();
+        addActive(dropdownOptions[currentIndex]);
+    
+      //  highlightOption(dropdownOptions[currentIndex]);
+      } 
+
+ 
+      else if (event.key ==='ArrowUp') {     
+        event.preventDefault();
+        currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
+        dropdownOptions[currentIndex].focus();
+        addActive(dropdownOptions[currentIndex]);
+       // highlightOption(dropdownOptions[currentIndex]);     
+      } else if (event.key === 'Enter') {
+        event.preventDefault();
+        if (currentIndex > -1) {
+
+          searchInput.value = dropdownOptions[currentIndex].textContent;
+         
+                searchResults.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+     
+      var el = document.getElementById('inputCode'+currentIndex);
+     
+      
+         var countryCodeElement = document.getElementById('countryCode');
+    countryCodeElement.setAttribute('value', el.value);  
+         
+        }
+      } else if (event.key === 'Escape') {
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
+        searchInput.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+function highlightOption(option) {
+
+const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');
+    const options = dropdownContent.getElementsByTagName("li");
+    for (let item of options) {
+      const element =document.getElementById('div-searchResults'+currentIndex)  
+ 
+    item.classList.remove('highlighted')
+     element.style.color = "black"
+      item.style.backgroundColor = "white"
+      item.classList.remove("autocomplete-active"); 
+          element.style.color = "black"
+       
+}    
+  
+  const element1 =document.getElementById('div-searchResults'+currentIndex)  
+
+  option.classList.add("autocomplete-active");
+   element1.style.color="white"
+  }
+ function addActive(x) {
+
+    if (!x) return false;
+  
+    removeActive(x);
+    if (currentIndex >= x.length) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = (x.length - 1);
+    const element1 =document.getElementById('div-searchResults'+currentIndex)  
+    element1.style.color="white"
+    x.classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+  const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');
+    const options = dropdownContent.getElementsByTagName("li");
+   
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < options.length; i++) {   
+    const element1 =options[i].querySelector("div");
+   element1.style.color="black"
+     options[i].classList.remove("autocomplete-active");
+          }
+  }
+
+  document.addEventListener('click', (event) => {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+      searchResults.style.display = 'none';
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
+  });
+  </script>
+<style>
+.autocomplete-active {
+  background-color: #1D70B8 !important; 
+ color:white
+}
+</style>
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
   {% include "partials/get-help.njk" %}
   

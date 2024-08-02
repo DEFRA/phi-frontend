@@ -1,7 +1,7 @@
 {% if (data.result.annex11RulesArr.length > 0)%}
-<h3 class="govuk-heading-m">
+<h2 class="govuk-heading-m">
   {{data.mainContent.importRulesHeader}}
-</h3>
+</h2>
   {% for item in data.result.annex11RulesArr%}
   {% if not(ulIndicatorFlag) and item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and data.result.FormatClarification.length === 0%}
   {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
