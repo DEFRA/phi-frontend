@@ -37,12 +37,12 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" id="query" aria-autocomplete="none" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if countrySearchQuery.value %}
-    <input class="govuk-input" id="query" name="countrySearchQuery" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
+    <input class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="countrySearchQuery" autocomplete="off" type="text">
+     <input class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text">
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 450px; display: none; overflow: auto"></ul>
