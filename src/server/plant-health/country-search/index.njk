@@ -184,21 +184,8 @@
       division.style.paddingLeft = '5px';
       li.appendChild(division);  
       var result;
-      var strongElement = document.createElement('strong');
       regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-      if (inputValue.length > 1){
-       strongElement.textContent = item.COUNTRY_NAME.match(new RegExp(regexValue, "gi"));
-       result = capitalizeFirstLetter(item.COUNTRY_NAME).replace(new RegExp(regexValue, "gi"), strongElement.outerHTML);
-      }else {
-      if (item.COUNTRY_NAME.substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()){
-        strongElement.textContent = item.COUNTRY_NAME.substr(0, inputValue.length);
-      }
-      else {
-        strongElement.textContent = inputValue
-      }
-       result = item.COUNTRY_NAME.replace(new RegExp(inputValue, "gi"), strongElement.outerHTML);
-      }
-      
+      result = item.COUNTRY_NAME.replace(new RegExp(regexValue, "gi"), match => `<strong>${match}</strong>`);
       division.innerHTML = result;
       console.log("result in strong",result)
       var anchor = document.createElement('a');

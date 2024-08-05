@@ -43,12 +43,31 @@ function catchAll(request, h) {
 
   const statusCode = response.output.statusCode
   const errorMessage = statusCodeMessage(statusCode)
+  let pageTitle = 'Error: '
+  if (
+    statusCode === 500 ||
+    statusCode === 502 ||
+    statusCode === 503 ||
+    statusCode === 504
+  ) {
+    pageTitle =
+      pageTitle +
+      'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK'
+  } else {
+    if (statusCode === 404) {
+      pageTitle =
+        pageTitle +
+        'Page not found — Check plant health information and import rules — GOV.UK'
+    } else {
+      pageTitle =
+        pageTitle + 'Check plant health information and import rules — GOV.UK'
+    }
+  }
 
   return h
     .view('error/index', {
       statusCode,
-      pageTitle:
-        'Error: Check plant health information and import rules — GOV.UK',
+      pageTitle,
       heading: statusCode,
       message: errorMessage
     })

@@ -370,25 +370,12 @@
       }
       return latinName, commonName, synonymName
     })
-    var strongElement = document.createElement('strong');
-    if (latinName.substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()){
-     strongElement.textContent = capitalizeFirstLetter(inputValue);
-    }
-    else {
-    strongElement.textContent = inputValue;
-    }
-    latinName = latinName?.replace(new RegExp(inputValue, "gi"), strongElement.outerHTML)
+    latinName = latinName?.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
     var newCA = []
     commonName.forEach(function(cname) {
       var highlightCName;
       if (cname.match(new RegExp(regexValue, "gi"))) {
-        if (cname.substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()){
-          strongElement.textContent = capitalizeFirstLetter(inputValue);
-        }
-        else {
-          strongElement.textContent = inputValue;
-        }
-        highlightCName = cname.replace(new RegExp(inputValue, "gi"), strongElement.outerHTML)
+        highlightCName = cname.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
         newCA.push(highlightCName);
       } else {
         newCA.push(cname);
@@ -399,13 +386,7 @@
     synonymName.forEach(function(sname) {
       var highlightSName;
       if (sname.match(new RegExp(regexValue, "gi"))) {
-        if (sname.substr(0, inputValue.length).toUpperCase() === inputValue.toUpperCase()){
-          strongElement.textContent = capitalizeFirstLetter(inputValue);
-        }
-        else {
-          strongElement.textContent = inputValue;
-        }
-        highlightSName = sname.replace(new RegExp(inputValue, "gi"), strongElement.outerHTML)
+        highlightSName = sname.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
         newSA.push(highlightSName);
       }
       else{
