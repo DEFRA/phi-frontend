@@ -19,30 +19,30 @@
   <form action='/plant-health/search' method="get">
   <label for="Plantsearch"></label>
     <div id="frontendUrl" style="display: none;">{{frontendUrl}}</div>
-    <div class="govuk-form-group">
-      <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="event-name">
+    <div aria-labelledby="plantsearch" class="govuk-form-group">
+      <h1 aria-labelledby="heading" class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="searchinput">
           {{mainContent.headerText}}
         </label>
       </h1>
-      <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
+      <label class="govuk-label govuk-!-padding-bottom-2" for="searchinput">
         {{mainContent.searchText1}}
       </label>
       {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" autocomplete="off" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" aria-label="plantsearch" for ="searchinput"  autocomplete="off" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if searchQuery.value %}
-    <input class="govuk-input" id="query" name="searchQuery" autocomplete="off" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
+    <input class="govuk-input" id="query" aria-label="plantsearch"  for ="searchinput"  name="searchQuery" autocomplete="off" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="searchQuery" autocomplete="off" style="width: 100%;" type="text" maxlength="125">
+     <input class="govuk-input" id="query" aria-label="plantsearch"  for ="searchinput" name="searchQuery" autocomplete="off" style="width: 100%;" type="text" maxlength="125">
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
-    <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
-    <input id="eppoCode" name="eppoCode" style="display: none;" value={{hostRef}}></input>
+    <ul class="govuk-task-list solid-div" id="searchResults" for ="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
+    <input aria-label="hostRef" id="hostRef" for ="searchResults" name="hostRef" style="display: none;" value={{hostRef}}></input>
+    <input aria-label="eppoCode" id="eppoCode" for ="searchResults" name="eppoCode" style="display: none;" value={{hostRef}}></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -270,6 +270,7 @@
         });
       }
           await sortList()
+           await exactmatch()
 
     }
   }
@@ -337,7 +338,31 @@
         // Append the sorted li elements back to the ul element
         liArray.forEach(li => ul.appendChild(li));
     }
-
+async function exactmatch() {
+      const dropdownContent = document.getElementById('searchResults');
+    const options = dropdownContent.getElementsByTagName("li");
+    
+     var inputinsearch = document.getElementById('query')?.value
+    
+    if(options.length === 1)
+    {
+   const divElement = options[0].querySelector("div");    
+   const htmlName =options[0].querySelector("div").innerText .split("(")  
+  
+var DbName =htmlName[0].toLowerCase();
+var searchName =inputinsearch.toLowerCase()
+    if(DbName.trim() === searchName.trim())
+    {   
+      divElement.style.color="white"
+     options[0].classList.add("autocomplete-active");
+      currentIndex = (currentIndex + 1) % options.length;     
+    var hostRefElement = document.getElementById('hostRef');    
+    var eppoCodeElement = document.getElementById('eppoCode');   
+    hostRefElement.value = document.getElementById('hostRef'+options[0].id).value;
+    eppoCodeElement.value =document.getElementById('eppoCode'+options[0].id).value;   
+    }
+    }
+    }
   function createAndAppendLiElement(item, index) {
  
     var liOne = document.createElement('li');
@@ -474,6 +499,7 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
         currentIndex = (currentIndex + 1) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
          addActive(dropdownOptions[currentIndex]);
+         ensureVisible(dropdownOptions[currentIndex]) 
       } 
 
  
@@ -482,7 +508,8 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
         event.preventDefault();
         currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
-  addActive(dropdownOptions[currentIndex]);
+        addActive(dropdownOptions[currentIndex]);
+        ensureVisible(dropdownOptions[currentIndex]) 
        
         
       } else if (event.key === 'Enter') {
@@ -492,24 +519,18 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
         event.preventDefault();
         if (currentIndex > -1) {
      
-          searchInput.value = dropdownOptions[currentIndex].textContent;
-        
+          searchInput.value = dropdownOptions[currentIndex].textContent;      
           
           searchResults.style.display = 'none';
           searchInput.setAttribute('aria-expanded', 'false');
-          const element = dropdownOptions[currentIndex];
-          {# var autocompleteInputValue = document.getElementById('query');
-        
-    autocompleteInputValue.value = document.getElementById('div-' + dropdownOptions[currentIndex].id).textContent;
-    console.log(" autocompleteInputValue.value", autocompleteInputValue.value); #}
-    var hostRefElement = document.getElementById('hostRef');
-    
+          const element = dropdownOptions[currentIndex];         
+    var hostRefElement = document.getElementById('hostRef');    
     var eppoCodeElement = document.getElementById('eppoCode');
-   
-    hostRefElement.value = document.getElementById('hostRef'+dropdownOptions[currentIndex].id).value;
-    eppoCodeElement.value =document.getElementById('eppoCode'+dropdownOptions[currentIndex].id).value;
+    var divId=dropdownOptions[currentIndex].querySelector("div").id
+    var Id=divId.split("-")   
+    hostRefElement.value = document.getElementById('hostRef'+Id[1]).value;
+    eppoCodeElement.value =document.getElementById('eppoCode'+Id[1]).value;
        
-
         }
       } else if (event.key === 'Escape') {
         searchResults.innerHTML = '';
@@ -520,6 +541,20 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
   });
 
 
+function ensureVisible(activeItem) {
+
+ const dropdownContent = document.getElementById('searchResults');
+  const dropdown = dropdownContent;
+  const dropdownRect = dropdown.getBoundingClientRect();
+  const activeItemRect = activeItem.getBoundingClientRect();
+
+  if (activeItemRect.bottom > dropdownRect.bottom) {
+    dropdown.scrollTop += activeItemRect.bottom - dropdownRect.bottom;
+  } else if (activeItemRect.top < dropdownRect.top) {
+    dropdown.scrollTop -= dropdownRect.top - activeItemRect.top;
+  }
+  }
+
 
 
   function addActive(x) {
@@ -529,10 +564,9 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
     removeActive(x);
     if (currentIndex >= x.length) currentIndex = 0;
     if (currentIndex < 0) currentIndex = (x.length - 1);
-   console.log("x in addactivr",x)   
+  
     const element1 =x.querySelector("div")
-    console.log("currentIndex",currentIndex); 
-    console.log("element1 in active",element1);
+   
     element1.style.color="white"
     x.classList.add("autocomplete-active");
   }
@@ -544,7 +578,7 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
     /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < options.length; i++) {   
     const element1 =options[i].querySelector("div");
-    console.log("element1",element1);
+   
    element1.style.color="black"
      options[i].classList.remove("autocomplete-active");
           }
