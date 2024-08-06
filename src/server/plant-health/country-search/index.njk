@@ -218,8 +218,7 @@
       var result;
       regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
       result = item.COUNTRY_NAME.replace(new RegExp(regexValue, "gi"), match => `<strong>${match}</strong>`);
-      division.innerHTML = result;
-      console.log("result in strong",result)
+      division.innerHTML = result;     
       var anchor = document.createElement('a');
       anchor.className = "govuk-link govuk-task-list__link";
       anchor.href = "#";
@@ -320,11 +319,8 @@ const dropdownButton = document.getElementById('query');
   
     removeActive(x);
     if (currentIndex >= x.length) currentIndex = 0;
-    if (currentIndex < 0) currentIndex = (x.length - 1);
-
-   
-    const element1 =x.querySelector("div")  
-    // console.log("element1 319",element1);
+    if (currentIndex < 0) currentIndex = (x.length - 1);   
+    const element1 =x.querySelector("div")      
     element1.style.color="white"
     x.classList.add("autocomplete-active");
   }
@@ -335,8 +331,7 @@ const dropdownButton = document.getElementById('query');
    
     /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < options.length; i++) {   
-    const element1 =options[i].querySelector("div");
-    //console.log("element1 in remove active",element1)
+    const element1 =options[i].querySelector("div");    
    element1.style.color="black"
      options[i].classList.remove("autocomplete-active");
           }
