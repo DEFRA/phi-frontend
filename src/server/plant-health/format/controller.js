@@ -11,23 +11,25 @@ const formatPageController = {
       const getHelpSection = data?.getHelpSection
 
       let radiobuttonValue
-      request.yar.set('searchQuery', {
-        value: decodeURI(request.yar?.get('searchQuery')?.value)
-      })
-      request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
-      })
       request.yar.set('countrySearchQuery', {
-        value: request.yar?.get('countrySearchQuery')?.value
+        value: decodeURI(request.query.countrySearchQuery)
       })
       request.yar.set('countryCode', {
         value: request.yar?.get('countryCode')?.value
       })
+      request.yar.set('fullSearchQuery', {
+        value: decodeURI(request.query.searchQuery)
+      })
+      request.yar.set('searchQuery', {
+        value: decodeURI(
+          request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
+        )
+      })
       request.yar.set('hostRef', {
-        value: request.yar?.get('hostRef')?.value
+        value: request.query.hostRef
       })
       request.yar.set('eppoCode', {
-        value: request.yar?.get('eppoCode')?.value
+        value: request.query.eppoCode
       })
 
       const hostRef = request?.yar?.get('hostRef')?.value
@@ -54,7 +56,6 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
-          // return result
           const subFormatArray = []
           function capitalizeFirstLetter(string) {
             return string?.charAt(0)?.toUpperCase() + string?.slice(1)
@@ -85,7 +86,7 @@ const formatPageController = {
           const ulIndicatorList = [
             { name: 'dormant', flag: result.dormantIndicator },
             { name: 'fruit', flag: result.fruitIndicator },
-            { name: 'invitro material', flag: result.invintroIndicator },
+            { name: 'in vitro material', flag: result.invintroIndicator },
             {
               name: 'naturally and artificially dwarfed',
               flag: result.bonsaiIndicator
@@ -207,6 +208,9 @@ const formatPageController = {
           removedProcessedData = resultHeaderArray
           if (removedProcessedData?.length > 0) {
             removedProcessedData = removedProcessedData?.join(' ')?.split(',')
+            removedProcessedData = capitalizeFirstLetter(
+              removedProcessedData[0]
+            )
           }
 
           function compareQuarantineIndicator(a, b) {
