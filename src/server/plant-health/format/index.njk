@@ -28,7 +28,7 @@
   errorMessage: errorMessage.message,
   fieldset: {
     legend: {
-      text: mainContent.headerText1 + " " + searchQuery.value + " " + mainContent.headerText2,
+      text: mainContent.headerText1 + " " + searchQuery.value | replace(")", "") + " " + mainContent.headerText2,
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }

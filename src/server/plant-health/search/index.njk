@@ -40,7 +40,7 @@
      <input class="govuk-input" id="query" aria-label="plantsearch"  for ="searchinput" name="searchQuery" autocomplete="off" style="width: 100%;" type="text" maxlength="125">
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults" for ="searchResults"  style="width: 99.5%; max-height: 450px; display: none; overflow: auto"></ul>
+    <ul class="govuk-task-list solid-div" id="searchResults" for ="searchResults"  style="width: 99.29%; max-height: 450px; display: none; overflow: auto"></ul>
     <input aria-label="hostRef" id="hostRef" for ="searchResults" name="hostRef" style="display: none;" value={{hostRef}}></input>
     <input aria-label="eppoCode" id="eppoCode" for ="searchResults" name="eppoCode" style="display: none;" value={{hostRef}}></input>
   </div>
@@ -462,37 +462,38 @@ var searchName =inputinsearch.toLowerCase()
     });
 
 
-document.getElementById('query').addEventListener('keydown', function(e)  {
-    
+document.getElementById('query').addEventListener('keydown', function(e)  {    
 
       const dropdownButton = document.getElementById('query'); 
-    const dropdownContent = document.getElementById('searchResults');
-  
-     const dropdownOptions = dropdownContent.getElementsByTagName("li")    
-   
+    const dropdownContent = document.getElementById('searchResults');  
+     const dropdownOptions = dropdownContent.getElementsByTagName("li")  
    
     if (dropdownOptions.length > 0) {    
 
   if (event.keyCode === 40) {
- 
-     
-        event.preventDefault();
+  event.preventDefault();
+  console.log("currentIndex",currentIndex)
+       if((currentIndex+1) < dropdownOptions.length )
+       {       
         currentIndex = (currentIndex + 1) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
          addActive(dropdownOptions[currentIndex]);
          ensureVisible(dropdownOptions[currentIndex]) 
+         }
       } 
 
  
       else if (event.key ==='ArrowUp') {
      
         event.preventDefault();
+        console.log("currentIndex",currentIndex)
+          if(currentIndex > 0 )
+         {
         currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
         addActive(dropdownOptions[currentIndex]);
         ensureVisible(dropdownOptions[currentIndex]) 
-       
-        
+        }
       } else if (event.key === 'Enter') {
 
 
@@ -525,10 +526,11 @@ document.getElementById('query').addEventListener('keydown', function(e)  {
 function ensureVisible(activeItem) {
 
  const dropdownContent = document.getElementById('searchResults');
+ console.log("dropdownContent",dropdownContent)
   const dropdown = dropdownContent;
   const dropdownRect = dropdown.getBoundingClientRect();
   const activeItemRect = activeItem.getBoundingClientRect();
-
+  console.log("currentIndex", currentIndex)
   if (activeItemRect.bottom > dropdownRect.bottom) {
     dropdown.scrollTop += activeItemRect.bottom - dropdownRect.bottom;
   } else if (activeItemRect.top < dropdownRect.top) {
