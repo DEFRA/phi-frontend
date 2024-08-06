@@ -2,7 +2,7 @@
 {{data.mainContent.headerText}}
 </span>
 <h1 class="govuk-heading-xl">
-{{data.searchQuery.value | capitalize}}
+{{data.searchQuery.value  | replace(")", "")  | capitalize}}
 </h1>
 <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
 {{data.mainContent.preferredNameHeading}}

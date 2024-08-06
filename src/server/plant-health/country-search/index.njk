@@ -45,7 +45,7 @@
      <input aria-label ="countrySearchQuery" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text">
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 450px; display: none; overflow: auto"></ul>
+    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.29%; max-height: 450px; display: none; overflow: auto"></ul>
     <input aria-label ="emptyCountrySearchQuery" class="govuk-input" id="emptyCountrySearchQuery" name="emptyCountrySearchQuery" autocomplete="off" type="text"  style="display: none;">
      <input aria-label ="countryCode" id="countryCode" name="countryCode" style="display: none;" value={{countryCode}}></input>
   </div>
@@ -238,21 +238,30 @@
   if (event.keyCode === 40) {
      
         event.preventDefault();
+        
+       
+         if((currentIndex+1) < dropdownOptions.length )
+       {
         currentIndex = (currentIndex + 1) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
         addActive(dropdownOptions[currentIndex]);
      ensureVisible(dropdownOptions[currentIndex]) 
-      //  highlightOption(dropdownOptions[currentIndex]);
+     }
       } 
 
  
       else if (event.key ==='ArrowUp') {     
         event.preventDefault();
+        
+    
+         if(currentIndex > 0 )
+         {
         currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
         addActive(dropdownOptions[currentIndex]);
          ensureVisible(dropdownOptions[currentIndex]) 
-       // highlightOption(dropdownOptions[currentIndex]);     
+         }
+      
       } else if (event.key === 'Enter') {    
         event.preventDefault();    
         if (currentIndex > -1) {
@@ -292,6 +301,19 @@ const dropdownButton = document.getElementById('query');
   option.classList.add("autocomplete-active");
    element1.style.color="white"
   }
+  function ensureVisible(activeItem) {
+ const dropdownContent = document.getElementById('searchResults');
+  const dropdown = dropdownContent;
+
+  const dropdownRect = dropdown.getBoundingClientRect();
+  const activeItemRect = activeItem.getBoundingClientRect();
+ 
+  if (activeItemRect.bottom > dropdownRect.bottom) {
+    dropdown.scrollTop += activeItemRect.bottom - dropdownRect.bottom;
+  } else if (activeItemRect.top < dropdownRect.top) {
+    dropdown.scrollTop -= dropdownRect.top - activeItemRect.top;
+  }
+  }
  function addActive(x) {
 
     if (!x) return false;
@@ -299,7 +321,10 @@ const dropdownButton = document.getElementById('query');
     removeActive(x);
     if (currentIndex >= x.length) currentIndex = 0;
     if (currentIndex < 0) currentIndex = (x.length - 1);
-    const element1 =document.getElementById('div-searchResults'+currentIndex)  
+
+   
+    const element1 =x.querySelector("div")  
+    // console.log("element1 319",element1);
     element1.style.color="white"
     x.classList.add("autocomplete-active");
   }
@@ -311,21 +336,14 @@ const dropdownButton = document.getElementById('query');
     /*a function to remove the "active" class from all autocomplete items:*/
     for (var i = 0; i < options.length; i++) {   
     const element1 =options[i].querySelector("div");
+    //console.log("element1 in remove active",element1)
    element1.style.color="black"
      options[i].classList.remove("autocomplete-active");
           }
   }
-function ensureVisible(activeItem) {
- const dropdownContent = document.getElementById('searchResults');
-  const dropdown = dropdownContent;
-  const dropdownRect = dropdown.getBoundingClientRect();
-  const activeItemRect = activeItem.getBoundingClientRect();
-  if (activeItemRect.bottom > dropdownRect.bottom) {
-    dropdown.scrollTop += activeItemRect.bottom - dropdownRect.bottom;
-  } else if (activeItemRect.top < dropdownRect.top) {
-    dropdown.scrollTop -= dropdownRect.top - activeItemRect.top;
-  }
-  }
+
+
+
   document.addEventListener('click', (event) => {
     if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
       searchResults.style.display = 'none';
@@ -335,8 +353,7 @@ function ensureVisible(activeItem) {
   </script>
 <style>
 .autocomplete-active {
-  background-color: #1D70B8 !important; 
- color:white
+  background-color: #1D70B8 !important;  
 }
 </style>
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}

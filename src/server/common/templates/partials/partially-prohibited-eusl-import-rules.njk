@@ -152,7 +152,7 @@
       {% endif %} 
       {% endif %}
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>    
       <ul class="govuk-list govuk-list--bullet">
           {% if data.result.isEUSL === 'true'%}
@@ -269,7 +269,7 @@
       {% endif %}
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}, {{data.mainContent.unprohibitedHelpText3}}
       </p> 
        
       {% if item['BTOM_CLARIFICATION'].length > 0 %}
@@ -383,7 +383,7 @@
       {% endif %}
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-        {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
+        {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
       </p>    
     </div>  
   {% endif %} 
