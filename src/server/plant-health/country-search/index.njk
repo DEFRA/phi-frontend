@@ -17,10 +17,10 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <form action='/plant-health/country-search' method="get" autocomplete="off">
-   <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
-    <input id="eppoCode" name="eppoCode" style="display: none;" value={{eppoCode}}></input>
-    <input id="searchQuery" name="searchQuery" style="display: none;" value='{{searchQuery.value}}'></input>
-    <input id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
+   <input aria-label ="hostRef" id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
+    <input aria-label ="eppoCode" id="eppoCode" name="eppoCode" style="display: none;" value={{eppoCode}}></input>
+    <input aria-label ="searchQuery" id="searchQuery" name="searchQuery" style="display: none;" value='{{searchQuery.value}}'></input>
+    <input aria-label ="fullSearchQuery" id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
@@ -37,17 +37,17 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" aria-autocomplete="none" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input aria-label ="countrySearchQuery" class="govuk-input govuk-input--error" id="query" aria-autocomplete="none" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if countrySearchQuery.value %}
-    <input class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
+      <input aria-label ="countrySearchQuery" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text">
+     <input aria-label ="countrySearchQuery" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text">
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 450px; display: none; overflow: auto"></ul>
-    <input class="govuk-input" id="emptyCountrySearchQuery" name="emptyCountrySearchQuery" autocomplete="off" type="text"  style="display: none;">
-     <input id="countryCode" name="countryCode" style="display: none;" value={{countryCode}}></input>
+    <input aria-label ="emptyCountrySearchQuery" class="govuk-input" id="emptyCountrySearchQuery" name="emptyCountrySearchQuery" autocomplete="off" type="text"  style="display: none;">
+     <input aria-label ="countryCode" id="countryCode" name="countryCode" style="display: none;" value={{countryCode}}></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -75,6 +75,7 @@
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
     }
+     
   });
   function fetchSuggestions(query) { // Mock API endpoint URL
     var apiUrl = '/search/countries?searchQuery=' + query;
@@ -104,6 +105,7 @@
       const ul = document.getElementById('searchResults');
       // Get the li elements
       const liElements = ul.getElementsByTagName('li');
+     
       // Convert HTMLCollection to an array
       const liArray = Array.from(liElements);
       // Sort the array based on the text content of the li elements
@@ -113,7 +115,34 @@
       // Append the sorted li elements back to the ul element
       liArray.forEach(li => ul.appendChild(li));
     }
+ async function exactmatch() {
+      // Select the ul element
+      const ul = document.getElementById('searchResults');
+      // Get the li elements
+      const liElements = ul.getElementsByTagName('li');    
+     var inputinsearch = document.getElementById('query')?.value  
+    if(liElements.length === 1)
+    {
+    const element1 =document.getElementById('div-searchResults'+0).textContent
+    const element2 =document.getElementById('div-searchResults'+0)   
+    if(element1.toLowerCase() === inputinsearch.toLowerCase())
+    {
+    element2.style.color="white"
+   liElements[0].classList.add("autocomplete-active");
+      currentIndex = (currentIndex + 1) % liElements.length;
+     
+    var el = document.getElementById('inputCode'+0); 
+     var countryCodeElement = document.getElementById('countryCode');
+    countryCodeElement.setAttribute('value', el.value);  
+     searchResults.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+    }
 
+    }
+
+ 
+    
+    }
   var regexValue;
   async function renderSuggestions(suggestions) {
    
@@ -128,7 +157,9 @@
       if (item.COUNTRY_NAME.match(new RegExp(regexValue, "gi"))){
         result = item
       }
+       
       return result
+     
     });
     console.log('suggestions:', suggestions)
     createAndAppendLiElement(suggestions, regexValue)
@@ -136,6 +167,7 @@
       var emptyCoutrySearchValue = document.getElementById('emptyCountrySearchQuery');
       emptyCoutrySearchValue.value = true;
       await sortList()
+       await exactmatch()
       searchResults.style.display = 'inline-block';
       searchResults.addEventListener('click', function(e) {
       var inputCodeValue = document.getElementById('inputCode'+e.target.id.slice(-1));
@@ -209,7 +241,7 @@
         currentIndex = (currentIndex + 1) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
         addActive(dropdownOptions[currentIndex]);
-    
+     ensureVisible(dropdownOptions[currentIndex]) 
       //  highlightOption(dropdownOptions[currentIndex]);
       } 
 
@@ -219,22 +251,17 @@
         currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
         dropdownOptions[currentIndex].focus();
         addActive(dropdownOptions[currentIndex]);
+         ensureVisible(dropdownOptions[currentIndex]) 
        // highlightOption(dropdownOptions[currentIndex]);     
-      } else if (event.key === 'Enter') {
-        event.preventDefault();
+      } else if (event.key === 'Enter') {    
+        event.preventDefault();    
         if (currentIndex > -1) {
-
-          searchInput.value = dropdownOptions[currentIndex].textContent;
-         
+          searchInput.value = dropdownOptions[currentIndex].textContent;         
                 searchResults.style.display = 'none';
-          searchInput.setAttribute('aria-expanded', 'false');
-     
-      var el = document.getElementById('inputCode'+currentIndex);
-     
-      
+          searchInput.setAttribute('aria-expanded', 'false');     
+      var el = document.getElementById('inputCode'+currentIndex);  
          var countryCodeElement = document.getElementById('countryCode');
-    countryCodeElement.setAttribute('value', el.value);  
-         
+    countryCodeElement.setAttribute('value', el.value); 
         }
       } else if (event.key === 'Escape') {
         searchResults.innerHTML = '';
@@ -288,7 +315,17 @@ const dropdownButton = document.getElementById('query');
      options[i].classList.remove("autocomplete-active");
           }
   }
-
+function ensureVisible(activeItem) {
+ const dropdownContent = document.getElementById('searchResults');
+  const dropdown = dropdownContent;
+  const dropdownRect = dropdown.getBoundingClientRect();
+  const activeItemRect = activeItem.getBoundingClientRect();
+  if (activeItemRect.bottom > dropdownRect.bottom) {
+    dropdown.scrollTop += activeItemRect.bottom - dropdownRect.bottom;
+  } else if (activeItemRect.top < dropdownRect.top) {
+    dropdown.scrollTop -= dropdownRect.top - activeItemRect.top;
+  }
+  }
   document.addEventListener('click', (event) => {
     if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
       searchResults.style.display = 'none';
