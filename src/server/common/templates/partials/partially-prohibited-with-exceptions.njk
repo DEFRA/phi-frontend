@@ -26,17 +26,19 @@
                 {{data.mainContent.exceptionHeader}}
                 </h3>
                 <p class="govuk-!-margin-top-0 govuk-!-margin-bottom-0">{{data.mainContent.exceptionHelpText}}{{colon}}
+                   <ul>
                     {% for itr in ulIndicatorList %}
                     {% if itr.flag.trim().length === 1 %}
-                        {{itr.name}}.
+                        <li>{{itr.name}}.</li>
                     {% endif %}
                     {% if itr.flag.trim().length > 1 %}
-                        {{itr.name}} ({{itr.flag.trim()}}).
+                        <li>{{itr.name}} ({{itr.flag.trim()}}).</li>
                     {% endif %}
                     {% endfor %}
                     {% if data.result.FormatClarification.length > 1 %}
                         {{data.result.FormatClarification}}.
                     {% endif %}
+                    </ul>
                 </p>
                 {% else %}
                  <h3 class="govuk-heading-s">
