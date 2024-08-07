@@ -2,7 +2,7 @@ import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 const purposeOfVisitController = {
   handler: async (request, h) => {
-    const data = await await getDefaultLocaleData('purpose-of-visit')
+    const data = await getDefaultLocaleData('purpose-of-visit')
     const serviceUnavailablePage = data?.serviceUnavailablePage
     const mainContent = data?.mainContent
     const getHelpSection = data?.getHelpSection
@@ -48,8 +48,8 @@ const purposeOfVisitController = {
         if (!radiobuttonValue) {
           setErrorMessage(
             request,
-            errorSection.titleText,
-            errorSection.purposeOfVisitErrorListText
+            errorSection?.titleText,
+            errorSection?.purposeOfVisitErrorListText
           )
         }
         const errors = request.yar?.get('errors')
