@@ -19,7 +19,7 @@
   <form action='/plant-health/country-search' method="get" autocomplete="off">
    <input aria-label ="hostRef" id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
     <input aria-label ="eppoCode" id="eppoCode" name="eppoCode" style="display: none;" value={{eppoCode}}></input>
-    <input aria-label ="searchQuery" id="searchQuery" name="searchQuery" style="display: none;" value='{{searchQuery.value}}'></input>
+    <input aria-label ="searchQuery" id="searchQuery" name="searchQuery" style="display: none;" value='{{searchQuery.value | replace(")", "")}}'></input>
     <input aria-label ="fullSearchQuery" id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
