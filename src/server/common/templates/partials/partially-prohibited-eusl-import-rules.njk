@@ -72,8 +72,7 @@
     {% set formatHeader = item.SERVICE_SUBFORMAT | capitalize %}
   {% endif %}
   {% set 11AimportRules = 'false' %}  
-{% if ulIndicatorFlag %} 
-   {% if data.result.seedIndicator.length > 0%}
+  {% if data.result.seedIndicator.length > 0%}
    {% if item['BTOM_EUSL'] === '11A' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
    {% set 11AimportRules  = 'true'%}
    {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
@@ -92,33 +91,10 @@
     {% set 11AimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11AimportRules  = 'true'%}
-    {%elif item['BTOM_EUSL'] === '11A'%}
+    {%elif item['BTOM_EUSL'] === '11A' and data.result.ProhibitionClarification.length > 0%}
     {% set 11AimportRules  = 'true'%}
     {% endif %}
   {%endif%}
-{% else %}
-  {% if item['BTOM_EUSL'] === '11A' and  item['SERVICE_SUBFORMAT'].length > 0 %}
-  {% set 11AimportRules = 'true'%}
-  {% else %}
-  {% if item['BTOM_EUSL'] === '11A'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-  {% set 11AimportRules  = 'true'%}
-   {% else %}
-  {% if item['BTOM_EUSL'] === '11A' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-   {% set 11AimportRules  = 'true'%}
-   {% else %}
-    {% if data.result.ProhibitionClarification.length > 0 %}
-    {% if item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
-    {% set 11AimportRules  = 'true'%}
-    {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
-    {% set 11AimportRules  = 'true'%}
-    {%elif item['BTOM_EUSL'] === '11A'%}
-    {% set 11AimportRules  = 'true'%}
-    {% endif %}
-   {% endif %} 
-  {% endif %}  
-  {% endif %}
-  {% endif %}
-{% endif %}
  {% if 11AimportRules === 'true'%}
     <div class="govuk-body">         
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length >= 0 %}  
@@ -184,7 +160,6 @@
    {% endif %} 
   {% endif %}  
 {% set 11BimportRules = 'false' %}  
-{% if ulIndicatorFlag %} 
  {% if data.result.seedIndicator.length > 0%}
    {% if item['BTOM_EUSL'] === '11B' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
     {% set 11BimportRules  = 'true'%}
@@ -204,33 +179,10 @@
     {% set 11BimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11BimportRules  = 'true'%}
-    {%elif item['BTOM_EUSL'] === '11B'%}
+    {%elif item['BTOM_EUSL'] === '11B' and data.result.ProhibitionClarification.length > 0%}
     {% set 11BimportRules  = 'true'%}
     {% endif %}
   {%endif%}
-{% else %}
-  {% if item['BTOM_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length > 0 %}
-  {% set 11BimportRules = 'true'%}
-  {% else %}
-  {% if item['BTOM_EUSL'] === '11B' and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-  {% set 11BimportRules  = 'true'%}
-   {% else %}
-  {% if item['BTOM_EUSL'] === '11B' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-   {% set 11BimportRules  = 'true'%}
-  {% else %}
-  {% if data.result.ProhibitionClarification.length > 0%}
-  {% if item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
-    {% set 11BimportRules  = 'true'%}
-    {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
-    {% set 11BimportRules  = 'true'%}
-    {%elif item['BTOM_EUSL'] === '11B'%}
-    {% set 11BimportRules  = 'true'%}
-    {% endif %}
-  {% endif %}   
-  {% endif %} 
-  {% endif %}
-  {% endif %}
-{% endif %} 
   {% if 11BimportRules === 'true'%}
     <div class="govuk-body">
        {% if item['BTOM_CLARIFICATION'].length > 0 %}
@@ -291,7 +243,6 @@
     </div>  
   {% endif %} 
 {% set 11CimportRules = 'false' %}  
-{% if ulIndicatorFlag %} 
   {% if data.result.seedIndicator.length > 0%}
     {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
     {% set 11CimportRules  = 'true'%}
@@ -311,40 +262,10 @@
     {% set 11CimportRules  = 'true'%}
     {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11CimportRules  = 'true'%}
-    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')%}
+    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and data.result.ProhibitionClarification.length > 0%}
     {% set 11CimportRules  = 'true'%}
     {% endif %} 
   {% endif %}   
-{% else %}
-  {% if (item['BTOM_EUSL'] === '11C' and item['BTOM_EUSL'] === 'UNR') and  item['SERVICE_SUBFORMAT'].length > 0%}
-  {% set 11CimportRules = 'true'%}
-  {% else %}
-  {% if item['BTOM_EUSL'] === '11C'  and item['BTOM_EUSL'] === 'UNR'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-  {% set 11CimportRules  = 'true'%}
-  {% endif %}
-  {% endif %}
-  {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  item['SERVICE_SUBFORMAT'].length > 0 %}
-  {% set 11CimportRules = 'true'%}
-  {% else %}
-  {% if item['BTOM_EUSL'] === '11C'  or item['BTOM_EUSL'] === 'UNR'  and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
-  {% set 11CimportRules  = 'true'%}
-   {% else %}
-  {% if item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR' and data.result.ProhibitionClarification.length > 0 and data.result.hybridIndicator.length > 0 and  item['SERVICE_SUBFORMAT'].length === 0 and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
-   {% set 11CimportRules  = 'true'%}
-  {% else %}
-  {% if data.result.ProhibitionClarification.length > 0%}
-  {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
-    {% set 11CimportRules  = 'true'%}
-    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
-    {% set 11CimportRules  = 'true'%}
-    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')%}
-    {% set 11CimportRules  = 'true'%}
-    {% endif %}
-  {%endif%}   
-  {% endif %} 
-  {% endif %}
-  {% endif %}
-{% endif %}
   {% if 11CimportRules === 'true'%}
     <div class="govuk-body"> 
        {% if item['BTOM_CLARIFICATION'].length > 0 %}
