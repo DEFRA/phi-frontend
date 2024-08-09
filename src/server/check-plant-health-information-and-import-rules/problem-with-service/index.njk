@@ -14,7 +14,6 @@
    {% include "partials/400.njk" %}
 {%endif%}  
 {% if statusCode === 500 or statusCode === 502 or statusCode === 503 or statusCode === 504 %}
-INDEXPAGE
    {% include "partials/500.njk" %}
 {%endif%}
 {% endblock %}

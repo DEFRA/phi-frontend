@@ -18,15 +18,8 @@ const problemWithServiceController = {
           return 'Something went wrong'
       }
     }
-    const { response } = request
 
-    if (!response.isBoom) {
-      return h.continue
-    }
-
-    request.logger.error(response?.stack)
-
-    const statusCode = response.output.statusCode
+    const statusCode = parseInt(request.query.statusCode)
     const errorMessage = statusCodeMessage(statusCode)
     let pageTitle = 'Error: '
     if (
