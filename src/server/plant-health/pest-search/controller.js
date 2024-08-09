@@ -11,28 +11,22 @@ const pestSearchController = {
       })
       const cslRef = request?.yar?.get('cslRef')?.value
       const getHelpSection = data?.getHelpSection
-      
-      if ((request.query?.getcsl !== '' ) || (cslRef !=='') ) {
-        let pestDetails;
-      if(request.query?.getcsl)
-  {
-         pestDetails = {
-          cslRef: parseInt(request.query?.getcsl)
+
+      if (request.query?.getcsl !== '' || cslRef !== '') {
+        let pestDetails
+        if (request.query?.getcsl) {
+          pestDetails = {
+            cslRef: parseInt(request.query?.getcsl)
+          }
+        } else {
+          pestDetails = {
+            cslRef: parseInt(cslRef)
+          }
         }
-      }
-      else 
-      {
-       
-         pestDetails = {
-          cslRef: parseInt(cslRef)
-        }      
-      }
         const result = await invokepestdetailsAPI(pestDetails)
-     
+
         async function invokepestdetailsAPI(payload) {
-        
           try {
-          
             const response = await axios.post(
               config.get('backendApiUrl') + '/search/pestdetails',
               { pestDetails: payload }
@@ -44,7 +38,7 @@ const pestSearchController = {
           }
         }
 
-        const mainContent = data?.mainContent       
+        const mainContent = data?.mainContent
         request.yar.set('errors', '')
         request.yar.set('errorMessage', '')
 
@@ -95,7 +89,6 @@ const pestSearchController = {
 
         const syNamearray = result.pest_detail[0].PEST_NAME[2].NAME
         const SynonymNameSorted = syNamearray.sort()
-       
 
         for (let i = 0; i < result.pest_detail[0].DOCUMENT_LINK.length; i++) {
           if (
@@ -217,7 +210,7 @@ const pestSearchController = {
 
         if (result.pest_detail[0].QUARANTINE_INDICATOR === 'R') {
           const Plantdetails = await invokepestplantLinkAPI(plantLinl)
-       
+
           const array1 = Plantdetails.pest_link
 
           const RArray = []
@@ -309,9 +302,9 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-   
-        const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())     
-    
+
+        const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
+
         return h.view('plant-health/pest-details/index', {
           pageTitle:
             result.pest_detail[0].PEST_NAME[0].NAME +

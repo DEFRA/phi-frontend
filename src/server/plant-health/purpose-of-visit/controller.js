@@ -27,9 +27,7 @@ const purposeOfVisitController = {
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
-        const pestSearchdata = getDefaultLocaleData('pest-search')
-        const getHelpSection_1 = pestSearchdata?.getHelpSection
-      
+
         return h.view('plant-health/pest-search/index.njk', {
           mainContent,
           getHelpSection,

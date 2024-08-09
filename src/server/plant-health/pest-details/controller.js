@@ -6,7 +6,6 @@ const pestDetailsPageController = {
       const data = await getDefaultLocaleData('pest-details')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
- 
 
       let radiobuttonValue
       request.yar.set('searchQuery', {
@@ -39,8 +38,6 @@ const pestDetailsPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const formatData = getDefaultLocaleData('format')
-        
 
         return h.view('plant-health/pest-details/index', {
           pageTitle: 'Check plant health information and import rules — GOV.UK',
