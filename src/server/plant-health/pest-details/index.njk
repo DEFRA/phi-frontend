@@ -70,15 +70,14 @@
           </tbody>
         </table>
  {%endif%}
- {% if (data.quarantineIndicator =='R') and (Othermap.length > 0 )  %} 
+{% if Othermap.length > 0 %} 
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
 {{data.mainContent.HeaderText5}} {{data.preferredName }}</h2>
 <br>
+{% if data.quarantineIndicator =='R'  %} 
 <p class="govuk-body">{{data.preferredName }} {{data.mainContent.content19 }} </p>
-
- 
-
+{%endif%}
          <table class="govuk-table"> 
    <thead class="govuk-table__head">
             <tr class="govuk-table__row">
@@ -107,22 +106,11 @@
         </table>
         {%endif%}
  {%endif%}
-{% if (data.quarantineIndicator =='R') and (Othermap.length === 0 )  %} 
-<h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}} {{data.preferredName }}</h2>
- <br>
-<p class="govuk-body"> {{data.mainContent.Noplantscontent }} {{data.preferredName }} </p>
-{%endif%}
-
-
     {% if data.quarantineIndicator !='R'  %} 
  {% if plantLinkMapsorted.size === 0  %} 
- <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}} {{data.preferredName }}</h2>
  <br>
 <p class="govuk-body"> {{data.mainContent.Noplantscontent }} {{data.preferredName }} </p>
   {% else %}
-  
     <table class="govuk-table">
  
    <thead class="govuk-table__head">
