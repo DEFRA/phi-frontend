@@ -38,7 +38,8 @@
     "prohibitedHeader": "Prohibited information",
     "prohibitedContentText1": "! You must not import",
     "prohibitedContentText2": "as",
-    "prohibitedContentText3": "Despite import restrictions, you may be able to"
+    "prohibitedContentText3": "Despite import restrictions, you may be able to",
+     "Noplantscontent": "There are currently no plants known to carry"
   },
   "getHelpSection": {
     "titleText": "Get help with this service",

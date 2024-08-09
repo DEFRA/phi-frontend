@@ -27,13 +27,15 @@ const purposeOfVisitController = {
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
-        const plantHealthdata = getDefaultLocaleData('plant-health')
-        const getHelpSection = plantHealthdata?.getHelpSection
-        return h.view('plant-health/service-unavailable.njk', {
+        const pestSearchdata = getDefaultLocaleData('pest-search')
+        const getHelpSection_1 = pestSearchdata?.getHelpSection
+      
+        return h.view('plant-health/pest-search/index.njk', {
+          mainContent,
           getHelpSection,
           serviceUnavailablePage,
           pageTitle:
-            'This service does not include import and plant health information for Northern Ireland — Check plant health information and import rules — GOV.UK',
+            'What do you want to find out? — Check plant health information and import rules — GOV.UK',
           heading: 'Pest'
         })
       } else {
