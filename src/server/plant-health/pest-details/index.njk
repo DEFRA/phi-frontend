@@ -107,7 +107,10 @@
         {%endif%}
  {%endif%}
     {% if data.quarantineIndicator !='R'  %} 
-
+ {% if plantLinkMapsorted.size === 0  %} 
+ <br>
+<p class="govuk-body"> {{data.mainContent.Noplantscontent }} {{data.preferredName }} </p>
+  {% else %}
     <table class="govuk-table">
  
    <thead class="govuk-table__head">
@@ -133,7 +136,7 @@
           </tbody>
         </table>
          {%endif%}
-    
+     {% endif %}
      {% from "govuk/components/button/macro.njk" import govukButton %}
 
                 
