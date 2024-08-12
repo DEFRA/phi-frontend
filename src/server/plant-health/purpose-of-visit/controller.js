@@ -20,7 +20,7 @@ const purposeOfVisitController = {
           getHelpSection,
           radiobuttonValue,
           pageTitle:
-            'Where are you importing your plant or plant product to? — Check plant health information and import rules — GOV.UK',
+            'Where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK',
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
