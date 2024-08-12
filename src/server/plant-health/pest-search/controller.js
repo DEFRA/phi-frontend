@@ -6,11 +6,25 @@ const pestSearchController = {
   handler: async (request, h) => {
     if (request != null) {
       const data = await getDefaultLocaleData('pest-details')
-      if (request.query?.getcsl !== '') {
-        const pestDetails = {
-          cslRef: parseInt(request.query?.getcsl)
+      request.yar.set('cslRef', {
+        value: request.query.cslRef
+      })
+      const cslRef = request?.yar?.get('cslRef')?.value
+      const getHelpSection = data?.getHelpSection
+
+      if (request.query?.getcsl !== '' || cslRef !== '') {
+        let pestDetails
+        if (request.query?.getcsl) {
+          pestDetails = {
+            cslRef: parseInt(request.query?.getcsl)
+          }
+        } else {
+          pestDetails = {
+            cslRef: parseInt(cslRef)
+          }
         }
         const result = await invokepestdetailsAPI(pestDetails)
+
         async function invokepestdetailsAPI(payload) {
           try {
             const response = await axios.post(
@@ -25,7 +39,6 @@ const pestSearchController = {
         }
 
         const mainContent = data?.mainContent
-        const getHelpSection = data?.getHelpSection
         request.yar.set('errors', '')
         request.yar.set('errorMessage', '')
 
@@ -289,6 +302,7 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
+
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
         return h.view('plant-health/pest-details/index', {

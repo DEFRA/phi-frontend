@@ -17,7 +17,7 @@
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
   <form action='/plant-health/pest-search' method="get">
-    <div class="govuk-form-group">
+    <div aria-label="pestsearchform" class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="event-name">
          What pest or disease do you want to find about?
@@ -30,17 +30,17 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" id="query" autocomplete="off" name="pestSearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input aria-label="pestsearch"  class="govuk-input govuk-input--error" id="query" autocomplete="off" name="pestSearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if pestSearchQuery.value %}
-    <input class="govuk-input" id="query" name="pestSearchQuery" autocomplete="off" type="text" value='{{pestSearchQuery.value}}'>
+    <input aria-label="pestsearch" class="govuk-input" id="query" name="pestSearchQuery" autocomplete="off" type="text" value='{{pestSearchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" name="pestSearchQuery" autocomplete="off" type="text">
+     <input aria-label="pestsearch" class="govuk-input" id="query" name="pestSearchQuery" autocomplete="off" type="text">
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 342px; display: none; overflow: auto"></ul>
-   <input id="cslRef" name="cslRef" style="display: none;"></input>
-    <input id="eppoCode" name="eppoCode" style="display: none;"></input>
+   <input aria-label="cslRef" id="cslRef" name="cslRef" style="display: none;"></input>
+    <input aria-label="eppoCode" id="eppoCode" name="eppoCode" style="display: none;"></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -55,7 +55,9 @@
     var searchInput = document.getElementById('query');
     var searchResults = document.getElementById('searchResults');
     var inputValue;
+    let currentIndex = -1;
     searchInput.addEventListener('input', function () {
+     currentIndex = -1;
       inputValue = this
         .value;
     if (inputValue.length > 0) {
@@ -94,10 +96,7 @@
       return el.id == "synonym-name"
     })[0].results
     regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
-    console.log('REGEX', regexValue);
-     console.log('latinJson', latinJson);
-       console.log('commonJson', commonJson);
-         console.log('synonymJson', latinJson);
+    console.log('REGEX', regexValue);     
     var latinArray = []
     var commonArray = []
     var synonymArray = []
@@ -110,7 +109,7 @@
           for (let j = 0; j < latinJson[i]['pestName'].length; j++) {
          
             if ((latinJson[i]['pestName'][j]['type'] === "LATIN_NAME") && (latinJson[i]['pestName'][j]['NAME'].match(new RegExp(regexValue, "gi")))) {
-              console.log("inside loop",latinJson[i]['pestName']);
+             
               latinArray.push({
                 result: latinJson[i]['pestName'],
                 cslRef: latinJson[i]['cslRef'],
@@ -122,7 +121,7 @@
           }
         }
       }
-console.log("latinArray",latinArray);
+
       //common name search
       if (synonymArray.length === 0) {
         for (let i = 0; i < commonJson.length; i++) {
@@ -130,8 +129,7 @@ console.log("latinArray",latinArray);
           for (let j = 0; j < commonJson[i]['pestName'].length; j++) {
             if (commonJson[i]['pestName'][j]['type'] === "COMMON_NAME") {
               commonJson[i]['pestName'][j]['NAME'].sort().filter(name => {
-                if (name.match(new RegExp(regexValue, "gi"))) {
-                  console.log('COMMON', commonJson[i])
+                if (name.match(new RegExp(regexValue, "gi"))) {                 
                   if (latinArray.length > 0) {
                     var existingArray = commonExistingNameCheck(latinArray, name)
                     if (existingArray.length === 0) {
@@ -167,7 +165,7 @@ console.log("latinArray",latinArray);
             if (synonymJson[i]['pestName'][j]['type'] === "SYNONYM_NAME") {
               synonymJson[i]['pestName'][j]['NAME'].filter(name => {
                 if (name.match(new RegExp(regexValue, "gi"))) {
-                  console.log('SYNONYM')
+               
                   if (latinArray.length > 0) {
                     var existingArray = synonymExistingNameCheck(latinArray, name)
                     if (existingArray.length === 0) {
@@ -203,7 +201,7 @@ console.log("latinArray",latinArray);
       commonNames: commonArray,
       synonymNames: synonymArray
     }]
-    console.log('RESULTS', resultSet)
+ 
     if (inputValue.length > 2){
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
@@ -235,7 +233,7 @@ console.log("latinArray",latinArray);
     return existingArray
   }
 
-  function renderResultsWithHtml(filterResults) {
+ async function renderResultsWithHtml(filterResults) {
     var checkForEmptyArray = filterResults.flat()
     if (checkForEmptyArray.length > 0) {
       if (checkForEmptyArray[0]['commonNames'].length === 0 &&
@@ -268,6 +266,8 @@ console.log("latinArray",latinArray);
           })
         })
       }
+      await sortList()
+       await exactmatch()
     }
 
   }
@@ -297,12 +297,10 @@ console.log("latinArray",latinArray);
       li.id = 'synonymName' + i;
       li.appendChild(division)
       var inputHref = document.createElement('input');
-      inputHref.id = 'cslRef'+ sname +i;
-      
-      console.log("inputHref.id",inputHref.id)
+      inputHref.id = 'cslRef'+ sname +i;    
+    
       inputHref.style = 'display:none'
-      inputHref.setAttribute('value', item.cslRef);
-      console.log("item.cslRef",item.cslRef)
+      inputHref.setAttribute('value', item.cslRef);   
       var inputEppo = document.createElement('input');
       inputEppo.id = 'eppoCode'+ sname +i;
       inputEppo.style = 'display:none'
@@ -319,7 +317,7 @@ console.log("latinArray",latinArray);
   }
 
   function createAndAppendLiElement(item, index) {
-    console.log('FILTER', item)
+  
     var liOne = document.createElement('li');
     liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
     liOne.id = index;
@@ -399,31 +397,187 @@ console.log("latinArray",latinArray);
       searchResults.appendChild(liOne);
     }
 
-    var anchorOne = document.createElement('a');
+     var anchorOne = document.createElement('a');
     anchorOne.className = "govuk-link govuk-task-list__link";
     anchorOne.href = "#";
     anchorOne.id = index;
-     console.log(" anchorOne.id", anchorOne.id);
     divisionOne.appendChild(anchorOne);
     searchResults.style.display = 'inline-block';
     
    searchResults.addEventListener('click', function(e) {
-      var autocompleteInputValue = document.getElementById('query');
+     var autocompleteInputValue = document.getElementById('query');
       autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
-      console.log(" e.target.id", e.target.id);
-       
+     
       var cslRefElement = document.getElementById('cslRef');
-      var eppoCodeElement = document.getElementById('eppoCode');
-       cslRefElement.value = document.getElementById('cslRef'+e.target.id).value;
-       console.log("cslRefElement.value",cslRefElement.value);
-    eppoCodeElement.value =document.getElementById('eppoCode'+e.target.id).value;
-    console.log(" eppoCodeElement.value", eppoCodeElement.value);
+      var eppoCodeElement = document.getElementById('eppoCode');    
+       cslRefElement.value = document.getElementById('cslRef'+ e.target.id).value;      
+    eppoCodeElement.value =document.getElementById('eppoCode'+e.target.id).value;   
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
     });
-  }
-</script>
 
+    
+  }
+
+   // Function to sort the list items alphabetically
+    async function sortList() {
+        // Select the ul element
+        const ul = document.getElementById('searchResults');
+
+        // Get the li elements
+        const liElements = ul.getElementsByTagName('li');
+
+        // Convert HTMLCollection to an array
+        const liArray = Array.from(liElements);
+
+        // Sort the array based on the text content of the li elements
+        liArray.sort((a, b) => a.textContent.localeCompare(b.textContent));
+
+        // Clear the ul element
+        ul.innerHTML = '';
+
+        // Append the sorted li elements back to the ul element
+        liArray.forEach(li => ul.appendChild(li));
+    }
+
+    document.getElementById('query').addEventListener('keydown', function(e)  {    
+
+      const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');  
+     const dropdownOptions = dropdownContent.getElementsByTagName("li")  
+   
+    if (dropdownOptions.length > 0) {    
+
+  if (event.keyCode === 40) {
+  event.preventDefault();  
+       if((currentIndex+1) < dropdownOptions.length )
+       {       
+        currentIndex = (currentIndex + 1) % dropdownOptions.length;
+        dropdownOptions[currentIndex].focus();
+         addActive(dropdownOptions[currentIndex]);
+         ensureVisible(dropdownOptions[currentIndex]) 
+         }
+      } 
+
+ 
+      else if (event.key ==='ArrowUp') {
+     
+        event.preventDefault();      
+          if(currentIndex > 0 )
+         {
+        currentIndex = (currentIndex - 1 + dropdownOptions.length) % dropdownOptions.length;
+        dropdownOptions[currentIndex].focus();
+        addActive(dropdownOptions[currentIndex]);
+        ensureVisible(dropdownOptions[currentIndex]) 
+        }
+      } else if (event.key === 'Enter') {
+
+
+  
+        event.preventDefault();
+        if (currentIndex > -1) {
+     
+          searchInput.value = dropdownOptions[currentIndex].textContent;      
+          
+          searchResults.style.display = 'none';
+          searchInput.setAttribute('aria-expanded', 'false');
+          const element = dropdownOptions[currentIndex];          
+          const id =   element.querySelector("a").id       
+    var cslRefElement = document.getElementById('cslRef');
+      var eppoCodeElement = document.getElementById('eppoCode');     
+       cslRefElement.value = document.getElementById('cslRef'+ id).value;      
+    eppoCodeElement.value =document.getElementById('eppoCode'+ id).value;
+       
+        }
+      } else if (event.key === 'Escape') {
+        searchResults.innerHTML = '';
+        searchResults.style.display = 'none';
+        searchInput.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+async function exactmatch() {
+      const dropdownContent = document.getElementById('searchResults');
+    const options = dropdownContent.getElementsByTagName("li");
+    
+     var inputinsearch = document.getElementById('query')?.value
+    
+    if(options.length === 1)
+    {
+   const divElement = options[0].querySelector("div");    
+   const htmlName =options[0].querySelector("div").innerText .split("(")  
+  
+var DbName =htmlName[0].toLowerCase();
+var searchName =inputinsearch.toLowerCase()
+    if(DbName.trim() === searchName.trim())
+    {   
+      divElement.style.color="white"
+     options[0].classList.add("autocomplete-active");
+      currentIndex = (currentIndex + 1) % options.length;  
+       var cslRefElement = document.getElementById('cslRef');
+      var eppoCodeElement = document.getElementById('eppoCode');   
+       cslRefElement.value = document.getElementById('cslRef'+ options[0].id).value;     
+    eppoCodeElement.value =document.getElementById('eppoCode'+options[0].id).value;      
+    }
+    }
+    }
+function ensureVisible(activeItem) {
+
+ const dropdownContent = document.getElementById('searchResults');
+  const dropdown = dropdownContent;
+  const dropdownRect = dropdown.getBoundingClientRect();
+  const activeItemRect = activeItem.getBoundingClientRect();  
+  if (activeItemRect.bottom > dropdownRect.bottom) {
+    dropdown.scrollTop += activeItemRect.bottom - dropdownRect.bottom;
+  } else if (activeItemRect.top < dropdownRect.top) {
+    dropdown.scrollTop -= dropdownRect.top - activeItemRect.top;
+  }
+  }
+
+
+
+  function addActive(x) {
+
+    if (!x) return false;
+  
+    removeActive(x);
+    if (currentIndex >= x.length) currentIndex = 0;
+    if (currentIndex < 0) currentIndex = (x.length - 1);
+  
+    const element1 =x.querySelector("div")
+   
+    element1.style.color="white"
+    x.classList.add("autocomplete-active");
+  }
+  function removeActive(x) {
+  const dropdownButton = document.getElementById('query'); 
+    const dropdownContent = document.getElementById('searchResults');
+    const options = dropdownContent.getElementsByTagName("li");
+   
+    /*a function to remove the "active" class from all autocomplete items:*/
+    for (var i = 0; i < options.length; i++) {   
+    const element1 =options[i].querySelector("div");
+   
+   element1.style.color="black"
+     options[i].classList.remove("autocomplete-active");
+          }
+  }
+
+
+  document.addEventListener('click', (event) => {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+      searchResults.style.display = 'none';
+      searchInput.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+</script>
+<style>
+.autocomplete-active {
+  background-color: #1D70B8 !important; 
+}
+</style>
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
   {% include "partials/get-help.njk" %}
   
