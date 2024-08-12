@@ -10,6 +10,7 @@ import { countrySearchPage } from '~/src/server/plant-health/country-search'
 import { formatPage } from '~/src/server/plant-health/format'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
 import { pestSearchPage } from '~/src/server/plant-health/pest-search'
+import { problemWithService } from '~/src/server/check-plant-health-information-and-import-rules/problem-with-service'
 
 import { pestDetailsPage } from '~/src/server/plant-health/pest-details'
 import { search } from '~/src/api/search'
@@ -45,6 +46,7 @@ const router = {
         pestDetailsPage,
 
         login,
+        problemWithService,
         serveStaticFiles
       ])
       await server.register({
