@@ -33,7 +33,7 @@
     "importRulesHeader": "Import rules",
     "unprohibitedHelpText1": "To import",
     "unprohibitedHelpText2": "from",
-    "unprohibitedHelpText3": "you will need to"
+    "unprohibitedHelpText3": "you will need to:"
   },
   "getHelpSection": {
     "titleText": "Get help with this service",

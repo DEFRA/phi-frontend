@@ -21,7 +21,7 @@
     {% if data.result.subformat.length ===1 and processedData.length > 0 %} 
        <div class="govuk-body govuk-!-margin-bottom-0">  
             {% if ulIndicatorFlag %} 
-                {% if processedData[0].split(' or ').length === 2 %}
+                {% if processedData[0].split(' or ').length === 1 %}
                 <h3 class="govuk-heading-s">
                 {{data.mainContent.exceptionHeader}}
                 </h3>
