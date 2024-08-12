@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Plant or plant product",
+    "headerText": "Plant or plant product or seeds",
     "preferredNameHeading": "Preferred name",
     "commonNameHeading": "Common names",
     "synonymNameHeading": "Synonyms",
@@ -14,11 +14,11 @@
     "prohibitedContentText3": "Even with import restrictions, you may, in special cases, be able to",
     "pestHeader": "Pests and diseases you must report",
     "pestContentText1": "There are currently no pests or diseases from",
-    "pestContentText2": "to report for this plant or plant product",
+    "pestContentText2": "to report for these goods",
     "pestContentHundredPercentText1": "Different formats of",
     "pestContentHundredPercentText2": "might carry the pests or diseases from",
     "pestContentHundredPercentText3": "listed at the bottom of the page.",
-    "pestContentHundredPercentText4": "These pests and diseases are considered a risk to Great Britain's agriculture, horticulture or wildlife. Consignments may be destroyed because of these pests.",
+    "pestContentHundredPercentText4": "These pests and diseases are considered a risk to Great Britain's agriculture, horticulture, wildlife or forests. Consignments may be destroyed because of them.",
     "pestContentHundredPercentText5": "You must",
     "pestContentScientificHeader": "Scientific name",
     "pestContentCommonHeader": "Common names",

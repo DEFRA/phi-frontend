@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Planhigyn neu gynnyrch planhigion",
+    "headerText": "Planhigyn neu gynnyrch planhigion neu hadau",
     "preferredNameHeading": "Enw a Ffefrir",
     "commonNameHeading": "Enwau cyffredin",
     "synonymNameHeading": "Cyfystyron",
@@ -14,11 +14,11 @@
     "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu",
     "pestHeader": "Plâu a chlefydau y mae'n rhaid i chi roi gwybod amdanynt",
     "pestContentText1": "Ar hyn o bryd nid oes unrhyw blâu neu afiechydon o",
-    "pestContentText2": "adrodd ar gyfer y planhigyn neu'r cynnyrch planhigyn hwn",
+    "pestContentText2": "i adrodd am y nwyddau hyn",
     "pestContentHundredPercentText1": "Fformat gwahanol o",
     "pestContentHundredPercentText2": "a allai gludo'r plâu neu'r clefydau o",
     "pestContentHundredPercentText3": "a restrir ar waelod y dudalen.",
-    "pestContentHundredPercentText4": "Ystyrir bod y plâu a'r clefydau hyn yn risg i amaethyddiaeth, garddwriaeth neu fywyd gwyllt Prydain Fawr. Gall llwythi gael eu dinistrio oherwydd y plâu hyn.",
+    "pestContentHundredPercentText4": "Ystyrir bod y plâu a'r clefydau hyn yn risg i amaethyddiaeth, garddwriaeth, bywyd gwyllt neu goedwigoedd Prydain Fawr. Gall llwythi gael eu dinistrio o'u herwydd.",
     "pestContentScientificHeader": "Enw gwyddonol",
     "pestContentCommonHeader": "Enwau cyffredin",
     "pestContentFormatHeader1": "Fformatau yr effeithir arnynt o",
