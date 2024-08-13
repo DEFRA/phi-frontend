@@ -241,6 +241,7 @@
         checkForEmptyArray[0]['synonymNames'].length === 0) {
         var liNew = document.createElement('li');
         liNew.className = "govuk-task-list__item govuk-task-list__item--with-link";
+         liNew.ariaLabel="List items"
         liNew.textContent = "No results found"
         searchResults.appendChild(liNew);
          var cslRefElement = document.getElementById('cslRef');
@@ -292,25 +293,26 @@
       division.id = 'div-'+ sname + i;
       division.innerHTML = synonymInnerHTMLText
       division.style.paddingLeft = '5px';
+        division.ariaLabel=division.textContent;
       var li = document.createElement('li');
       li.className = "govuk-task-list__item govuk-task-list__item--with-link";
-      li.id = 'synonymName' + i;
+      li.id = sname + i;
       li.appendChild(division)
       var inputHref = document.createElement('input');
       inputHref.id = 'cslRef'+ sname +i;    
-    
+    inputHref.ariaLabel='cslRef'+ item.cslRef;
       inputHref.style = 'display:none'
       inputHref.setAttribute('value', item.cslRef);   
       var inputEppo = document.createElement('input');
       inputEppo.id = 'eppoCode'+ sname +i;
       inputEppo.style = 'display:none'
        inputEppo.setAttribute('value', item.eppoCode);
+       inputEppo.ariaLabel='eppoCode'+ item.eppoCode;
       li.appendChild(inputHref)
       li.appendChild(inputEppo)
       var anchorTwo = document.createElement('a');
-      anchorTwo.className = "govuk-link govuk-task-list__link";
-      anchorTwo.href = "#";
-      anchorTwo.id =  sname + i;
+      anchorTwo.className = "govuk-link govuk-task-list__link";     
+      anchorTwo.id = 'anchor-'+ sname + i;
       division.appendChild(anchorTwo);
       searchResults.appendChild(li);
     })
@@ -321,18 +323,22 @@
     var liOne = document.createElement('li');
     liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
     liOne.id = index;
+    liOne.ariaLabel="list"
     var divisionOne = document.createElement('div');
     divisionOne.className = "govuk-task-list__name-and-hint";
     divisionOne.id = 'div-'+index;
     divisionOne.style.paddingLeft = '5px';
+    divisionOne.ariaLabel=divisionOne.textContent
     var inputHref = document.createElement('input');
     inputHref.id = 'cslRef'+index;
     inputHref.style = 'display:none'
     inputHref.setAttribute('value', item.cslRef);
+    inputHref.ariaLabel= 'cslref-'+ item.cslRef
     var inputEppo = document.createElement('input');
     inputEppo.id = 'eppoCode'+index;
     inputEppo.style = 'display:none'
     inputEppo.setAttribute('value', item.eppoCode);
+    inputEppo.ariaLabel='eppoCode-' +item.eppoCode
     liOne.appendChild(inputHref)
     liOne.appendChild(inputEppo)
     var latinName, commonName, synonymName;
@@ -398,20 +404,19 @@
     }
 
      var anchorOne = document.createElement('a');
-    anchorOne.className = "govuk-link govuk-task-list__link";
-    anchorOne.href = "#";
-    anchorOne.id = index;
+    anchorOne.className = "govuk-link govuk-task-list__link";    
+    anchorOne.id = 'anchor-'+index;
     divisionOne.appendChild(anchorOne);
-    searchResults.style.display = 'inline-block';
-    
+    searchResults.style.display = 'inline-block';    
    searchResults.addEventListener('click', function(e) {
+    var targetId = e.target.id.split("-")  
      var autocompleteInputValue = document.getElementById('query');
-      autocompleteInputValue.value = document.getElementById('div-' + e.target.id).textContent;
+      autocompleteInputValue.value = document.getElementById('div-' + targetId[1]).textContent;
      
       var cslRefElement = document.getElementById('cslRef');
       var eppoCodeElement = document.getElementById('eppoCode');    
-       cslRefElement.value = document.getElementById('cslRef'+ e.target.id).value;      
-    eppoCodeElement.value =document.getElementById('eppoCode'+e.target.id).value;   
+       cslRefElement.value = document.getElementById('cslRef'+ targetId[1]).value;      
+    eppoCodeElement.value =document.getElementById('eppoCode'+targetId[1]).value;   
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
     });
