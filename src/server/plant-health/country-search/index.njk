@@ -170,13 +170,15 @@
        await exactmatch()
       searchResults.style.display = 'inline-block';
       searchResults.addEventListener('click', function(e) {
-      var inputCodeValue = document.getElementById('inputCode'+e.target.id.slice(-1));
+        var targetId = e.target.id.split("-")
+      var inputCodeValue = document.getElementById('inputCode'+targetId[1].slice(-1));
       var countryCodeElement = document.getElementById('countryCode');
       if(inputCodeValue.value.length > 0){
         countryCodeElement.setAttribute('value', inputCodeValue.value);
       } 
       var autocompleteInputValue = document.getElementById('query');
-      autocompleteInputValue.value = document.getElementById('div-'+e.target.id).textContent; 
+     
+      autocompleteInputValue.value = document.getElementById('div-'+targetId[1]).textContent; 
        searchResults.innerHTML = '';
       searchResults.style.display = 'none';
       emptyCoutrySearchValue.value = false;
@@ -204,25 +206,30 @@
       var inputCode = document.createElement('input');
       inputCode.id = 'inputCode' +index;
       inputCode.style = 'display:none'
+      inputCode.ariaLabel='inputCode' +index
       inputCode.setAttribute('value', item.COUNTRY_CODE);
       var li = document.createElement('li');
       li.className = "govuk-task-list__item govuk-task-list__item--with-link";
       li.id = 'searchResults'+index;
+      li.ariaLabel='list'
       li.appendChild(inputCode)
       searchResults.appendChild(li);
-      var division = document.createElement('div');
+      var division = document.createElement('div');     
       division.className = "govuk-task-list__name-and-hint";
       division.id = 'div-searchResults'+index;
       division.style.paddingLeft = '5px';
       li.appendChild(division);  
+       
       var result;
       regexValue = inputValue.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
       result = item.COUNTRY_NAME.replace(new RegExp(regexValue, "gi"), match => `<strong>${match}</strong>`);
-      division.innerHTML = result;     
+      division.innerHTML = result;   
+      console.log("div text",division.textContent)  
       var anchor = document.createElement('a');
       anchor.className = "govuk-link govuk-task-list__link";
       anchor.href = "#";
-      anchor.id = 'searchResults'+index;
+      anchor.id = 'anchor-'+'searchResults'+index;
+       anchor.ariaLabel = division.textContent;
       division.appendChild(anchor);
     });
   }
