@@ -66,14 +66,26 @@ const formatPageController = {
             }
 
             if (result.seedIndicator?.length > 0) {
-              subFormatArray.push('Seeds')
+              if (format.toLowerCase() === 'plants for planting') {
+                subFormatArray.push('Seeds for planting')
+              } else if (format.toLowerCase() === 'produce') {
+                subFormatArray.push('Seeds for planting')
+              }
             }
 
             if (result.fruitIndicator?.length > 0) {
               subFormatArray.push('Fruit')
             }
             if (result.bonsaiIndicator?.length > 0) {
-              subFormatArray.push('Naturally and artificially dwarfed')
+              if (format.toLowerCase() === 'plants for planting') {
+                subFormatArray.push(
+                  'Naturally and artificially dwarfed plants for planting'
+                )
+              } else if (format.toLowerCase() === 'parts of plants') {
+                subFormatArray.push(
+                  'Naturally and artificially dwarfed parts of plants'
+                )
+              }
             }
             if (result.invintroIndicator?.length > 0) {
               subFormatArray.push('In vitro material')
@@ -83,16 +95,37 @@ const formatPageController = {
                 capitalizeFirstLetter(result.FormatClarification)
               )
             }
+            let dormantName
+            if (result.dormantIndicator?.length === 0) {
+              dormantName = 'dormant' + ' ' + format
+            } else {
+              dormantName = 'dormant'
+            }
+
+            let seedsName
+            if (format.toLowerCase() === 'plants for planting') {
+              seedsName = 'seeds for planting'
+            } else if (format.toLowerCase() === 'produce') {
+              seedsName = 'seeds for eating'
+            }
+
+            let bonsoiName
+            if (format.toLowerCase() === 'plants for planting') {
+              bonsoiName =
+                'naturally and artificially dwarfed plants for planting'
+            } else if (format.toLowerCase() === 'parts of plants') {
+              bonsoiName = 'naturally and artificially dwarfed parts of plants'
+            }
 
             const ulIndicatorList = [
-              { name: 'dormant', flag: result.dormantIndicator },
+              { name: dormantName, flag: result.dormantIndicator },
               { name: 'fruit', flag: result.fruitIndicator },
               { name: 'in vitro material', flag: result.invintroIndicator },
               {
-                name: 'naturally and artificially dwarfed',
+                name: bonsoiName,
                 flag: result.bonsaiIndicator
               },
-              { name: 'seeds', flag: result.seedIndicator }
+              { name: seedsName, flag: result.seedIndicator }
             ]
             let processedData = []
             processedData.push(
@@ -108,13 +141,21 @@ const formatPageController = {
             result.annex11RulesArr?.forEach(function (annex11) {
               if (
                 annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
-                  'seeds for planting' ||
+                'seeds for planting'
+              ) {
+                removedProcessedData = processedData[0]
+                  ?.split(' or ')
+                  ?.filter(function (el) {
+                    return el.toLowerCase() !== 'seeds for planting'
+                  })
+              }
+              if (
                 annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for eating'
               ) {
                 removedProcessedData = processedData[0]
                   ?.split(' or ')
                   ?.filter(function (el) {
-                    return el.toLowerCase() !== 'seeds'
+                    return el.toLowerCase() !== 'seeds for eating'
                   })
               }
               if (
@@ -143,7 +184,9 @@ const formatPageController = {
                 } else {
                   if (result.dormantIndicator?.length > 0) {
                     processedData = []
-                    removedProcessedData = processedData?.push('Dormant')
+                    removedProcessedData = processedData?.push(
+                      'Dormant' + ' ' + format
+                    )
                   }
                 }
               }
@@ -169,7 +212,9 @@ const formatPageController = {
                     result.bonsoiIndicator?.length === 0
                   ) {
                     processedData = []
-                    removedProcessedData = processedData?.push('Dormant')
+                    removedProcessedData = processedData?.push(
+                      'Dormant' + ' ' + format
+                    )
                   }
                 }
               }
@@ -270,7 +315,7 @@ const formatPageController = {
           } else {
             return h.redirect(
               '/check-plant-health-information-and-import-rules/problem-with-service?statusCode=' +
-                result.response.status
+                result?.response?.status
             )
           }
         }

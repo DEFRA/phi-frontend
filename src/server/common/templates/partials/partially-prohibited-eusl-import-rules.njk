@@ -13,10 +13,10 @@
    {% set processedData =  data.removedProcessedData %}
   {% else %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting')%}
-   {% set processedData =  'Seeds'%}
+   {% set processedData =  'Seeds for planting'%}
   {% endif %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating')%}
-    {% set  processedData =   'Seeds' %}
+    {% set  processedData =   'Seeds for eating' %}
   {% endif %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'root and tubercle vegetables')%}
     {% set processedData =  'Produce' %}
