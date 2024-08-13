@@ -16,11 +16,10 @@
  {% if errors.list %}
     {{ govukErrorSummary(errors.list) }}
   {% endif %}
-  <form action='/plant-health/search' method="get">
-  <label for="Plantsearch"></label>
+  <form action='/plant-health/search' method="get">  
     <div id="frontendUrl" style="display: none;">{{frontendUrl}}</div>
-    <div aria-labelledby="plantsearch" class="govuk-form-group">
-      <h1 aria-labelledby="heading" class="govuk-label-wrapper">
+    <div aria-label="plantsearch" class="govuk-form-group">
+      <h1 aria-label="heading" class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="searchinput">
           {{mainContent.headerText}}
         </label>
