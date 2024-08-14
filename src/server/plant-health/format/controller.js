@@ -57,20 +57,37 @@ const formatPageController = {
           }
           result = await invokeWorkflowApi(plantDetails)
           if (result.hostRef) {
+            let dormantName
+            if (result.dormantIndicator?.length === 1) {
+              dormantName = 'Dormant' + ' ' + format
+            } else {
+              dormantName = 'Dormant'
+            }
+
+            let seedsName
+            if (format.toLowerCase() === 'plants for planting') {
+              seedsName = 'seeds for planting'
+            } else if (format.toLowerCase() === 'produce') {
+              seedsName = 'seeds for eating'
+            }
+
+            let bonsoiName
+            if (format.toLowerCase() === 'plants for planting') {
+              bonsoiName =
+                'naturally and artificially dwarfed plants for planting'
+            } else if (format.toLowerCase() === 'parts of plants') {
+              bonsoiName = 'naturally and artificially dwarfed parts of plants'
+            }
             const subFormatArray = []
             function capitalizeFirstLetter(string) {
               return string?.charAt(0)?.toUpperCase() + string?.slice(1)
             }
             if (result.dormantIndicator?.length > 0) {
-              subFormatArray.push('Dormant')
+              subFormatArray.push(dormantName)
             }
 
             if (result.seedIndicator?.length > 0) {
-              if (format.toLowerCase() === 'plants for planting') {
-                subFormatArray.push('Seeds for planting')
-              } else if (format.toLowerCase() === 'produce') {
-                subFormatArray.push('Seeds for planting')
-              }
+              subFormatArray.push(seedsName)
             }
 
             if (result.fruitIndicator?.length > 0) {
@@ -95,30 +112,12 @@ const formatPageController = {
                 capitalizeFirstLetter(result.FormatClarification)
               )
             }
-            let dormantName
-            if (result.dormantIndicator?.length === 0) {
-              dormantName = 'dormant' + ' ' + format
-            } else {
-              dormantName = 'dormant'
-            }
-
-            let seedsName
-            if (format.toLowerCase() === 'plants for planting') {
-              seedsName = 'seeds for planting'
-            } else if (format.toLowerCase() === 'produce') {
-              seedsName = 'seeds for eating'
-            }
-
-            let bonsoiName
-            if (format.toLowerCase() === 'plants for planting') {
-              bonsoiName =
-                'naturally and artificially dwarfed plants for planting'
-            } else if (format.toLowerCase() === 'parts of plants') {
-              bonsoiName = 'naturally and artificially dwarfed parts of plants'
-            }
 
             const ulIndicatorList = [
-              { name: dormantName, flag: result.dormantIndicator },
+              {
+                name: dormantName?.toLowerCase(),
+                flag: result.dormantIndicator
+              },
               { name: 'fruit', flag: result.fruitIndicator },
               { name: 'in vitro material', flag: result.invintroIndicator },
               {
@@ -184,9 +183,7 @@ const formatPageController = {
                 } else {
                   if (result.dormantIndicator?.length > 0) {
                     processedData = []
-                    removedProcessedData = processedData?.push(
-                      'Dormant' + ' ' + format
-                    )
+                    removedProcessedData = processedData?.push(dormantName)
                   }
                 }
               }
@@ -212,9 +209,7 @@ const formatPageController = {
                     result.bonsoiIndicator?.length === 0
                   ) {
                     processedData = []
-                    removedProcessedData = processedData?.push(
-                      'Dormant' + ' ' + format
-                    )
+                    removedProcessedData = processedData?.push(dormantName)
                   }
                 }
               }
@@ -255,7 +250,9 @@ const formatPageController = {
             }
             removedProcessedData = resultHeaderArray
             if (removedProcessedData?.length > 0) {
-              removedProcessedData = removedProcessedData?.join(' ')?.split(',')
+              removedProcessedData = removedProcessedData
+                ?.join(' ')
+                ?.split('or,')
               removedProcessedData = capitalizeFirstLetter(
                 removedProcessedData[0]
               )
