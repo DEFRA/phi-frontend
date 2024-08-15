@@ -46,7 +46,9 @@
           format: newFormat,
           searchQuery: searchQuery,
           urlText: "apply for a permit to move your goods.",
-          url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application"
+          url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application",
+          urlText1: "rules in England and Wales for invasive non-native plant species.",
+          url1: "https://www.gov.uk/guidance/invasive-non-native-alien-plant-species-rules-in-england-and-wales"
           } %}
           {% include "partials/import-rules.njk" %}
         {% else %}
@@ -112,12 +114,18 @@
       {% if (pest_names.length === 0) %}
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
-        <p class="govuk-body">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | replace(")", "")  | capitalize}} 
-          {{mainContent.pestContentHundredPercentText2}} 
-          {{countrySearchQuery.value }} 
-          {{mainContent.pestContentHundredPercentText3}} 
-          {{mainContent.pestContentHundredPercentText4}}
-          </p>
+         <p class="govuk-body">
+           {{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | replace(")", "")  | capitalize}} 
+            {{mainContent.pestContentHundredPercentText2}} 
+            {{countrySearchQuery.value }} 
+            {{mainContent.pestContentHundredPercentText3}} 
+            {{mainContent.pestContentHundredPercentText4}}
+         {% if (annexSixRule) and (annexSixRule === 'INNS') %}           
+          {{mainContent.innsPestContent}}
+         {% else %} 
+          {{mainContent.pestContentHundredPercentText41}}
+         {% endif %}
+        </p>
           <p class="govuk-body">
             {{mainContent.pestContentHundredPercentText5}}
             <a class="govuk-link"
