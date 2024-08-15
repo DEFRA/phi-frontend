@@ -92,6 +92,8 @@
     {% set 11AimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11AimportRules  = 'true'%}
+    {%elif item['BTOM_EUSL'] === '11A' and data.result.ProhibitionClarification.length > 0 and item['SERVICE_SUBFORMAT'].length > 0%}
+    {% set 11AimportRules  = 'true'%}
     {% endif %}
   {%endif%}
 {% else %}
@@ -113,6 +115,8 @@
     {% if item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11AimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11AimportRules  = 'true'%}
+    {%elif item['BTOM_EUSL'] === '11A' and data.result.ProhibitionClarification.length > 0 and item['SERVICE_SUBFORMAT'].length > 0%}
     {% set 11AimportRules  = 'true'%}
     {% endif %}
   {%endif%}
@@ -202,6 +206,8 @@
     {% set 11BimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11BimportRules  = 'true'%}
+     {%elif item['BTOM_EUSL'] === '11B' and data.result.ProhibitionClarification.length > 0 and item['SERVICE_SUBFORMAT'].length > 0%}
+    {% set 11BimportRules  = 'true'%}
     {% endif %}
   {%endif%}
 {% else %}
@@ -223,6 +229,8 @@
     {% if item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11BimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11BimportRules  = 'true'%}
+     {%elif item['BTOM_EUSL'] === '11B' and data.result.ProhibitionClarification.length > 0 and item['SERVICE_SUBFORMAT'].length > 0%}
     {% set 11BimportRules  = 'true'%}
     {% endif %}
   {%endif%}
@@ -307,6 +315,8 @@
     {% set 11CimportRules  = 'true'%}
     {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11CimportRules  = 'true'%}
+    {%elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')  and data.result.ProhibitionClarification.length > 0 and item['SERVICE_SUBFORMAT'].length > 0%}
+    {% set 11CimportRules  = 'true'%}
     {% endif %} 
   {% endif %}   
 {% else %}
@@ -328,6 +338,8 @@
     {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 %}
     {% set 11CimportRules  = 'true'%}
     {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
+    {% set 11CimportRules  = 'true'%}
+    {%elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR')  and data.result.ProhibitionClarification.length > 0 and item['SERVICE_SUBFORMAT'].length > 0%}
     {% set 11CimportRules  = 'true'%}
     {% endif %} 
   {% endif %}   
