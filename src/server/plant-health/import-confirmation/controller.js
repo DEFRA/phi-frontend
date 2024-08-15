@@ -29,7 +29,7 @@ const importConfirmationController = {
         const eppoCode = request.yar.get('eppoCode')?.value
         return h.view('plant-health/search/index', {
           pageTitle:
-            'What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
+            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           getHelpSection,
           hostRef,
@@ -75,7 +75,7 @@ const importConfirmationController = {
           getHelpSection,
           radiobuttonValue,
           pageTitle:
-            'Where are you importing your plant or plant product to? — Check plant health information and import rules — GOV.UK',
+            'Where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK',
           heading: 'ImportConfirmation',
           errors,
           errorMessage

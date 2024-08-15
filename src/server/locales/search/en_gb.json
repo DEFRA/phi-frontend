@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "What plant or plant product are you importing?",
+    "headerText": "What plant, plant product or seeds are you importing?",
     "searchText1": "You can enter the scientific name or any synonyms or common names.",
     "buttonText": "Continue"
   },
@@ -15,6 +15,6 @@
   },
   "errors": {
     "titleText": "There is a problem",
-    "searchErrorListText": "Enter the name of the plant or plant product you are importing"
+    "searchErrorListText": "Enter the name of the plant, plant product or seeds you are importing"
   }
 }
