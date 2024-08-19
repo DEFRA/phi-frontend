@@ -24,16 +24,27 @@ const purposeOfVisitController = {
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
+        if (request.query.pestsearchQuery) {
+          request.yar.set('pestsearchQuery', {
+            value: request.query.pestsearchQuery
+          })
+        }
+        const pestsearchQuery = request.yar?.get('pestsearchQuery')
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
+        const cslRef = request.yar.get('cslRef')?.value
+        const eppoCode = request.yar.get('eppoCode')?.value
 
         return h.view('plant-health/pest-search/index.njk', {
           mainContent,
           getHelpSection,
+          cslRef,
+          eppoCode,
+          pestsearchQuery,
           serviceUnavailablePage,
           pageTitle:
-            'What do you want to find out? — Check plant health information and import rules — GOV.UK',
+            'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
           heading: 'Pest'
         })
       } else {

@@ -31,6 +31,7 @@ const searchPageController = {
       const searchValue = searchInput?.value
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
+
       if (searchValue && hostRef) {
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar.get('fullSearchQuery')

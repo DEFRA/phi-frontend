@@ -1,30 +1,56 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { config } from '~/src/config'
+import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { proxyFetch } from '~/src/server/common/helpers/proxy-fetch'
 const axios = require('axios')
 const pestSearchController = {
   handler: async (request, h) => {
     if (request != null) {
-      const data = await getDefaultLocaleData('pest-details')
+      let page = ''
+      let cslGlobal = ''
+
       request.yar.set('cslRef', {
         value: request.query.cslRef
       })
-      const cslRef = request?.yar?.get('cslRef')?.value
+
+      request.yar.set('pestsearchQuery', {
+        value: decodeURI(
+          request.query.pestsearchQuery?.replace(/ *\([^)]*\) */g, '')
+        )
+      })
+
+      request.yar.set('eppoCode', {
+        value: request.query.eppoCode
+      })
+
+      const data = await getDefaultLocaleData('pest-details')
+      const mainContent = data?.mainContent
+      request.yar.set('errors', '')
+      request.yar.set('errorMessage', '')
+
+      const pestsearchQuery = request?.yar?.get('pestsearchQuery')
+
       const getHelpSection = data?.getHelpSection
 
-      if (request.query?.getcsl !== '' || cslRef !== '') {
-        let pestDetails
-        if (request.query?.getcsl) {
-          pestDetails = {
-            cslRef: parseInt(request.query?.getcsl)
-          }
-        } else {
-          pestDetails = {
-            cslRef: parseInt(cslRef)
-          }
+      if (!request.query.getcsl) {
+        request.yar.set('fullSearchQuery', {
+          value: decodeURI(request.query.pestsearchQuery)
+        })
+        page = 'pestsearch'
+        const cslRef = request.query.cslRef
+        cslGlobal = cslRef
+      } else {
+        page = 'plantdetails'
+        cslGlobal = parseInt(request.query?.getcsl)
+      }
+
+      let pestDetails
+
+      if (cslGlobal && pestsearchQuery.value !== '') {
+        pestDetails = {
+          cslRef: parseInt(cslGlobal)
         }
         const result = await invokepestdetailsAPI(pestDetails)
-
         async function invokepestdetailsAPI(payload) {
           try {
             const response = await axios.post(
@@ -37,10 +63,6 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-
-        const mainContent = data?.mainContent
-        request.yar.set('errors', '')
-        request.yar.set('errorMessage', '')
 
         const plantLinkMap = new Map()
 
@@ -305,29 +327,58 @@ const pestSearchController = {
 
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
-        return h.view('plant-health/pest-details/index', {
-          pageTitle:
-            result.pest_detail[0].PEST_NAME[0].NAME +
-            ' — Check plant health information and import rules — GOV.UK',
-          heading: 'Pestdetails',
-          getHelpSection,
+        if (cslGlobal) {
+          return h.view('plant-health/pest-details/index', {
+            pageTitle:
+              result.pest_detail[0].PEST_NAME[0].NAME +
+              ' — Check plant health information and import rules — GOV.UK',
+            heading: 'Pestdetails',
+            getHelpSection,
+            mainContent,
+            cslRef: cslGlobal,
+            eppoCode,
+            resultofPhoto,
+            photoURL,
+            photores,
+            Annex3URL,
+            pestsearchQuery,
+            ContactAuthURL,
+            quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
+            preferredName: result.pest_detail[0].PEST_NAME[0].NAME,
+            commonNames: commonNameSorted,
+            synonymNames: SynonymNameSorted,
+            plantLinkMapsorted,
+            otherPublications,
+            factsheetlinks,
+            Rnpmap,
+            page,
+            Othermap
+          })
+        }
+      } else {
+        const errorData = await getDefaultLocaleData('pest-search')
+        // const pestsearchQuery = request.yar?.get('pestsearchQuery')
+
+        const errorSection = errorData?.errors
+        setErrorMessage(
+          request,
+          errorSection.titleText,
+          errorSection.searchErrorListText
+        )
+
+        const errors = request.yar?.get('errors')
+        const errorMessage = request.yar?.get('errorMessage')
+
+        return h.view('plant-health/pest-search/index.njk', {
           mainContent,
-          cslRef: result.pest_detail[0].CSL_REF,
-          eppoCode,
-          resultofPhoto,
-          photoURL,
-          photores,
-          Annex3URL,
-          ContactAuthURL,
-          quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
-          preferredName: result.pest_detail[0].PEST_NAME[0].NAME,
-          commonNames: commonNameSorted,
-          synonymNames: SynonymNameSorted,
-          plantLinkMapsorted,
-          otherPublications,
-          factsheetlinks,
-          Rnpmap,
-          Othermap
+          getHelpSection,
+          pestsearchQuery,
+          pageTitle:
+            'What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
+          heading: 'Search',
+          errors,
+          page,
+          errorMessage
         })
       }
     }

@@ -9,7 +9,12 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   {# todo add back link #}
-   <a  href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a> 
+  {% if page == "pestsearch" %}
+   <a href="/plant-health/purpose-of-visit?whatdoyouwanttofind=pest&pestsearchQuery={{pestsearchQuery.value}}&cslRef={{cslRef}}" class="govuk-back-link" type='button'>Back</a> 
+{% else %}
+ <a href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a> 
+
+{% endif %}
 {% endblock %}
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -23,7 +28,7 @@
       {% set data = {
     mainContent: mainContent,
     preferredName:preferredName,
-    searchQuery: pestSearchQuery,
+    pestsearchQuery: pestsearchQuery,
     commonNames: commonNames,
     synonymNames: synonymNames,
     factsheetlinks : factsheetlinks ,
@@ -32,6 +37,7 @@
     Annex3URL : Annex3URL,
     ContactAuthURL : ContactAuthURL,
      Rnpmap:Rnpmap,
+     page:page,
         Othermap:  Othermap,
         photoURL:photoURL
        
@@ -73,9 +79,9 @@
  {% if (data.quarantineIndicator =='R') and (Othermap.length > 0 )  %} 
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}} {{data.preferredName }}</h2>
+{{data.mainContent.HeaderText5}}  {{searchQuery.value | replace(")", "")  | capitalize}}</h2>
 <br>
-<p class="govuk-body">{{data.preferredName }} {{data.mainContent.content19 }} </p>
+<p class="govuk-body"> {{searchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content19 }} </p>
 
  
 
@@ -109,20 +115,21 @@
  {%endif%}
 {% if (data.quarantineIndicator =='R') and (Othermap.length === 0 )  %} 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}} {{data.preferredName }}</h2>
+{{data.mainContent.HeaderText5}}  {{searchQuery.value | replace(")", "")  | capitalize}}</h2>
  <br>
-<p class="govuk-body"> {{data.mainContent.Noplantscontent }} {{data.preferredName }} </p>
+<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{searchQuery.value | replace(")", "")  | capitalize}} </p>
 {%endif%}
 
 
     {% if data.quarantineIndicator !='R'  %} 
+     <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
+    {{data.mainContent.HeaderText4}}  {{searchQuery.value | replace(")", "")  | capitalize}}</h2>
+
  {% if plantLinkMapsorted.size === 0  %} 
- <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}} {{data.preferredName }}</h2>
  <br>
-<p class="govuk-body"> {{data.mainContent.Noplantscontent }} {{data.preferredName }} </p>
+<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{searchQuery.value | replace(")", "")  | capitalize}} </p>
   {% else %}
-  
+  <br>
     <table class="govuk-table">
  
    <thead class="govuk-table__head">
