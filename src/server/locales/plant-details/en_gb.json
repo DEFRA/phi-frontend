@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Plant or plant product",
+    "headerText": "Plant, plant product or seeds",
     "preferredNameHeading": "Preferred name",
     "commonNameHeading": "Common names",
     "synonymNameHeading": "Synonyms",
@@ -17,7 +17,7 @@
     "innsPestContent": "Even if you have a permit under the Invasive Alien Species Order 2019, they may be destroyed if needed  due to disease risk.",
     "pestHeader": "Pests and diseases you must report",
     "pestContentText1": "There are currently no pests or diseases from",
-    "pestContentText2": "to report for this plant or plant product",
+    "pestContentText2": "to report for these goods",
     "pestContentHundredPercentText1": "Different formats of",
     "pestContentHundredPercentText2": "might carry the pests or diseases from",
     "pestContentHundredPercentText3": "listed at the bottom of the page.",

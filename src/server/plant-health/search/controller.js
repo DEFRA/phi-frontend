@@ -43,7 +43,7 @@ const searchPageController = {
           pageTitle:
             'Which country, state or territory are you importing ' +
             searchQuery.value +
-            ' — Check plant health information and import rules — GOV.UK',
+            'from? — Check plant health information and import rules — GOV.UK',
           heading: 'Country',
           getHelpSection,
           mainContent,
@@ -75,7 +75,7 @@ const searchPageController = {
           searchQuery,
           frontendUrl,
           pageTitle:
-            'What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
+            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           errors,
           errorMessage

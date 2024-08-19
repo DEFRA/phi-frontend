@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "I ble ydych chi'n mewnforio planhigion neu gynnyrch planhigion?",
+    "headerText": "I ble ydych chi'n mewnforio'ch planhigyn, cynnyrch planhigion neu hadau?",
     "radioButtonText1": "Prydain Fawr (Cymru, Lloegr a'r Alban)",
     "radioButtonText2": "Gogledd Iwerddon",
     "buttonText": "Parhewch"
@@ -21,6 +21,6 @@
   },
   "errors": {
     "titleText": "Mae yna broblem",
-    "purposeOfVisitErrorListText": "Dewiswch beth ydych chi am ei ddarganfod"
+    "purposeOfVisitErrorListText": "Dewiswch yr hyn yr hoffech ei ddarganfod"
   }
 }
