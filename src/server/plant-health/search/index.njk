@@ -461,8 +461,10 @@ var searchName =inputinsearch.toLowerCase()
   
    searchResults.addEventListener('click', function(e) {   
    var targetId = e.target.id.split("-")  
+   console.log("targetId",targetId[1]);
     var autocompleteInputValue = document.getElementById('query');
-    autocompleteInputValue.value = document.getElementById('div-' +targetId[1]).textContent;
+       
+
     var hostRefElement = document.getElementById('hostRef');
     var eppoCodeElement = document.getElementById('eppoCode');
     hostRefElement.value = document.getElementById('hostRef'+targetId[1]).value;

@@ -8,7 +8,7 @@
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-  <a href="/plant-health/import-confirmation?whereareyouimportinginto=gb&searchQuery={{fullSearchQuery.value}}" class="govuk-back-link" type='button'>Back</a>
+ <a href='/plant-health/purpose-of-visit' class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
   {% call appPageBody() %}
@@ -30,17 +30,19 @@
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input aria-label="pestsearch"  class="govuk-input govuk-input--error" id="query" autocomplete="off" name="pestSearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input aria-label="pestsearch"  class="govuk-input govuk-input--error" id="pestsearchQuery" autocomplete="off" name="pestsearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
-    {% if pestSearchQuery.value %}
-    <input aria-label="pestsearch" class="govuk-input" id="query" name="pestSearchQuery" autocomplete="off" type="text" value='{{pestSearchQuery.value}}'>
+    {% if pestsearchQuery.value != "undefined"  %}
+    <input aria-label="pestsearch" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" value='{{pestsearchQuery.value}}'>
     {% else %}
-     <input aria-label="pestsearch" class="govuk-input" id="query" name="pestSearchQuery" autocomplete="off" type="text">
+     <input aria-label="pestsearch" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" >
     {% endif %}
    {% endif %}
-    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.3%; max-height: 342px; display: none; overflow: auto"></ul>
-   <input aria-label="cslRef" id="cslRef" name="cslRef" style="display: none;"></input>
-    <input aria-label="eppoCode" id="eppoCode" name="eppoCode" style="display: none;"></input>
+    <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.29%; max-height: 450px; display: none; overflow: auto"></ul>
+ 
+   
+    <input aria-label="cslRef" id="cslRef" name="cslRef" style="display: none;" value={{cslRef}}></input>
+    <input aria-label="eppoCode" id="eppoCode" name="eppoCode" style="display: none; value="{{eppoCode}}"></input>
   </div>
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
@@ -52,7 +54,7 @@
  
   <script>
    
-    var searchInput = document.getElementById('query');
+    var searchInput = document.getElementById('pestsearchQuery');
     var searchResults = document.getElementById('searchResults');
     var inputValue;
     let currentIndex = -1;
@@ -69,8 +71,8 @@
   });
   
 
-  async function fetchSuggestions(query) {
-    var apiUrl = '/search/pests?searchQuery=' + query;
+  async function fetchSuggestions(pestsearchQuery) {
+    var apiUrl = '/search/pests?searchQuery=' + pestsearchQuery;
       try {
         const response = await fetch(apiUrl);
         const responseJSON = await response.json();
@@ -283,7 +285,7 @@
     var synonymInnerHTMLText
     synonymName.forEach(function(sname, i) {
       if (commonName.length > 0) {
-        synonymInnerHTMLText = capitalizeFirstLetter(sname) + " " + "( " + commonName + " )"
+        synonymInnerHTMLText = capitalizeFirstLetter(sname) + " " + "(" + commonName + ")"
       } else {
         synonymInnerHTMLText = capitalizeFirstLetter(sname)
       }
@@ -319,6 +321,7 @@
   }
 
   function createAndAppendLiElement(item, index) {
+  console.log("itemin createandappend",item);
   
     var liOne = document.createElement('li');
     liOne.className = "govuk-task-list__item govuk-task-list__item--with-link";
@@ -385,7 +388,7 @@
     var latinInnerHTMLText;
     if (commonName.length > 0) {
       if (latinName !== undefined && item.highlight !== 'SYNONYM_NAME' && latinName.split(' ')[1] !== undefined){
-       latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "( " + commonName + " )"
+       latinInnerHTMLText = capitalizeFirstLetter(latinName) + " " + "(" + commonName + ")"
       }
       synonymNameHTML(synonymName,item, commonName)
     } else {
@@ -409,16 +412,22 @@
     divisionOne.appendChild(anchorOne);
     searchResults.style.display = 'inline-block';    
    searchResults.addEventListener('click', function(e) {
+
     var targetId = e.target.id.split("-")  
-     var autocompleteInputValue = document.getElementById('query');
+    console.log(" targetId", targetId[1]);
+     var autocompleteInputValue = document.getElementById('pestsearchQuery');
+      console.log("document.getElementById('div-' +targetId[1])",document.getElementById('div-' +targetId[1]));
+    
       autocompleteInputValue.value = document.getElementById('div-' + targetId[1]).textContent;
      
       var cslRefElement = document.getElementById('cslRef');
       var eppoCodeElement = document.getElementById('eppoCode');    
-       cslRefElement.value = document.getElementById('cslRef'+ targetId[1]).value;      
+       cslRefElement.value = document.getElementById('cslRef'+ targetId[1]).value; 
+       console.log(" cslRefElement.value", cslRefElement.value);     
     eppoCodeElement.value =document.getElementById('eppoCode'+targetId[1]).value;   
       searchResults.innerHTML = '';
       searchResults.style.display = 'none';
+      this.removeEventListener('click', e);
     });
 
     
@@ -445,9 +454,9 @@
         liArray.forEach(li => ul.appendChild(li));
     }
 
-    document.getElementById('query').addEventListener('keydown', function(e)  {    
+    document.getElementById('pestsearchQuery').addEventListener('keydown', function(e)  {    
 
-      const dropdownButton = document.getElementById('query'); 
+      const dropdownButton = document.getElementById('pestsearchQuery'); 
     const dropdownContent = document.getElementById('searchResults');  
      const dropdownOptions = dropdownContent.getElementsByTagName("li")  
    
@@ -487,11 +496,13 @@
           searchResults.style.display = 'none';
           searchInput.setAttribute('aria-expanded', 'false');
           const element = dropdownOptions[currentIndex];          
-          const id =   element.querySelector("a").id       
+          const id =   element.querySelector("a").id    
+          console.log("id",id);
+          const Id =id.split("-")
     var cslRefElement = document.getElementById('cslRef');
       var eppoCodeElement = document.getElementById('eppoCode');     
-       cslRefElement.value = document.getElementById('cslRef'+ id).value;      
-    eppoCodeElement.value =document.getElementById('eppoCode'+ id).value;
+       cslRefElement.value = document.getElementById('cslRef'+ Id[1]).value;      
+    eppoCodeElement.value =document.getElementById('eppoCode'+ Id[1]).value;
        
         }
       } else if (event.key === 'Escape') {
@@ -506,15 +517,17 @@ async function exactmatch() {
       const dropdownContent = document.getElementById('searchResults');
     const options = dropdownContent.getElementsByTagName("li");
     
-     var inputinsearch = document.getElementById('query')?.value
+     var inputinsearch = document.getElementById('pestsearchQuery')?.value
     
     if(options.length === 1)
     {
    const divElement = options[0].querySelector("div");    
    const htmlName =options[0].querySelector("div").innerText .split("(")  
   
-var DbName =htmlName[0].toLowerCase();
-var searchName =inputinsearch.toLowerCase()
+  var DbName =htmlName[0].toLowerCase();
+  var searchName =inputinsearch.toLowerCase()
+  console.log("DbName",DbName)
+  console.log("searchName",searchName)
     if(DbName.trim() === searchName.trim())
     {   
       divElement.style.color="white"
@@ -556,7 +569,7 @@ function ensureVisible(activeItem) {
     x.classList.add("autocomplete-active");
   }
   function removeActive(x) {
-  const dropdownButton = document.getElementById('query'); 
+  const dropdownButton = document.getElementById('pestsearchQuery'); 
     const dropdownContent = document.getElementById('searchResults');
     const options = dropdownContent.getElementsByTagName("li");
    

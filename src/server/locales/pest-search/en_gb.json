@@ -16,7 +16,6 @@
   },
   "errors": {
     "titleText": "There is a problem",
-    "searchErrorListText1": "",
-    "searchErrorListText2": "from?"
+    "searchErrorListText": "Enter the name of the pest or disease you want to find out about"
   }
 }
