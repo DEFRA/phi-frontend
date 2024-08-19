@@ -99,7 +99,7 @@ const countrySearchController = {
           pageTitle:
             'Which country, state or territory are you importing ' +
             searchQuery.value +
-            ' — Check plant health information and import rules — GOV.UK',
+            'from? — Check plant health information and import rules — GOV.UK',
           heading: 'Country Search',
           errors,
           errorMessage
