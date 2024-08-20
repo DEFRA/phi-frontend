@@ -119,11 +119,18 @@
             {{mainContent.pestContentHundredPercentText2}} 
             {{countrySearchQuery.value }} 
             {{mainContent.pestContentHundredPercentText3}} 
-            {{mainContent.pestContentHundredPercentText4}}
-         {% if (annexSixRule) and (annexSixRule === 'INNS') %}           
+            
+         {% if (annexSixRule) and (annexSixRule === 'INNS') %}
+          {{mainContent.pestContentHundredPercentText4}}
+          {{mainContent.pestContentHundredPercentText41}}           
           {{mainContent.innsPestContent}}
-         {% else %} 
-          {{mainContent.pestContentHundredPercentText41}}
+         {% else %}
+           {% if (annexSixRule) and (annexSixRule !== 'INNS') and (outcome.toLowerCase() === 'prohibited') %} 
+            {{mainContent.pestContentHundredPercentText4}}
+            {{mainContent.pestContentHundredPercentText41}}
+           {% else %}
+              {{mainContent.pestContentHundredPercentText42}}
+          {% endif %}
          {% endif %}
         </p>
           <p class="govuk-body">
