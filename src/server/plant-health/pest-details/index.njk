@@ -79,10 +79,18 @@
  {% if (data.quarantineIndicator =='R') and (Othermap.length > 0 )  %} 
 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}}  {{searchQuery.value | replace(")", "")  | capitalize}}</h2>
+  {% if data.page == "pestsearch"  %}
+{{data.mainContent.HeaderText5}}  {{pestsearchQuery.value | replace(")", "")  | capitalize}}</h2>
+{%else%}
+{{data.mainContent.HeaderText5}}  {{data.preferredName | replace(")", "")  | capitalize}}</h2>
+{%endif%}
 <br>
-<p class="govuk-body"> {{searchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content19 }} </p>
+{% if data.page == "pestsearch"  %}
+<p class="govuk-body"> {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content19 }} </p>
+{%else%}
+<p class="govuk-body"> {{data.preferredName | replace(")", "")  | capitalize}} {{data.mainContent.content19 }} </p>
 
+{%endif%}
  
 
          <table class="govuk-table"> 
@@ -115,19 +123,34 @@
  {%endif%}
 {% if (data.quarantineIndicator =='R') and (Othermap.length === 0 )  %} 
 <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-{{data.mainContent.HeaderText5}}  {{searchQuery.value | replace(")", "")  | capitalize}}</h2>
+{% if data.page == "pestsearch"  %}
+{{data.mainContent.HeaderText5}}  {{pestsearchQuery.value | replace(")", "")  | capitalize}}</h2>
+   {%else%}
+{{data.mainContent.HeaderText5}}  {{data.preferredName | replace(")", "")  | capitalize}}</h2>
+ {%endif%}
  <br>
-<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{searchQuery.value | replace(")", "")  | capitalize}} </p>
+ {% if data.page == "pestsearch"  %}
+<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{pestsearchQuery.value | replace(")", "")  | capitalize}} </p>
+   {%else%}
+   <p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{data.preferredName | replace(")", "")  | capitalize}} </p>
+  {%endif%}
 {%endif%}
 
 
     {% if data.quarantineIndicator !='R'  %} 
      <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-    {{data.mainContent.HeaderText4}}  {{searchQuery.value | replace(")", "")  | capitalize}}</h2>
-
+      {% if data.page == "pestsearch"  %}
+    {{data.mainContent.HeaderText4}}  {{pestsearchQuery.value | replace(")", "")  | capitalize}}</h2>
+ {%else%}
+ {{data.mainContent.HeaderText4}}  {{data.preferredName| replace(")", "")  | capitalize}}</h2>
+{%endif%}
  {% if plantLinkMapsorted.size === 0  %} 
  <br>
-<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{searchQuery.value | replace(")", "")  | capitalize}} </p>
+  {% if data.page == "pestsearch"  %}
+<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{pestsearchQuery.value | replace(")", "")  | capitalize}} </p>
+   {%else%}
+   <p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{data.preferredName | replace(")", "")  | capitalize}} </p>
+  {%endif%}
   {% else %}
   <br>
     <table class="govuk-table">

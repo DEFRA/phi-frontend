@@ -198,11 +198,11 @@
   {% endif %}
 </h2>
 <p class="govuk-body">
- <p class="govuk-body">{{data.mainContent.content14}}  <a class="govuk-link govuk-body" href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/" >{{data.mainContent.content15}}   </a> {{data.mainContent.content16}}  {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content17}} {{data.mainContent.content18}} </p>
+ 
  {% if data.page == "pestsearch"  %}
-<p class="govuk-body">{{data.mainContent.content3}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content4}}</p>
+<p class="govuk-body">{{data.mainContent.content14}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
 {%else%} 
-<p class="govuk-body">{{data.mainContent.content3}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content4}}</p>
+<p class="govuk-body">{{data.mainContent.content14}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
 {% endif %}
       {% endif %}
  
