@@ -24,15 +24,17 @@ const purposeOfVisitController = {
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
+        request.yar.set('purposeOfVisitRadiooption', {
+          purposeOfVisit: 'pest'
+        })
+
         if (request.query.pestsearchQuery) {
           request.yar.set('pestsearchQuery', {
             value: request.query.pestsearchQuery
           })
         }
         const pestsearchQuery = request.yar?.get('pestsearchQuery')
-        request.yar.set('purposeOfVisitRadiooption', {
-          purposeOfVisit: 'pest'
-        })
+
         const cslRef = request.yar.get('cslRef')?.value
         const eppoCode = request.yar.get('eppoCode')?.value
 

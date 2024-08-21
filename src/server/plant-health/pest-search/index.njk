@@ -32,7 +32,7 @@
   </p>
   <input aria-label="pestsearch"  class="govuk-input govuk-input--error" id="pestsearchQuery" autocomplete="off" name="pestsearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
-    {% if pestsearchQuery.value != "undefined"  %}
+    {% if pestsearchQuery != "undefined"  %}
     <input aria-label="pestsearch" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" value='{{pestsearchQuery.value}}'>
     {% else %}
      <input aria-label="pestsearch" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" >

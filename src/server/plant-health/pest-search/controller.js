@@ -88,6 +88,8 @@ const pestSearchController = {
           }
         }
         function getPublicationDate(date) {
+          // from db - mm/dd/yyyy20/10/23
+
           const today = new Date(date) // yyyy-mm-dd
 
           // Getting short month name (e.g. "Oct")
@@ -374,7 +376,7 @@ const pestSearchController = {
           getHelpSection,
           pestsearchQuery,
           pageTitle:
-            'What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
+            'Error: What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           errors,
           page,
