@@ -56,6 +56,7 @@ const formatPageController = {
             country: request?.yar?.get('countrySearchQuery')?.value
           }
           result = await invokeWorkflowApi(plantDetails)
+          // return result
           if (result.hostRef) {
             let dormantName
             if (result.dormantIndicator?.length === 1) {
@@ -71,12 +72,12 @@ const formatPageController = {
               seedsName = 'seeds for eating'
             }
 
-            let bonsoiName
+            let bonsaiName
             if (format.toLowerCase() === 'plants for planting') {
-              bonsoiName =
-                'naturally and artificially dwarfed plants for planting'
-            } else if (format.toLowerCase() === 'parts of plants') {
-              bonsoiName = 'naturally and artificially dwarfed parts of plants'
+              bonsaiName =
+                'Naturally and artificially dwarfed plants for planting'
+            } else if (format.toLowerCase() === 'parts of a plant') {
+              bonsaiName = 'Naturally and artificially dwarfed parts of plants'
             }
             const subFormatArray = []
             function capitalizeFirstLetter(string) {
@@ -94,15 +95,7 @@ const formatPageController = {
               subFormatArray.push('Fruit')
             }
             if (result.bonsaiIndicator?.length > 0) {
-              if (format.toLowerCase() === 'plants for planting') {
-                subFormatArray.push(
-                  'Naturally and artificially dwarfed plants for planting'
-                )
-              } else if (format.toLowerCase() === 'parts of plants') {
-                subFormatArray.push(
-                  'Naturally and artificially dwarfed parts of plants'
-                )
-              }
+              subFormatArray.push(bonsaiName)
             }
             if (result.invintroIndicator?.length > 0) {
               subFormatArray.push('In vitro material')
@@ -121,7 +114,7 @@ const formatPageController = {
               { name: 'fruit', flag: result.fruitIndicator },
               { name: 'in vitro material', flag: result.invintroIndicator },
               {
-                name: bonsoiName,
+                name: bonsaiName?.toLowerCase(),
                 flag: result.bonsaiIndicator
               },
               { name: seedsName, flag: result.seedIndicator }
@@ -164,54 +157,6 @@ const formatPageController = {
                 removedProcessedData = processedData?.push(
                   'Root and tubercle vegetables'
                 )
-              }
-              if (
-                annex11.SERVICE_SUBFORMAT === '' &&
-                format.toLowerCase() === 'produce'
-              ) {
-                removedProcessedData = []
-                if (result.ProhibitionClarification?.length > 0) {
-                  if (annex11.SERVICE_SUBFORMAT_EXCLUDED?.length > 0) {
-                    processedData = []
-                    removedProcessedData = processedData?.push(
-                      capitalizeFirstLetter(format) +
-                        ' (other than ' +
-                        annex11.SERVICE_SUBFORMAT_EXCLUDED?.trim() +
-                        ')'
-                    )
-                  }
-                } else {
-                  if (result.dormantIndicator?.length > 0) {
-                    processedData = []
-                    removedProcessedData = processedData?.push(dormantName)
-                  }
-                }
-              }
-              if (
-                annex11.SERVICE_SUBFORMAT === '' &&
-                format.toLowerCase() === 'plants for planting'
-              ) {
-                removedProcessedData = []
-                if (result.ProhibitionClarification?.length > 0) {
-                  if (annex11.SERVICE_SUBFORMAT_EXCLUDED?.length > 0) {
-                    processedData = []
-                    removedProcessedData = processedData?.push(
-                      capitalizeFirstLetter(format) +
-                        ' (other than ' +
-                        annex11.SERVICE_SUBFORMAT_EXCLUDED.trim() +
-                        ')'
-                    )
-                  }
-                } else {
-                  if (
-                    result.dormantIndicator?.length > 0 &&
-                    result.invintroIndicator?.length === 0 &&
-                    result.bonsoiIndicator?.length === 0
-                  ) {
-                    processedData = []
-                    removedProcessedData = processedData?.push(dormantName)
-                  }
-                }
               }
               if (annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'fruit') {
                 removedProcessedData = processedData[0]
@@ -290,6 +235,8 @@ const formatPageController = {
               removedProcessedData,
               hostRef,
               format,
+              dormantName,
+              bonsaiName,
               countryCode,
               outcome: result.outcome,
               result,
