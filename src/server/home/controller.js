@@ -10,6 +10,7 @@ const homeController = {
     request.yar.set('searchQuery', null)
     request.yar.set('countrySearchQuery', null)
     request.yar.set('format', null)
+    request.yar.set('pestsearchQuery', null)
 
     const data = await getDefaultLocaleData('home')
     const govukHeading = data?.govukheading
