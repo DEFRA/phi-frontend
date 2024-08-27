@@ -51,6 +51,7 @@ const pestSearchController = {
           cslRef: parseInt(cslGlobal)
         }
         const result = await invokepestdetailsAPI(pestDetails)
+
         async function invokepestdetailsAPI(payload) {
           try {
             const response = await axios.post(
@@ -87,6 +88,33 @@ const pestSearchController = {
             return false
           }
         }
+
+        // function parseDate(dateString) {
+        //   const parts = dateString.split('/')
+        //   let day, month, year
+        //   const format = 'dd/mm/yyyy'
+        //   if (format === 'dd/mm/yyyy') {
+        //     day = parseInt(parts[0], 10)
+        //     month = parseInt(parts[1], 10) - 1 // Months are zero-indexed
+        //     year = parseInt(parts[2], 10)
+
+        //     // Add more format conditions if needed
+        //     const cdate = new Date(year, month, day)
+
+        //     const monthn = cdate.toLocaleString('default', { month: 'long' })
+        //     const datef = monthn + ' ' + cdate.getFullYear()
+        //     if (datef === 'Invalid Date NaN' || datef === ' ') {
+        //       return 'Not available'
+        //     } else {
+        //       return datef
+        //     }
+        //   }
+        // }
+
+        // Example usage
+
+        // Outputs: Tue Aug 27 2024 00:00:00 GMT+0000 (Coordinated Universal Time)
+
         function getPublicationDate(date) {
           // from db - mm/dd/yyyy20/10/23
 
@@ -127,6 +155,9 @@ const pestSearchController = {
               const res = getPublicationDate(
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
+              // const convertedDate = parseDate(
+              //   result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
+              // )
 
               const fcl = result.pest_detail[0].DOCUMENT_LINK[i]
               fcl.PUBLICATION_DATE_FORMATTED = res
