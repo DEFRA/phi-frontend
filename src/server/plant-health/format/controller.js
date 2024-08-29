@@ -232,6 +232,7 @@ const formatPageController = {
               getHelpSection,
               radiobuttonValue,
               processedData,
+              subFormatArray,
               removedProcessedData,
               hostRef,
               format,
