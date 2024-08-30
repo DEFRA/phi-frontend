@@ -18,25 +18,25 @@
   {% endif %}
   <form action='/plant-health/search' method="get">  
     <div id="frontendUrl" style="display: none;">{{frontendUrl}}</div>
-    <div aria-label="plantsearch" class="govuk-form-group">
-      <h1 aria-label="heading" class="govuk-label-wrapper">
+    <div  class="govuk-form-group">
+      <h1 class="govuk-label-wrapper">
         <label class="govuk-label govuk-label--l" for="searchinput">
           {{mainContent.headerText}}
         </label>
       </h1>
-      <label class="govuk-label govuk-!-padding-bottom-2" for="searchinput">
+      <label id="hint1" class="govuk-label govuk-!-padding-bottom-2" for="searchinput">
         {{mainContent.searchText1}}
       </label>
       {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">
-    <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
+    <span id="errormessage" class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input class="govuk-input govuk-input--error" aria-label="plantsearch" for ="searchinput"  autocomplete="off" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
+  <input class="govuk-input govuk-input--error" aria-describedby="event-name-error" for ="searchinput"  autocomplete="off" id="query" style="width: 100%" name="searchQuery" maxlength="125" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if searchQuery.value %}
-    <input class="govuk-input" id="query" aria-label="plantsearch"  for ="searchinput"  name="searchQuery" autocomplete="off" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
+    <input class="govuk-input" id="query" aria-describedby="hint1"  for ="searchinput"  name="searchQuery" autocomplete="off" style="width: 100%" type="text" maxlength="125" value='{{searchQuery.value}}'>
     {% else %}
-     <input class="govuk-input" id="query" aria-label="plantsearch"  for ="searchinput" name="searchQuery" autocomplete="off" style="width: 100%;" type="text" maxlength="125">
+     <input class="govuk-input" id="query" aria-describedby="hint1"  for ="searchinput" name="searchQuery" autocomplete="off" style="width: 100%;" type="text" maxlength="125">
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" for ="searchResults"  style="width: 99.29%; max-height: 450px; display: none; overflow: auto"></ul>

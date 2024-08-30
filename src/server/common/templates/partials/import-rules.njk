@@ -1,10 +1,10 @@
-<h2 class="govuk-heading-m">
+<h3 class="govuk-heading-m">
     {{data.mainContent.prohibitedHeader}}
-</h2>
+</h3>
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
-    <span class="govuk-warning-text__assistive"></span>
+    <span class="govuk-visually-hidden" >Warning </span>
     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
    </strong>
    </div> 
