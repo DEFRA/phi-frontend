@@ -19,23 +19,23 @@
   <form action='/plant-health/pest-search' method="get">
     <div aria-label="pestsearchform" class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="event-name">
+        <label id="pestsearch1" class="govuk-label govuk-label--l" for="pestsearch1">
          What pest or disease do you want to find about?
         </label>
       </h1>
-      <label class="govuk-label" for="event-name">
+      <label id="pestsearchhint" class="govuk-label" for="pestsearchhint">
        You can enter the scientific name or any synonyms or any common names.Only non-native pests and diseases that are a risk to Great Britain are included in this service.
       </label>
       {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input aria-label="pestsearch"  class="govuk-input govuk-input--error" id="pestsearchQuery" autocomplete="off" name="pestsearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input aria-describedby="event-name-error"  class="govuk-input govuk-input--error" id="pestsearchQuery" autocomplete="off" name="pestsearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if pestsearchQuery != "undefined"  %}
-    <input aria-label="pestsearch" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" value='{{pestsearchQuery.value}}'>
+    <input aria-describedby="pestsearch1" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" value='{{pestsearchQuery.value}}'>
     {% else %}
-     <input aria-label="pestsearch" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" >
+     <input aria-describedby="pestsearch1" class="govuk-input" id="pestsearchQuery" name="pestsearchQuery" autocomplete="off" type="text" >
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.29%; max-height: 450px; display: none; overflow: auto"></ul>
@@ -359,12 +359,13 @@
     })
     var strongElement = document.createElement('strong');
     strongElement.textContent = inputValue;
-    latinName = latinName?.toLowerCase()?.replace(inputValue, strongElement.outerHTML)
+   {# // latinName = latinName?.toLowerCase()?.replace(inputValue, strongElement.outerHTML) #}
+     latinName = latinName?.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
     var newCA = []
     commonName.forEach(function(cname) {
       var highlightCName;
       if (cname.match(new RegExp(regexValue, "gi"))) {
-        highlightCName = cname.toLowerCase().replace(inputValue, strongElement.outerHTML)
+      highlightCName = cname.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
         newCA.push(highlightCName);
       } else {
         newCA.push(cname);
@@ -374,8 +375,8 @@
     var newSA = []
     synonymName.forEach(function(sname) {
       var highlightSName;
-      if (sname.match(new RegExp(regexValue, "gi"))) {
-        highlightSName = sname.toLowerCase().replace(inputValue, strongElement.outerHTML)
+     if (sname.match(new RegExp(regexValue, "gi"))) {
+        highlightSName = sname.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
         newSA.push(highlightSName);
       }
       else{
@@ -445,7 +446,7 @@
         const liArray = Array.from(liElements);
 
         // Sort the array based on the text content of the li elements
-        liArray.sort((a, b) => a.textContent.localeCompare(b.textContent));
+        liArray.sort((a, b) => a.textContent.trim().localeCompare(b.textContent.trim()));
 
         // Clear the ul element
         ul.innerHTML = '';

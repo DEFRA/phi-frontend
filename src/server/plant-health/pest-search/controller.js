@@ -89,44 +89,28 @@ const pestSearchController = {
           }
         }
 
-        // function parseDate(dateString) {
-        //   const parts = dateString.split('/')
-        //   let day, month, year
-        //   const format = 'dd/mm/yyyy'
-        //   if (format === 'dd/mm/yyyy') {
-        //     day = parseInt(parts[0], 10)
-        //     month = parseInt(parts[1], 10) - 1 // Months are zero-indexed
-        //     year = parseInt(parts[2], 10)
+        function parseDate(dateString) {
+          const parts = dateString.split('/')
+          let day, month, year
+          const format = config.get('dateFormat')
 
-        //     // Add more format conditions if needed
-        //     const cdate = new Date(year, month, day)
+          if (format === 'dd/mm/yyyy') {
+            day = parseInt(parts[0], 10)
+            month = parseInt(parts[1], 10) - 1 // Months are zero-indexed
+            year = parseInt(parts[2], 10)
 
-        //     const monthn = cdate.toLocaleString('default', { month: 'long' })
-        //     const datef = monthn + ' ' + cdate.getFullYear()
-        //     if (datef === 'Invalid Date NaN' || datef === ' ') {
-        //       return 'Not available'
-        //     } else {
-        //       return datef
-        //     }
-        //   }
-        // }
+            // Add more format conditions if needed
+            const cdate = new Date(year, month, day)
 
-        // Example usage
-
-        // Outputs: Tue Aug 27 2024 00:00:00 GMT+0000 (Coordinated Universal Time)
-
-        function getPublicationDate(date) {
-          // from db - mm/dd/yyyy20/10/23
-
-          const today = new Date(date) // yyyy-mm-dd
-
-          // Getting short month name (e.g. "Oct")
-          const month = today.toLocaleString('default', { month: 'long' })
-          const datef = month + ' ' + today.getFullYear()
-          if (datef === 'Invalid Date NaN' || datef === ' ') {
-            return 'Not available'
+            const monthn = cdate.toLocaleString('default', { month: 'long' })
+            const datef = monthn + ' ' + cdate.getFullYear()
+            if (datef === 'Invalid Date NaN' || datef === ' ') {
+              return 'Not available'
+            } else {
+              return datef
+            }
           } else {
-            return datef
+            return 'Not available'
           }
         }
 
@@ -152,15 +136,12 @@ const pestSearchController = {
                 i
               ].DOCUMENT_TYPE.toUpperCase() === fc
             ) {
-              const res = getPublicationDate(
+              const convertedDate = parseDate(
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
-              // const convertedDate = parseDate(
-              //   result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
-              // )
 
               const fcl = result.pest_detail[0].DOCUMENT_LINK[i]
-              fcl.PUBLICATION_DATE_FORMATTED = res
+              fcl.PUBLICATION_DATE_FORMATTED = convertedDate
               fcl.TITLE =
                 result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
 
@@ -198,10 +179,13 @@ const pestSearchController = {
             } else {
               const ocl = result.pest_detail[0].DOCUMENT_LINK[i]
 
-              const res1 = getPublicationDate(
+              // const res1 = getPublicationDate(
+              //   result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
+              // )
+              const convertedDate1 = parseDate(
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
-              ocl.PUBLICATION_DATE_FORMATTED = res1
+              ocl.PUBLICATION_DATE_FORMATTED = convertedDate1
               if (
                 result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE !== ''
               ) {
@@ -407,7 +391,7 @@ const pestSearchController = {
           getHelpSection,
           pestsearchQuery,
           pageTitle:
-            'Error: What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
+            'Error: What pest or disease do you want to find about? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           errors,
           page,

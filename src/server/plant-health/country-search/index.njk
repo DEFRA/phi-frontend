@@ -23,26 +23,26 @@
     <input aria-label ="fullSearchQuery" id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
     <div class="govuk-form-group">
       <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="event-name">
+        <label id ="countrysearch1" class="govuk-label govuk-label--l" for="countrysearch1">
           {{mainContent.headerText1}} {{searchQuery.value  | replace(")", "") }}  {{mainContent.headerText2}}
         </label>
       </h1>
-      <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
+      <label id ="countrysearch2" class="govuk-label govuk-!-padding-bottom-2" for="countrysearch2">
         {{mainContent.searchText1}}
       </label>
-      <label class="govuk-label govuk-!-padding-bottom-2" for="event-name">
+      <label  id ="countrysearch3" class="govuk-label govuk-!-padding-bottom-2" for=""countrysearch3"">
         {{mainContent.searchText2}}
       </label>
       {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
-  <input aria-label ="countrySearchQuery" class="govuk-input govuk-input--error" id="query" aria-autocomplete="none" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
+  <input aria-describedby="event-name-error"  class="govuk-input govuk-input--error" id="query" aria-autocomplete="none" autocomplete="off" name="countrySearchQuery" type="text" aria-describedby="event-name-hint event-name-error">
  {% else %}
     {% if countrySearchQuery.value %}
-      <input aria-label ="countrySearchQuery" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
+      <input aria-describedby="countrysearch1" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text" value='{{countrySearchQuery.value}}'>
     {% else %}
-     <input aria-label ="countrySearchQuery" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text">
+     <input aria-describedby="countrysearch1" class="govuk-input" id="query" name="countrySearchQuery" aria-autocomplete="none" autocomplete="off" type="text">
     {% endif %}
    {% endif %}
     <ul class="govuk-task-list solid-div" id="searchResults" style="width: 99.29%; max-height: 450px; display: none; overflow: auto"></ul>
