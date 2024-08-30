@@ -75,7 +75,7 @@ const importConfirmationController = {
           getHelpSection,
           radiobuttonValue,
           pageTitle:
-            'Where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK',
+            'Select where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK',
           heading: 'ImportConfirmation',
           errors,
           errorMessage

@@ -56,6 +56,10 @@
   var searchResults = document.getElementById('searchResults');
   var inputValue;
   let currentIndex = -1;
+  var liSearching = document.createElement('li');
+  liSearching.className = "govuk-task-list__item";
+  liSearching.id = 'Searching';
+  liSearching.textContent = 'Searching...'
   searchInput.addEventListener('input', function() {
   currentIndex = -1;
    var hostRefElement = document.getElementById('hostRef');
@@ -64,6 +68,8 @@
     eppoCodeElement.value = '';
     inputValue = this
       .value.toLowerCase();
+    searchResults.appendChild(liSearching)
+    searchResults.style.display = 'inline-block';  
     if (inputValue.length > 2) {
       fetchSuggestions(inputValue);
     } else {

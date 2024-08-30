@@ -76,7 +76,7 @@ const searchPageController = {
           searchQuery,
           frontendUrl,
           pageTitle:
-            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
+            'Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           errors,
           errorMessage
