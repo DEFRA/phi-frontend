@@ -207,7 +207,7 @@
  {% if data.page == "pestsearch"  %}
 {{data.mainContent.HeaderText3}} {{pestsearchQuery.value | replace(")", "")  | capitalize}}
 {%else%} 
-{{data.mainContent.HeaderText3}} {{pestsearchQuery.value | replace(")", "")  | capitalize}}
+{{data.mainContent.HeaderText3}} {{data.preferredName | replace(")", "")  | capitalize}}
   {% endif %}
 </h2>
 <p class="govuk-body">
@@ -215,7 +215,7 @@
  {% if data.page == "pestsearch"  %}
 <p class="govuk-body">{{data.mainContent.content14}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
 {%else%} 
-<p class="govuk-body">{{data.mainContent.content14}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
+<p class="govuk-body">{{data.mainContent.content14}} {{data.preferredName| replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
 {% endif %}
       {% endif %}
  

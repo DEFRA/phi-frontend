@@ -246,7 +246,7 @@
        {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
         {% else %}
-        <h3 class="govuk-heading-s">{{processedData}}</h3>
+        <h4 class="govuk-heading-s">{{processedData}}</h4>
         {% endif %} 
       {% else %}
         {% if ulIndicatorFlag %}
@@ -393,7 +393,7 @@
     {% if data.result.hybridIndicator.length > 0 %}
      <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
     {% else %}
-     <h3 class="govuk-heading-s">{{processedData}}</h3>
+     <h4 class="govuk-heading-s">{{processedData}}</h4>
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}

@@ -131,28 +131,28 @@
   {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
     <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
   {% else %} 
-    <h3 class="govuk-heading-s"> {{processedData}}</h3>
+    <h4 class="govuk-heading-s"> {{processedData}}</h4>
   {% endif %}
   {% else %}
   {% if ulIndicatorFlag %}
   {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
   <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
   {% else %}
-  <h3 class="govuk-heading-s">
+  <h4 class="govuk-heading-s">
     {{processedData}}
-  </h3>
+  </h4>
   {% endif %}
   {% else %}
   {% if data.result.hybridIndicator.length > 0 and processedData.length === 0  %}
   <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
   {% else %}
-  <h3 class="govuk-heading-s">
+  <h4 class="govuk-heading-s">
    {% if data.result.hybridIndicator.length > 0 %}
       {{formatHeader | capitalize}}
     {% else %}
       {{processedData}}
     {% endif %}
-  </h3>
+  </h4>
   {% endif %}
   {% endif %}
   {% endif %}
@@ -249,28 +249,28 @@
       {% if data.result.hybridIndicator.length > 0 and processedData.length === 0%}
          <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
       {% else %}
-      <h3 class="govuk-heading-s">{{processedData}}</h3>
+      <h4 class="govuk-heading-s">{{processedData}}</h4>
       {% endif %}
       {% else %}
       {% if ulIndicatorFlag %}
       {% if data.result.hybridIndicator.length > 0 and processedData.length === 0%}
       <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
       {% else %}
-      <h3 class="govuk-heading-s">
+      <h4 class="govuk-heading-s">
         {{processedData}}
-      </h3>
+      </h4>
       {% endif %}
       {% else %}
       {%if data.result.hybridIndicator.length > 0  %}
       <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
       {% else %}
-      <h3 class="govuk-heading-s">
+      <h4 class="govuk-heading-s">
       {% if data.result.hybridIndicator.length > 0 %}
         {{formatHeader | capitalize}}
       {% else %}
         {{processedData}}
       {% endif %}
-      </h3>
+      </h4>
       {% endif %}
       {% endif %}
       {% endif %}
@@ -352,30 +352,30 @@
   <div class="govuk-body">
   {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}
     {% if data.result.hybridIndicator.length > 0  and processedData.length === 0  %}
-     <h3 class="govuk-heading-s">{{data.format | capitalize}}</h3>
+     <h4 class="govuk-heading-s">{{data.format | capitalize}}</h4>
     {% else %}
-     <h3 class="govuk-heading-s">{{processedData}}</h3>
+     <h4 class="govuk-heading-s">{{processedData}}</h4>
     {% endif %}
   {% else %}
     {% if ulIndicatorFlag %}
       {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
       <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
       {% else %}
-      <h3 class="govuk-heading-s">
+      <h4 class="govuk-heading-s">
         {{processedData}}
-      </h3>
+      </h4>
       {% endif %}
     {% else %}
      {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
       <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
      {% else %}
-       <h3 class="govuk-heading-s">
+       <h4 class="govuk-heading-s">
        {% if data.result.hybridIndicator.length > 0 %}
         {{formatHeader | capitalize}}
        {% else %}
         {{processedData}}
        {% endif %}
-       </h3>
+       </h4>
      {% endif %}
     {% endif %}
   {% endif %}
@@ -398,7 +398,7 @@
     {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
      <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
     {% else %}
-     <h3 class="govuk-heading-s">{{processedData}}</h3>
+     <h4 class="govuk-heading-s">{{processedData}}</h4>
     {% endif %}
     {% endif %}
   {% else %}
@@ -406,21 +406,21 @@
       {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
       <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
       {% else %}
-      <h3 class="govuk-heading-s">
+      <h4 class="govuk-heading-s">
         {{processedData}}
-      </h3>
+      </h4>
       {% endif %}
     {% else %}
      {% if data.result.hybridIndicator.length > 0 and processedData.length === 0%}
-      <h3 class="govuk-heading-s">{{formatHeader  | capitalize}}</h3>
+      <h4 class="govuk-heading-s">{{formatHeader  | capitalize}}</h4>
      {% else %}
-       <h3 class="govuk-heading-s">
+       <h4 class="govuk-heading-s">
        {% if data.result.hybridIndicator.length > 0 %}
         {{formatHeader | capitalize}}
        {% else %}
         {{processedData}}
        {% endif %}
-       </h3>
+       </h4>
      {% endif %}
     {% endif %}
   {% endif %}

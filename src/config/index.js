@@ -87,6 +87,7 @@ const config = convict({
     doc: 'Frontend url',
     format: String,
     default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+
     env: 'FRONTEND_URL'
   },
 
@@ -95,6 +96,12 @@ const config = convict({
     format: String,
     default: `https://gd.eppo.int/taxon/`,
     env: 'phot_URL'
+  },
+  dateFormat: {
+    doc: 'dateFormat of publication date in pest document',
+    format: String,
+    default: `dd/mm/yyyy`,
+    env: 'date_format'
   },
   Annex3: {
     doc: 'Annex3',

@@ -359,12 +359,13 @@
     })
     var strongElement = document.createElement('strong');
     strongElement.textContent = inputValue;
-    latinName = latinName?.toLowerCase()?.replace(inputValue, strongElement.outerHTML)
+   {# // latinName = latinName?.toLowerCase()?.replace(inputValue, strongElement.outerHTML) #}
+     latinName = latinName?.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
     var newCA = []
     commonName.forEach(function(cname) {
       var highlightCName;
       if (cname.match(new RegExp(regexValue, "gi"))) {
-        highlightCName = cname.toLowerCase().replace(inputValue, strongElement.outerHTML)
+      highlightCName = cname.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
         newCA.push(highlightCName);
       } else {
         newCA.push(cname);
@@ -374,8 +375,8 @@
     var newSA = []
     synonymName.forEach(function(sname) {
       var highlightSName;
-      if (sname.match(new RegExp(regexValue, "gi"))) {
-        highlightSName = sname.toLowerCase().replace(inputValue, strongElement.outerHTML)
+     if (sname.match(new RegExp(regexValue, "gi"))) {
+        highlightSName = sname.replace(new RegExp(inputValue, "gi"), match => `<strong>${match}</strong>`)
         newSA.push(highlightSName);
       }
       else{
@@ -445,7 +446,7 @@
         const liArray = Array.from(liElements);
 
         // Sort the array based on the text content of the li elements
-        liArray.sort((a, b) => a.textContent.localeCompare(b.textContent));
+        liArray.sort((a, b) => a.textContent.trim().localeCompare(b.textContent.trim()));
 
         // Clear the ul element
         ul.innerHTML = '';
