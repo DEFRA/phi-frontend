@@ -58,7 +58,7 @@ const purposeOfVisitController = {
           mainContent,
           getHelpSection,
           pageTitle:
-            'What do you want to find out? — Check plant health information and import rules — GOV.UK',
+            'Error: What do you want to find out? — Check plant health information and import rules — GOV.UK',
           heading: 'Plant',
           radiobuttonValue,
           errors,

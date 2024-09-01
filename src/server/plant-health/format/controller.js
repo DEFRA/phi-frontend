@@ -298,6 +298,18 @@ const formatPageController = {
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
+        let pageTitle
+        if (errors?.list?.errorList?.length > 0) {
+          pageTitle =
+            'Error: Which format of ' +
+            searchQuery.value +
+            ' are you importing? — Check plant health information and import rules — GOV.UK'
+        } else {
+          pageTitle =
+            'Which format of ' +
+            searchQuery.value +
+            ' are you importing? — Check plant health information and import rules — GOV.UK'
+        }
         return h.view('plant-health/format/index', {
           mainContent,
           getHelpSection,
@@ -306,10 +318,7 @@ const formatPageController = {
           searchQuery,
           fullSearchQuery,
           hostRef,
-          pageTitle:
-            'Which format of ' +
-            searchQuery.value +
-            ' are you importing? — Check plant health information and import rules — GOV.UK',
+          pageTitle,
           heading: 'Format',
           errors,
           errorMessage
