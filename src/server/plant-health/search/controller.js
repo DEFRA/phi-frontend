@@ -70,13 +70,20 @@ const searchPageController = {
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
+        let pageTitle
+        if (errors?.list?.errorList?.length > 0) {
+          pageTitle =
+            'Error: Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+        } else {
+          pageTitle =
+            'Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+        }
         return h.view('plant-health/search/index', {
           mainContent,
           getHelpSection,
           searchQuery,
           frontendUrl,
-          pageTitle:
-            'Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
+          pageTitle,
           heading: 'Search',
           errors,
           errorMessage
