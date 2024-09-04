@@ -51,7 +51,6 @@ const pestSearchController = {
           cslRef: parseInt(cslGlobal)
         }
         const result = await invokepestdetailsAPI(pestDetails)
-
         async function invokepestdetailsAPI(payload) {
           try {
             const response = await axios.post(
@@ -105,12 +104,12 @@ const pestSearchController = {
             const monthn = cdate.toLocaleString('default', { month: 'long' })
             const datef = monthn + ' ' + cdate.getFullYear()
             if (datef === 'Invalid Date NaN' || datef === ' ') {
-              return 'Not available'
+              return 'No date available'
             } else {
               return datef
             }
           } else {
-            return 'Not available'
+            return 'No date available'
           }
         }
 
@@ -391,7 +390,7 @@ const pestSearchController = {
           getHelpSection,
           pestsearchQuery,
           pageTitle:
-            'Error: What pest or disease do you want to find about? — Check plant health information and import rules — GOV.UK',
+            'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           errors,
           page,

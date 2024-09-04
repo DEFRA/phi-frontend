@@ -8,6 +8,13 @@
 {{data.preferredName  | replace(")", "")  | capitalize}}
  {%endif%}
 </h1>
+<div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span> 
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+     {{data.mainContent.warningcontent}}
+    </strong>
+    </div>
 {% if data.quarantineIndicator =='Q'  %} 
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span> 
@@ -45,8 +52,7 @@
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">Warning</span>
-     {% if data.page == "pestsearch"  %}
-       
+     {% if data.page == "pestsearch"  %}       
       {{data.mainContent.content1}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content13}} 
           {%else%}
           {{data.mainContent.content1}} {{data.preferredName| replace(")", "")  | capitalize}} {{data.mainContent.content13}} 
@@ -211,11 +217,28 @@
   {% endif %}
 </h2>
 <p class="govuk-body">
+{% if Rnpmap.length > 0 %} 
  
+ {% if data.page == "pestsearch"  %}
+<p class="govuk-body">{{data.mainContent.content20}}   <a class="govuk-link"
+                  href="https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-">{{data.mainContent.content21}}</a> {{data.mainContent.content16}} {{pestsearchQuery.value | replace(")", "") }} {{data.mainContent.content17}}
+{{data.mainContent.content18}}</p>
+<p class="govuk-body">{{data.mainContent.content3}} {{pestsearchQuery.value | replace(")", "") }}{{data.mainContent.content4}}</p>
+{%else%} 
+
+<p class="govuk-body">{{data.mainContent.content20}}<a class="govuk-link"
+                  href="https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-"> {{data.mainContent.content21}}</a> {{data.mainContent.content16}} {{data.preferredName }} {{data.mainContent.content17}}
+{{data.mainContent.content18}}</p>
+<p class="govuk-body">{{data.mainContent.content3}} {{data.preferredName }}{{data.mainContent.content4}}</p>
+
+{% endif %}
+{%else%} 
  {% if data.page == "pestsearch"  %}
 <p class="govuk-body">{{data.mainContent.content14}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
 {%else%} 
 <p class="govuk-body">{{data.mainContent.content14}} {{data.preferredName| replace(")", "")  | capitalize}} {{data.mainContent.content15}}</p>
 {% endif %}
+ {% endif %}
+
       {% endif %}
  

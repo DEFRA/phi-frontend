@@ -87,7 +87,6 @@ const config = convict({
     doc: 'Frontend url',
     format: String,
     default: `https://phi-frontend.test.cdp-int.defra.cloud`,
-
     env: 'FRONTEND_URL'
   },
 
@@ -112,7 +111,7 @@ const config = convict({
   contactAuthorities: {
     doc: 'contactAuthorities',
     format: String,
-    default: `https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/`,
+    default: `https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-`,
     env: 'contactAuthorities'
   },
   redis: {
