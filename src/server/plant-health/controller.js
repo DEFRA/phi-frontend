@@ -12,6 +12,7 @@ const plantHealthController = {
         request.yar.set('searchQuery', null)
         request.yar.set('countrySearchQuery', null)
         request.yar.set('format', null)
+        request.yar.set('pestsearchQuery', null)
       }
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')

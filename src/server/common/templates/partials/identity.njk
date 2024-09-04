@@ -4,6 +4,15 @@
 <h1 class="govuk-heading-xl">
 {{data.searchQuery.value  | replace(")", "")  | capitalize}}
 </h1>
+{% if data.result.annexSixRule !== 'INNS'%}
+ <div class="govuk-warning-text">
+  <span class="govuk-warning-text__icon" aria-hidden="true">!</span> 
+  <strong class="govuk-warning-text__text">
+    <span class="govuk-visually-hidden">Warning</span>
+     {{data.mainContent.warningcontent}}
+    </strong>
+    </div>
+ {%endif%}
 <dl>
 <dt>
 <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
@@ -54,3 +63,4 @@
 </dd>
 </p>
 </dl>
+ 

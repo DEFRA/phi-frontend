@@ -38,7 +38,8 @@
     "importRulesHeader": "Import rules",
     "unprohibitedHelpText1": "To import",
     "unprohibitedHelpText2": "from",
-    "unprohibitedHelpText3": "you will need to:"
+    "unprohibitedHelpText3": "you will need to:",
+    "warningcontent": "This guidance is for information only. It is your responsibility to check the relevant legislation, including the assimilated EU Regulation (Commission Implementing Regulation 2019/2072). Not complying with the requirements under the legislation may lead to delays and penalties at the customs border."
   },
   "getHelpSection": {
     "titleText": "Get help with this service",
