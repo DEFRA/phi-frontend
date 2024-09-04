@@ -105,7 +105,7 @@ const config = convict({
   Annex3: {
     doc: 'Annex3',
     format: String,
-    default: `https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made`,
+    default: `https://www.legislation.gov.uk/eur/2019/2072/annex/III`,
     env: 'Annex3'
   },
   contactAuthorities: {
