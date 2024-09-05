@@ -12,6 +12,17 @@ process.on('unhandledRejection', (error) => {
 
 async function startServer() {
   const server = await createServer()
+  server.route({
+    method: 'GET',
+    path: '/src/client/assets/{param*}',
+    handler: {
+      directory: {
+        path: 'src/client/assets',
+        redirectToSlash: true,
+        index: false
+      }
+    }
+  })
   await server.start()
 
   server.logger.info('Server started successfully')

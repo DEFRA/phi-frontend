@@ -1,6 +1,7 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
+
 const searchPageController = {
   handler: async (request, h) => {
     if (request != null) {
@@ -9,17 +10,36 @@ const searchPageController = {
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
-      request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.query.searchQuery)
-      })
-      request.yar.set('searchQuery', {
-        value: decodeURI(
-          request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
-        )
-      })
-      request.yar.set('hostRef', {
-        value: request.query.hostRef
-      })
+
+      if (request.yar?.searchQuery?.length > 0) {
+        request.yar.set('fullSearchQuery', {
+          value: decodeURI(request.query.searchQuery)
+        })
+        request.yar.set('searchQuery', {
+          value: decodeURI(
+            request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
+          )
+        })
+      } else {
+        request.yar.set('fullSearchQuery', {
+          value: decodeURI(request.query.autocompleteSearchQuery)
+        })
+        request.yar.set('searchQuery', {
+          value: decodeURI(
+            request.query.autocompleteSearchQuery?.replace(/ *\([^)]*\) */g, '')
+          )
+        })
+      }
+      if (request.query?.hostRef?.length > 0) {
+        request.yar.set('hostRef', {
+          value: parseInt(request.query.hostRef)
+        })
+      } else {
+        request.yar.set('hostRef', {
+          value: parseInt(request.query.hostReff)
+        })
+      }
+
       request.yar.set('eppoCode', {
         value: request.query.eppoCode
       })
@@ -31,7 +51,6 @@ const searchPageController = {
       const searchValue = searchInput?.value
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
-
       if (searchValue && hostRef) {
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar.get('fullSearchQuery')
@@ -59,7 +78,7 @@ const searchPageController = {
       } else {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
-        if (request.query.searchQuery === '' || hostRef === '') {
+        if (request.query.autocompleteSearchQuery === '' || hostRef === '') {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(

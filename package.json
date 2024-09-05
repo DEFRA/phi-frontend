@@ -44,7 +44,9 @@
     "@hapi/lab": "25.2.0",
     "@hapi/vision": "7.0.3",
     "@hapi/yar": "11.0.2",
-    "axios": "1.7.2",
+    "@x-govuk/govuk-prototype-components": "3.0.7",
+    "accessible-autocomplete": "3.0.0",
+    "axios": "1.7.5",
     "babel-plugin-module-resolver": "5.0.0",
     "convict": "6.2.4",
     "date-fns": "3.6.0",
@@ -93,7 +95,7 @@
     "style-loader": "4.0.0",
     "stylelint": "16.3.1",
     "stylelint-config-gds": "2.0.0",
-    "webpack": "5.91.0",
+    "webpack": "5.94.0",
     "webpack-assets-manifest": "5.2.1",
     "webpack-cli": "5.1.4"
   }

@@ -16,7 +16,12 @@
 
 {% block head %}
   <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
-{% endblock %}#
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="{{ getAssetPath('application.js') }}"></script>
+{# {% block scripts %}{% endblock %} #}
+{% endblock %}
 
 {% block header %}
   {{ govukHeader({
@@ -64,6 +69,7 @@
   }) }}
 {% endblock %}
 
-{% block bodyEnd %}
+{# {% block bodyEnd %}
   <script src="{{ getAssetPath('application.js') }}"></script>
-{% endblock %}
+{# {% block scripts %}{% endblock %} #}
+{# {% endblock %} #} 

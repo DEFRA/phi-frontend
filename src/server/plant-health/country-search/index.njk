@@ -2,6 +2,7 @@
 {% block beforeContent %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
+
 {{ govukPhaseBanner({
   tag: {
     text: getHelpSection.betaText
@@ -56,9 +57,7 @@
       id: "submitButton"
     }) }}
   </form>
- 
   <script>
-   
     var searchInput = document.getElementById('query');
     var searchResults = document.getElementById('searchResults');
     var inputValue;
@@ -90,6 +89,12 @@
       })
       .catch(error => console.log('Error fetching suggestions:', error));
   }
+  {# var accessibleAutocomplete = document.getElementById('autocompleteeeee').value
+   console.log('ACCESSIBLE AUTO', accessibleAutocomplete)
+  accessibleAutocomplete({
+  element: document.querySelector('#my-autocomplete-container'),
+  id: 'my-autocomplete', // To match it to the existing <label>.
+  source: fetchSuggestions}) #}
   function containsSpecialCharacter(str) {
     let specialChars =
         "!@#$%^&*()-_=+[{]};:'\",<.>/?\\|";
