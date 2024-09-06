@@ -15,7 +15,7 @@ const countrySearchController = {
         value: request.query.countryCode
       })
       request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.query.searchQuery)
+        value: decodeURI(request.query.fullSearchQuery)
       })
       request.yar.set('searchQuery', {
         value: decodeURI(

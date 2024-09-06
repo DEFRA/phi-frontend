@@ -11,7 +11,7 @@ const searchPageController = {
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
 
-      if (request.yar?.searchQuery?.length > 0) {
+      if (request.query?.searchQuery?.length > 0) {
         request.yar.set('fullSearchQuery', {
           value: decodeURI(request.query.searchQuery)
         })
