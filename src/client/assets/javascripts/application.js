@@ -28,7 +28,7 @@ async function fetchSuggestions(query, populateResults) {
         console.log('SUGGESTIONS', finalArray)
         if (finalArray.length > 0) {
           searching = false
-          
+
           function compareNames(a, b) {
             if (a.text < b.text) {
               return -1
@@ -331,10 +331,10 @@ const onConfirm = (e) => {
   if (e !== undefined) {
     console.log('onConfirm', e)
     var inputHref = document.createElement('input')
-    inputHref.id = 'hostRef',
-    inputHref.style = 'display:none', 
-    inputHref.name = 'hostRef',
-    inputHref.setAttribute('value', e?.hostRef)
+    ;(inputHref.id = 'hostRef'),
+      (inputHref.style = 'display:none'),
+      (inputHref.name = 'hostRef'),
+      inputHref.setAttribute('value', e?.hostRef)
     inputHref.ariaLabel = 'hostRef'
     document.querySelector('#my-autocomplete-container').appendChild(inputHref)
   }
