@@ -70,12 +70,19 @@ const importConfirmationController = {
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
+        let pageTitle
+        if (errors?.list?.errorList?.length > 0) {
+          pageTitle =
+            'Error: Select where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK'
+        } else {
+          pageTitle =
+            'Select where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK'
+        }
         return h.view('plant-health/import-confirmation/index', {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle:
-            'Select where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK',
+          pageTitle,
           heading: 'ImportConfirmation',
           errors,
           errorMessage

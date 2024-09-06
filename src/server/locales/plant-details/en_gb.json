@@ -23,7 +23,7 @@
     "pestContentHundredPercentText3": "listed at the bottom of the page.",
     "pestContentHundredPercentText4": "These pests and diseases are considered a risk to Great Britain's agriculture, horticulture, wildlife or forests.",
     "pestContentHundredPercentText41": "Consignments may be destroyed because of them.",
-    "pestContentHundredPercentText42": "These pests and diseases are considered a risk to Great Britain's agriculture, horticulture, wildlife or forests. If one of these pests or diseases is found during plant health inspections, action will be taken. This could result in consignments being destroyed or delayed.",
+    "pestContentHundredPercentText42": "These pests and diseases are considered a risk to Great Britain's agriculture, horticulture, wildlife or forests. If one of these pests or diseases is found during plant health inspections, action will be taken. This could result in consignments being delayed or destroyed.",
     "pestContentHundredPercentText5": "You must",
     "pestContentScientificHeader": "Scientific name",
     "pestContentCommonHeader": "Common names",
@@ -38,7 +38,8 @@
     "importRulesHeader": "Import rules",
     "unprohibitedHelpText1": "To import",
     "unprohibitedHelpText2": "from",
-    "unprohibitedHelpText3": "you will need to:"
+    "unprohibitedHelpText3": "you will need to:",
+    "warningcontent": "This guidance is for information only. It is your responsibility to check the relevant legislation, including the assimilated EU Regulation (Commission Implementing Regulation 2019/2072). Not complying with the requirements under the legislation may lead to delays and penalties at the customs border."
   },
   "getHelpSection": {
     "titleText": "Get help with this service",

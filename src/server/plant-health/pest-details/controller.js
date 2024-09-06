@@ -79,7 +79,8 @@ const pestDetailsPageController = {
           searchQuery,
 
           fullSearchQuery,
-          pageTitle: 'Check plant health information and import rules — GOV.UK',
+          pageTitle:
+            'Error: Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

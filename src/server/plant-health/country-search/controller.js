@@ -87,6 +87,18 @@ const countrySearchController = {
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
+        let pageTitle
+        if (errors?.list?.errorList?.length > 0) {
+          pageTitle =
+            'Error:  Which country, state or territory are you importing ' +
+            searchQuery.value +
+            ' from? — Check plant health information and import rules — GOV.UK'
+        } else {
+          pageTitle =
+            'Which country, state or territory are you importing ' +
+            searchQuery.value +
+            ' from? — Check plant health information and import rules — GOV.UK'
+        }
         return h.view('plant-health/country-search/index', {
           mainContent,
           getHelpSection,
@@ -96,10 +108,7 @@ const countrySearchController = {
           hostRef,
           eppoCode,
           fullSearchQuery,
-          pageTitle:
-            'Which country, state or territory are you importing ' +
-            searchQuery.value +
-            'from? — Check plant health information and import rules — GOV.UK',
+          pageTitle,
           heading: 'Country Search',
           errors,
           errorMessage

@@ -14,7 +14,7 @@
     "content8": "contact the relevant authority.",
     "content9": "if found in certain areas of Great Britain.​",
     "content10": "For details of these areas, check ​",
-    "content11": "Annex 3 of the Plant Health Regulations 2020. ​",
+    "content11": "Annex 3 of the assimilated EU Regulation (Commission Implementing Regulation 2019/2072).​",
     "content12": "To report suspicions,you must​",
     "content13": "on certain plants in certain formats.​​",
     "content14": "There are currently no plant-format combinations where sightings or suspicions of",
@@ -39,7 +39,10 @@
     "prohibitedContentText1": "! You must not import",
     "prohibitedContentText2": "as",
     "prohibitedContentText3": "Despite import restrictions, you may be able to",
-    "Noplantscontent": "There are currently no plants known to carry"
+    "Noplantscontent": "There are currently no plants known to carry",
+    "content20": "You only need to",
+    "content21": "report sightings or suspicions",
+    "warningcontent": "This guidance is for information only. It is your responsibility to check the relevant legislation, including the assimilated EU Regulation (Commission Implementing Regulation 2019/2072). Not complying with the requirements under the legislation may lead to delays and penalties at the customs border."
   },
   "getHelpSection": {
     "titleText": "Get help with this service",
