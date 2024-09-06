@@ -53,9 +53,9 @@
   <strong class="govuk-warning-text__text">
     <span class="govuk-visually-hidden">Warning</span>
      {% if data.page == "pestsearch"  %}       
-      {{data.mainContent.content1}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content13}} 
+      {{data.mainContent.content1}} {{pestsearchQuery.value | replace(")", "")  | capitalize}} {{data.mainContent.content13}} {{data.mainContent.content22}} 
           {%else%}
-          {{data.mainContent.content1}} {{data.preferredName| replace(")", "")  | capitalize}} {{data.mainContent.content13}} 
+          {{data.mainContent.content1}} {{data.preferredName| replace(")", "")  | capitalize}} {{data.mainContent.content13}} {{data.mainContent.content22}} 
          {%endif%}
 
         </strong>

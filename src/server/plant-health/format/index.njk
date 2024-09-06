@@ -15,7 +15,20 @@
     {% call appPageBody() %}
     {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
     {% if errors.list %}
-        {{ govukErrorSummary(errors.list) }}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <li>
+          <a href="#format">{{errorMessage.message.text}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
     {% endif %}
     <form  id="itembox" action='/plant-health/format' method="get"  name="radios">
     <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
@@ -25,6 +38,7 @@
     <input id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
         {{ govukRadios({
   name: "format",
+  id: "format",
   errorMessage: errorMessage.message,
   fieldset: {
     legend: {
