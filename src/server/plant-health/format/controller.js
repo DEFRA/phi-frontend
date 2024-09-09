@@ -18,7 +18,7 @@ const formatPageController = {
         value: request.yar?.get('countryCode')?.value
       })
       request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.query.searchQuery)
+        value: decodeURI(request.query.fullSearchQuery)
       })
       request.yar.set('searchQuery', {
         value: decodeURI(
