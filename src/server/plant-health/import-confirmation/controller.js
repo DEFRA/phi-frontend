@@ -21,6 +21,7 @@ const importConfirmationController = {
           })
         }
         const searchQuery = request.yar?.get('searchQuery')
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const searchData = await getDefaultLocaleData('search')
         const mainContent = searchData?.mainContent
         const getHelpSection = searchData?.getHelpSection
@@ -36,7 +37,8 @@ const importConfirmationController = {
           eppoCode,
           mainContent,
           frontendUrl,
-          searchQuery
+          searchQuery,
+          fullSearchQuery
         })
       } else if (request.query.whereareyouimportinginto === 'ni') {
         request.yar.set('importConfirmationRadiooption', {

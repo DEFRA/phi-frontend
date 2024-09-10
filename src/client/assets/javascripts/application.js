@@ -15,10 +15,13 @@ let timer
 
 async function fetchSuggestions(query, populateResults) {
   finalArray = []
+  const defaulthostref = document.querySelector('#my-autocomplete-container')
+    ?.childNodes[1]
+  defaulthostref?.setAttribute('value', null)
   searching = true
   const apiUrl = '/search/plants?searchQuery=' + query
-  clearTimeout(timer)
-  timer = setTimeout(async () => {
+  await clearTimeout(timer)
+  timer = await setTimeout(async () => {
     try {
       if (query.length > 2) {
         const response = await fetch(apiUrl)
@@ -26,7 +29,6 @@ async function fetchSuggestions(query, populateResults) {
         await renderSuggestions(responseJSON, query)
         if (finalArray.length > 0) {
           searching = false
-
           function compareNames(a, b) {
             if (a.text < b.text) {
               return -1
@@ -200,6 +202,7 @@ async function renderResultsWithHtml(filterResults) {
   finalArray = []
   const checkForEmptyArray = filterResults.flat()
   if (checkForEmptyArray.length > 0) {
+    searching = false
     if (
       checkForEmptyArray[0].commonNames.length === 0 &&
       checkForEmptyArray[0].latinNames.length === 0 &&
@@ -327,23 +330,35 @@ accessibleAutocomplete({
   source: fetchSuggestions,
   name: 'autocompleteSearchQuery',
   defaultValue: document.querySelector('#my-autocomplete-container')
-    .childNodes[0]?.value,
+    ?.childNodes[0]?.value,
   tStatusQueryTooShort: 2,
   tNoResults: () => (searching ? 'Searching...' : 'No results found'),
+  autoselect: true,
   templates: {
     inputValue: function (asd) {
       hostRefElement?.setAttribute('value', asd?.hostRef)
       return asd?.text
     },
     suggestion: function (asd) {
-      return (
-        '<div class="suggestions"><span class="name" id="resultName">' +
-        asd?.text?.replace(
-          new RegExp(regexValue, 'gi'),
-          (match) => `<strong>${match}</strong>`
-        ) +
-        '</span></div>'
-      )
+      if (regexValue?.length > 0) {
+        return (
+          '<div class="suggestions"><span class="name" id="resultName">' +
+          asd?.text?.replace(
+            new RegExp(regexValue, 'gi'),
+            (match) => `<strong>${match}</strong>`
+          ) +
+          '</span></div>'
+        )
+      } else {
+        return (
+          '<div class="suggestions"><span class="name" id="resultName">' +
+          asd?.replace(
+            new RegExp(asd, 'gi'),
+            (match) => `<strong>${match}</strong>`
+          ) +
+          '</span></div>'
+        )
+      }
     }
   },
   onConfirm
