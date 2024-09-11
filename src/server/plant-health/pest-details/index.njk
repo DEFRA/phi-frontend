@@ -147,9 +147,9 @@
  {% if plantLinkMapsorted.size === 0  %} 
  <br>
   {% if data.page == "pestsearch"  %}
-<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{pestsearchQuery.value | replace(")", "")  | capitalize}} </p>
+<p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{pestsearchQuery.value | replace(")", "")  | capitalize}}.</p>
    {%else%}
-   <p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{data.preferredName | replace(")", "")  | capitalize}} </p>
+   <p class="govuk-body"> {{data.mainContent.Noplantscontent }}  {{data.preferredName | replace(")", "")  | capitalize}}.</p>
   {%endif%}
   {% else %}
   <br>

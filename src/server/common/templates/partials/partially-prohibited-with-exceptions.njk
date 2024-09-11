@@ -10,7 +10,7 @@
     <div class="govuk-warning-text govuk-!-margin-bottom-0">
     <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
     <strong class="govuk-warning-text__text">
-        <span class="govuk-warning-text__assistive">Warning </span>
+        <span class="govuk-visually-hidden">Warning</span>
         {% if processedData.length > 1%}
         {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} (or its hybrids) {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value}} {{data.mainContent.prohibitedContentText2}} {{data.format}} unless it is:
         {% else %}
@@ -88,7 +88,7 @@
 <div class="govuk-warning-text govuk-!-margin-bottom-0">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden" >Warning </span>
+   <span class="govuk-visually-hidden">Warning</span>
     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
    </strong>
 </div> 
