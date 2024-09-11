@@ -1,6 +1,7 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
+
 const searchPageController = {
   handler: async (request, h) => {
     if (request != null) {
@@ -9,17 +10,41 @@ const searchPageController = {
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
-      request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.query.searchQuery)
-      })
-      request.yar.set('searchQuery', {
-        value: decodeURI(
-          request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
-        )
-      })
-      request.yar.set('hostRef', {
-        value: request.query.hostRef
-      })
+
+      if (request.query?.searchQuery?.length > 0) {
+        request.yar.set('fullSearchQuery', {
+          value: decodeURI(request.query.fullSearchQuery)
+        })
+        request.yar.set('searchQuery', {
+          value: decodeURI(
+            request.query.searchQuery?.replace(/ *\([^)]*\) */g, '')
+          )
+        })
+      } else {
+        request.yar.set('fullSearchQuery', {
+          value: decodeURI(request.query.autocompleteSearchQuery)
+        })
+        request.yar.set('searchQuery', {
+          value: decodeURI(
+            request.query.autocompleteSearchQuery?.replace(/ *\([^)]*\) */g, '')
+          )
+        })
+      }
+      if (request.query?.hostRef?.length > 0) {
+        request.yar.set('hostRef', {
+          value: parseInt(request.query.hostRef)
+        })
+      } else {
+        if (
+          request.query?.hostReff?.length > 0 &&
+          request.query?.hostReff !== 'null'
+        ) {
+          request.yar.set('hostRef', {
+            value: parseInt(request.query.hostReff)
+          })
+        }
+      }
+
       request.yar.set('eppoCode', {
         value: request.query.eppoCode
       })
@@ -31,10 +56,9 @@ const searchPageController = {
       const searchValue = searchInput?.value
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
-
+      const fullSearchQuery = request.yar.get('fullSearchQuery')
       if (searchValue && hostRef) {
         const searchQuery = request.yar?.get('searchQuery')
-        const fullSearchQuery = request.yar.get('fullSearchQuery')
         const data = await getDefaultLocaleData('country-search')
         const mainContent = data?.mainContent
         const getHelpSection = data?.getHelpSection
@@ -59,7 +83,7 @@ const searchPageController = {
       } else {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
-        if (request.query.searchQuery === '' || hostRef === '') {
+        if (hostRef === '' || hostRef === null) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
@@ -73,10 +97,14 @@ const searchPageController = {
         let pageTitle
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
-            'Error: Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+            'Error: Which country, state or territory are you importing ' +
+            searchQuery.value +
+            'from? — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
-            'Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+            'Which country, state or territory are you importing ' +
+            searchQuery.value +
+            'from? — Check plant health information and import rules — GOV.UK'
         }
         return h.view('plant-health/search/index', {
           mainContent,

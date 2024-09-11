@@ -1,5 +1,6 @@
 .public
 .server
 package-lock.json
+src/client/assets/javascripts/accessible-autocomplete.min.js
 node_modules
 coverage

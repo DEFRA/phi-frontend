@@ -18,7 +18,7 @@ const formatPageController = {
         value: request.yar?.get('countryCode')?.value
       })
       request.yar.set('fullSearchQuery', {
-        value: decodeURI(request.query.searchQuery)
+        value: decodeURI(request.query.fullSearchQuery)
       })
       request.yar.set('searchQuery', {
         value: decodeURI(
@@ -75,9 +75,9 @@ const formatPageController = {
             let bonsaiName
             if (format.toLowerCase() === 'plants for planting') {
               bonsaiName =
-                'Naturally and artificially dwarfed plants for planting'
+                'Naturally or artificially dwarfed plants for planting'
             } else if (format.toLowerCase() === 'parts of a plant') {
-              bonsaiName = 'Naturally and artificially dwarfed parts of plants'
+              bonsaiName = 'Naturally or artificially dwarfed parts of plants'
             }
             const subFormatArray = []
             function capitalizeFirstLetter(string) {

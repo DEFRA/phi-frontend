@@ -21,6 +21,7 @@ const importConfirmationController = {
           })
         }
         const searchQuery = request.yar?.get('searchQuery')
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const searchData = await getDefaultLocaleData('search')
         const mainContent = searchData?.mainContent
         const getHelpSection = searchData?.getHelpSection
@@ -36,7 +37,8 @@ const importConfirmationController = {
           eppoCode,
           mainContent,
           frontendUrl,
-          searchQuery
+          searchQuery,
+          fullSearchQuery
         })
       } else if (request.query.whereareyouimportinginto === 'ni') {
         request.yar.set('importConfirmationRadiooption', {
@@ -73,10 +75,10 @@ const importConfirmationController = {
         let pageTitle
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
-            'Error: Select where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK'
+            'Error: What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
-            'Select where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK'
+            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
         }
         return h.view('plant-health/import-confirmation/index', {
           mainContent,

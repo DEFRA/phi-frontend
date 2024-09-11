@@ -2,13 +2,14 @@
 {% block beforeContent %}
 {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
+
 {{ govukPhaseBanner({
   tag: {
     text: getHelpSection.betaText
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-  <a href="/plant-health/import-confirmation?whereareyouimportinginto=gb&searchQuery={{fullSearchQuery.value}}&&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
+  <a href="/plant-health/import-confirmation?whereareyouimportinginto=gb&searchQuery={{searchQuery.value}}&fullSearchQuery={{fullSearchQuery.value}}&&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
   {% call appPageBody() %}
@@ -69,9 +70,7 @@
       id: "submitButton"
     }) }}
   </form>
- 
   <script>
-   
     var searchInput = document.getElementById('query');
     var searchResults = document.getElementById('searchResults');
     var inputValue;
@@ -103,6 +102,7 @@
       })
       .catch(error => console.log('Error fetching suggestions:', error));
   }
+  
   function containsSpecialCharacter(str) {
     let specialChars =
         "!@#$%^&*()-_=+[{]};:'\",<.>/?\\|";
