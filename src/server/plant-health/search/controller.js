@@ -97,10 +97,14 @@ const searchPageController = {
         let pageTitle
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
-            'Error: Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+            'Error: Which country, state or territory are you importing ' +
+            searchQuery.value +
+            'from? — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
-            'Enter name of the plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+            'Which country, state or territory are you importing ' +
+            searchQuery.value +
+            'from? — Check plant health information and import rules — GOV.UK'
         }
         return h.view('plant-health/search/index', {
           mainContent,
