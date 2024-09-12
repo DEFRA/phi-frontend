@@ -8,10 +8,20 @@ const pestSearchController = {
     if (request != null) {
       let page = ''
       let cslGlobal = ''
-
-      request.yar.set('cslRef', {
-        value: request.query.cslRef
-      })
+      if (request.query?.cslRef?.length > 0) {
+        request.yar.set('cslRef', {
+          value: parseInt(request.query.cslRef)
+        })
+      } else {
+        if (
+          request.query?.cslReff?.length > 0 &&
+          request.query?.cslReff !== 'null'
+        ) {
+          request.yar.set('cslRef', {
+            value: parseInt(request.query.cslReff)
+          })
+        }
+      }
 
       request.yar.set('pestsearchQuery', {
         value: decodeURI(
@@ -33,11 +43,11 @@ const pestSearchController = {
       const getHelpSection = data?.getHelpSection
 
       if (!request.query.getcsl) {
-        request.yar.set('fullSearchQuery', {
+        request.yar.set('pestFullSearchQuery', {
           value: decodeURI(request.query.pestsearchQuery)
         })
         page = 'pestsearch'
-        const cslRef = request.query.cslRef
+        const cslRef = request.yar.get('cslRef')?.value
         cslGlobal = cslRef
       } else {
         page = 'plantdetails'
@@ -342,6 +352,7 @@ const pestSearchController = {
         }
 
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
+        const pestFullSearchQuery = request.yar.get('pestFullSearchQuery')
 
         if (cslGlobal) {
           return h.view('plant-health/pest-details/index', {
@@ -353,6 +364,7 @@ const pestSearchController = {
             mainContent,
             cslRef: cslGlobal,
             eppoCode,
+            pestFullSearchQuery,
             resultofPhoto,
             photoURL,
             photores,

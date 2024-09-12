@@ -32,8 +32,12 @@ const purposeOfVisitController = {
           request.yar.set('pestsearchQuery', {
             value: request.query.pestsearchQuery
           })
+          request.yar.set('pestFullSearchQuery', {
+            value: request.query.pestFullSearchQuery
+          })
         }
         const pestsearchQuery = request.yar?.get('pestsearchQuery')
+        const pestFullSearchQuery = request.yar?.get('pestFullSearchQuery')
 
         const cslRef = request.yar.get('cslRef')?.value
         const eppoCode = request.yar.get('eppoCode')?.value
@@ -44,6 +48,7 @@ const purposeOfVisitController = {
           cslRef,
           eppoCode,
           pestsearchQuery,
+          pestFullSearchQuery,
           serviceUnavailablePage,
           pageTitle:
             'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
