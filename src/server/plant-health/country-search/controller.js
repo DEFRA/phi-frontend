@@ -8,12 +8,29 @@ const countrySearchController = {
       const getHelpSection = data?.getHelpSection
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
-      request.yar.set('countrySearchQuery', {
-        value: decodeURI(request.query.countrySearchQuery)
-      })
-      request.yar.set('countryCode', {
-        value: request.query.countryCode
-      })
+      if (request.query?.countrySearchQuery?.length > 0) {
+        request.yar.set('countrySearchQuery', {
+          value: decodeURI(request.query.countrySearchQuery)
+        })
+      } else {
+        request.yar.set('countrySearchQuery', {
+          value: decodeURI(request.query.autocompleteCountrySearchQuery)
+        })
+      }
+      if (request.query?.countryCode?.length > 0) {
+        request.yar.set('countryCode', {
+          value: request.query.countryCode
+        })
+      } else {
+        if (
+          request.query?.countryCodeOne?.length > 0 &&
+          request.query?.countryCodeOne !== null
+        ) {
+          request.yar.set('countryCode', {
+            value: request.query.countryCodeOne
+          })
+        }
+      }
       request.yar.set('fullSearchQuery', {
         value: decodeURI(request.query.fullSearchQuery)
       })
@@ -38,7 +55,7 @@ const countrySearchController = {
       const radiobuttonValue = request?.yar?.get('format')?.value
       const searchQuery = request.yar?.get('searchQuery')
       const countryCode = request?.yar?.get('countryCode')?.value
-      if (searchValue && countryCode !== '') {
+      if (searchValue && countryCode !== '' && countryCode !== 'null') {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const data = await getDefaultLocaleData('format')
@@ -71,7 +88,8 @@ const countrySearchController = {
           request.query.countrySearchQuery === '' ||
           (request.query.emptyCountrySearchQuery === 'true' &&
             request.query.countrySearchQuery !== '') ||
-          request.query.emptyCountrySearchQuery === ''
+          request.query.emptyCountrySearchQuery === '' ||
+          countryCode === 'null'
         ) {
           const errorData = await getDefaultLocaleData('country-search')
           const errorSection = errorData?.errors
