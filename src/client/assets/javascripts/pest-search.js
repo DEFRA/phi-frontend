@@ -315,43 +315,44 @@ const onConfirm = (e) => {
   }
 }
 const cslRefElement = document.getElementById('#cslRef')
-
-accessibleAutocomplete({
-  element: document.querySelector('#my-autocomplete-pest-container'),
-  id: 'my-autocomplete', // To match it to the existing <label>.
-  source: fetchSuggestions,
-  name: 'pestsearchQuery',
-  defaultValue: document.querySelector('#my-autocomplete-pest-container')
-    ?.childNodes[0]?.value,
-  tStatusQueryTooShort: 2,
-  tNoResults: () => (searching ? 'Searching...' : 'No results found'),
-  autoselect: true,
-  templates: {
-    inputValue: function (asd) {
-      cslRefElement?.setAttribute('value', asd?.cslRef)
-      return asd?.text
-    },
-    suggestion: function (asd) {
-      if (regexValue?.length > 0) {
-        return (
-          '<div class="suggestions"><span class="name" id="resultName">' +
-          asd?.text?.replace(
-            new RegExp(regexValue, 'gi'),
-            (match) => `<strong>${match}</strong>`
-          ) +
-          '</span></div>'
-        )
-      } else {
-        return (
-          '<div class="suggestions"><span class="name" id="resultName">' +
-          asd?.replace(
-            new RegExp(asd, 'gi'),
-            (match) => `<strong>${match}</strong>`
-          ) +
-          '</span></div>'
-        )
+if (document.querySelector('#my-autocomplete-pest-container')) {
+  accessibleAutocomplete({
+    element: document.querySelector('#my-autocomplete-pest-container'),
+    id: 'my-autocomplete', // To match it to the existing <label>.
+    source: fetchSuggestions,
+    name: 'pestsearchQuery',
+    defaultValue: document.querySelector('#my-autocomplete-pest-container')
+      ?.childNodes[0]?.value,
+    tStatusQueryTooShort: 2,
+    tNoResults: () => (searching ? 'Searching...' : 'No results found'),
+    autoselect: true,
+    templates: {
+      inputValue: function (asd) {
+        cslRefElement?.setAttribute('value', asd?.cslRef)
+        return asd?.text
+      },
+      suggestion: function (asd) {
+        if (regexValue?.length > 0) {
+          return (
+            '<div class="suggestions"><span class="name" id="resultName">' +
+            asd?.text?.replace(
+              new RegExp(regexValue, 'gi'),
+              (match) => `<strong>${match}</strong>`
+            ) +
+            '</span></div>'
+          )
+        } else {
+          return (
+            '<div class="suggestions"><span class="name" id="resultName">' +
+            asd?.replace(
+              new RegExp(asd, 'gi'),
+              (match) => `<strong>${match}</strong>`
+            ) +
+            '</span></div>'
+          )
+        }
       }
-    }
-  },
-  onConfirm
-})
+    },
+    onConfirm
+  })
+}
