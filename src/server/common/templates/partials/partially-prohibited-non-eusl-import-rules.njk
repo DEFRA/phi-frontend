@@ -69,7 +69,7 @@
         {% set flag = 'as' + ' ' + format + ' ' + item['BTOM_CLARIFICATION']%}
         </div>
       {% else%}
-        {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 or item['SERVICE_SUBFORMAT'].length > 0 or processedData.length > 0  %}
+        {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0 or item['SERVICE_SUBFORMAT'].length > 0 or processedData[0].length > 0  %}
          <div class='govuk-body'>
          {% set flag = 'in the above format'%}
         </div> 
