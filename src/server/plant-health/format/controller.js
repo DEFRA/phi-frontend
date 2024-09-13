@@ -69,7 +69,7 @@ const formatPageController = {
             if (format.toLowerCase() === 'plants for planting') {
               seedsName = 'seeds for planting'
             } else if (format.toLowerCase() === 'produce') {
-              seedsName = 'seeds for eating'
+              seedsName = 'seeds not intended for planting'
             }
 
             let bonsaiName
@@ -147,7 +147,9 @@ const formatPageController = {
                 removedProcessedData = processedData[0]
                   ?.split(' or ')
                   ?.filter(function (el) {
-                    return el.toLowerCase() !== 'seeds for eating'
+                    return (
+                      el.toLowerCase() !== 'seeds not intended for planting'
+                    )
                   })
               }
               if (
