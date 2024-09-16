@@ -7,7 +7,7 @@ async function fetchSuggestions(query, populateResults) {
   finalArray = []
   const defaulthostref = document.querySelector('#my-autocomplete-container')
     ?.childNodes[1]
-  defaulthostref?.setAttribute('value', null)
+  defaulthostref?.setAttribute('value', '')
   searching = true
   const apiUrl = '/search/plants?searchQuery=' + query
   await clearTimeout(timer)

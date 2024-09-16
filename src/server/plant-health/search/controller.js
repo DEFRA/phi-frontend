@@ -35,14 +35,9 @@ const searchPageController = {
           value: parseInt(request.query.hostRef)
         })
       } else {
-        if (
-          request.query?.hostReff?.length > 0 &&
-          request.query?.hostReff !== 'null'
-        ) {
-          request.yar.set('hostRef', {
-            value: parseInt(request.query.hostReff)
-          })
-        }
+        request.yar.set('hostRef', {
+          value: parseInt(request.query.hostReff)
+        })
       }
 
       request.yar.set('eppoCode', {
@@ -83,7 +78,7 @@ const searchPageController = {
       } else {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
-        if (hostRef === '' || hostRef === null) {
+        if (!hostRef || hostRef === undefined) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
