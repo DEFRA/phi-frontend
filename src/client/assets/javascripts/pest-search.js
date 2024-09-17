@@ -198,11 +198,8 @@ async function renderResultsWithHtml(filterResults) {
       checkForEmptyArray[0].latinNames.length === 0 &&
       checkForEmptyArray[0].synonymNames.length === 0
     ) {
-      const cslRefElement = document.getElementById('cslRef')
-      const eppoCodeElement = document.getElementById('eppoCode')
-      cslRefElement.ariaLabel = 'Csl ref'
-      cslRefElement.value = ''
-      eppoCodeElement.value = ''
+      finalArray.push({ text: 'No results found', cslRef: '' })
+      return finalArray
     } else {
       filterResults.forEach(function (resultSet) {
         resultSet.latinNames.forEach(function (item, index) {
