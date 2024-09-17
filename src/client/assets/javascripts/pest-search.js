@@ -21,10 +21,10 @@ async function fetchSuggestions(query, populateResults) {
         if (finalArray.length > 0) {
           searching = false
           function compareNames(a, b) {
-            if (a.text < b.text) {
+            if (a.text.trim() < b.text.trim()) {
               return -1
             }
-            if (a.text > b.text) {
+            if (a.text.trim() > b.text.trim()) {
               return 1
             }
             return 0
