@@ -16,9 +16,24 @@
 
 {% block head %}
   <link href="{{ getAssetPath('application.css') }}" rel="stylesheet">
-{% endblock %}#
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="{{ getAssetPath('application.js') }}"></script>
+{% endblock %}
 
 {% block header %}
+{# <!-- Google tag (gtag.js) --> #}
+ <script async src="https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ"></script>
+  <script> 
+    window.dataLayer = window.dataLayer || [];  
+     function gtag(){
+     dataLayer.push(arguments);
+     }   
+     gtag('js', new Date());  
+      gtag('config', 'G-HVF94VF4NZ');
+       </script>
+
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
     classes: "app-header",
@@ -64,6 +79,3 @@
   }) }}
 {% endblock %}
 
-{% block bodyEnd %}
-  <script src="{{ getAssetPath('application.js') }}"></script>
-{% endblock %}

@@ -87,6 +87,7 @@ const plantDetailsPageController = {
           eppoCode,
           fullSearchQuery,
           pageTitle:
+            'Error: ' +
             searchQuery.value +
             ' — Check plant health information and import rules — GOV.UK',
           heading: 'Format',

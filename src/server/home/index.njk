@@ -10,7 +10,7 @@
 {% endblock %}
 {% block content %}
   <div class="govuk-width-container">
-    <main class="govuk-main-wrapper">
+    <div class="govuk-main-wrapper">
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
           <span class="govuk-caption-xl">{{govukCaption}}</span>
@@ -63,7 +63,7 @@
             isStartButton: true
         }) 
         }}
-            <h3 class="govuk-heading-m">{{textAfterStartNowSection.headerText}}</h3>
+            <h2 class="govuk-heading-m">{{textAfterStartNowSection.headerText}}</h2>
             <p class="govuk-body">{{textAfterStartNowSection.paragraphText1}}</p>
             <p>{{textAfterStartNowSection.paragraphText2}}</p>
             <ul class="govuk-list govuk-list--bullet">
@@ -133,6 +133,6 @@
             </ul>
             </div>
           </div>
-        </main>
+        </div>
       </div>
     {% endblock %}

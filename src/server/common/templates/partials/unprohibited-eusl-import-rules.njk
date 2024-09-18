@@ -1,7 +1,7 @@
 {% if (data.result.annex11RulesArr.length > 0)%}
-<h2 class="govuk-heading-m">
+<h3 class="govuk-heading-m">
     {{data.mainContent.importRulesHeader}}
-</h2>
+</h3>
  {% for item in data.result.annex11RulesArr%}
      {% set btom_clarification = item['BTOM_CLARIFICATION'] %}
  {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length > 0%}
@@ -40,7 +40,7 @@
       {{header}}
      </h3>  
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>    
       <ul class="govuk-list govuk-list--bullet">
           <li>
@@ -56,10 +56,10 @@
             <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#notify-the-relevant-authorities-about-your-import">notify the relevant authorities about your import</a>
           </li>
           <li>
-            comply with documentary, <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#if-your-consignment-is-called-for-plant-health-checks">identity and physical checks</a> at the border
+            comply with <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#if-your-consignment-is-called-for-plant-health-checks">documentary, identity and physical checks</a> at the border
           </li>
           <li>
-          pay <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#fees-for-plant-health-checks">fees for plant health checks</a>
+          pay fees, which will include <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-the-eu-to-great-britain#fees-for-plant-health-checks">plant health checks</a>
           </li>
         </ul>
       <div class="govuk-inset-text">
@@ -73,7 +73,7 @@
      {{header}}
       </h3>
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, {{data.mainContent.unprohibitedHelpText3}}
       </p>    
       <ul class="govuk-list govuk-list--bullet">
           <li>
@@ -95,7 +95,7 @@
       </h3>
            
       <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
+          {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{flag}}, you will need to meet the <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-or-export-wood-packaging-material">ISPM 15 international standard</a> for any wood packaging material you use. Your goods will be exempt from systematic controls at the border.
       </p>    
     </div>  
   {% endif %} 
@@ -120,6 +120,11 @@
   {%endif%}   
  {% endfor %} 
  <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-   You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out how often inspections at the border have resulted in the destruction of goods.</a>
-  </p>
+       You may also need an
+<a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/eori">Economic Operators Registration and Identification number (EORI number)
+to move goods to Great Britain.</a>
+     </p> 
+   <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
+        You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out the number of interceptions that have taken place at the border.</a>
+    </p>
 {%endif%}

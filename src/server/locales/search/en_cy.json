@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Pa blanhigyn neu gynnyrch planhigyn ydych chi'n ei fewnforio?",
+    "headerText": "Pa blanhigyn, cynnyrch planhigion neu hadau ydych chi'n eu mewnforio?",
     "searchText1": "Gallwch nodi'r enw gwyddonol neu unrhyw gyfystyron neu enwau cyffredin.",
     "buttonText": "Parhewch"
   },
@@ -15,6 +15,6 @@
   },
   "errors": {
     "titleText": "Mae yna broblem",
-    "searchErrorListText": "Rhowch enw'r planhigyn neu'r cynnyrch planhigyn rydych chi'n ei fewnforio"
+    "searchErrorListText": "Rhowch enw'r planhigyn, y cynnyrch planhigyn neu'r hadau rydych chi'n eu mewnforio"
   }
 }

@@ -1,14 +1,22 @@
-<h2 class="govuk-heading-m">
+<h3 class="govuk-heading-m">
     {{data.mainContent.prohibitedHeader}}
-</h2>
+</h3>
 <div class="govuk-warning-text">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
-    <span class="govuk-warning-text__assistive"></span>
-    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+   <span class="govuk-visually-hidden">Warning</span>
+    {% if data.result.annexSixRule === 'INNS'%}
+    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.prohibitedContentText4}}.
+    {% else %}
+    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+    {% endif %}
    </strong>
    </div> 
 <div class="govuk-body">   
  <p class="govuk-body govuk-!-margin-top-0">{{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
             href={{data.url}}>{{data.urlText}}</a></p>
+  {% if data.result.annexSixRule === 'INNS'%}
+  <p class="govuk-body govuk-!-margin-top-0">{{data.mainContent.innsUrlText}} <a class="govuk-link"
+            href={{data.url1}}>{{data.urlText1}}</a></p>
+  {% endif %}                    
 </div>            

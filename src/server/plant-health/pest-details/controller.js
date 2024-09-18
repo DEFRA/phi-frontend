@@ -38,9 +38,6 @@ const pestDetailsPageController = {
         const searchQuery = request.yar?.get('searchQuery')
         const pestSearchQuery = request.yar?.get('pestSearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
-        const formatData = getDefaultLocaleData('format')
-
-        const getHelpSection = formatData?.getHelpSection
 
         return h.view('plant-health/pest-details/index', {
           pageTitle: 'Check plant health information and import rules — GOV.UK',
@@ -82,7 +79,8 @@ const pestDetailsPageController = {
           searchQuery,
 
           fullSearchQuery,
-          pageTitle: 'Check plant health information and import rules — GOV.UK',
+          pageTitle:
+            'Error: Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
           errorMessage

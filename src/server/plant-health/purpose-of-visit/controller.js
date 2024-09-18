@@ -20,20 +20,38 @@ const purposeOfVisitController = {
           getHelpSection,
           radiobuttonValue,
           pageTitle:
-            'Where are you importing your plant or plant product to? — Check plant health information and import rules — GOV.UK',
+            'Where are you importing your plant, plant product or seeds to? — Check plant health information and import rules — GOV.UK',
           heading: 'Plant'
         })
       } else if (request.query.whatdoyouwanttofind === 'pest') {
         request.yar.set('purposeOfVisitRadiooption', {
           purposeOfVisit: 'pest'
         })
-        const plantHealthdata = getDefaultLocaleData('plant-health')
-        const getHelpSection = plantHealthdata?.getHelpSection
-        return h.view('plant-health/service-unavailable.njk', {
+
+        if (request.query.pestsearchQuery) {
+          request.yar.set('pestsearchQuery', {
+            value: request.query.pestsearchQuery
+          })
+          request.yar.set('pestFullSearchQuery', {
+            value: request.query.pestFullSearchQuery
+          })
+        }
+        const pestsearchQuery = request.yar?.get('pestsearchQuery')
+        const pestFullSearchQuery = request.yar?.get('pestFullSearchQuery')
+
+        const cslRef = request.yar.get('cslRef')?.value
+        const eppoCode = request.yar.get('eppoCode')?.value
+
+        return h.view('plant-health/pest-search/index.njk', {
+          mainContent,
           getHelpSection,
+          cslRef,
+          eppoCode,
+          pestsearchQuery,
+          pestFullSearchQuery,
           serviceUnavailablePage,
           pageTitle:
-            'This service does not include import and plant health information for Northern Ireland — Check plant health information and import rules — GOV.UK',
+            'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
           heading: 'Pest'
         })
       } else {
@@ -58,7 +76,7 @@ const purposeOfVisitController = {
           mainContent,
           getHelpSection,
           pageTitle:
-            'What do you want to find out? — Check plant health information and import rules — GOV.UK',
+            'Error: What do you want to find out? — Check plant health information and import rules — GOV.UK',
           heading: 'Plant',
           radiobuttonValue,
           errors,

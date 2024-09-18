@@ -8,7 +8,7 @@
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-  <a href="/plant-health/country-search?searchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}&&countrySearchQuery={{countrySearchQuery.value}}&emptyCountrySearchQuery=false&format={{format}}&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
+  <a href="/plant-health/country-search?searchQuery={{searchQuery.value}}&fullSearchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}&&countrySearchQuery={{countrySearchQuery.value}}&emptyCountrySearchQuery=false&format={{format}}&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}
@@ -35,7 +35,7 @@
       } %}
       {% include "partials/identity.njk" %}
       <h2 class="govuk-heading-l govuk-!-padding-top-3">
-        {{mainContent.importRulesHeaderText1}} {{searchQuery.value | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value }}
+        {{mainContent.importRulesHeaderText1}} {{searchQuery.value | replace(")", "")  | capitalize}} {{mainContent.importRulesHeaderText2}} {{countrySearchQuery.value }}
       </h2>
       {% if (outcome) and (outcome.toLowerCase() === 'prohibited') %}
         {% if (annexSixRule) and (annexSixRule === 'INNS') %}
@@ -46,7 +46,9 @@
           format: newFormat,
           searchQuery: searchQuery,
           urlText: "apply for a permit to move your goods.",
-          url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application"
+          url: "https://www.gov.uk/government/publications/invasive-alien-species-permit-application",
+          urlText1: "rules in England and Wales for invasive non-native plant species.",
+          url1: "https://www.gov.uk/guidance/invasive-non-native-alien-plant-species-rules-in-england-and-wales"
           } %}
           {% include "partials/import-rules.njk" %}
         {% else %}
@@ -112,17 +114,29 @@
       {% if (pest_names.length === 0) %}
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
-        <p class="govuk-body">{{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | capitalize}} 
-          {{mainContent.pestContentHundredPercentText2}} 
-          {{countrySearchQuery.value }} 
-          {{mainContent.pestContentHundredPercentText3}} 
+         <p class="govuk-body">
+           {{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | replace(")", "")  | capitalize}} 
+            {{mainContent.pestContentHundredPercentText2}} 
+            {{countrySearchQuery.value }} 
+            {{mainContent.pestContentHundredPercentText3}} 
+            
+         {% if (annexSixRule) and (annexSixRule === 'INNS') %}
           {{mainContent.pestContentHundredPercentText4}}
-          </p>
+          {{mainContent.pestContentHundredPercentText41}}           
+          {{mainContent.innsPestContent}}
+         {% else %}
+           {% if (annexSixRule) and (annexSixRule !== 'INNS') and (outcome.toLowerCase() === 'prohibited') %} 
+            {{mainContent.pestContentHundredPercentText4}}
+            {{mainContent.pestContentHundredPercentText41}}
+           {% else %}
+              {{mainContent.pestContentHundredPercentText42}}
+          {% endif %}
+         {% endif %}
+        </p>
           <p class="govuk-body">
             {{mainContent.pestContentHundredPercentText5}}
             <a class="govuk-link"
-                  href="https://planthealthportal.defra.gov.uk/pests-and-diseases/reporting-a-pestdisease/">report any suspicions of these pests or diseases to the relevant authority.
-            </a>
+                  href="https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-">report any suspicions</a> of the pests or diseases to the relevant authority.
           </p>
           <p>{{mainContent.pestContentHundredPercentText6}}</p>
           <table class="govuk-table">
@@ -130,7 +144,7 @@
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">{{mainContent.pestContentScientificHeader}}</th>
               <th scope="col" class="govuk-table__header">{{mainContent.pestContentCommonHeader}}</th>
-              <th scope="col" class="govuk-table__header">{{mainContent.pestContentFormatHeader1}} {{searchQuery.value | capitalize}}</th>
+              <th scope="col" class="govuk-table__header">{{mainContent.pestContentFormatHeader1}} {{searchQuery.value | replace(")", "") | capitalize}}</th>
             </tr>
           </thead>
           <tbody class="govuk-table__body">
@@ -159,7 +173,7 @@
                     <td class="govuk-table__cell"><a class="govuk-link"   href="/pest-details?getcsl={{item.csl_ref}}"> {{item.name[0].NAME}}</a>
                       <br>
                       <br>
-                      <p class="govuk-body-s">This pest is only a concern in <a href="https://www.legislation.gov.uk/uksi/2020/1527/schedule/3/made">certain areas of Great Britain<a></p>
+                      <p class="govuk-body-s">This pest is only a concern in <a href="https://www.legislation.gov.uk/eur/2019/2072/annex/III">certain areas of Great Britain.<a></p>
                     </td>
                   {% else %}
                    <td class="govuk-table__cell"><a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>

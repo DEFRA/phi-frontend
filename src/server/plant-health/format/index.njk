@@ -8,22 +8,41 @@
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_3fnzAvYuzyPg9cG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-    <a href="/plant-health/search?searchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}&&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
+    <a href="/plant-health/search?searchQuery={{searchQuery.value}}&&fullSearchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}&&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
     {% from "govuk/components/radios/macro.njk" import govukRadios %}
     {% call appPageBody() %}
     {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
     {% if errors.list %}
-        {{ govukErrorSummary(errors.list) }}
+        <div class="govuk-error-summary" data-module="govuk-error-summary">
+  <div role="alert">
+    <h2 class="govuk-error-summary__title">
+      There is a problem
+    </h2>
+    <div class="govuk-error-summary__body">
+      <ul class="govuk-list govuk-error-summary__list">
+        <li>
+          <a href="#format">{{errorMessage.message.text}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
     {% endif %}
     <form  id="itembox" action='/plant-health/format' method="get"  name="radios">
+    <input id="hostRef" name="hostRef" style="display: none;" value={{hostRef}}></input>
+    <input id="eppoCode" name="eppoCode" style="display: none;" value={{eppoCode}}></input>
+    <input id="countrySearchQuery" name="countrySearchQuery" style="display: none;" value='{{countrySearchQuery.value}}'></input>
+    <input id="searchQuery" name="searchQuery" style="display: none;" value='{{searchQuery.value}}'></input>
+    <input id="fullSearchQuery" name="fullSearchQuery" style="display: none;" value='{{fullSearchQuery.value}}'></input>
         {{ govukRadios({
   name: "format",
+  id: "format",
   errorMessage: errorMessage.message,
   fieldset: {
     legend: {
-      text: mainContent.headerText1 + " " + searchQuery.value + " " + mainContent.headerText2,
+      text: mainContent.headerText1 + " " + searchQuery.value | replace(")", "") + " " + mainContent.headerText2,
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }

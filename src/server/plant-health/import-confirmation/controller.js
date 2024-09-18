@@ -21,6 +21,7 @@ const importConfirmationController = {
           })
         }
         const searchQuery = request.yar?.get('searchQuery')
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const searchData = await getDefaultLocaleData('search')
         const mainContent = searchData?.mainContent
         const getHelpSection = searchData?.getHelpSection
@@ -29,14 +30,15 @@ const importConfirmationController = {
         const eppoCode = request.yar.get('eppoCode')?.value
         return h.view('plant-health/search/index', {
           pageTitle:
-            'What plant or plant product are you importing? — Check plant health information and import rules — GOV.UK',
+            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',
           getHelpSection,
           hostRef,
           eppoCode,
           mainContent,
           frontendUrl,
-          searchQuery
+          searchQuery,
+          fullSearchQuery
         })
       } else if (request.query.whereareyouimportinginto === 'ni') {
         request.yar.set('importConfirmationRadiooption', {
@@ -70,12 +72,19 @@ const importConfirmationController = {
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
+        let pageTitle
+        if (errors?.list?.errorList?.length > 0) {
+          pageTitle =
+            'Error: What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+        } else {
+          pageTitle =
+            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+        }
         return h.view('plant-health/import-confirmation/index', {
           mainContent,
           getHelpSection,
           radiobuttonValue,
-          pageTitle:
-            'Where are you importing your plant or plant product to? — Check plant health information and import rules — GOV.UK',
+          pageTitle,
           heading: 'ImportConfirmation',
           errors,
           errorMessage

@@ -1,6 +1,6 @@
 {
   "mainContent": {
-    "headerText": "Where are you importing your plant or plant product to?",
+    "headerText": "Where are you importing your plant, plant product or seeds to?",
     "radioButtonText1": "Great Britain (England, Scotland and Wales)",
     "radioButtonText2": "Northern Ireland",
     "buttonText": "Continue"
@@ -21,6 +21,6 @@
   },
   "errors": {
     "titleText": "There is a problem",
-    "importConfirmationErrorListText": "Select where are you importing your plant or plant product to"
+    "importConfirmationErrorListText": "Select where are you importing your plant, plant product or seeds to"
   }
 }

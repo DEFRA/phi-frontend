@@ -1,14 +1,64 @@
 import { getDefaultLocaleData } from '~/src/server/localisation'
 import { config } from '~/src/config'
+import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { proxyFetch } from '~/src/server/common/helpers/proxy-fetch'
 const axios = require('axios')
 const pestSearchController = {
   handler: async (request, h) => {
     if (request != null) {
+      let page = ''
+      let cslGlobal = ''
+      if (request.query?.cslRef?.length > 0) {
+        request.yar.set('cslRef', {
+          value: parseInt(request.query.cslRef)
+        })
+      } else {
+        if (
+          request.query?.cslReff?.length > 0 &&
+          request.query?.cslReff !== 'null'
+        ) {
+          request.yar.set('cslRef', {
+            value: parseInt(request.query.cslReff)
+          })
+        }
+      }
+
+      request.yar.set('pestsearchQuery', {
+        value: decodeURI(
+          request.query.pestsearchQuery?.replace(/ *\([^)]*\) */g, '')
+        )
+      })
+
+      request.yar.set('eppoCode', {
+        value: request.query.eppoCode
+      })
+
       const data = await getDefaultLocaleData('pest-details')
-      if (request.query?.getcsl !== '') {
-        const pestDetails = {
-          cslRef: parseInt(request.query?.getcsl)
+      const mainContent = data?.mainContent
+      request.yar.set('errors', '')
+      request.yar.set('errorMessage', '')
+
+      const pestsearchQuery = request?.yar?.get('pestsearchQuery')
+
+      const getHelpSection = data?.getHelpSection
+
+      if (!request.query.getcsl) {
+        request.yar.set('pestFullSearchQuery', {
+          value: decodeURI(request.query.pestsearchQuery)
+        })
+        page = 'pestsearch'
+        const cslRef = request.yar.get('cslRef')?.value
+        cslGlobal = cslRef
+      } else {
+        page = 'plantdetails'
+        cslGlobal = parseInt(request.query?.getcsl)
+      }
+
+      let pestDetails
+
+      if (cslGlobal && pestsearchQuery.value !== '') {
+        pestDetails = {
+          cslRef: parseInt(cslGlobal)
         }
         const result = await invokepestdetailsAPI(pestDetails)
         async function invokepestdetailsAPI(payload) {
@@ -23,11 +73,6 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-
-        const mainContent = data?.mainContent
-        const getHelpSection = data?.getHelpSection
-        request.yar.set('errors', '')
-        request.yar.set('errorMessage', '')
 
         const plantLinkMap = new Map()
 
@@ -52,16 +97,29 @@ const pestSearchController = {
             return false
           }
         }
-        function getPublicationDate(date) {
-          const today = new Date(date) // yyyy-mm-dd
 
-          // Getting short month name (e.g. "Oct")
-          const month = today.toLocaleString('default', { month: 'long' })
-          const datef = month + ' ' + today.getFullYear()
-          if (datef === 'Invalid Date NaN' || datef === ' ') {
-            return 'Not available'
+        function parseDate(dateString) {
+          const parts = dateString.split('/')
+          let day, month, year
+          const format = config.get('dateFormat')
+
+          if (format === 'dd/mm/yyyy') {
+            day = parseInt(parts[0], 10)
+            month = parseInt(parts[1], 10) - 1 // Months are zero-indexed
+            year = parseInt(parts[2], 10)
+
+            // Add more format conditions if needed
+            const cdate = new Date(year, month, day)
+
+            const monthn = cdate.toLocaleString('default', { month: 'long' })
+            const datef = monthn + ' ' + cdate.getFullYear()
+            if (datef === 'Invalid Date NaN' || datef === ' ') {
+              return 'No date available'
+            } else {
+              return datef
+            }
           } else {
-            return datef
+            return 'No date available'
           }
         }
 
@@ -87,12 +145,12 @@ const pestSearchController = {
                 i
               ].DOCUMENT_TYPE.toUpperCase() === fc
             ) {
-              const res = getPublicationDate(
+              const convertedDate = parseDate(
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
 
               const fcl = result.pest_detail[0].DOCUMENT_LINK[i]
-              fcl.PUBLICATION_DATE_FORMATTED = res
+              fcl.PUBLICATION_DATE_FORMATTED = convertedDate
               fcl.TITLE =
                 result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE.split('.')
 
@@ -130,10 +188,13 @@ const pestSearchController = {
             } else {
               const ocl = result.pest_detail[0].DOCUMENT_LINK[i]
 
-              const res1 = getPublicationDate(
+              // const res1 = getPublicationDate(
+              //   result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
+              // )
+              const convertedDate1 = parseDate(
                 result.pest_detail[0].DOCUMENT_LINK[i].PUBLICATION_DATE
               )
-              ocl.PUBLICATION_DATE_FORMATTED = res1
+              ocl.PUBLICATION_DATE_FORMATTED = convertedDate1
               if (
                 result.pest_detail[0].DOCUMENT_LINK[i].DOCUMENT_TITLE !== ''
               ) {
@@ -289,31 +350,63 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-        const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
 
-        return h.view('plant-health/pest-details/index', {
-          pageTitle:
-            result.pest_detail[0].PEST_NAME[0].NAME +
-            ' — Check plant health information and import rules — GOV.UK',
-          heading: 'Pestdetails',
-          getHelpSection,
+        const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
+        const pestFullSearchQuery = request.yar.get('pestFullSearchQuery')
+
+        if (cslGlobal) {
+          return h.view('plant-health/pest-details/index', {
+            pageTitle:
+              result.pest_detail[0].PEST_NAME[0].NAME +
+              ' — Check plant health information and import rules — GOV.UK',
+            heading: 'Pestdetails',
+            getHelpSection,
+            mainContent,
+            cslRef: cslGlobal,
+            eppoCode,
+            pestFullSearchQuery,
+            resultofPhoto,
+            photoURL,
+            photores,
+            Annex3URL,
+            pestsearchQuery,
+            ContactAuthURL,
+            quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
+            preferredName: result.pest_detail[0].PEST_NAME[0].NAME,
+            commonNames: commonNameSorted,
+            synonymNames: SynonymNameSorted,
+            plantLinkMapsorted,
+            otherPublications,
+            factsheetlinks,
+            Rnpmap,
+            page,
+            Othermap
+          })
+        }
+      } else {
+        const errorData = await getDefaultLocaleData('pest-search')
+        // const pestsearchQuery = request.yar?.get('pestsearchQuery')
+
+        const errorSection = errorData?.errors
+        setErrorMessage(
+          request,
+          errorSection.titleText,
+          errorSection.searchErrorListText
+        )
+
+        const errors = request.yar?.get('errors')
+        const errorMessage = request.yar?.get('errorMessage')
+
+        return h.view('plant-health/pest-search/index.njk', {
           mainContent,
-          cslRef: result.pest_detail[0].CSL_REF,
-          eppoCode,
-          resultofPhoto,
-          photoURL,
-          photores,
-          Annex3URL,
-          ContactAuthURL,
-          quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
-          preferredName: result.pest_detail[0].PEST_NAME[0].NAME,
-          commonNames: commonNameSorted,
-          synonymNames: SynonymNameSorted,
-          plantLinkMapsorted,
-          otherPublications,
-          factsheetlinks,
-          Rnpmap,
-          Othermap
+          getHelpSection,
+          pestsearchQuery,
+          pageTitle:
+            'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
+          heading: 'Search',
+          errors,
+          page,
+          errorMessage
         })
       }
     }
