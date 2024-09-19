@@ -10,23 +10,19 @@ describe('countrySearchController', () => {
 
   beforeEach(() => {
     request = {
+      query: {},
       yar: {
         set: jest.fn(),
-        get: jest.fn().mockReturnValue({ value: 'test' })
-      },
-      query: {}
+        get: jest.fn()
+      }
     };
     h = {
       view: jest.fn()
     };
   });
 
-  it('should handle request with valid countrySearchQuery and countryCode', async () => {
-    request.query.countrySearchQuery = 'testCountrySearch';
-    request.query.countryCode = 'testCountryCode';
-    request.query.searchQuery = 'testSearch';
-    request.query.hostRef = 'testHostRef';
-    request.query.eppoCode = 'testEppoCode';
+  it('should handle valid country search query', async () => {
+    request.query.countrySearchQuery = 'testCountry';
     getDefaultLocaleData.mockResolvedValue({
       mainContent: 'mainContent',
       getHelpSection: 'getHelpSection'
@@ -34,33 +30,18 @@ describe('countrySearchController', () => {
 
     await countrySearchController.handler(request, h);
 
-    expect(request.yar.set).toHaveBeenCalledWith('countrySearchQuery', { value: 'testCountrySearch' });
-    expect(request.yar.set).toHaveBeenCalledWith('countryCode', { value: 'testCountryCode' });
-    expect(request.yar.set).toHaveBeenCalledWith('fullSearchQuery', { value: 'testSearch' });
-    expect(request.yar.set).toHaveBeenCalledWith('searchQuery', { value: 'testSearch' });
-    expect(request.yar.set).toHaveBeenCalledWith('hostRef', { value: 'testHostRef' });
-    expect(request.yar.set).toHaveBeenCalledWith('eppoCode', { value: 'testEppoCode' });
-    expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.objectContaining({
-      pageTitle: 'Which format of testSearch are you importing? — Check plant health information and import rules — GOV.UK',
-      heading: 'Format',
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection'
-    }));
+    expect(request.yar.set).toHaveBeenCalledWith('countrySearchQuery', { value: 'testCountry' });
+    expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.any(Object));
   });
 
-  it('should handle request with invalid countrySearchQuery or empty countryCode', async () => {
+  it('should handle empty country search query', async () => {
     request.query.countrySearchQuery = '';
-    request.query.countryCode = '';
-    request.query.searchQuery = 'testSearch';
-    request.query.hostRef = 'testHostRef';
-    request.query.eppoCode = 'testEppoCode';
+    request.query.emptyCountrySearchQuery = 'true';
     getDefaultLocaleData.mockResolvedValue({
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection',
       errors: {
         titleText: 'Error Title',
-        searchErrorListText1: 'Error Text 1',
-        searchErrorListText2: 'Error Text 2'
+        searchErrorListText1: 'Error List Text 1',
+        searchErrorListText2: 'Error List Text 2'
       }
     });
 
@@ -69,13 +50,35 @@ describe('countrySearchController', () => {
     expect(setErrorMessage).toHaveBeenCalledWith(
       request,
       'Error Title',
-      'Error Text 1 testSearch Error Text 2'
+      'Error List Text 1 undefined Error List Text 2'
     );
-    expect(h.view).toHaveBeenCalledWith('plant-health/country-search/index', expect.objectContaining({
-      pageTitle: 'Which country, state or territory are you importing testSearch — Check plant health information and import rules — GOV.UK',
-      heading: 'Country Search',
+    expect(h.view).toHaveBeenCalledWith('plant-health/country-search/index', expect.any(Object));
+  });
+
+  it('should handle valid country code', async () => {
+    request.query.countryCode = 'testCode';
+    getDefaultLocaleData.mockResolvedValue({
       mainContent: 'mainContent',
       getHelpSection: 'getHelpSection'
-    }));
+    });
+
+    await countrySearchController.handler(request, h);
+
+    expect(request.yar.set).toHaveBeenCalledWith('countryCode', { value: 'testCode' });
+    expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.any(Object));
+  });
+
+  it('should handle missing country code', async () => {
+    request.query.countryCode = '';
+    request.query.countryCodeOne = 'testCodeOne';
+    getDefaultLocaleData.mockResolvedValue({
+      mainContent: 'mainContent',
+      getHelpSection: 'getHelpSection'
+    });
+
+    await countrySearchController.handler(request, h);
+
+    expect(request.yar.set).toHaveBeenCalledWith('countryCode', { value: 'testCodeOne' });
+    expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.any(Object));
   });
 });

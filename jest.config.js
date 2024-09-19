@@ -5,6 +5,7 @@ module.exports = {
   resetModules: true,
   clearMocks: true,
   silent: true,
+  coverageProvider: 'v8',
   testMatch: ['**/src/**/*.test.js'],
   reporters: ['default', ['github-actions', { silent: false }], 'summary'],
   setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],

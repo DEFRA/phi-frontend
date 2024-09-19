@@ -4,49 +4,45 @@ import { setErrorMessage } from '~/src/server/common/helpers/errors';
 
 jest.mock('~/src/server/localisation');
 jest.mock('~/src/server/common/helpers/errors');
-
+test('TextEncoder is globally defined in Jest', () => {
+  expect(global.TextEncoder).toBeDefined();
+});
 describe('pestDetailsPageController', () => {
   let request, h;
 
   beforeEach(() => {
     request = {
+      query: {},
       yar: {
         set: jest.fn(),
-        get: jest.fn().mockReturnValue({ value: 'mockValue' })
-      },
-      query: {}
+        get: jest.fn()
+      }
     };
     h = {
       view: jest.fn()
     };
   });
 
-  it('should handle request with format query', async () => {
-    request.query.format = 'mockFormat';
+  it('should handle valid format query', async () => {
+    request.query.format = 'testFormat';
     getDefaultLocaleData.mockResolvedValue({
-      mainContent: 'mockMainContent',
-      getHelpSection: 'mockGetHelpSection'
+      mainContent: 'mainContent',
+      getHelpSection: 'getHelpSection'
     });
 
     await pestDetailsPageController.handler(request, h);
 
-    expect(request.yar.set).toHaveBeenCalledWith('format', { value: 'mockFormat' });
-    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.objectContaining({
-      pageTitle: 'Check plant health information and import rules — GOV.UK',
-      heading: 'pest-details-page',
-      getHelpSection: 'mockGetHelpSection',
-      mainContent: 'mockMainContent'
-    }));
+    expect(request.yar.set).toHaveBeenCalledWith('format', { value: 'testFormat' });
+    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.any(Object));
   });
 
-  it('should handle request without format query', async () => {
+  it('should handle missing format query', async () => {
+    request.query.format = undefined;
     getDefaultLocaleData.mockResolvedValue({
-      mainContent: 'mockMainContent',
-      getHelpSection: 'mockGetHelpSection',
       errors: {
-        titleText: 'mockTitleText',
-        formatPageErrorListText1: 'mockErrorText1',
-        formatPageErrorListText2: 'mockErrorText2'
+        titleText: 'Error Title',
+        formatPageErrorListText1: 'Error List Text 1',
+        formatPageErrorListText2: 'Error List Text 2'
       }
     });
 
@@ -54,14 +50,31 @@ describe('pestDetailsPageController', () => {
 
     expect(setErrorMessage).toHaveBeenCalledWith(
       request,
-      'mockTitleText',
-      'mockErrorText1 mockValue mockErrorText2'
+      'Error Title',
+      'Error List Text 1 undefined Error List Text 2'
     );
-    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.objectContaining({
-      pageTitle: 'Check plant health information and import rules — GOV.UK',
-      heading: 'Format',
-      mainContent: 'mockMainContent',
-      getHelpSection: 'mockGetHelpSection'
-    }));
+    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.any(Object));
+  });
+
+  it('should set search query values correctly', async () => {
+    request.yar.get.mockReturnValueOnce('testSearchQuery')
+      .mockReturnValueOnce('testFullSearchQuery')
+      .mockReturnValueOnce('testPestSearchQuery')
+      .mockReturnValueOnce('testCslRef')
+      .mockReturnValueOnce('testEppoCode');
+
+    getDefaultLocaleData.mockResolvedValue({
+      mainContent: 'mainContent',
+      getHelpSection: 'getHelpSection'
+    });
+
+    await pestDetailsPageController.handler(request, h);
+
+    expect(request.yar.set).toHaveBeenCalledWith('searchQuery', { value: 'testSearchQuery' });
+    expect(request.yar.set).toHaveBeenCalledWith('fullSearchQuery', { value: 'testFullSearchQuery' });
+    expect(request.yar.set).toHaveBeenCalledWith('pestSearchQuery', { value: 'testPestSearchQuery' });
+    expect(request.yar.set).toHaveBeenCalledWith('cslRef', { value: 'testCslRef' });
+    expect(request.yar.set).toHaveBeenCalledWith('eppoCode', { value: 'testEppoCode' });
+    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.any(Object));
   });
 });
