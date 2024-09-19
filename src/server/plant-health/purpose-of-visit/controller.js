@@ -55,6 +55,9 @@ const purposeOfVisitController = {
           heading: 'Pest'
         })
       } else {
+        request.yar.set('errors', '')
+        request.yar.set('errorMessage', '')
+        request.yar.set('errorMessageRadio', '')
         const plantHealthdata = await getDefaultLocaleData('plant-health')
         const mainContent = plantHealthdata?.mainContent
         const getHelpSection = plantHealthdata?.getHelpSection
@@ -62,7 +65,6 @@ const purposeOfVisitController = {
         const errorSection = errorData?.errors
         const radiooption = request?.yar?.get('purposeOfVisitRadiooption')
         radiobuttonValue = radiooption?.purposeOfVisit
-
         if (!radiobuttonValue) {
           setErrorMessage(
             request,
