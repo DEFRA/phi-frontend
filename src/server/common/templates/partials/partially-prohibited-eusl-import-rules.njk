@@ -21,7 +21,7 @@
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for planting')%}
    {% set processedData =  'Seeds for planting'%}
   {% endif %}
-  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds for eating')%}
+  {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'seeds not intended for planting')%}
     {% set  processedData =   'Seeds not intended for planting' %}
   {% endif %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'root and tubercle vegetables')%}
@@ -91,16 +91,16 @@
   {% set 11AimportRules = 'false' %}  
 {% if ulIndicatorFlag %} 
   {% if data.result.seedIndicator.length > 0%}
-    {% if item['BTOM_EUSL'] === '11A' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+    {% if item['BTOM_EUSL'] === '11A' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds not intended for planting' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds not intended for planting') %}
     {% set 11AimportRules  = 'true'%}
     {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
       {% set 11AimportRules  = 'true'%}
     {% endif %} 
   {% endif %} 
   {% if data.result.fruitIndicator.length > 0 %} 
-    {% if  item['BTOM_EUSL'] === '11A' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% if  item['BTOM_EUSL'] === '11A' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds not intended for planting')%}
     {% set 11AimportRules  = 'true'%}
-    {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds for eating'%}
+    {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds not intended for planting'%}
     {% set 11AimportRules  = 'true'%}
     {% endif %}
   {%endif%}
@@ -117,7 +117,7 @@
   {%endif%}
 {% else %}
    {% if data.result.seedIndicator.length > 0%}
-    {% if item['BTOM_EUSL'] === '11A' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+    {% if item['BTOM_EUSL'] === '11A' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds not intended for planting' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds not intended for planting') %}
     {% set 11AimportRules  = 'true'%}
     {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
       {% set 11AimportRules  = 'true'%}
@@ -126,9 +126,9 @@
     {% endif %} 
   {% endif %} 
   {% if data.result.fruitIndicator.length > 0 %} 
-    {% if  item['BTOM_EUSL'] === '11A' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% if  item['BTOM_EUSL'] === '11A' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds not intended for planting')%}
     {% set 11AimportRules  = 'true'%}
-    {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds for eating'%}
+    {% elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds not intended for planting'%}
     {% set 11AimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11A' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11AimportRules  = 'true'%}
@@ -213,7 +213,7 @@
 {% set 11BimportRules = 'false' %}  
 {% if ulIndicatorFlag %} 
   {% if data.result.seedIndicator.length > 0%}
-   {% if item['BTOM_EUSL'] === '11B' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+   {% if item['BTOM_EUSL'] === '11B' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds not intended for planting' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds not intended for planting') %}
     {% set 11BimportRules  = 'true'%}
     {% elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
     {% set 11BimportRules  = 'true'%}
@@ -222,9 +222,9 @@
    {% endif %} 
   {% endif %} 
   {% if data.result.fruitIndicator.length > 0 %} 
-    {% if  item['BTOM_EUSL'] === '11B' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% if  item['BTOM_EUSL'] === '11B' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds not intended for planting')%}
     {% set 11BimportRules  = 'true'%}
-    {% elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds for eating'%}
+    {% elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds not intended for planting'%}
     {% set 11BimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11BimportRules  = 'true'%}
@@ -243,7 +243,7 @@
   {%endif%}
 {% else %}
    {% if data.result.seedIndicator.length > 0%}
-   {% if item['BTOM_EUSL'] === '11B' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+   {% if item['BTOM_EUSL'] === '11B' and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds not intended for planting' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds not intended for planting') %}
     {% set 11BimportRules  = 'true'%}
     {% elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
     {% set 11BimportRules  = 'true'%}
@@ -252,9 +252,9 @@
    {% endif %} 
   {% endif %} 
   {% if data.result.fruitIndicator.length > 0 %} 
-    {% if  item['BTOM_EUSL'] === '11B' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% if  item['BTOM_EUSL'] === '11B' and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds not intended for planting')%}
     {% set 11BimportRules  = 'true'%}
-    {% elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds for eating'%}
+    {% elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds not intended for planting'%}
     {% set 11BimportRules  = 'true'%}
     {%elif item['BTOM_EUSL'] === '11B' and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11BimportRules  = 'true'%}
@@ -334,7 +334,7 @@
 {% set 11CimportRules = 'false' %}  
 {% if ulIndicatorFlag %} 
   {% if data.result.seedIndicator.length > 0%}
-    {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+    {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds not intended for planting' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds not intended for planting') %}
     {% set 11CimportRules  = 'true'%}
     {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
     {% set 11CimportRules  = 'true'%}
@@ -343,9 +343,9 @@
     {% endif %}  
   {% endif %} 
   {% if data.result.fruitIndicator.length > 0 %} 
-    {% if  (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% if  (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds not intended for planting')%}
     {% set 11CimportRules  = 'true'%}
-    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds for eating'%}
+    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds not intended for planting'%}
     {% set 11CimportRules  = 'true'%}
      {%elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11CimportRules  = 'true'%}
@@ -364,7 +364,7 @@
   {% endif %}   
 {% else %}
   {% if data.result.seedIndicator.length > 0%}
-    {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for eating' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds for eating') %}
+    {% if (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and  (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds for planting'  or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'seeds not intended for planting' or item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit, seeds not intended for planting') %}
     {% set 11CimportRules  = 'true'%}
     {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'fruit'%}
     {% set 11CimportRules  = 'true'%}
@@ -373,9 +373,9 @@
     {% endif %}  
   {% endif %} 
   {% if data.result.fruitIndicator.length > 0 %} 
-    {% if  (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds for eating')%}
+    {% if  (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and (item['SERVICE_SUBFORMAT'].trim().toLowerCase() === 'fruit' or item['SERVICE_SUBFORMAT'].toLowerCase() === 'fruit, seeds not intended for planting')%}
     {% set 11CimportRules  = 'true'%}
-    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds for eating'%}
+    {% elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].trim().toLowerCase() === 'seeds not intended for planting'%}
     {% set 11CimportRules  = 'true'%}
      {%elif (item['BTOM_EUSL'] === '11C' or item['BTOM_EUSL'] === 'UNR') and item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0 and item['SERVICE_SUBFORMAT'].length === 0%}
     {% set 11CimportRules  = 'true'%}
@@ -471,11 +471,6 @@
 {% endif %}
 {%endif%}  
  {% endfor %} 
-  <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
-       You may also need an
-<a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/eori">Economic Operators Registration and Identification number (EORI number)
-to move goods to Great Britain.</a>
-     </p> 
    <p class="govuk-body govuk-!-margin-top-0 govuk-!-margin-bottom-1">
         You can <a class="govuk-link" rel="noreferrer noopener"  href="https://planthealthportal.defra.gov.uk/trade/imports/non-compliance/">find out the number of interceptions that have taken place at the border.</a>
     </p>  
