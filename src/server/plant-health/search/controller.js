@@ -71,7 +71,7 @@ const searchPageController = {
           pageTitle:
             'Which country, state or territory are you importing ' +
             searchQuery.value +
-            'from? — Check plant health information and import rules — GOV.UK',
+            ' from? — Check plant health information and import rules — GOV.UK',
           heading: 'Country',
           getHelpSection,
           mainContent,
