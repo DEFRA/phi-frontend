@@ -69,7 +69,7 @@ function createAndAppendLiElement(suggestions) {
     finalArray.push({ text: item.COUNTRY_NAME, countryCode: item.COUNTRY_CODE })
   })
   if (finalArray.length === 0) {
-    finalArray.push({ text: 'No results found', hostRef: '' })
+    finalArray.push({ text: 'No results found', countryCode: '' })
   }
   return finalArray
 }
