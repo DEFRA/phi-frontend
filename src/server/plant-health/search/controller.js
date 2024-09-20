@@ -21,14 +21,22 @@ const searchPageController = {
           )
         })
       } else {
-        request.yar.set('fullSearchQuery', {
-          value: decodeURI(request.query.autocompleteSearchQuery)
-        })
-        request.yar.set('searchQuery', {
-          value: decodeURI(
-            request.query.autocompleteSearchQuery?.replace(/ *\([^)]*\) */g, '')
-          )
-        })
+        if (
+          decodeURI(request.query.autocompleteSearchQuery) !==
+          'No results found'
+        ) {
+          request.yar.set('fullSearchQuery', {
+            value: decodeURI(request.query.autocompleteSearchQuery)
+          })
+          request.yar.set('searchQuery', {
+            value: decodeURI(
+              request.query.autocompleteSearchQuery?.replace(
+                / *\([^)]*\) */g,
+                ''
+              )
+            )
+          })
+        }
       }
       if (request.query?.hostRef?.length > 0) {
         request.yar.set('hostRef', {
@@ -78,7 +86,7 @@ const searchPageController = {
       } else {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
-        if (!hostRef || hostRef === undefined) {
+        if (!hostRef || hostRef === undefined || !searchQuery?.value) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
