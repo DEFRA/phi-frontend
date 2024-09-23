@@ -22,7 +22,11 @@ const pestSearchController = {
           })
         }
       }
-      if (decodeURI(request.query.pestsearchQuery) !== 'No results found') {
+      if (decodeURI(request.query.pestsearchQuery) === 'No results found') {
+        request.yar.set('pestsearchQuery', {
+          value: ''
+        })
+      } else {
         request.yar.set('pestsearchQuery', {
           value: decodeURI(
             request.query.pestsearchQuery?.replace(/ *\([^)]*\) */g, '')
@@ -360,7 +364,6 @@ const pestSearchController = {
 
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
         const pestFullSearchQuery = request.yar.get('pestFullSearchQuery')
-
         if (cslGlobal) {
           return h.view('plant-health/pest-details/index', {
             pageTitle:
