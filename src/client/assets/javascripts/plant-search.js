@@ -298,6 +298,10 @@ function createAndAppendLiElement(item, index) {
 
 const onConfirm = (e) => {
   if (e !== undefined) {
+    const existingHostRefElement = document.querySelector('#hostRef')
+    document
+      .querySelector('#my-autocomplete-container')
+      .removeChild(existingHostRefElement)
     const inputHref = document.createElement('input')
     inputHref.id = 'hostRef'
     inputHref.style = 'display:none'
