@@ -98,7 +98,7 @@ const countrySearchController = {
             errorSection.titleText,
             errorSection.searchErrorListText1 +
               ' ' +
-              request.yar?.get('searchQuery').value +
+              request.yar?.get('searchQuery')?.value +
               ' ' +
               errorSection.searchErrorListText2
           )

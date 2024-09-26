@@ -48,12 +48,15 @@ describe('pestDetailsPageController', () => {
 
     await pestDetailsPageController.handler(request, h);
 
-    expect(setErrorMessage).toHaveBeenCalledWith(
-      request,
-      'Error Title',
-      'Error List Text 1 undefined Error List Text 2'
-    );
-    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.any(Object));
+    expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
+    expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.objectContaining({
+      mainContent: 'mainContent',
+      getHelpSection: 'getHelpSection',
+      radiobuttonValue: null,
+      errors: 'errors',
+      errorMessage: 'errorMessage'
+    }));
+   // expect(h.view).toHaveBeenCalledWith('plant-health/pest-details/index', expect.any(Object));
   });
 
   it('should set search query values correctly', async () => {

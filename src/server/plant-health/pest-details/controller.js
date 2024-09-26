@@ -24,7 +24,7 @@ const pestDetailsPageController = {
         value: request.yar?.get('eppoCode')?.value
       })
       request.yar.set('commonName', {
-        value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
+        value: request.yar?.get('fullSearchQuery')?.match(/\[(.*?)\]/)
       })
       const cslRef = request?.yar?.get('cslRef')?.value
 

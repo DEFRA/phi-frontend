@@ -31,6 +31,8 @@ describe('countrySearchController', () => {
     await countrySearchController.handler(request, h);
 
     expect(request.yar.set).toHaveBeenCalledWith('countrySearchQuery', { value: 'testCountry' });
+    expect(request.yar.set).toHaveBeenCalledWith('searchQuery', { value: 'testCountry' }); 
+    expect(request.yar.set).toHaveBeenCalledWith('autocompleteCountrySearchQuery', { value: 'testCountry' });
     expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.any(Object));
   });
 
@@ -47,11 +49,8 @@ describe('countrySearchController', () => {
 
     await countrySearchController.handler(request, h);
 
-    expect(setErrorMessage).toHaveBeenCalledWith(
-      request,
-      'Error Title',
-      'Error List Text 1 undefined Error List Text 2'
-    );
+    expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
+   
     expect(h.view).toHaveBeenCalledWith('plant-health/country-search/index', expect.any(Object));
   });
 

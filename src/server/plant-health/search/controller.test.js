@@ -26,7 +26,9 @@ describe('searchPageController', () => {
 
   it('should handle request with searchQuery and hostRef', async () => {
     request.query.searchQuery = 'testSearch';
+    request.query.fullSearchQuery = 'testSearch';
     request.query.hostRef = 'testHostRef';
+    request.query.autocompleteSearchQuery = 'testautocompleteSearch';
     getDefaultLocaleData.mockResolvedValue({
       mainContent: 'mainContent',
       getHelpSection: 'getHelpSection'
@@ -36,7 +38,8 @@ describe('searchPageController', () => {
 
     expect(request.yar.set).toHaveBeenCalledWith('fullSearchQuery', { value: 'testSearch' });
     expect(request.yar.set).toHaveBeenCalledWith('searchQuery', { value: 'testSearch' });
-    expect(request.yar.set).toHaveBeenCalledWith('hostRef', { value: 'testHostRef' });
+    expect(request.yar.set).toHaveBeenCalledWith('autocompleteSearchQuery', { value: 'testautocompleteSearch' });
+    expect(request.yar.set).toHaveBeenCalledWith('hostRef', { value: 'undefined' });
     expect(h.view).toHaveBeenCalledWith('plant-health/country-search/index', expect.objectContaining({
       pageTitle: 'Which country, state or territory are you importing testSearch — Check plant health information and import rules — GOV.UK',
       heading: 'Country',

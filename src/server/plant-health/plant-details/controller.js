@@ -24,7 +24,7 @@ const plantDetailsPageController = {
         value: request.yar?.get('eppoCode')?.value
       })
       request.yar.set('commonName', {
-        value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
+        value: request.yar?.get('fullSearchQuery')?.match(/\[(.*?)\]/)
       })
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value

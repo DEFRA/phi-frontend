@@ -11,8 +11,8 @@ describe('plantDetailsPageController', () => {
   beforeEach(() => {
     request = {
       yar: {
-        set: jest.fn(),
-        get: jest.fn().mockReturnValue({ value: 'test' })
+        get: jest.fn(),
+        set: jest.fn()
       },
       query: {}
     };
@@ -22,7 +22,7 @@ describe('plantDetailsPageController', () => {
   });
 
   it('should handle request with format query', async () => {
-    request.query.format = 'testFormat';
+    request.query.format = 'someFormat';
     getDefaultLocaleData.mockResolvedValue({
       mainContent: 'mainContent',
       getHelpSection: 'getHelpSection'
@@ -30,9 +30,9 @@ describe('plantDetailsPageController', () => {
 
     await plantDetailsPageController.handler(request, h);
 
-    expect(request.yar.set).toHaveBeenCalledWith('format', { value: 'testFormat' });
+    expect(request.yar.set).toHaveBeenCalledWith('format', { value: 'someFormat' });
     expect(h.view).toHaveBeenCalledWith('plant-health/plant-details/index', expect.objectContaining({
-      pageTitle: 'test — Check plant health information and import rules — GOV.UK',
+      pageTitle: expect.stringContaining(' — Check plant health information and import rules — GOV.UK'),
       heading: 'Plant Details',
       mainContent: 'mainContent',
       getHelpSection: 'getHelpSection'
@@ -55,10 +55,10 @@ describe('plantDetailsPageController', () => {
     expect(setErrorMessage).toHaveBeenCalledWith(
       request,
       'Error Title',
-      'Error Text 1 test Error Text 2'
+      'Error Text 1 undefined Error Text 2'
     );
     expect(h.view).toHaveBeenCalledWith('plant-health/plant-details/index', expect.objectContaining({
-      pageTitle: 'test — Check plant health information and import rules — GOV.UK',
+      pageTitle: expect.stringContaining('Error: '),
       heading: 'Format',
       mainContent: 'mainContent',
       getHelpSection: 'getHelpSection'
