@@ -300,6 +300,10 @@ function createAndAppendLiElement(item, index) {
 
 const onConfirm = (e) => {
   if (e !== undefined) {
+    const existingCslRefElement = document.querySelector('#cslRef')
+    document
+      .querySelector('#my-autocomplete-pest-container')
+      .removeChild(existingCslRefElement)
     const inputCslref = document.createElement('input')
     inputCslref.id = 'cslRef'
     inputCslref.style = 'display:none'
