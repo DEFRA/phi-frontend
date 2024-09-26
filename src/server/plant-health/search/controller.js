@@ -21,14 +21,22 @@ const searchPageController = {
           )
         })
       } else {
-        request.yar.set('fullSearchQuery', {
-          value: decodeURI(request.query.autocompleteSearchQuery)
-        })
-        request.yar.set('searchQuery', {
-          value: decodeURI(
-            request.query.autocompleteSearchQuery?.replace(/ *\([^)]*\) */g, '')
-          )
-        })
+        if (
+          decodeURI(request.query.autocompleteSearchQuery) !==
+          'No results found'
+        ) {
+          request.yar.set('fullSearchQuery', {
+            value: decodeURI(request.query.autocompleteSearchQuery)
+          })
+          request.yar.set('searchQuery', {
+            value: decodeURI(
+              request.query.autocompleteSearchQuery?.replace(
+                / *\([^)]*\) */g,
+                ''
+              )
+            )
+          })
+        }
       }
       if (request.query?.hostRef?.length > 0) {
         request.yar.set('hostRef', {
@@ -63,7 +71,7 @@ const searchPageController = {
           pageTitle:
             'Which country, state or territory are you importing ' +
             searchQuery.value +
-            'from? — Check plant health information and import rules — GOV.UK',
+            ' from? — Check plant health information and import rules — GOV.UK',
           heading: 'Country',
           getHelpSection,
           mainContent,
@@ -78,7 +86,7 @@ const searchPageController = {
       } else {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
-        if (!hostRef || hostRef === undefined) {
+        if (!hostRef || hostRef === undefined || !searchQuery?.value) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           setErrorMessage(
@@ -92,14 +100,10 @@ const searchPageController = {
         let pageTitle
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
-            'Error: Which country, state or territory are you importing ' +
-            searchQuery.value +
-            'from? — Check plant health information and import rules — GOV.UK'
+            'Error: What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
-            'Which country, state or territory are you importing ' +
-            searchQuery.value +
-            'from? — Check plant health information and import rules — GOV.UK'
+            'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
         }
         return h.view('plant-health/search/index', {
           mainContent,

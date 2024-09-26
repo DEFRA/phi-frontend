@@ -13,9 +13,14 @@ const countrySearchController = {
           value: decodeURI(request.query.countrySearchQuery)
         })
       } else {
-        request.yar.set('countrySearchQuery', {
-          value: decodeURI(request.query.autocompleteCountrySearchQuery)
-        })
+        if (
+          decodeURI(request.query.autocompleteCountrySearchQuery) !==
+          'No results found'
+        ) {
+          request.yar.set('countrySearchQuery', {
+            value: decodeURI(request.query.autocompleteCountrySearchQuery)
+          })
+        }
       }
       if (request.query?.countryCode?.length > 0) {
         request.yar.set('countryCode', {

@@ -21,10 +21,10 @@ async function fetchSuggestions(query, populateResults) {
         if (finalArray.length > 0) {
           searching = false
           function compareNames(a, b) {
-            if (a.text < b.text) {
+            if (a.text.trim() < b.text.trim()) {
               return -1
             }
-            if (a.text > b.text) {
+            if (a.text.trim() > b.text.trim()) {
               return 1
             }
             return 0
@@ -198,11 +198,8 @@ async function renderResultsWithHtml(filterResults) {
       checkForEmptyArray[0].latinNames.length === 0 &&
       checkForEmptyArray[0].synonymNames.length === 0
     ) {
-      const cslRefElement = document.getElementById('cslRef')
-      const eppoCodeElement = document.getElementById('eppoCode')
-      cslRefElement.ariaLabel = 'Csl ref'
-      cslRefElement.value = ''
-      eppoCodeElement.value = ''
+      finalArray.push({ text: 'No results found', cslRef: '' })
+      return finalArray
     } else {
       filterResults.forEach(function (resultSet) {
         resultSet.latinNames.forEach(function (item, index) {
@@ -303,6 +300,10 @@ function createAndAppendLiElement(item, index) {
 
 const onConfirm = (e) => {
   if (e !== undefined) {
+    const existingCslRefElement = document.querySelector('#cslRef')
+    document
+      .querySelector('#my-autocomplete-pest-container')
+      .removeChild(existingCslRefElement)
     const inputCslref = document.createElement('input')
     inputCslref.id = 'cslRef'
     inputCslref.style = 'display:none'

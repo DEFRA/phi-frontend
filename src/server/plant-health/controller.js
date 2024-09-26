@@ -10,6 +10,8 @@ const plantHealthController = {
         request.yar.set('purposeOfVisitRadiooption', null)
         request.yar.set('importConfirmationRadiooption', null)
         request.yar.set('searchQuery', null)
+        request.yar.set('fullSearchQuery', null)
+        request.yar.set('pestFullSearchQuery', null)
         request.yar.set('countrySearchQuery', null)
         request.yar.set('format', null)
         request.yar.set('pestsearchQuery', null)

@@ -142,7 +142,8 @@ const formatPageController = {
                   })
               }
               if (
-                annex11.SERVICE_SUBFORMAT?.toLowerCase() === 'seeds for eating'
+                annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
+                'seeds not intended for planting'
               ) {
                 removedProcessedData = processedData[0]
                   ?.split(' or ')

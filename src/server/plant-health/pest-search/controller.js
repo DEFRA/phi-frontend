@@ -22,12 +22,17 @@ const pestSearchController = {
           })
         }
       }
-
-      request.yar.set('pestsearchQuery', {
-        value: decodeURI(
-          request.query.pestsearchQuery?.replace(/ *\([^)]*\) */g, '')
-        )
-      })
+      if (decodeURI(request.query.pestsearchQuery) === 'No results found') {
+        request.yar.set('pestsearchQuery', {
+          value: ''
+        })
+      } else {
+        request.yar.set('pestsearchQuery', {
+          value: decodeURI(
+            request.query.pestsearchQuery?.replace(/ *\([^)]*\) */g, '')
+          )
+        })
+      }
 
       request.yar.set('eppoCode', {
         value: request.query.eppoCode
@@ -43,9 +48,11 @@ const pestSearchController = {
       const getHelpSection = data?.getHelpSection
 
       if (!request.query.getcsl) {
-        request.yar.set('pestFullSearchQuery', {
-          value: decodeURI(request.query.pestsearchQuery)
-        })
+        if (decodeURI(request.query.pestsearchQuery) !== 'No results found') {
+          request.yar.set('pestFullSearchQuery', {
+            value: decodeURI(request.query.pestsearchQuery)
+          })
+        }
         page = 'pestsearch'
         const cslRef = request.yar.get('cslRef')?.value
         cslGlobal = cslRef
@@ -56,7 +63,11 @@ const pestSearchController = {
 
       let pestDetails
 
-      if (cslGlobal && pestsearchQuery.value !== '') {
+      if (
+        cslGlobal &&
+        pestsearchQuery?.value &&
+        pestsearchQuery?.value !== ''
+      ) {
         pestDetails = {
           cslRef: parseInt(cslGlobal)
         }
@@ -353,7 +364,6 @@ const pestSearchController = {
 
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
         const pestFullSearchQuery = request.yar.get('pestFullSearchQuery')
-
         if (cslGlobal) {
           return h.view('plant-health/pest-details/index', {
             pageTitle:

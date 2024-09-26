@@ -160,7 +160,6 @@ async function renderSuggestions(json, query) {
       synonymNames: synonymArray
     }
   ]
-
   return await renderResultsWithHtml(resultSet)
 }
 
@@ -187,7 +186,6 @@ function commonExistingNameCheck(latinArray, name) {
   })
   return existingArray
 }
-
 async function renderResultsWithHtml(filterResults) {
   finalArray = []
   const checkForEmptyArray = filterResults.flat()
@@ -198,11 +196,8 @@ async function renderResultsWithHtml(filterResults) {
       checkForEmptyArray[0].latinNames.length === 0 &&
       checkForEmptyArray[0].synonymNames.length === 0
     ) {
-      const hostRefElement = document.getElementById('hostRef')
-      const eppoCodeElement = document.getElementById('eppoCode')
-      hostRefElement.ariaLabel = 'Host ref'
-      hostRefElement.value = ''
-      eppoCodeElement.value = ''
+      finalArray.push({ text: 'No results found', hostRef: '' })
+      return finalArray
     } else {
       filterResults.forEach(function (resultSet) {
         resultSet.latinNames.forEach(function (item, index) {
@@ -303,6 +298,10 @@ function createAndAppendLiElement(item, index) {
 
 const onConfirm = (e) => {
   if (e !== undefined) {
+    const existingHostRefElement = document.querySelector('#hostRef')
+    document
+      .querySelector('#my-autocomplete-container')
+      .removeChild(existingHostRefElement)
     const inputHref = document.createElement('input')
     inputHref.id = 'hostRef'
     inputHref.style = 'display:none'
