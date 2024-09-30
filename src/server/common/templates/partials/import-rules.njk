@@ -8,7 +8,11 @@
     {% if data.result.annexSixRule === 'INNS'%}
     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.prohibitedContentText4}}.
     {% else %}
-    {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+      {% if data.result.hybridIndicator.length > 0%}
+        {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText3}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+      {% else %}
+        {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+      {% endif %}
     {% endif %}
    </strong>
    </div> 
