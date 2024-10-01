@@ -130,6 +130,9 @@ const formatPageController = {
               ulIndicatorFlag = true
             }
             let removedProcessedData = processedData
+            const annex11WithSubformatCount = result.annex11RulesArr?.filter(
+              (e) => e.SERVICE_SUBFORMAT.length > 0
+            )
             result.annex11RulesArr?.forEach(function (annex11) {
               if (
                 annex11.SERVICE_SUBFORMAT?.toLowerCase() ===
@@ -238,6 +241,8 @@ const formatPageController = {
               subFormatArray,
               removedProcessedData,
               hostRef,
+              annex11WithSubformatCount: annex11WithSubformatCount?.length,
+              subFormatArrayCount: subFormatArray?.length,
               format,
               dormantName,
               bonsaiName,
