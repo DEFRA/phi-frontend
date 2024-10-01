@@ -160,12 +160,7 @@
                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
                   {% endif %}
                   <td class="govuk-table__cell">
-                    {% if item.regulated_indicator.split('\n')[1].length > 0%}
-                    {{item.regulated_indicator.split('\n')[0]}}
-                    <p>{{item.regulated_indicator.split('\n')[1]}}</p>
-                    {% else %}
-                    {{item.regulated_indicator}}
-                    {% endif %}
+                    {{item.regulated_indicator | replace('\n', '<br>') | safe }}
                   </td>
                {% else %}
                {% if (item.quarantine_indicator !== '' and item.quarantine_indicator !== null) and item.quarantine_indicator !== "R"%}
