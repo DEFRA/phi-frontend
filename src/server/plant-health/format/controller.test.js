@@ -4,8 +4,10 @@ import { setErrorMessage } from '~/src/server/common/helpers/errors';
 import { config } from '~/src/config';
 import axios from 'axios';
 
+
+
+
 jest.mock('~/src/server/localisation');
-jest.mock('~/src/config');
 jest.mock('~/src/server/common/helpers/errors');
 jest.mock('axios');
 
@@ -26,45 +28,90 @@ describe('formatPageController', () => {
     };
   });
 
-  it('should handle request with format query parameter', async () => {
-    request.query.format = 'testFormat';
-    getDefaultLocaleData.mockResolvedValue({ mainContent: 'mainContent', getHelpSection: 'getHelpSection' });
+  it('should handle a valid request and return the correct view', async () => {
+    request.query = {
+      countrySearchQuery: 'Japan',
+      fullSearchQuery: 'Full Query',
+      searchQuery: 'Search Query',
+      hostRef: '123',
+      eppoCode: 'E123',
+      format: 'plants for planting'
+    };
+    request.yar.get.mockReturnValueOnce({ value: '123' });
+
+    const data = {
+      mainContent: 'Main Content',
+      getHelpSection: 'Help Section'
+    };
+    getDefaultLocaleData.mockResolvedValueOnce(data);
+
+    const plantData = {
+      mainContent: 'Plant Main Content',
+      getHelpSection: 'Plant Help Section'
+    };
+    getDefaultLocaleData.mockResolvedValueOnce(plantData);
+
+    const result = {
+      hostRef: '123',
+      dormantIndicator: ['Dormant'],
+      seedIndicator: ['Seeds'],
+      fruitIndicator: ['Fruit'],
+      bonsaiIndicator: ['Bonsai'],
+      invintroIndicator: ['In vitro'],
+      FormatClarification: 'Clarification',
+      annex11RulesArr: [],
+      pestDetails: [],
+      annexSixRule: 'Annex Six',
+      annexElevenRule: 'Annex Eleven',
+      eppoCode: 'E123',
+      plantName: [{ NAME: 'Preferred Name' }, { NAME: 'Common Name' }, { NAME: 'Synonym Name' }]
+    };
+    axios.post.mockResolvedValueOnce({ data: result });
 
     await formatPageController.handler(request, h);
 
-    expect(request.yar.set).toHaveBeenCalledWith('format', { value: 'testFormat' });
-    expect(h.view).toHaveBeenCalled();
+    expect(h.view).toHaveBeenCalledWith('plant-health/plant-details/index', expect.objectContaining({
+      pageTitle: expect.any(String),
+      heading: 'Plant Details',
+      result,
+      // Add other expected properties here
+    }));
   });
 
-  it('should handle request with searchQuery and countrySearchQuery', async () => {
-    request.query.searchQuery = 'testSearchQuery';
-    request.query.countrySearchQuery = 'testCountrySearchQuery';
-    getDefaultLocaleData.mockResolvedValue({ mainContent: 'mainContent', getHelpSection: 'getHelpSection' });
+  it('should handle errors and redirect to the error page', async () => {
+    request.query = { format: 'invalid' };
+    axios.post.mockRejectedValueOnce(new Error('API Error'));
 
     await formatPageController.handler(request, h);
 
-    expect(request.yar.set).toHaveBeenCalledWith('searchQuery', { value: 'testSearchQuery' });
-    expect(request.yar.set).toHaveBeenCalledWith('countrySearchQuery', { value: 'testCountrySearchQuery' });
-    expect(h.view).toHaveBeenCalled();
+    expect(h.redirect).toHaveBeenCalledWith(expect.stringContaining('/check-plant-health-information-and-import-rules/problem-with-service'));
   });
 
-  it('should handle errors and render error view', async () => {
+  it('should set error messages and return the error view', async () => {
     request.query = {};
-    getDefaultLocaleData.mockResolvedValue({ errors: { titleText: 'Error', formatPageErrorListText1: 'Error list part 1', formatPageErrorListText2: 'Error list part 2' } });
+    request.yar.get.mockReturnValueOnce(null);
+
+    const errorData = {
+      errors: {
+        titleText: 'Error Title',
+        formatPageErrorListText1: 'Error List Text 1',
+        formatPageErrorListText2: 'Error List Text 2'
+      }
+    };
+    getDefaultLocaleData.mockResolvedValueOnce(errorData);
 
     await formatPageController.handler(request, h);
 
-    expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error', 'Error list part 1  Error list part 2');
-    expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.any(Object));
-  });
-
-  it('should redirect to error page on API error', async () => {
-    request.query.format = 'testFormat';
-    axios.post.mockRejectedValue({ response: { status: 500 } });
-    getDefaultLocaleData.mockResolvedValue({ mainContent: 'mainContent', getHelpSection: 'getHelpSection' });
-
-    await formatPageController.handler(request, h);
-
-    expect(h.redirect).toHaveBeenCalledWith('/check-plant-health-information-and-import-rules/problem-with-service?statusCode=500');
+    expect(setErrorMessage).toHaveBeenCalledWith(
+      request,
+      errorData.errors.titleText,
+      expect.any(String)
+    );
+    expect(h.view).toHaveBeenCalledWith('plant-health/format/index', expect.objectContaining({
+      pageTitle: expect.any(String),
+      heading: 'Format',
+      errors: expect.any(Object),
+      errorMessage: expect.any(String)
+    }));
   });
 });

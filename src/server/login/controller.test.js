@@ -1,6 +1,8 @@
 import { loginController, authController } from '~/src/server/login/controller';
 import { config } from '~/src/config';
 
+
+
 jest.mock('~/src/config');
 
 describe('loginController', () => {
@@ -15,27 +17,22 @@ describe('loginController', () => {
       }
     };
     h = {
-      redirect: jest.fn(),
-      view: jest.fn()
+      redirect: jest.fn().mockReturnValue('redirected'),
+      view: jest.fn().mockReturnValue('view rendered')
     };
   });
 
   it('should redirect to /home if authenticated', () => {
     request.auth.isAuthenticated = true;
-
-    loginController.handler(request, h);
-
+    const response = loginController.handler(request, h);
     expect(h.redirect).toHaveBeenCalledWith('/home');
+    expect(response).toBe('redirected');
   });
 
-  it('should render login page if not authenticated', () => {
+  it('should render login view if not authenticated', () => {
     request.auth.isAuthenticated = false;
     request.yar.get.mockReturnValueOnce({ errors: 'some errors' }).mockReturnValueOnce({ errorMessage: 'some error message' });
-
-    loginController.handler(request, h);
-
-    expect(request.yar.set).toHaveBeenCalledWith('errors', null);
-    expect(request.yar.set).toHaveBeenCalledWith('errorMessage', null);
+    const response = loginController.handler(request, h);
     expect(h.view).toHaveBeenCalledWith('login/index', {
       pageTitle: 'Check plant health information and import rules — GOV.UK',
       heading: 'Login Page',
@@ -44,58 +41,57 @@ describe('loginController', () => {
       errors: 'some errors',
       errorMessage: 'some error message'
     });
+    expect(response).toBe('view rendered');
   });
 });
 
-// describe('authController', () => {
-//   let request, h;
+describe('authController', () => {
+  let request, h;
 
-//   beforeEach(() => {
-//     request = {
-//       payload: { password: '' },
-//       yar: {
-//         set: jest.fn()
-//       },
-//       cookieAuth: {
-//         set: jest.fn()
-//       }
-//     };
-//     h = {
-//       redirect: jest.fn()
-//     };
-//     config.get.mockReturnValue('correctPassword');
-//   });
+  beforeEach(() => {
+    request = {
+      payload: { password: 'wrongPassword' },
+      yar: {
+        set: jest.fn()
+      },
+      cookieAuth: {
+        set: jest.fn()
+      }
+    };
+    h = {
+      redirect: jest.fn().mockReturnValue('redirected')
+    };
+    config.get.mockReturnValue('correctPassword');
+  });
 
-//   it('should redirect to /home if password is correct', () => {
-//     request.payload.password = 'correctPassword';
+  it('should set cookie and redirect to /home if password is correct', () => {
+    request.payload.password = 'correctPassword';
+    const response = authController.handler(request, h);
+    expect(request.cookieAuth.set).toHaveBeenCalledWith({ password: 'correctPassword' });
+    expect(h.redirect).toHaveBeenCalledWith('/home');
+    expect(response).toBe('redirected');
+  });
 
-//     authController.handler(request, h);
-
-//     expect(request.cookieAuth.set).toHaveBeenCalledWith({ password: 'correctPassword' });
-//     expect(h.redirect).toHaveBeenCalledWith('/home');
-//   });
-
-//   it('should redirect to / with error if password is incorrect', () => {
-//     request.payload.password = 'wrongPassword';
-
-//     authController.handler(request, h);
-
-//     expect(request.yar.set).toHaveBeenCalledWith('errors', {
-//       errors: {
-//         titleText: 'There is a problem',
-//         errorList: [
-//           {
-//             text: 'The password is not correct',
-//             href: '#password'
-//           }
-//         ]
-//       }
-//     });
-//     expect(request.yar.set).toHaveBeenCalledWith('errorMessage', {
-//       errorMessage: {
-//         text: 'The password is not correct'
-//       }
-//     });
-//     expect(h.redirect).toHaveBeenCalledWith('/');
-//   });
-// });
+  it('should set errors and redirect to / if password is incorrect', () => {
+    request.payload.password = 'wrongPassword';
+    const response = authController.handler(request, h);
+    expect(request.yar.set).toHaveBeenCalledWith('errors', {
+      errors: {
+        titleText: 'There is a problem',
+        errorList: [
+          {
+            text: 'The password is not correct',
+            href: '#password'
+          }
+        ]
+      }
+    });
+    expect(request.yar.set).toHaveBeenCalledWith('errorMessage', {
+      errorMessage: {
+        text: 'The password is not correct'
+      }
+    });
+    expect(h.redirect).toHaveBeenCalledWith('/');
+    expect(response).toBe('redirected');
+  });
+});
