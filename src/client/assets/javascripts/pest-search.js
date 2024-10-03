@@ -1,6 +1,5 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
 let finalArray = []
-let searching = false
 let timer
 
 async function fetchSuggestions(query, populateResults) {
@@ -9,7 +8,6 @@ async function fetchSuggestions(query, populateResults) {
     '#my-autocomplete-pest-container'
   )?.childNodes[1]
   defaultcslref?.setAttribute('value', null)
-  searching = true
   const apiUrl = '/search/pests?searchQuery=' + query
   await clearTimeout(timer)
   timer = await setTimeout(async () => {
@@ -19,7 +17,6 @@ async function fetchSuggestions(query, populateResults) {
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
         if (finalArray.length > 0) {
-          searching = false
           function compareNames(a, b) {
             if (a.text.trim() < b.text.trim()) {
               return -1
@@ -192,7 +189,6 @@ async function renderResultsWithHtml(filterResults) {
   finalArray = []
   const checkForEmptyArray = filterResults.flat()
   if (checkForEmptyArray.length > 0) {
-    searching = false
     if (
       checkForEmptyArray[0].commonNames.length === 0 &&
       checkForEmptyArray[0].latinNames.length === 0 &&
@@ -325,7 +321,6 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
     defaultValue: document.querySelector('#my-autocomplete-pest-container')
       ?.childNodes[0]?.value,
     tStatusQueryTooShort: 2,
-    tNoResults: () => (searching ? 'Searching...' : 'No results found'),
     autoselect: true,
     templates: {
       inputValue: function (asd) {

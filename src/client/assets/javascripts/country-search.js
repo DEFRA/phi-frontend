@@ -1,6 +1,5 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
 let finalArray = []
-let searching = false
 let timer
 
 async function fetchSuggestions(query, populateResults) {
@@ -9,7 +8,6 @@ async function fetchSuggestions(query, populateResults) {
     '#my-autocomplete-country-container'
   )?.childNodes[1]
   defaultcountryCode?.setAttribute('value', null)
-  searching = true
   const apiUrl = '/search/countries?searchQuery=' + query
   await clearTimeout(timer)
   timer = await setTimeout(async () => {
@@ -19,7 +17,6 @@ async function fetchSuggestions(query, populateResults) {
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
         if (finalArray.length > 0) {
-          searching = false
           function compareNames(a, b) {
             if (a.text < b.text) {
               return -1
@@ -96,7 +93,6 @@ if (document.querySelector('#my-autocomplete-country-container')) {
     defaultValue: document.querySelector('#my-autocomplete-country-container')
       ?.childNodes[0]?.value,
     tStatusQueryTooShort: 2,
-    tNoResults: () => (searching ? 'Searching...' : 'No results found'),
     autoselect: true,
     templates: {
       inputValue: function (asd) {
