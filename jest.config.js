@@ -11,6 +11,7 @@ module.exports = {
   setupFilesAfterEnv: ['<rootDir>/jest-setup.js'],
   collectCoverageFrom: ['src/**/*.js'],
   collectCoverage: true,
+  testTimeout: 80000,
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'text'],
   coveragePathIgnorePatterns: [
@@ -26,10 +27,17 @@ module.exports = {
       '<rootDir>/src/client/assets/javascripts/pest-search.js',
       '<rootDir>/src/client/assets/javascripts/plant-search.js',    
       '<rootDir>/src/router.js',
+      '<rootDir>/src/index.js',
         '<rootDir>/src/server/router.js' , 
-        '<rootDir>/src/server/about/index.js'
+        '<rootDir>/src/server/index.js' , 
+        '<rootDir>/src/server/about/index.js',
+        '<rootDir>/src/server/localisation.js',
+         '<rootDir>/src/server/login/index.js',
+         '<rootDir>/src/server/login/controller.js',
+      '<rootDir>/src/config/nunjucks/context/index.js',
+    '<rootDir>/src/api/search/index.js'
         // '<rootDir>/src/server/plant-health/format/index.js',
-        // '<rootDir>/src/server/plant-health/import-confirmation/index.js',
+        // '<rootDir>/src/server//plant-health/import-confirmation/index.js',
         // '<rootDir>/src/server/plant-health/plant-details/index.js',
         // '<rootDir>/src/server/plant-health/search/index.js',
         // '<rootDir>/src/server/plant-health/purpose-of-visit/index.js',

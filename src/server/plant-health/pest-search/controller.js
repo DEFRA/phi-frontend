@@ -400,8 +400,8 @@ const pestSearchController = {
         const errorSection = errorData?.errors
         setErrorMessage(
           request,
-          errorSection.titleText,
-          errorSection.searchErrorListText
+          errorSection?.titleText,
+          errorSection?.searchErrorListText
         )
 
         const errors = request.yar?.get('errors')

@@ -62,12 +62,12 @@ const pestDetailsPageController = {
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         setErrorMessage(
           request,
-          errorSection.titleText,
-          errorSection.formatPageErrorListText1 +
+          errorSection?.titleText,
+          errorSection?.formatPageErrorListText1 +
             ' ' +
             searchQuery?.value +
             ' ' +
-            errorSection.formatPageErrorListText2
+            errorSection?.formatPageErrorListText2
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')

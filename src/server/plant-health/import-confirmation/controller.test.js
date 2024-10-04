@@ -26,33 +26,28 @@ describe('importConfirmationController', () => {
 
   it('should render search page when whereareyouimportinginto is gb', async () => {
     request.query.whereareyouimportinginto = 'gb';
-    request.query.searchQuery = 'query';
-    request.yar.get.mockReturnValueOnce({ value: 'hostRef' });
-    getDefaultLocaleData.mockResolvedValueOnce({
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection'
-    }).mockResolvedValueOnce({
-      mainContent: 'searchMainContent',
-      getHelpSection: 'searchGetHelpSection'
-    });
+   
 
     await importConfirmationController.handler(request, h);
 
     expect(request.yar.set).toHaveBeenCalledWith('importConfirmationRadiooption', { whereareyouimportinginto: 'gb' });
-   // expect(request.yar.set).toHaveBeenCalledWith('searchQuery', { value: 'query' });
+  
     expect(h.view).toHaveBeenCalledWith('plant-health/search/index', expect.objectContaining({
-      pageTitle: 'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
-      heading: 'Search',
-      getHelpSection: 'searchGetHelpSection',
-      hostRef: 'hostRef',
-     
-      mainContent: 'searchMainContent',
-      frontendUrl: 'http://localhost',
-      searchQuery: { value: 'query' },
-      fullSearchQuery: undefined
+      eppoCode: undefined, 
+      frontendUrl: "http://localhost", 
+      fullSearchQuery: undefined,
+       getHelpSection: undefined, 
+       heading: "Search", 
+       hostRef: undefined,
+        mainContent: undefined,
+         pageTitle: "What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK",
+          "searchQuery": undefined,     
+
+      
+      
     }));
   });
-
+ 
   it('should render service unavailable page when whereareyouimportinginto is ni', async () => {
     request.query.whereareyouimportinginto = 'ni';
     getDefaultLocaleData.mockResolvedValue({

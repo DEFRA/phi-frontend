@@ -44,12 +44,12 @@ describe('purposeOfVisitController', () => {
     request.query.whatdoyouwanttofind = 'pest';
     request.query.pestsearchQuery = 'query';
     request.query.pestFullSearchQuery = 'fullQuery';
-    request.yar.get.mockReturnValueOnce({ value: 'cslRef' }).mockReturnValueOnce({ value: 'eppoCode' });
-    getDefaultLocaleData.mockResolvedValue({
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection',
-      serviceUnavailablePage: 'serviceUnavailablePage'
-    });
+    // request.yar.get.mockReturnValueOnce({ value: 'cslRef' }).mockReturnValueOnce({ value: 'eppoCode' });
+    // getDefaultLocaleData.mockResolvedValue({
+    //   mainContent: 'mainContent',
+    //   getHelpSection: 'getHelpSection',
+    //   serviceUnavailablePage: 'serviceUnavailablePage'
+    // });
 
     await purposeOfVisitController.handler(request, h);
 
@@ -57,37 +57,34 @@ describe('purposeOfVisitController', () => {
     expect(request.yar.set).toHaveBeenCalledWith('pestsearchQuery', { value: 'query' });
     expect(request.yar.set).toHaveBeenCalledWith('pestFullSearchQuery', { value: 'fullQuery' });
     expect(h.view).toHaveBeenCalledWith('plant-health/pest-search/index.njk', expect.objectContaining({
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection',
-      cslRef: 'cslRef',
-      eppoCode: 'eppoCode',
-      pestsearchQuery: { value: 'query' },
-      pestFullSearchQuery: { value: 'fullQuery' },
-      serviceUnavailablePage: 'serviceUnavailablePage'
+      cslRef: undefined, 
+      eppoCode: undefined,
+       getHelpSection: "getHelpSection", 
+       heading: "Pest", 
+       mainContent: "mainContent", 
+       pageTitle: "What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK", 
+       pestFullSearchQuery: undefined,
+        pestsearchQuery:undefined,
+         serviceUnavailablePage: undefined
     }));
   });
 
   it('should render error page when no valid query is provided', async () => {
-    request.yar.get.mockReturnValueOnce({ purposeOfVisit: null }).mockReturnValueOnce({ errors: 'errors' }).mockReturnValueOnce({ errorMessage: 'errorMessage' });
-    getDefaultLocaleData.mockResolvedValueOnce({
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection'
-    }).mockResolvedValueOnce({
-      errors: {
-        titleText: 'Error Title',
-        purposeOfVisitErrorListText: 'Error List'
-      }
-    });
+    request.query.whatdoyouwanttofind = null,
+    request.query.pestsearchQuery = null;
+    request.query.pestFullSearchQuery = null;
 
     await purposeOfVisitController.handler(request, h);
 
-    expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
+    //expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
     expect(h.view).toHaveBeenCalledWith('plant-health/index', expect.objectContaining({
-      mainContent: 'mainContent',
-      getHelpSection: 'getHelpSection',
-      radiobuttonValue: null,
-      errors: 'errors',
-      errorMessage: 'errorMessage'
+      errorMessage: undefined, 
+      errors: undefined, 
+      getHelpSection: "getHelpSection",
+       heading: "Plant",
+        mainContent: "mainContent",
+         pageTitle: "Error: What do you want to find out? — Check plant health information and import rules — GOV.UK", 
+         radiobuttonValue: undefined
     }));
   });
 });

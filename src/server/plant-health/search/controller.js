@@ -89,10 +89,10 @@ const searchPageController = {
         if (!hostRef || hostRef === undefined || !searchQuery?.value) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
-          setErrorMessage(
+        await setErrorMessage(
             request,
-            errorSection.titleText,
-            errorSection.searchErrorListText
+            errorSection?.titleText,
+            errorSection?.searchErrorListText
           )
         }
         const errors = request.yar?.get('errors')
