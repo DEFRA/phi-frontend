@@ -16,18 +16,16 @@ async function fetchSuggestions(query, populateResults) {
         const response = await fetch(apiUrl)
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
-        if (finalArray.length > 0) {
-          function compareNames(a, b) {
-            if (a.text.trim() < b.text.trim()) {
-              return -1
-            }
-            if (a.text.trim() > b.text.trim()) {
-              return 1
-            }
-            return 0
+        function compareNames(a, b) {
+          if (a.text.trim() < b.text.trim()) {
+            return -1
           }
-          populateResults(finalArray.sort(compareNames))
+          if (a.text.trim() > b.text.trim()) {
+            return 1
+          }
+          return 0
         }
+        populateResults(finalArray.sort(compareNames))
       }
     } catch (error) {
       // TypeError: Failed to fetch
@@ -320,7 +318,7 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
     name: 'pestsearchQuery',
     defaultValue: document.querySelector('#my-autocomplete-pest-container')
       ?.childNodes[0]?.value,
-    tStatusQueryTooShort: 2,
+    minLength: 3,
     autoselect: true,
     templates: {
       inputValue: function (asd) {
