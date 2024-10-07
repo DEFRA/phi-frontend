@@ -181,7 +181,9 @@ function commonExistingNameCheck(latinArray, name) {
   const existingArray = []
   latinArray.filter(function (item) {
     item.result[1].NAME?.filter(function (cname) {
-      if (cname.match(new RegExp(name, 'gi'))) existingArray.push(cname)
+      if (cname.toLowerCase() === name.toLowerCase()) {
+        existingArray.push(cname)
+      }
       return existingArray
     })
     return existingArray
