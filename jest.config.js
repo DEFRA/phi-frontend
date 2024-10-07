@@ -30,12 +30,13 @@ module.exports = {
       '<rootDir>/src/index.js',
         '<rootDir>/src/server/router.js' , 
         '<rootDir>/src/server/index.js' , 
-        '<rootDir>/src/server/about/index.js',
+        // '<rootDir>/src/server/about/index.js',
         '<rootDir>/src/server/localisation.js',
          '<rootDir>/src/server/login/index.js',
          '<rootDir>/src/server/login/controller.js',
       '<rootDir>/src/config/nunjucks/context/index.js',
-    '<rootDir>/src/api/search/index.js'
+   // '<rootDir>/src/api/search/index.js',
+    '<rootDir>/webpack/universalModuleDefinition'
         // '<rootDir>/src/server/plant-health/format/index.js',
         // '<rootDir>/src/server//plant-health/import-confirmation/index.js',
         // '<rootDir>/src/server/plant-health/plant-details/index.js',
