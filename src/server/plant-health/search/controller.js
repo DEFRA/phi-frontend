@@ -89,7 +89,7 @@ const searchPageController = {
         if (!hostRef || hostRef === undefined || !searchQuery?.value) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
-        await setErrorMessage(
+          await setErrorMessage(
             request,
             errorSection?.titleText,
             errorSection?.searchErrorListText

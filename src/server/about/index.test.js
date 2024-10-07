@@ -1,28 +1,28 @@
-import { about } from '~/src/server/about';
-import { aboutController } from '~/src/server/about/controller';
+import { about } from '~/src/server/about'
+import { aboutController } from '~/src/server/about/controller'
 
 describe('about plugin', () => {
-  let server;
+  let server
 
   beforeEach(() => {
     server = {
-      route: jest.fn(),
-    };
-  });
+      route: jest.fn()
+    }
+  })
 
   it('should register the about route', async () => {
-    await about.plugin.register(server);
+    await about.plugin.register(server)
 
     expect(server.route).toHaveBeenCalledWith([
       {
         method: 'GET',
         path: '/about',
-        ...aboutController,
-      },
-    ]);
-  });
+        ...aboutController
+      }
+    ])
+  })
 
   it('should have the correct plugin name', () => {
-    expect(about.plugin.name).toBe('about');
-  });
-});
+    expect(about.plugin.name).toBe('about')
+  })
+})

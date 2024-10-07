@@ -26,7 +26,6 @@
     "postversion": "git add package.json package-lock.json && git commit -m $npm_package_version",
     "test": "jest --verbose",
     "test:single": "jest phi-frontend/src/server/check-plant-health-information-and-import-rules/problem-with-service/controller.test.js",
-
     "test:watch": "jest --watch",
     "server:watch": "nodemon --exec babel-node ./src",
     "server:debug": "nodemon --exec babel-node --inspect ./src",

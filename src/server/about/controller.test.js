@@ -1,17 +1,17 @@
-import { aboutController } from 'phi-frontend/src/server/about/controller';
+import { aboutController } from 'phi-frontend/src/server/about/controller'
 
 describe('aboutController', () => {
-  let request, h;
+  let request, h
 
   beforeEach(() => {
-    request = {};
+    request = {}
     h = {
       view: jest.fn().mockReturnThis()
-    };
-  });
+    }
+  })
 
   it('should return the correct view with the expected data', () => {
-    aboutController.handler(request, h);
+    aboutController.handler(request, h)
 
     expect(h.view).toHaveBeenCalledWith('about/index', {
       pageTitle: 'About',
@@ -25,6 +25,6 @@ describe('aboutController', () => {
           text: 'About'
         }
       ]
-    });
-  });
-});
+    })
+  })
+})
