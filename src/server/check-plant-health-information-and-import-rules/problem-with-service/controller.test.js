@@ -1,8 +1,7 @@
 import { problemWithServiceController } from '~/src/server/check-plant-health-information-and-import-rules/problem-with-service/controller.js'
-import Hapi from '@hapi/hapi'
 
 describe('problemWithServiceController', () => {
-  let request, h, server
+  let request, h
 
   beforeEach(() => {
     request = {
@@ -19,7 +18,7 @@ describe('problemWithServiceController', () => {
     }
   })
 
-  it('should handle valid staus code', async () => {
+  it('should handle valid staus code 404', async () => {
     request.query.statusCode = 404
 
     await problemWithServiceController.handler(request, h)
@@ -36,7 +35,7 @@ describe('problemWithServiceController', () => {
     )
   })
 
-  it('should handle valid staus code', async () => {
+  it('should handle valid staus code 403', async () => {
     request.query.statusCode = 403
 
     await problemWithServiceController.handler(request, h)
@@ -52,7 +51,8 @@ describe('problemWithServiceController', () => {
       })
     )
   })
-  it('should handle valid staus code', async () => {
+
+  it('should handle valid staus code 401', async () => {
     request.query.statusCode = 401
 
     await problemWithServiceController.handler(request, h)
@@ -68,7 +68,8 @@ describe('problemWithServiceController', () => {
       })
     )
   })
-  it('should handle valid staus code', async () => {
+
+  it('should handle valid staus code 400', async () => {
     request.query.statusCode = 400
 
     await problemWithServiceController.handler(request, h)
@@ -84,7 +85,8 @@ describe('problemWithServiceController', () => {
       })
     )
   })
-  it('should handle valid staus code', async () => {
+
+  it('should handle valid staus code 500', async () => {
     request.query.statusCode = 500
 
     await problemWithServiceController.handler(request, h)
@@ -101,7 +103,7 @@ describe('problemWithServiceController', () => {
     )
   })
 
-  it('should handle valid staus code', async () => {
+  it('should handle valid staus code 502', async () => {
     request.query.statusCode = 502
 
     await problemWithServiceController.handler(request, h)
@@ -117,7 +119,8 @@ describe('problemWithServiceController', () => {
       })
     )
   })
-  it('should handle valid staus code', async () => {
+
+  it('should handle valid staus code 503', async () => {
     request.query.statusCode = 503
 
     await problemWithServiceController.handler(request, h)
@@ -133,7 +136,8 @@ describe('problemWithServiceController', () => {
       })
     )
   })
-  it('should handle valid staus code', async () => {
+
+  it('should handle valid staus code 504', async () => {
     request.query.statusCode = 504
 
     await problemWithServiceController.handler(request, h)

@@ -1,6 +1,5 @@
 import { purposeOfVisit } from '~/src/server/plant-health/purpose-of-visit/index'
 import { purposeOfVisitController } from '~/src/server/plant-health/purpose-of-visit/controller'
-import { server } from '~/src/server' // Adjust the import based on your server setup
 import Hapi from '@hapi/hapi'
 
 jest.mock('~/src/server/plant-health/purpose-of-visit/controller', () => ({

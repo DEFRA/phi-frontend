@@ -1,6 +1,5 @@
 import { problemWithService } from '~/src/server/check-plant-health-information-and-import-rules/problem-with-service/index'
 import { problemWithServiceController } from '~/src/server/check-plant-health-information-and-import-rules/problem-with-service/controller'
-import { server } from '~/src/server'
 import Hapi from '@hapi/hapi' // Adjust the import based on your server setup
 
 jest.mock(

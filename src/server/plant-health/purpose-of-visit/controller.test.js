@@ -1,7 +1,5 @@
 import { purposeOfVisitController } from '~/src/server/plant-health/purpose-of-visit/controller'
-
 import { getDefaultLocaleData } from '~/src/server/localisation'
-import { setErrorMessage } from '~/src/server/common/helpers/errors'
 
 jest.mock('~/src/server/localisation')
 jest.mock('~/src/server/common/helpers/errors')
@@ -85,13 +83,11 @@ describe('purposeOfVisitController', () => {
   })
 
   it('should render error page when no valid query is provided', async () => {
-    ;(request.query.whatdoyouwanttofind = null),
-      (request.query.pestsearchQuery = null)
-    request.query.pestFullSearchQuery = null
+    request.query.whatdoyouwanttofind = null
 
     await purposeOfVisitController.handler(request, h)
 
-    //expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
+    // expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
     expect(h.view).toHaveBeenCalledWith(
       'plant-health/index',
       expect.objectContaining({

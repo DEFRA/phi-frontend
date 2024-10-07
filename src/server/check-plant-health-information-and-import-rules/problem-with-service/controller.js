@@ -41,7 +41,7 @@ const problemWithServiceController = {
           pageTitle + 'Check plant health information and import rules — GOV.UK'
       }
     }
-    if (statusCode != undefined) {
+    if (statusCode !== undefined) {
       return h
         .view(
           'check-plant-health-information-and-import-rules/problem-with-service/index',
@@ -53,8 +53,6 @@ const problemWithServiceController = {
           }
         )
         .code(statusCode)
-    } else {
-      console.error('statusCode is undefined')
     }
   }
 }

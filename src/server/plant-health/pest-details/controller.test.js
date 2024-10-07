@@ -1,12 +1,12 @@
 import { pestDetailsPageController } from '~/src/server/plant-health/pest-details/controller'
 import { getDefaultLocaleData } from '~/src/server/localisation'
-import { setErrorMessage } from '~/src/server/common/helpers/errors'
-
 jest.mock('~/src/server/localisation')
 jest.mock('~/src/server/common/helpers/errors')
+
 test('TextEncoder is globally defined in Jest', () => {
   expect(global.TextEncoder).toBeDefined()
 })
+
 describe('pestDetailsPageController', () => {
   let request, h
 
@@ -53,7 +53,7 @@ describe('pestDetailsPageController', () => {
 
     await pestDetailsPageController.handler(request, h)
 
-    //expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
+    // expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
     expect(h.view).toHaveBeenCalledWith(
       'plant-health/pest-details/index',
       expect.objectContaining({

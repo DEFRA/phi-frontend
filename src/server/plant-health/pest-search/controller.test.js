@@ -1,10 +1,4 @@
 import { pestSearchController } from '~/src/server/plant-health/pest-search/controller'
-import { getDefaultLocaleData } from '~/src/server/localisation'
-import { setErrorMessage } from '~/src/server/common/helpers/errors'
-import { config } from '~/src/config'
-import axios from 'axios'
-import { proxyFetch } from '~/src/server/common/helpers/proxy-fetch'
-
 jest.mock('~/src/server/localisation')
 jest.mock('~/src/server/common/helpers/errors')
 jest.mock('axios')
@@ -37,7 +31,7 @@ describe('pestSearchController', () => {
 
     await pestSearchController.handler(request, h)
 
-    //expect(request.yar.set).toHaveBeenCalledWith('cslRef', { value: 13 });
+    // expect(request.yar.set).toHaveBeenCalledWith('cslRef', { value: 13 });
     expect(h.view).toHaveBeenCalledWith(
       'plant-health/pest-search/index.njk',
       expect.objectContaining({
@@ -66,7 +60,7 @@ describe('pestSearchController', () => {
 
     await pestSearchController.handler(request, h)
 
-    //expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
+    // expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
 
     expect(h.view).toHaveBeenCalledWith(
       'plant-health/pest-search/index.njk',

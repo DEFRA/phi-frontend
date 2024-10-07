@@ -1,6 +1,4 @@
 import { searchPageController } from '~/src/server/plant-health/search/controller'
-import { getDefaultLocaleData } from '~/src/server/localisation.js'
-import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
 
 jest.mock('~/src/server/localisation')
@@ -67,45 +65,22 @@ describe('searchPageController', () => {
   it('should handle request without searchQuery or hostRef', async () => {
     request = {
       yar: {
-        set: jest
-          .fn()
-          .mockReturnValue({
-            errors: {
-              titleText: 'Error Title',
-              searchErrorListText:
-                'Enter the name of the plant, plant product or seeds you are importing'
-            }
-          }),
+        set: jest.fn().mockReturnValue({
+          errors: {
+            titleText: 'Error Title',
+            searchErrorListText:
+              'Enter the name of the plant, plant product or seeds you are importing'
+          }
+        }),
         get: jest.fn()
       },
       query: {}
     }
     request.query.autocompleteSearchQuery = ''
     request.query.hostRef = undefined
-    // request.yar.get.mockReturnValueOnce({ list: { errorList:'test'  } });
-    // request.yar.get.mockReturnValueOnce('errorMessage');
-    // getDefaultLocaleData.mockReturnValueOnce({ errors: { titleText: 'Error Title',  searchErrorListText: "Enter the name of the plant, plant product or seeds you are importing"} });
-    // getDefaultLocaleData.mockResolvedValue({
-    //   mainContent: 'mainContent',
-    //   getHelpSection: 'getHelpSection',
-    //   errors: {
-    //     titleText: 'Error Title',
-    //     searchErrorListText: 'Error Text'
-    //   }
-    // });
-    let errorSection
+
     await searchPageController.handler(request, h)
-    errorSection = errorSection || {
-      titleText: 'Error Title',
-      searchErrorListText:
-        'Enter the name of the plant, plant product or seeds you are importing'
-    }
-    //  expect (setErrorMessage).toHaveBeenCalledWith(
-    //   request,
-    //   'Error Title',
-    //   'Enter the name of the plant, plant product or seeds you are importing'
-    // );
-    //expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List Text');
+
     expect(h.view).toHaveBeenCalledWith(
       'plant-health/search/index',
       expect.objectContaining({

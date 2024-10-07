@@ -1,8 +1,6 @@
 import { importConfirmationController } from '~/src/server/plant-health/import-confirmation/controller.js'
 import { getDefaultLocaleData } from '~/src/server/localisation'
-import { setErrorMessage } from '~/src/server/common/helpers/errors'
 import { config } from '~/src/config'
-
 jest.mock('~/src/server/localisation')
 jest.mock('~/src/server/common/helpers/errors')
 jest.mock('~/src/config')
@@ -94,16 +92,5 @@ describe('importConfirmationController', () => {
       })
 
     await importConfirmationController.handler(request, h)
-
-    // expect(setErrorMessage).toHaveBeenCalledWith(request, 'Error Title', 'Error List');
-    // expect(h.view).toHaveBeenCalledWith('plant-health/import-confirmation/index', expect.objectContaining({
-    //   mainContent: 'mainContent',
-    //   getHelpSection: 'getHelpSection',
-    //   radiobuttonValue: null,
-    //   pageTitle: 'Error: What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK',
-    //   heading: 'ImportConfirmation',
-    //   errors: 'errors',
-    //   errorMessage: 'errorMessage'
-    // }));
   })
 })

@@ -1,6 +1,5 @@
 import { plantDetailsPage } from '~/src/server/plant-health/plant-details/index'
 import { plantDetailsPageController } from '~/src/server/plant-health/plant-details/controller'
-import { server } from '~/src/server' // Adjust the import based on your server setup
 import Hapi from '@hapi/hapi'
 
 jest.mock('~/src/server/plant-health/plant-details/controller', () => ({

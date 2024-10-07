@@ -1,6 +1,5 @@
 import { importConfirmation } from '~/src/server/plant-health/import-confirmation/index'
 import { importConfirmationController } from '~/src/server/plant-health/import-confirmation/controller'
-import { server } from '~/src/server'
 import Hapi from '@hapi/hapi' // Adjust the import based on your server setup
 
 jest.mock('~/src/server/plant-health/import-confirmation/controller', () => ({

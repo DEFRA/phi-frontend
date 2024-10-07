@@ -1,6 +1,5 @@
 import { health } from '~/src/server/health/index'
 import { healthController } from '~/src/server/health/controller'
-import { server } from '~/src/server'
 import Hapi from '@hapi/hapi' // Adjust the import based on your server setup
 
 jest.mock('~/src/server/health/controller', () => ({

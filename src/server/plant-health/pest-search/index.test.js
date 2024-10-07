@@ -1,6 +1,5 @@
 import { pestSearchPage } from '~/src/server/plant-health/pest-search/index'
 import { pestSearchController } from '~/src/server/plant-health/pest-search/controller'
-import { server } from '~/src/server'
 import Hapi from '@hapi/hapi' // Adjust the import based on your server setup
 
 jest.mock('~/src/server/plant-health/pest-search/controller', () => ({

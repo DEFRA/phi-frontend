@@ -1,6 +1,5 @@
 import { countrySearchPage } from '~/src/server/plant-health/country-search/index'
 import { countrySearchController } from '~/src/server/plant-health/country-search/controller'
-import { server } from '~/src/server'
 import Hapi from '@hapi/hapi' // Adjust the import based on your server setup
 
 jest.mock('~/src/server/plant-health/country-search/controller', () => ({
