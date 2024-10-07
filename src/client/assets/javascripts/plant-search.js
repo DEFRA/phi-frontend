@@ -116,11 +116,18 @@ async function renderSuggestions(json, query) {
             synonymJson[i].plantName[j].NAME.filter((name) => {
               if (name.match(new RegExp(regexValue, 'gi'))) {
                 if (latinArray.length > 0) {
-                  const existingArray = synonymExistingNameCheck(
+                  const existingLatinArray = synonymExistingNameCheck(
                     latinArray,
                     name
                   )
-                  if (existingArray.length === 0) {
+                  const existingSynonymArray = synonymExistingNameCheck(
+                    synonymArray,
+                    name
+                  )
+                  if (
+                    existingLatinArray.length === 0 &&
+                    existingSynonymArray.length === 0
+                  ) {
                     synonymArray.push({
                       result: synonymJson[i].plantName,
                       hostRef: synonymJson[i].hostRef,
