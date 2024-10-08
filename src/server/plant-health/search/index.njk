@@ -47,6 +47,15 @@
 {% endif %}
    <div id="my-autocomplete-container"><input aria-label="defaultValue" id="defaultValue"  style="display:none;" value='{{fullSearchQuery.value}}'></input><input aria-label="hostRef" id="hostRef" for ="searchResults" name="hostReff" style="display: none;" value={{hostRef}}></input></div>
 </div>
+ {% if invalidSearchEntry %}
+    <div>
+    <h1 class="govuk-heading-l govuk-!-padding-top-1">
+      Search results for 'askjskdjsdkj'
+    </h1>
+    <h2 class="govuk-heading-m">There are no results matching your query.</h2>
+    <h2 class="govuk-heading-m">Please search again.</h2>
+    </div>
+  {% endif %}
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
     {{ govukButton({

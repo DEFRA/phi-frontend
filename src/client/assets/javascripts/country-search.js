@@ -92,6 +92,7 @@ if (document.querySelector('#my-autocomplete-country-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         return asd?.text

@@ -320,6 +320,7 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         cslRefElement?.setAttribute('value', asd?.cslRef)
