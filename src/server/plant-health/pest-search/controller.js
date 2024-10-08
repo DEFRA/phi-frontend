@@ -8,6 +8,7 @@ const pestSearchController = {
     if (request != null) {
       let page = ''
       let cslGlobal = ''
+      let invalidPestSearchEntry = false
       if (request.query?.cslRef?.length > 0) {
         request.yar.set('cslRef', {
           value: parseInt(request.query.cslRef)
@@ -394,15 +395,18 @@ const pestSearchController = {
           })
         }
       } else {
-        const errorData = await getDefaultLocaleData('pest-search')
-        // const pestsearchQuery = request.yar?.get('pestsearchQuery')
-
-        const errorSection = errorData?.errors
-        setErrorMessage(
-          request,
-          errorSection.titleText,
-          errorSection.searchErrorListText
-        )
+        const pestsearchQuery = request?.yar?.get('pestsearchQuery')
+        if (!pestsearchQuery?.value) {
+          const errorData = await getDefaultLocaleData('pest-search')
+          const errorSection = errorData?.errors
+          setErrorMessage(
+            request,
+            errorSection.titleText,
+            errorSection.searchErrorListText
+          )
+        } else if (pestsearchQuery?.value) {
+          invalidPestSearchEntry = true
+        }
 
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
@@ -411,6 +415,7 @@ const pestSearchController = {
           mainContent,
           getHelpSection,
           pestsearchQuery,
+          invalidPestSearchEntry,
           pageTitle:
             'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
           heading: 'Search',

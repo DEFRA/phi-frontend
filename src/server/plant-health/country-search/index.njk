@@ -56,6 +56,15 @@
     <input aria-label ="emptyCountrySearchQuery" class="govuk-input" id="emptyCountrySearchQuery" name="emptyCountrySearchQuery" autocomplete="off" type="text"  style="display: none;">
   </div>
   </div>
+  {% if invalidCountrySearchEntry %}
+    <div>
+    <h1 class="govuk-heading-l govuk-!-padding-top-1">
+      {{mainContent.invalidSearchHeader}} '{{invalidSearchEntry}}'
+    </h1>
+    <h2 class="govuk-heading-m">{{mainContent.invalidSearchContent1}}</h2>
+    <h2 class="govuk-heading-m">{{mainContent.invalidSearchContent2}}</h2>
+    </div>
+  {% endif %}
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
     {{ govukButton({

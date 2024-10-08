@@ -192,7 +192,6 @@ async function renderResultsWithHtml(filterResults) {
       checkForEmptyArray[0].latinNames.length === 0 &&
       checkForEmptyArray[0].synonymNames.length === 0
     ) {
-      finalArray.push({ text: 'No results found', cslRef: '' })
       return finalArray
     } else {
       filterResults.forEach(function (resultSet) {
@@ -320,6 +319,7 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         cslRefElement?.setAttribute('value', asd?.cslRef)

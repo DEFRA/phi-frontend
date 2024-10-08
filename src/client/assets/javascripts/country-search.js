@@ -63,9 +63,6 @@ function createAndAppendLiElement(suggestions) {
   suggestions.forEach(function (item, index) {
     finalArray.push({ text: item.COUNTRY_NAME, countryCode: item.COUNTRY_CODE })
   })
-  if (finalArray.length === 0) {
-    finalArray.push({ text: 'No results found', countryCode: '' })
-  }
   return finalArray
 }
 
@@ -92,6 +89,7 @@ if (document.querySelector('#my-autocomplete-country-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         return asd?.text

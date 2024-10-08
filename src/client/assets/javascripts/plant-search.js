@@ -325,6 +325,7 @@ if (document.querySelector('#my-autocomplete-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         hostRefElement?.setAttribute('value', asd?.hostRef)
