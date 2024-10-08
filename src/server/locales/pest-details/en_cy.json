@@ -11,7 +11,10 @@
     "prohibitedHeader": "Gwybodaeth waharddedig",
     "prohibitedContentText1": "! Ni ddylech fewnforio",
     "prohibitedContentText2": "fel",
-    "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu"
+    "prohibitedContentText3": "Er gwaethaf cyfyngiadau mewnforio, efallai y byddwch yn gallu",
+    "invalidSearchHeader": "Canlyniadau chwilio am",
+    "invalidSearchContent1": "Nid oes unrhyw ganlyniadau sy'n cyfateb i'ch cofnod.",
+    "invalidSearchContent2": "Chwiliwch eto."
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",

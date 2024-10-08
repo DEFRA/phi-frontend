@@ -6,6 +6,7 @@ const countrySearchController = {
       const data = await getDefaultLocaleData('country-search')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
+      let invalidCountrySearchEntry = false
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
       if (request.query?.countrySearchQuery?.length > 0) {
@@ -83,16 +84,23 @@ const countrySearchController = {
           searchQuery
         })
       } else {
-        const countrySearchQuery = request.yar?.get('countrySearchQuery')
+        let invalidSearchEntry
         const searchQuery = request.yar?.get('searchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const countryCode = request?.yar?.get('countryCode')?.value
         const hostRef = request?.yar?.get('hostRef')?.value
         const eppoCode = request?.yar?.get('eppoCode')?.value
         if (
+          request.query.emptyCountrySearchQuery === 'true' &&
+          request.query.autocompleteCountrySearchQuery !== ''
+        ) {
+          invalidSearchEntry = request.query.autocompleteCountrySearchQuery
+          request.yar.set('countrySearchQuery', {
+            value: ''
+          })
+          invalidCountrySearchEntry = true
+        } else if (
           request.query.countrySearchQuery === '' ||
-          (request.query.emptyCountrySearchQuery === 'true' &&
-            request.query.countrySearchQuery !== '') ||
           request.query.emptyCountrySearchQuery === '' ||
           countryCode === 'null'
         ) {
@@ -122,15 +130,18 @@ const countrySearchController = {
             searchQuery.value +
             ' from? — Check plant health information and import rules — GOV.UK'
         }
+        const countrySearchQuery = request.yar?.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
           mainContent,
           getHelpSection,
           countrySearchQuery,
           searchQuery,
           countryCode,
+          invalidSearchEntry,
           hostRef,
           eppoCode,
           fullSearchQuery,
+          invalidCountrySearchEntry,
           pageTitle,
           heading: 'Country Search',
           errors,

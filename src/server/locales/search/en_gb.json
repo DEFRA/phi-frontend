@@ -2,7 +2,10 @@
   "mainContent": {
     "headerText": "What plant, plant product or seeds are you importing?",
     "searchText1": "You can enter the scientific name or any synonyms or common names.",
-    "buttonText": "Continue"
+    "buttonText": "Continue",
+    "invalidSearchHeader": "Search results for",
+    "invalidSearchContent1": "There are no results matching your entry.",
+    "invalidSearchContent2": "Please search again."
   },
   "getHelpSection": {
     "titleText": "Get help with this service",

@@ -50,10 +50,10 @@
  {% if invalidSearchEntry %}
     <div>
     <h1 class="govuk-heading-l govuk-!-padding-top-1">
-      Search results for 'askjskdjsdkj'
+      {{mainContent.invalidSearchHeader}} '{{searchQuery.value}}'
     </h1>
-    <h2 class="govuk-heading-m">There are no results matching your query.</h2>
-    <h2 class="govuk-heading-m">Please search again.</h2>
+    <h2 class="govuk-heading-m">{{mainContent.invalidSearchContent1}}</h2>
+    <h2 class="govuk-heading-m">{{mainContent.invalidSearchContent2}}</h2>
     </div>
   {% endif %}
     {% from "govuk/components/button/macro.njk" import govukButton %}

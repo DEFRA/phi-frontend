@@ -3,7 +3,10 @@
     "headerText1": "Pa wlad ydych chi'n ei mewnforio",
     "headerText2": "o?",
     "searchText1": "Dyma'r wlad sy'n cyhoeddi'r dystysgrif ffytoiechydol, os oes angen.",
-    "buttonText": "Parhewch"
+    "buttonText": "Parhewch",
+    "invalidSearchHeader": "Canlyniadau chwilio am",
+    "invalidSearchContent1": "Nid oes unrhyw ganlyniadau sy'n cyfateb i'ch cofnod.",
+    "invalidSearchContent2": "Chwiliwch eto."
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",
