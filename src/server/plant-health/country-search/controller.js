@@ -91,8 +91,9 @@ const countrySearchController = {
         const hostRef = request?.yar?.get('hostRef')?.value
         const eppoCode = request?.yar?.get('eppoCode')?.value
         if (
-          request.query.emptyCountrySearchQuery === 'true' &&
-          request.query.autocompleteCountrySearchQuery !== ''
+          request.query.emptyCountrySearchQuery === 'true' ||
+          (request.query.emptyCountrySearchQuery === '' &&
+            request.query.autocompleteCountrySearchQuery !== '')
         ) {
           invalidSearchEntry = request.query.autocompleteCountrySearchQuery
           request.yar.set('countrySearchQuery', {
@@ -124,6 +125,11 @@ const countrySearchController = {
             'Error:  Which country, state or territory are you importing ' +
             searchQuery.value +
             ' from? — Check plant health information and import rules — GOV.UK'
+        } else if (invalidCountrySearchEntry) {
+          pageTitle =
+            'Search results for ' +
+            searchQuery.value +
+            ' — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
             'Which country, state or territory are you importing ' +

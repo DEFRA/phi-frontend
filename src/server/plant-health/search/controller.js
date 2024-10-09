@@ -105,6 +105,11 @@ const searchPageController = {
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
             'Error: What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
+        } else if (invalidSearchEntry) {
+          pageTitle =
+            'Search results for ' +
+            searchQuery.value +
+            ' — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
             'What plant, plant product or seeds are you importing? — Check plant health information and import rules — GOV.UK'
