@@ -329,12 +329,12 @@ const formatPageController = {
         const hostRef = request?.yar?.get('hostRef')?.value
         setErrorMessage(
           request,
-          errorSection.titleText,
-          errorSection.formatPageErrorListText1 +
+          errorSection?.titleText,
+          errorSection?.formatPageErrorListText1 +
             ' ' +
             searchQuery?.value +
             ' ' +
-            errorSection.formatPageErrorListText2
+            errorSection?.formatPageErrorListText2
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
@@ -342,12 +342,12 @@ const formatPageController = {
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
             'Error: Which format of ' +
-            searchQuery.value +
+            searchQuery?.value +
             ' are you importing? — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
             'Which format of ' +
-            searchQuery.value +
+            searchQuery?.value +
             ' are you importing? — Check plant health information and import rules — GOV.UK'
         }
         return h.view('plant-health/format/index', {

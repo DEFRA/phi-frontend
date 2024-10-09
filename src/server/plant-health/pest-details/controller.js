@@ -24,7 +24,7 @@ const pestDetailsPageController = {
         value: request.yar?.get('eppoCode')?.value
       })
       request.yar.set('commonName', {
-        value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
+        value: request.yar?.get('fullSearchQuery')?.match(/\[(.*?)\]/)
       })
       const cslRef = request?.yar?.get('cslRef')?.value
 
@@ -62,12 +62,12 @@ const pestDetailsPageController = {
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         setErrorMessage(
           request,
-          errorSection.titleText,
-          errorSection.formatPageErrorListText1 +
+          errorSection?.titleText,
+          errorSection?.formatPageErrorListText1 +
             ' ' +
             searchQuery?.value +
             ' ' +
-            errorSection.formatPageErrorListText2
+            errorSection?.formatPageErrorListText2
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')

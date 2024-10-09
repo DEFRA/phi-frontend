@@ -401,8 +401,8 @@ const pestSearchController = {
           const errorSection = errorData?.errors
           setErrorMessage(
             request,
-            errorSection.titleText,
-            errorSection.searchErrorListText
+            errorSection?.titleText,
+            errorSection?.searchErrorListText
           )
         } else if (pestsearchQuery?.value) {
           invalidPestSearchEntry = true
