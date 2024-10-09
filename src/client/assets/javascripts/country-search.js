@@ -1,6 +1,5 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
 let finalArray = []
-let searching = false
 let timer
 
 async function fetchSuggestions(query, populateResults) {
@@ -9,7 +8,6 @@ async function fetchSuggestions(query, populateResults) {
     '#my-autocomplete-country-container'
   )?.childNodes[1]
   defaultcountryCode?.setAttribute('value', null)
-  searching = true
   const apiUrl = '/search/countries?searchQuery=' + query
   await clearTimeout(timer)
   timer = await setTimeout(async () => {
@@ -18,19 +16,16 @@ async function fetchSuggestions(query, populateResults) {
         const response = await fetch(apiUrl)
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
-        if (finalArray.length > 0) {
-          searching = false
-          function compareNames(a, b) {
-            if (a.text < b.text) {
-              return -1
-            }
-            if (a.text > b.text) {
-              return 1
-            }
-            return 0
+        function compareNames(a, b) {
+          if (a.text < b.text) {
+            return -1
           }
-          populateResults(finalArray.sort(compareNames))
+          if (a.text > b.text) {
+            return 1
+          }
+          return 0
         }
+        populateResults(finalArray.sort(compareNames))
       }
     } catch (error) {
       // TypeError: Failed to fetch
@@ -68,9 +63,6 @@ function createAndAppendLiElement(suggestions) {
   suggestions.forEach(function (item, index) {
     finalArray.push({ text: item.COUNTRY_NAME, countryCode: item.COUNTRY_CODE })
   })
-  if (finalArray.length === 0) {
-    finalArray.push({ text: 'No results found', countryCode: '' })
-  }
   return finalArray
 }
 
@@ -95,9 +87,9 @@ if (document.querySelector('#my-autocomplete-country-container')) {
     name: 'autocompleteCountrySearchQuery',
     defaultValue: document.querySelector('#my-autocomplete-country-container')
       ?.childNodes[0]?.value,
-    tStatusQueryTooShort: 2,
-    tNoResults: () => (searching ? 'Searching...' : 'No results found'),
+    minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         return asd?.text

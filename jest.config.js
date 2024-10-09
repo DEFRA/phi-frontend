@@ -33,8 +33,9 @@ module.exports = {
     '<rootDir>/src/server/login/index.js',
     '<rootDir>/src/server/login/controller.js',
     '<rootDir>/src/config/nunjucks/context/index.js',
+    '<rootDir>/src/config/nunjucks/index.js',
     '<rootDir>/webpack/universalModuleDefinition',
-    '<rootDir>/src/server/api/search/index.js'
+    '<rootDir>/src/api/search/index.js'
   ],
   coverageDirectory: '<rootDir>/coverage'
 }

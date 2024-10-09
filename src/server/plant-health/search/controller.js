@@ -8,6 +8,8 @@ const searchPageController = {
       const data = await getDefaultLocaleData('search')
       const mainContent = data?.mainContent
       const getHelpSection = data?.getHelpSection
+      let invalidSearchEntry = false
+
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')
 
@@ -86,7 +88,7 @@ const searchPageController = {
       } else {
         const searchQuery = request.yar?.get('searchQuery')
         const hostRef = request?.yar?.get('hostRef')?.value
-        if (!hostRef || hostRef === undefined || !searchQuery?.value) {
+        if (!searchQuery?.value) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
           await setErrorMessage(
@@ -94,6 +96,8 @@ const searchPageController = {
             errorSection?.titleText,
             errorSection?.searchErrorListText
           )
+        } else if (searchQuery?.value && !hostRef) {
+          invalidSearchEntry = true
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
@@ -111,6 +115,7 @@ const searchPageController = {
           searchQuery,
           frontendUrl,
           pageTitle,
+          invalidSearchEntry,
           heading: 'Search',
           errors,
           errorMessage

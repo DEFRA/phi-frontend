@@ -1,6 +1,5 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
 let finalArray = []
-let searching = false
 let timer
 
 async function fetchSuggestions(query, populateResults) {
@@ -8,7 +7,6 @@ async function fetchSuggestions(query, populateResults) {
   const defaulthostref = document.querySelector('#my-autocomplete-container')
     ?.childNodes[1]
   defaulthostref?.setAttribute('value', '')
-  searching = true
   const apiUrl = '/search/plants?searchQuery=' + query
   await clearTimeout(timer)
   timer = await setTimeout(async () => {
@@ -17,19 +15,16 @@ async function fetchSuggestions(query, populateResults) {
         const response = await fetch(apiUrl)
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
-        if (finalArray.length > 0) {
-          searching = false
-          function compareNames(a, b) {
-            if (a.text < b.text) {
-              return -1
-            }
-            if (a.text > b.text) {
-              return 1
-            }
-            return 0
+        function compareNames(a, b) {
+          if (a.text < b.text) {
+            return -1
           }
-          populateResults(finalArray.sort(compareNames))
+          if (a.text > b.text) {
+            return 1
+          }
+          return 0
         }
+        populateResults(finalArray.sort(compareNames))
       }
     } catch (error) {
       // TypeError: Failed to fetch
@@ -121,11 +116,18 @@ async function renderSuggestions(json, query) {
             synonymJson[i].plantName[j].NAME.filter((name) => {
               if (name.match(new RegExp(regexValue, 'gi'))) {
                 if (latinArray.length > 0) {
-                  const existingArray = synonymExistingNameCheck(
+                  const existingLatinArray = synonymExistingNameCheck(
                     latinArray,
                     name
                   )
-                  if (existingArray.length === 0) {
+                  const existingSynonymArray = synonymExistingNameCheck(
+                    synonymArray,
+                    name
+                  )
+                  if (
+                    existingLatinArray.length === 0 &&
+                    existingSynonymArray.length === 0
+                  ) {
                     synonymArray.push({
                       result: synonymJson[i].plantName,
                       hostRef: synonymJson[i].hostRef,
@@ -179,7 +181,9 @@ function commonExistingNameCheck(latinArray, name) {
   const existingArray = []
   latinArray.filter(function (item) {
     item.result[1].NAME?.filter(function (cname) {
-      if (cname.match(new RegExp(name, 'gi'))) existingArray.push(cname)
+      if (cname.toLowerCase() === name.toLowerCase()) {
+        existingArray.push(cname)
+      }
       return existingArray
     })
     return existingArray
@@ -190,13 +194,11 @@ async function renderResultsWithHtml(filterResults) {
   finalArray = []
   const checkForEmptyArray = filterResults.flat()
   if (checkForEmptyArray.length > 0) {
-    searching = false
     if (
       checkForEmptyArray[0].commonNames.length === 0 &&
       checkForEmptyArray[0].latinNames.length === 0 &&
       checkForEmptyArray[0].synonymNames.length === 0
     ) {
-      finalArray.push({ text: 'No results found', hostRef: '' })
       return finalArray
     } else {
       filterResults.forEach(function (resultSet) {
@@ -321,9 +323,9 @@ if (document.querySelector('#my-autocomplete-container')) {
     name: 'autocompleteSearchQuery',
     defaultValue: document.querySelector('#my-autocomplete-container')
       ?.childNodes[0]?.value,
-    tStatusQueryTooShort: 2,
-    tNoResults: () => (searching ? 'Searching...' : 'No results found'),
+    minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         hostRefElement?.setAttribute('value', asd?.hostRef)

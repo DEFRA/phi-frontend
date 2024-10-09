@@ -1,6 +1,5 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
 let finalArray = []
-let searching = false
 let timer
 
 async function fetchSuggestions(query, populateResults) {
@@ -9,7 +8,6 @@ async function fetchSuggestions(query, populateResults) {
     '#my-autocomplete-pest-container'
   )?.childNodes[1]
   defaultcslref?.setAttribute('value', null)
-  searching = true
   const apiUrl = '/search/pests?searchQuery=' + query
   await clearTimeout(timer)
   timer = await setTimeout(async () => {
@@ -18,19 +16,16 @@ async function fetchSuggestions(query, populateResults) {
         const response = await fetch(apiUrl)
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
-        if (finalArray.length > 0) {
-          searching = false
-          function compareNames(a, b) {
-            if (a.text.trim() < b.text.trim()) {
-              return -1
-            }
-            if (a.text.trim() > b.text.trim()) {
-              return 1
-            }
-            return 0
+        function compareNames(a, b) {
+          if (a.text.trim() < b.text.trim()) {
+            return -1
           }
-          populateResults(finalArray.sort(compareNames))
+          if (a.text.trim() > b.text.trim()) {
+            return 1
+          }
+          return 0
         }
+        populateResults(finalArray.sort(compareNames))
       }
     } catch (error) {
       // TypeError: Failed to fetch
@@ -192,13 +187,11 @@ async function renderResultsWithHtml(filterResults) {
   finalArray = []
   const checkForEmptyArray = filterResults.flat()
   if (checkForEmptyArray.length > 0) {
-    searching = false
     if (
       checkForEmptyArray[0].commonNames.length === 0 &&
       checkForEmptyArray[0].latinNames.length === 0 &&
       checkForEmptyArray[0].synonymNames.length === 0
     ) {
-      finalArray.push({ text: 'No results found', cslRef: '' })
       return finalArray
     } else {
       filterResults.forEach(function (resultSet) {
@@ -324,9 +317,9 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
     name: 'pestsearchQuery',
     defaultValue: document.querySelector('#my-autocomplete-pest-container')
       ?.childNodes[0]?.value,
-    tStatusQueryTooShort: 2,
-    tNoResults: () => (searching ? 'Searching...' : 'No results found'),
+    minLength: 3,
     autoselect: true,
+    showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         cslRefElement?.setAttribute('value', asd?.cslRef)

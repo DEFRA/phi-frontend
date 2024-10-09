@@ -2,7 +2,10 @@
   "mainContent": {
     "headerText": "Pa blanhigyn, cynnyrch planhigion neu hadau ydych chi'n eu mewnforio?",
     "searchText1": "Gallwch nodi'r enw gwyddonol neu unrhyw gyfystyron neu enwau cyffredin.",
-    "buttonText": "Parhewch"
+    "buttonText": "Parhewch",
+    "invalidSearchHeader": "Canlyniadau chwilio am",
+    "invalidSearchContent1": "Nid oes unrhyw ganlyniadau sy'n cyfateb i'ch cofnod.",
+    "invalidSearchContent2": "Chwiliwch eto."
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",

@@ -46,6 +46,15 @@
 {% endif %}
    <div id="my-autocomplete-pest-container"><input aria-label="defaultValue" id="defaultValue"  style="display:none;" value='{{pestFullSearchQuery.value}}'></input><input aria-label="cslRef" id="cslRef" for ="searchResults" name="cslReff" style="display: none;" value={{cslRef}}></input></div>
   </div>
+  {% if invalidPestSearchEntry %}
+    <div>
+    <h1 class="govuk-heading-l govuk-!-padding-top-1">
+      {{mainContent.invalidSearchHeader}} '{{pestsearchQuery.value}}'
+    </h1>
+    <h2 class="govuk-heading-m">{{mainContent.invalidSearchContent1}}</h2>
+    <h2 class="govuk-heading-m">{{mainContent.invalidSearchContent2}}</h2>
+    </div>
+  {% endif %}
     {% from "govuk/components/button/macro.njk" import govukButton %}
 
     {{ govukButton({
