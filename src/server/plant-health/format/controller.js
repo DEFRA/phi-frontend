@@ -120,11 +120,28 @@ const formatPageController = {
               { name: seedsName, flag: result.seedIndicator }
             ]
             let processedData = []
-            processedData.push(
-              capitalizeFirstLetter(subFormatArray?.join(' or ')?.toLowerCase())
-            )
-            if (processedData.length > 0) {
-              processedData = processedData?.join(' ')?.split(',')
+            const hasComma = /,/.test(result.FormatClarification)
+            if (hasComma) {
+              const filteredArr = subFormatArray.filter(
+                (str) => !str.includes(',')
+              )
+              // Filter out strings that contain a comma
+              const formatClarification = subFormatArray.filter((str) =>
+                str.includes(',')
+              )
+
+              processedData.push(
+                filteredArr.concat(formatClarification).join(' or ')
+              )
+            } else {
+              processedData.push(
+                capitalizeFirstLetter(
+                  subFormatArray?.join(' or ')?.toLowerCase()
+                )
+              )
+              if (processedData.length > 0) {
+                processedData = processedData?.join(' ')?.split(',')
+              }
             }
             if (subFormatArray?.length > 1) {
               ulIndicatorFlag = true
