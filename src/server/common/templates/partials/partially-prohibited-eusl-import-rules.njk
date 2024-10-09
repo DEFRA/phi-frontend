@@ -9,7 +9,7 @@
   {% if not(ulIndicatorFlag) and item.SERVICE_SUBFORMAT.length === 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and data.result.FormatClarification.length === 0 and data.result.ProhibitionClarification.length > 0 %}
    {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
 {%else %}
-  {% if data.result.ProhibitionClarification.length > 0 and annex11WithSubformatCount === subFormatArrayCount %}
+  {% if data.result.ProhibitionClarification.length > 0 and item.SERVICE_SUBFORMAT_EXCLUDED.length > 0 and annex11WithSubformatCount === subFormatArrayCount %}
     {% set processedData = data.format | capitalize + ' (other than ' + item.SERVICE_SUBFORMAT_EXCLUDED.trim() +')' %}
   {%endif%}
   {% if (item.SERVICE_SUBFORMAT === '')%}
