@@ -121,7 +121,8 @@ const formatPageController = {
             ]
             let processedData = []
             const hasComma = /,/.test(result.FormatClarification)
-            if (hasComma) {
+            const hasColan = /;/.test(result.FormatClarification)
+            if (hasComma && !hasColan) {
               const filteredArr = subFormatArray.filter(
                 (str) => !str.includes(',')
               )
@@ -132,6 +133,21 @@ const formatPageController = {
 
               processedData.push(
                 filteredArr.concat(formatClarification).join(' or ')
+              )
+            } else if (hasColan) {
+              const filteredArr = subFormatArray.filter(
+                (str) => !str.includes(',')
+              )
+              // Filter out strings that contain a comma
+              const formatClarification = subFormatArray.filter((str) =>
+                str.includes(',')
+              )
+              const formatClarification2 = formatClarification[0]
+                .trim()
+                ?.split(';')
+                .join(' or ')
+              processedData.push(
+                filteredArr.concat(formatClarification2).join(' or ')
               )
             } else {
               processedData.push(
@@ -245,7 +261,6 @@ const formatPageController = {
                 return null
               }
             })
-
             return h.view('plant-health/plant-details/index', {
               ulIndicatorFlag,
               pageTitle:

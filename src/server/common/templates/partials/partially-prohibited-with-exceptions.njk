@@ -53,7 +53,13 @@
                     {% endif %}
                     {% endfor %}
                     {% if data.result.FormatClarification.length > 1 %}
-                    <li>{{data.result.FormatClarification}}</li>
+                    {% if data.result.FormatClarification.split(';').length === 1 %}
+                        <li>{{data.result.FormatClarification}}</li>
+                    {% else %}
+                        {% for fc in data.result.FormatClarification.split(';') %}
+                        <li>{{fc}}</li>
+                        {% endfor %}
+                    {% endif %}
                     {% endif %}
                 </ul>
                 </p>
@@ -112,8 +118,14 @@
                         <li>{{itr.name}} ({{itr.flag.trim()}})</li>
                     {% endif %}
                     {% endfor %}
-                    {% if data.result.FormatClarification.length > 1 %}
-                    <li>{{data.result.FormatClarification}}</li>
+                     {% if data.result.FormatClarification.length > 1 %}
+                    {% if data.result.FormatClarification.split(';').length === 1 %}
+                        <li>{{data.result.FormatClarification}}</li>
+                    {% else %}
+                        {% for fc in data.result.FormatClarification.split(';') %}
+                        <li>{{fc}}</li>
+                        {% endfor %}
+                    {% endif %}
                     {% endif %}
                 </ul>
             {% else %}
@@ -125,9 +137,15 @@
                         {{itr.name}} ({{itr.flag.trim()}}).
                     {% endif %}
                 {% endfor %}
-                {% if data.result.FormatClarification.length > 1 %}
-                {{data.result.FormatClarification}}.
-                {% endif %}
+                 {% if data.result.FormatClarification.length > 1 %}
+                    {% if data.result.FormatClarification.split(';').length === 1 %}
+                        <li>{{data.result.FormatClarification}}</li>
+                    {% else %}
+                        {% for fc in data.result.FormatClarification.split(';') %}
+                        <li>{{fc}}</li>
+                        {% endfor %}
+                    {% endif %}
+                    {% endif %}
             {% endif %}
         </p>
     </div>
