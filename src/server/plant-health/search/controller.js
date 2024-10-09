@@ -91,10 +91,10 @@ const searchPageController = {
         if (!searchQuery?.value) {
           const errorData = await getDefaultLocaleData('search')
           const errorSection = errorData?.errors
-          setErrorMessage(
+          await setErrorMessage(
             request,
-            errorSection.titleText,
-            errorSection.searchErrorListText
+            errorSection?.titleText,
+            errorSection?.searchErrorListText
           )
         } else if (searchQuery?.value && !hostRef) {
           invalidSearchEntry = true
