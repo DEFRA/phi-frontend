@@ -163,7 +163,7 @@
           </thead>
  <tbody class="govuk-table__body">
              {% for item,values in plantLinkMapsorted %}
-             
+             {% if item.length > 0%}
                 <tr class="govuk-table__row">
               
                   <td class="govuk-table__cell">{{item}}</td>
@@ -172,6 +172,7 @@
                   {% else %}
                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
                   {% endif %}
+            {%endif%}      
                 
                   
             {% endfor %}
