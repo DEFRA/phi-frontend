@@ -120,6 +120,7 @@ const countrySearchController = {
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
         let pageTitle
+        const countrySearchQuery = request.yar?.get('countrySearchQuery')
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
             'Error:  Which country, state or territory are you importing ' +
@@ -128,7 +129,7 @@ const countrySearchController = {
         } else if (invalidCountrySearchEntry) {
           pageTitle =
             'Search results for ' +
-            searchQuery.value +
+            invalidSearchEntry +
             ' — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
@@ -136,7 +137,6 @@ const countrySearchController = {
             searchQuery?.value +
             ' from? — Check plant health information and import rules — GOV.UK'
         }
-        const countrySearchQuery = request.yar?.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
           mainContent,
           getHelpSection,
