@@ -24,7 +24,8 @@
     "lint:scss": "stylelint \"src/**/*.scss\" --cache --cache-location .cache/stylelint --cache-strategy content --color --ignore-path .gitignore",
     "mockApi": "nodemon ./mock-api",
     "postversion": "git add package.json package-lock.json && git commit -m $npm_package_version",
-    "test": "jest --coverage --verbose",
+    "test": "jest --verbose",
+    "test:single": "jest phi-frontend/src/server/check-plant-health-information-and-import-rules/problem-with-service/controller.test.js",
     "test:watch": "jest --watch",
     "server:watch": "nodemon --exec babel-node ./src",
     "server:debug": "nodemon --exec babel-node --inspect ./src",
@@ -57,6 +58,7 @@
     "node-fetch": "3.3.2",
     "nunjucks": "3.2.4",
     "pino": "8.20.0",
+    "supertest": "7.0.0",
     "undici": "6.12.0"
   },
   "devDependencies": {

@@ -120,11 +120,44 @@ const formatPageController = {
               { name: seedsName, flag: result.seedIndicator }
             ]
             let processedData = []
-            processedData.push(
-              capitalizeFirstLetter(subFormatArray?.join(' or ')?.toLowerCase())
-            )
-            if (processedData.length > 0) {
-              processedData = processedData?.join(' ')?.split(',')
+            const hasComma = /,/.test(result.FormatClarification)
+            const hasColan = /;/.test(result.FormatClarification)
+            if (hasComma && !hasColan) {
+              const filteredArr = subFormatArray.filter(
+                (str) => !str.includes(',')
+              )
+              // Filter out strings that contain a comma
+              const formatClarification = subFormatArray.filter((str) =>
+                str.includes(',')
+              )
+
+              processedData.push(
+                filteredArr.concat(formatClarification).join(' or ')
+              )
+            } else if (hasColan) {
+              const filteredArr = subFormatArray.filter(
+                (str) => !str.includes(',')
+              )
+              // Filter out strings that contain a comma
+              const formatClarification = subFormatArray.filter((str) =>
+                str.includes(',')
+              )
+              const formatClarification2 = formatClarification[0]
+                .trim()
+                ?.split(';')
+                .join(' or ')
+              processedData.push(
+                filteredArr.concat(formatClarification2).join(' or ')
+              )
+            } else {
+              processedData.push(
+                capitalizeFirstLetter(
+                  subFormatArray?.join(' or ')?.toLowerCase()
+                )
+              )
+              if (processedData.length > 0) {
+                processedData = processedData?.join(' ')?.split(',')
+              }
             }
             if (subFormatArray?.length > 1) {
               ulIndicatorFlag = true
@@ -228,7 +261,6 @@ const formatPageController = {
                 return null
               }
             })
-
             return h.view('plant-health/plant-details/index', {
               ulIndicatorFlag,
               pageTitle:
@@ -297,12 +329,12 @@ const formatPageController = {
         const hostRef = request?.yar?.get('hostRef')?.value
         setErrorMessage(
           request,
-          errorSection.titleText,
-          errorSection.formatPageErrorListText1 +
+          errorSection?.titleText,
+          errorSection?.formatPageErrorListText1 +
             ' ' +
             searchQuery?.value +
             ' ' +
-            errorSection.formatPageErrorListText2
+            errorSection?.formatPageErrorListText2
         )
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
@@ -310,12 +342,12 @@ const formatPageController = {
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
             'Error: Which format of ' +
-            searchQuery.value +
+            searchQuery?.value +
             ' are you importing? — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
             'Which format of ' +
-            searchQuery.value +
+            searchQuery?.value +
             ' are you importing? — Check plant health information and import rules — GOV.UK'
         }
         return h.view('plant-health/format/index', {

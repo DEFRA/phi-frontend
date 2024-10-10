@@ -91,8 +91,9 @@ const countrySearchController = {
         const hostRef = request?.yar?.get('hostRef')?.value
         const eppoCode = request?.yar?.get('eppoCode')?.value
         if (
-          request.query.emptyCountrySearchQuery === 'true' &&
-          request.query.autocompleteCountrySearchQuery !== ''
+          request.query.emptyCountrySearchQuery === 'true' ||
+          (request.query.emptyCountrySearchQuery === '' &&
+            request.query.autocompleteCountrySearchQuery !== '')
         ) {
           invalidSearchEntry = request.query.autocompleteCountrySearchQuery
           request.yar.set('countrySearchQuery', {
@@ -108,29 +109,34 @@ const countrySearchController = {
           const errorSection = errorData?.errors
           setErrorMessage(
             request,
-            errorSection.titleText,
-            errorSection.searchErrorListText1 +
+            errorSection?.titleText,
+            errorSection?.searchErrorListText1 +
               ' ' +
-              request.yar?.get('searchQuery').value +
+              request.yar?.get('searchQuery')?.value +
               ' ' +
-              errorSection.searchErrorListText2
+              errorSection?.searchErrorListText2
           )
         }
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
         let pageTitle
+        const countrySearchQuery = request.yar?.get('countrySearchQuery')
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
             'Error:  Which country, state or territory are you importing ' +
             searchQuery.value +
             ' from? — Check plant health information and import rules — GOV.UK'
+        } else if (invalidCountrySearchEntry) {
+          pageTitle =
+            'Search results for ' +
+            invalidSearchEntry +
+            ' — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
             'Which country, state or territory are you importing ' +
-            searchQuery.value +
+            searchQuery?.value +
             ' from? — Check plant health information and import rules — GOV.UK'
         }
-        const countrySearchQuery = request.yar?.get('countrySearchQuery')
         return h.view('plant-health/country-search/index', {
           mainContent,
           getHelpSection,

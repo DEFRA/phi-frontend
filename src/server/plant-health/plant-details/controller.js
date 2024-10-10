@@ -24,7 +24,7 @@ const plantDetailsPageController = {
         value: request.yar?.get('eppoCode')?.value
       })
       request.yar.set('commonName', {
-        value: request.yar?.get('fullSearchQuery').match(/\[(.*?)\]/)
+        value: request.yar?.get('fullSearchQuery')?.match(/\[(.*?)\]/)
       })
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
@@ -43,7 +43,7 @@ const plantDetailsPageController = {
 
         return h.view('plant-health/plant-details/index', {
           pageTitle:
-            searchQuery.value +
+            searchQuery?.value +
             ' — Check plant health information and import rules — GOV.UK',
           heading: 'Plant Details',
           getHelpSection,
@@ -88,7 +88,7 @@ const plantDetailsPageController = {
           fullSearchQuery,
           pageTitle:
             'Error: ' +
-            searchQuery.value +
+            searchQuery?.value +
             ' — Check plant health information and import rules — GOV.UK',
           heading: 'Format',
           errors,
