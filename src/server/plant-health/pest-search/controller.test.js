@@ -39,10 +39,11 @@ describe('pestSearchController', () => {
         errors: undefined,
         getHelpSection: undefined,
         heading: 'Search',
+        invalidPestSearchEntry: false,
         mainContent: undefined,
         page: 'pestsearch',
         pageTitle:
-          'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
+          'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
         pestsearchQuery: undefined
       })
     )
@@ -69,10 +70,11 @@ describe('pestSearchController', () => {
         errors: undefined,
         getHelpSection: undefined,
         heading: 'Search',
+        invalidPestSearchEntry: false,
         mainContent: undefined,
         page: 'pestsearch',
         pageTitle:
-          'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
+          'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
         pestsearchQuery: undefined
       })
     )
@@ -112,10 +114,11 @@ describe('pestSearchController', () => {
         errors: undefined,
         getHelpSection: undefined,
         heading: 'Search',
+        invalidPestSearchEntry: false,
         mainContent: undefined,
         page: 'pestsearch',
         pageTitle:
-          'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
+          'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
         pestsearchQuery: undefined
       })
     )

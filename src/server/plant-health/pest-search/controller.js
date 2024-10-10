@@ -410,14 +410,26 @@ const pestSearchController = {
 
         const errors = request.yar?.get('errors')
         const errorMessage = request.yar?.get('errorMessage')
+        let pageTitle
+        if (errors?.list?.errorList?.length > 0) {
+          pageTitle =
+            'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK'
+        } else if (invalidPestSearchEntry) {
+          pageTitle =
+            'Search results for ' +
+            pestsearchQuery.value +
+            ' — Check plant health information and import rules — GOV.UK'
+        } else {
+          pageTitle =
+            'What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK'
+        }
 
         return h.view('plant-health/pest-search/index.njk', {
           mainContent,
           getHelpSection,
           pestsearchQuery,
           invalidPestSearchEntry,
-          pageTitle:
-            'Error: What pest or disease do you want to find out about? — Check plant health information and import rules — GOV.UK',
+          pageTitle,
           heading: 'Search',
           errors,
           page,
