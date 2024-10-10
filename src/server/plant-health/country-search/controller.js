@@ -124,12 +124,12 @@ const countrySearchController = {
         if (errors?.list?.errorList?.length > 0) {
           pageTitle =
             'Error:  Which country, state or territory are you importing ' +
-            countrySearchQuery.value +
+            searchQuery.value +
             ' from? — Check plant health information and import rules — GOV.UK'
         } else if (invalidCountrySearchEntry) {
           pageTitle =
             'Search results for ' +
-            searchQuery.value +
+            invalidSearchEntry +
             ' — Check plant health information and import rules — GOV.UK'
         } else {
           pageTitle =
