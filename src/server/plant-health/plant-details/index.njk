@@ -115,26 +115,11 @@
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
          <p class="govuk-body">            
-         {% if (annexSixRule) and (annexSixRule === 'INNS') %}
-          {{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | replace(")", "")  | capitalize}} 
-            {{mainContent.pestContentHundredPercentText2}} 
-            {{countrySearchQuery.value }} 
-            {{mainContent.pestContentHundredPercentText3}}
-          {{mainContent.pestContentHundredPercentText4}}
-          {{mainContent.pestContentHundredPercentText41}}           
-          {{mainContent.innsPestContent}}
+         {% if (annexSixRule) and (annexSixRule === 'INNS') or (outcome.toLowerCase() === 'prohibited') %}
+          {{mainContent.pestNewContent2}} 
          {% else %}
-           {% if (annexSixRule) and (annexSixRule !== 'INNS') and (outcome.toLowerCase() === 'prohibited') %} 
-            {{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | replace(")", "")  | capitalize}} 
-            {{mainContent.pestContentHundredPercentText2}} 
-            {{countrySearchQuery.value }} 
-            {{mainContent.pestContentHundredPercentText3}}
-            {{mainContent.pestContentHundredPercentText4}}
-            {{mainContent.pestContentHundredPercentText41}}
-           {% else %}
-              {{mainContent.pestNewContent1}}
+           {{mainContent.pestNewContent1}}
           {% endif %}
-         {% endif %}
         </p>
           <p class="govuk-body">
             {{mainContent.pestContentHundredPercentText5}}
@@ -178,7 +163,13 @@
           <p class="govuk-body"> 
             <h2 class="govuk-heading-l">
               {{mainContent.RNQPPestHeader}}
-            </h2>     
+            </h2>   
+            <p class="govuk-body">{{mainContent.RNQPPestContent}}</p>
+             <p class="govuk-body">
+            {{mainContent.pestContentHundredPercentText5}}
+            <a class="govuk-link"
+                  href="https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-">report any suspicions</a> of the pests or diseases to the relevant authority.
+          </p>
           </p>  
           <table class="govuk-table">
             <thead class="govuk-table__head">
