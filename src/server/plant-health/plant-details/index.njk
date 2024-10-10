@@ -114,24 +114,12 @@
       {% if (pest_names.length === 0) %}
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
-         <p class="govuk-body">
-           {{mainContent.pestContentHundredPercentText1}} {{searchQuery.value | replace(")", "")  | capitalize}} 
-            {{mainContent.pestContentHundredPercentText2}} 
-            {{countrySearchQuery.value }} 
-            {{mainContent.pestContentHundredPercentText3}} 
-            
-         {% if (annexSixRule) and (annexSixRule === 'INNS') %}
-          {{mainContent.pestContentHundredPercentText4}}
-          {{mainContent.pestContentHundredPercentText41}}           
-          {{mainContent.innsPestContent}}
+         <p class="govuk-body">            
+         {% if (annexSixRule) and (annexSixRule === 'INNS') or (outcome.toLowerCase() === 'prohibited') %}
+          {{mainContent.pestNewContent2}} 
          {% else %}
-           {% if (annexSixRule) and (annexSixRule !== 'INNS') and (outcome.toLowerCase() === 'prohibited') %} 
-            {{mainContent.pestContentHundredPercentText4}}
-            {{mainContent.pestContentHundredPercentText41}}
-           {% else %}
-              {{mainContent.pestContentHundredPercentText42}}
+           {{mainContent.pestNewContent1}}
           {% endif %}
-         {% endif %}
         </p>
           <p class="govuk-body">
             {{mainContent.pestContentHundredPercentText5}}
@@ -144,48 +132,72 @@
             <tr class="govuk-table__row">
               <th scope="col" class="govuk-table__header">{{mainContent.pestContentScientificHeader}}</th>
               <th scope="col" class="govuk-table__header">{{mainContent.pestContentCommonHeader}}</th>
-              <th scope="col" class="govuk-table__header">{{mainContent.pestContentFormatHeader1}} {{searchQuery.value | replace(")", "") | capitalize}}</th>
             </tr>
           </thead>
           <tbody class="govuk-table__body">
             {% for item in pest_names %}
-           
               {% if (item.pest_country['STATUS'] === 'Present') or (item.pest_country['STATUS'] === 'Present (Limited)') or (item.pest_country['STATUS'] === 'Present (Unknown Distribution)') or (item.pest_country['STATUS'] === 'Present (Widespread)') %}
                 <tr class="govuk-table__row">
-                {% if (item.quarantine_indicator !== '' and item.quarantine_indicator  !== null) and (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
-                  <td class="govuk-table__cell">  <a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
-                  {% if item.name[1].NAME.length > 0 %}
-                   <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
-                  {% else %}
-                   <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                  {% if (item.quarantine_indicator !== '' and item.quarantine_indicator !== null) and item.quarantine_indicator !== "R"%}
+                    {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
+                      <td class="govuk-table__cell"><a class="govuk-link"   href="/pest-details?getcsl={{item.csl_ref}}"> {{item.name[0].NAME}}</a>
+                        <br>
+                        <br>
+                        <p class="govuk-body-s">This pest is only a concern in <a href="https://www.legislation.gov.uk/eur/2019/2072/annex/III">certain areas of Great Britain.<a></p>
+                      </td>
+                    {% else %}
+                      <td class="govuk-table__cell"><a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
+                    {% endif %}
+                    {% if item.name[1].NAME.length > 0 %}
+                      <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                    {% else %}
+                      <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                    {% endif %}
                   {% endif %}
-                  <td class="govuk-table__cell">
-                    {{item.regulated_indicator | replace('\n', '<br>') | safe }}
-                  </td>
-               {% else %}
-               {% if (item.quarantine_indicator !== '' and item.quarantine_indicator !== null) and item.quarantine_indicator !== "R"%}
-                  {% if item.regulation_category === "Pest free area quarantine pests (Annex 3)" %}
-                    <td class="govuk-table__cell"><a class="govuk-link"   href="/pest-details?getcsl={{item.csl_ref}}"> {{item.name[0].NAME}}</a>
-                      <br>
-                      <br>
-                      <p class="govuk-body-s">This pest is only a concern in <a href="https://www.legislation.gov.uk/eur/2019/2072/annex/III">certain areas of Great Britain.<a></p>
-                    </td>
-                  {% else %}
-                   <td class="govuk-table__cell"><a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
-                  {% endif %}
-                   {% if item.name[1].NAME.length > 0 %}
-                    <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
-                   {% else %}
-                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
-                   {% endif %}
-                    <td class="govuk-table__cell">{{mainContent.allFormatText}}</td>
-               {% endif %}
-              {% endif %}
                 </tr>
               {% endif %}  
             {% endfor %}
           </tbody>
         </table>
+        {% if (outcome) and (outcome === 'partially-prohibited') or (outcome === 'un-prohibited')%}
+          <p class="govuk-body"> 
+            <h2 class="govuk-heading-l">
+              {{mainContent.RNQPPestHeader}}
+            </h2>   
+            <p class="govuk-body">{{mainContent.RNQPPestContent}}</p>
+             <p class="govuk-body">
+            {{mainContent.pestContentHundredPercentText5}}
+            <a class="govuk-link"
+                  href="https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-">report any suspicions</a> of the pests or diseases to the relevant authority.
+          </p>
+          </p>  
+          <table class="govuk-table">
+            <thead class="govuk-table__head">
+              <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">{{mainContent.pestContentScientificHeader}}</th>
+                <th scope="col" class="govuk-table__header">{{mainContent.pestContentCommonHeader}}</th>
+                <th scope="col" class="govuk-table__header">{{mainContent.pestContentFormatHeader1}} {{searchQuery.value | replace(")", "") | capitalize}}</th>
+              </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+              {% for item in pest_names %}
+                <tr class="govuk-table__row">
+                  {% if (item.quarantine_indicator !== '' and item.quarantine_indicator  !== null) and (item.quarantine_indicator === "R") and (format === "plants for planting")  %}
+                    <td class="govuk-table__cell">  <a class="govuk-link"  href="/pest-details?getcsl={{item.csl_ref}}">{{item.name[0].NAME}}</a></td>
+                  {% if item.name[1].NAME.length > 0 %}
+                    <td class="govuk-table__cell">{{item.name[1].NAME}}</td>
+                  {% else %}
+                    <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+                  {% endif %}
+                  <td class="govuk-table__cell">
+                    {{item.regulated_indicator | replace('\n', '<br>') | safe }}
+                  </td> 
+                </tr>                
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table> 
+        {% endif %} 
       {% endif %}
       {% from "govuk/components/button/macro.njk" import govukButton %}
 
