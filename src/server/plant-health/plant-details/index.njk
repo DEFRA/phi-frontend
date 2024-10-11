@@ -159,7 +159,7 @@
             {% endfor %}
           </tbody>
         </table>
-        {% if (outcome) and (outcome === 'partially-prohibited') or (outcome === 'un-prohibited')%}
+        {% if (rnqpPests.length > 0) and (outcome) and (outcome === 'partially-prohibited') or (outcome === 'un-prohibited')%}
           <p class="govuk-body"> 
             <h2 class="govuk-heading-l">
               {{mainContent.RNQPPestHeader}}

@@ -254,6 +254,9 @@ const formatPageController = {
             const pestDetails = result.pestDetails
               ?.sort(compareQuarantineIndicator)
               ?.reverse()
+            const rnqpPests = pestDetails.filter(
+              (item) => item.quarantine_indicator === 'R'
+            )
             const checkProcessedData = ulIndicatorList.filter(function (item) {
               if (item.flag !== '') {
                 return item
@@ -291,6 +294,7 @@ const formatPageController = {
               pest_names: pestDetails.map(function (item) {
                 return item
               }),
+              rnqpPests,
               countrySearchQuery,
               fullSearchQuery,
               mainContent,
