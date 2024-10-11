@@ -111,14 +111,14 @@
       <h2 class="govuk-heading-l">
        {{mainContent.pestHeader}}
       </h2>
-      {% if (pest_names.length === 0) %}
+      {% if (qnPests.length === 0) %}
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
-         <p class="govuk-body">            
-         {% if (annexSixRule) and (annexSixRule === 'INNS') or (outcome.toLowerCase() === 'prohibited') %}
-          {{mainContent.pestNewContent2}} 
+         <p class="govuk-body">    
+         {% if (annexSixRule) and (annexSixRule === 'INNS' or outcome.toLowerCase() === 'prohibited') %}
+          {{mainContent.pestNewContent2}} jjhjhj
          {% else %}
-           {{mainContent.pestNewContent1}}
+           {{mainContent.pestNewContent1}} jkjkjk
           {% endif %}
         </p>
           <p class="govuk-body">
@@ -159,17 +159,13 @@
             {% endfor %}
           </tbody>
         </table>
-        {% if (rnqpPests.length > 0) and (outcome) and (outcome === 'partially-prohibited') or (outcome === 'un-prohibited')%}
+        {% endif %}
+        {% if (rnqpPests.length > 0) and (outcome === 'partially-prohibited' or outcome === 'un-prohibited')%}
           <p class="govuk-body"> 
             <h2 class="govuk-heading-l">
               {{mainContent.RNQPPestHeader}}
             </h2>   
             <p class="govuk-body">{{mainContent.RNQPPestContent}}</p>
-             <p class="govuk-body">
-            {{mainContent.pestContentHundredPercentText5}}
-            <a class="govuk-link"
-                  href="https://www.gov.uk/guidance/contact-apha#plant-and-tree-pests-and-diseases-">report any suspicions</a> of the pests or diseases to the relevant authority.
-          </p>
           </p>  
           <table class="govuk-table">
             <thead class="govuk-table__head">
@@ -198,7 +194,6 @@
             </tbody>
           </table> 
         {% endif %} 
-      {% endif %}
       {% from "govuk/components/button/macro.njk" import govukButton %}
 
       {{ govukButton({
