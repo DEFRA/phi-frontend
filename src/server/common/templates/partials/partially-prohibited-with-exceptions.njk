@@ -139,7 +139,7 @@
                 {% endfor %}
                  {% if data.result.FormatClarification.length > 1 %}
                     {% if data.result.FormatClarification.split(';').length === 1 %}
-                        <li>{{data.result.FormatClarification}}</li>
+                        {{data.result.FormatClarification}}
                     {% else %}
                         {% for fc in data.result.FormatClarification.split(';') %}
                         <li>{{fc}}</li>
