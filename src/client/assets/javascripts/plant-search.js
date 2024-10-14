@@ -355,4 +355,6 @@ if (document.querySelector('#my-autocomplete-container')) {
     },
     onConfirm
   })
+  const inputElement = document.getElementById('my-autocomplete')
+  inputElement?.setAttribute('aria-label', 'autocompleteSearchQuery')
 }

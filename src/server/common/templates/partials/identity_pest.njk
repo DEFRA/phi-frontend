@@ -79,33 +79,33 @@
                 {{data.mainContent.commonNameHeading}}
               </h2>
             </dt>
-            <ul class="govuk-list">
+            <dd>
               <dd class="govuk-!-margin-left-0">
                 {% if data.commonNames.length > 0 %}
                   {% for item in data.commonNames %}
-                    <li>{{item}}</li>
+                    <dt>{{item}}</dt>
                   {% endfor %}
                   {%else%}
                   <p class="govuk-body">{{data.mainContent.noneText}}</p>
                   {%endif%}
                 </dd>
-              </ul>
+              </dd>
               <dt>
-                <h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+                <h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-1">
                   {{data.mainContent.synonymNameHeading}}
                 </h2>
               </dt>
-              <ul class="govuk-list">
+              <dd>
                 <dd class="govuk-!-margin-left-0">
                   {% if data.synonymNames.length > 0 %}
                     {% for item in data.synonymNames %}
-                      <li>{{item}}</li>
+                      <dt>{{item}}</dt>
                     {% endfor %}
                     {%else%}
                     <p class="govuk-body">{{data.mainContent.noneText}}</p>
                     {%endif%}
                   </dd>
-                </ul>
+                </dd>
               </dl>
               {% if photores %}
                 <div class="govuk-inset-text">

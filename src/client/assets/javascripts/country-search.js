@@ -118,4 +118,6 @@ if (document.querySelector('#my-autocomplete-country-container')) {
     },
     onConfirm
   })
+  const inputElement = document.getElementById('my-autocomplete')
+  inputElement?.setAttribute('aria-label', 'autocompleteCountrySearchQuery')
 }

@@ -15,46 +15,46 @@
  {%endif%}
 <dl>
 <dt>
-<h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+<h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-1">
 {{data.mainContent.preferredNameHeading}}
 </h2>
 </dt>
 
 <dd class="govuk-!-margin-left-0"><p >{{preferredName}}</p></dd>
 
-<dt><h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+<dt><h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-1">
 {{data.mainContent.commonNameHeading}}
 </h2></dt>
-<ul class="govuk-list">
+<dd>
 <dd class="govuk-!-margin-left-0">
 {% if data.commonNames.length > 0 %}
 {% for item in data.commonNames %}
-    <li>{{item}}</li>
-{% endfor %}
-{%else%}
-    <p >{{data.mainContent.noneText}}</p>
-{%endif%}
-</dd>
-</ul>
-<dt><h2 class="govuk-heading-m govuk-!-margin-bottom-0">
-{{data.mainContent.synonymNameHeading}}
-</h2></dt>
-<ul class="govuk-list">
-<dd class="govuk-!-margin-left-0">
-{% if data.synonymNames.length > 0 %}
-{% for item in data.synonymNames %}
-    <li>{{item}}</li>
+    <dt>{{item}}</dt>
 {% endfor %}
 {%else%}
     <p>{{data.mainContent.noneText}}</p>
 {%endif%}
 </dd>
-</ul>
-<dt><h2 class="govuk-heading-m govuk-!-margin-bottom-0">
+</dd>
+<dt><h2 class="govuk-heading-m govuk-!-margin-bottom-0 govuk-!-margin-top-1">
+{{data.mainContent.synonymNameHeading}}
+</h2></dt>
+<dd>
+<dd class="govuk-!-margin-left-0">
+{% if data.synonymNames.length > 0 %}
+{% for item in data.synonymNames %}
+    <dt>{{item}}</dt>
+{% endfor %}
+{%else%}
+    <p>{{data.mainContent.noneText}}</p>
+{%endif%}
+</dd>
+</dd>
+<dt><h2 class="govuk-heading-m govuk-!-margin-left-0 govuk-!-margin-bottom-0 govuk-!-margin-top-2">
 {{mainContent.eppoCodeHeading}}
 </h2></dt>
 
-<dd class="govuk-!-margin-left-0">
+<dd class="govuk-!-margin-left-0 govuk-!-margin-top-1">
 {% if eppoCode !== '' %}
  {{eppoCode}}
 {%else%}
