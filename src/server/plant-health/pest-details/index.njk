@@ -1,31 +1,32 @@
 {% extends 'layouts/page.njk' %}
 {% block beforeContent %}
-  {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
+{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
-  {{ govukPhaseBanner({
+{{ govukPhaseBanner({
   tag: {
     text: getHelpSection.betaText
   },
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_8HNqSjLvDSGG6mG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
-  {# todo add back link #}
-  {% if page == "pestsearch" %}
-    <a href="/plant-health/purpose-of-visit?whatdoyouwanttofind=pest&pestsearchQuery={{pestsearchQuery.value}}&pestFullSearchQuery={{pestFullSearchQuery.value}}&cslRef={{cslRef}}" class="govuk-back-link" type='button'>Back</a>
-  {% else %}
-    <a href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a>
+{# todo add back link #}
+{% if page == "pestsearch" %}
+<a href="/plant-health/purpose-of-visit?whatdoyouwanttofind=pest&pestsearchQuery={{pestsearchQuery.value}}&pestFullSearchQuery={{pestFullSearchQuery.value}}&cslRef={{cslRef}}" class="govuk-back-link" type='button'>Back</a>
+{% else %}
+<a href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a>
 
-  {% endif %}
+{% endif %}
 {% endblock %}
 {% block content %}
-  {% from "govuk/components/radios/macro.njk" import govukRadios %}
-  {% call appPageBody() %}
-  {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-  {% if errors.list %}
-    {{ govukErrorSummary(errors.list) }}
-  {% endif %}
-  <div class="govuk-grid-row">
-    <div class="govuk-grid-column-full">
-      {% set data = {
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% call appPageBody() %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% if errors.list %}
+
+{{ govukErrorSummary(errors.list) }}
+{% endif %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-full">
+    {% set data = {
         mainContent: mainContent,
         preferredName: preferredName,
         pestsearchQuery: pestsearchQuery,
@@ -43,162 +44,144 @@
 
       } %}
 
-      {% include "partials/identity_pest.njk" %}
+    {% include "partials/identity_pest.njk" %}
 
-      {% if data.quarantineIndicator == 'R' %}
-        {% if Rnpmap.length > 0 %}
-          <table class="govuk-table">
-            <thead class="govuk-table__head">
-              <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
-                <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
-                <th scope="col" class="govuk-table__header">{{mainContent.HeaderFormatTable}}</th>
-              </tr>
-            </thead>
-            <tbody class="govuk-table__body">
-              {% for item in Rnpmap %}
+    {% if data.quarantineIndicator == 'R' %}
+    {% if Rnpmap.length > 0 %}
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderFormatTable}}</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for item in Rnpmap %}
 
-                <tr class="govuk-table__row">
+        <tr class="govuk-table__row">
 
-                  <td class="govuk-table__cell">{{item.LATIN_NAME}}</td>
-                  {% if item.COMMAN_NAME != "" %}
-                    <td class="govuk-table__cell">{{item.COMMAN_NAME}}</td>
-                    {%endif%}
-                    {% if item.COMMAN_NAME == "" %}
-                      <td class="govuk-table__cell">{{mainContent.noneText}}</td>
-                      {%endif%}
-                      <td class="govuk-table__cell">{{item.FORMAT}}</td>
+          <td class="govuk-table__cell">{{item.LATIN_NAME}}</td>
+          {% if item.COMMAN_NAME != "" %}
+          <td class="govuk-table__cell">{{item.COMMAN_NAME}}</td>
+          {%endif%}
+          {% if item.COMMAN_NAME == "" %}
+          <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+          {%endif%}
+          <td class="govuk-table__cell">{{item.FORMAT}}</td>
 
-                    {% endfor %}
-                  </tbody>
-                </table>
-                {%endif%}
-                {% if (data.quarantineIndicator == 'R') and (Othermap.length > 0) %}
-                  {% if data.page == "pestsearch" %}
-                    <p class="govuk-body">
-                      {{data.mainContent.content190}}
-                      {{pestsearchQuery.value | replace(")", "")  | capitalize}}
-                      {{data.mainContent.content19 }}
-                    </p>
-                    {%else%}
-                    <p class="govuk-body">
-                      {{data.mainContent.content190}}
-                      {{data.preferredName | replace(")", "")  | capitalize}}
-                      {{data.mainContent.content19 }}
-                    </p>
+          {% endfor %}
+      </tbody>
+    </table>
+    {%endif%}
+    {% if (data.quarantineIndicator == 'R') and (Othermap.length > 0) %}
+    {% if data.page == "pestsearch" %}
+    <p class="govuk-body">
+      {{data.mainContent.content190}}
+      {{pestsearchQuery.value | replace(")", "")  | capitalize}}
+      {{data.mainContent.content19 }}
+    </p>
+    {%else%}
+    <p class="govuk-body">
+      {{data.mainContent.content190}}
+      {{data.preferredName | replace(")", "")  | capitalize}}
+      {{data.mainContent.content19 }}
+    </p>
 
-                    {%endif%}
+    {%endif%}
 
-                    <table class="govuk-table">
-                      <thead class="govuk-table__head">
-                        <tr class="govuk-table__row">
-                          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
-                          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
+    <table class="govuk-table">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
 
-                        </tr>
-                      </thead>
-                      <tbody class="govuk-table__body">
-                        {% for item in Othermap %}
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for item in Othermap %}
 
-                          <tr class="govuk-table__row">
+        <tr class="govuk-table__row">
 
-                            <td class="govuk-table__cell">{{item.LATIN_NAME}}</td>
-                            {% if item.COMMAN_NAME != "" %}
-                              <td class="govuk-table__cell">{{item.COMMAN_NAME}}</td>
-                              {%endif%}
-                              {% if item.COMMAN_NAME == "" %}
-                                <td class="govuk-table__cell">{{mainContent.noneText}}</td>
-                                {%endif%}
+          <td class="govuk-table__cell">{{item.LATIN_NAME}}</td>
+          {% if item.COMMAN_NAME != "" %}
+          <td class="govuk-table__cell">{{item.COMMAN_NAME}}</td>
+          {%endif%}
+          {% if item.COMMAN_NAME == "" %}
+          <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+          {%endif%}
 
-                              {% endfor %}
-                            </tbody>
-                          </table>
-                          {%endif%}
-                          {%endif%}
-                          {% if (data.quarantineIndicator == 'R') and (Othermap.length === 0) %}
-                            <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-                              {% if data.page == "pestsearch" %}
-                                {{data.mainContent.HeaderText5}}
-                                {{pestsearchQuery.value | replace(")", "")  | capitalize}}</h2>
-                              {%else%}
-                              {{data.mainContent.HeaderText5}}
-                              {{data.preferredName | replace(")", "")  | capitalize}}</h2>
-                            {%endif%}
-                            <br>
-                            {% if data.page == "pestsearch" %}
-                              <p class="govuk-body">
-                                {{data.mainContent.Noplantscontent }}
-                                {{pestsearchQuery.value | replace(")", "")  | capitalize}}. </p>
-                              {%else%}
-                              <p class="govuk-body">
-                                {{data.mainContent.Noplantscontent }}
-                                {{data.preferredName | replace(")", "")  | capitalize}}. </p>
-                              {%endif%}
-                              {%endif%}
+          {% endfor %}
+      </tbody>
+    </table>
+    {%endif%}
+    {%endif%}
 
-                              {% if data.quarantineIndicator != 'R' %}
-                                <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
-                                  {% if data.page == "pestsearch" %}
-                                    {{data.mainContent.HeaderText4}}
-                                    {{pestsearchQuery.value | replace(")", "")  | capitalize}}</h2>
-                                  {%else%}
-                                  {{data.mainContent.HeaderText4}}
-                                  {{data.preferredName| replace(")", "")  | capitalize}}</h2>
-                                {%endif%}
-                                {% if plantLinkMapsorted.size === 0 %}
-                                  <br>
-                                  {% if data.page == "pestsearch" %}
-                                    <p class="govuk-body">
-                                      {{data.mainContent.Noplantscontent }}
-                                      {{pestsearchQuery.value | replace(")", "")  | capitalize}}.</p>
-                                    {%else%}
-                                    <p class="govuk-body">
-                                      {{data.mainContent.Noplantscontent }}
-                                      {{data.preferredName | replace(")", "")  | capitalize}}.</p>
-                                    {%endif%}
-                                  {% else %}
-                                    <br>
-                                    <table class="govuk-table">
+    {% if data.quarantineIndicator != 'R' %}
+    <h2 class="govuk-heading-l govuk-!-margin-bottom-0">
+      {% if data.page == "pestsearch" %}
+      {{data.mainContent.HeaderText4}}
+      {{pestsearchQuery.value | replace(")", "")  | capitalize}}
+    </h2>
+    {%else%}
+    {{data.mainContent.HeaderText4}}
+    {{data.preferredName| replace(")", "")  | capitalize}}</h2>
+    {%endif%}
+    {% if plantLinkMapsorted.size === 0 %}
+    <br>
+    {% if data.page == "pestsearch" %}
+    <p class="govuk-body">
+      {{data.mainContent.Noplantscontent }}
+      {{pestsearchQuery.value | replace(")", "")  | capitalize}}.
+    </p>
+    {%else%}
+    <p class="govuk-body">
+      {{data.mainContent.Noplantscontent }}
+      {{data.preferredName | replace(")", "")  | capitalize}}.
+    </p>
+    {%endif%}
+    {% else %}
+    <br>
+    <table class="govuk-table">
 
-                                      <thead class="govuk-table__head">
-                                        <tr class="govuk-table__row">
-                                          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
-                                          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody class="govuk-table__body">
-                                        {% for item, values in plantLinkMapsorted %}
-                                          {% if item.length > 0%}
-                                            <tr class="govuk-table__row">
+      <thead class="govuk-table__head">
+        <tr class="govuk-table__row">
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextScientific}}</th>
+          <th scope="col" class="govuk-table__header">{{mainContent.HeaderTextCommon}}</th>
+        </tr>
+      </thead>
+      <tbody class="govuk-table__body">
+        {% for item, values in plantLinkMapsorted %}
+        {% if item.length > 0%}
+        <tr class="govuk-table__row">
 
-                                              <td class="govuk-table__cell">{{item}}</td>
-                                              {% if plantLinkMapsorted.get(item)!=""%}
-                                                <td class="govuk-table__cell">{{plantLinkMapsorted.get(item)}}</td>
-                                              {% else %}
-                                                <td class="govuk-table__cell">{{mainContent.noneText}}</td>
-                                              {% endif %}
-                                              {%endif%}
+          <td class="govuk-table__cell">{{item}}</td>
+          {% if plantLinkMapsorted.get(item)!=""%}
+          <td class="govuk-table__cell">{{plantLinkMapsorted.get(item)}}</td>
+          {% else %}
+          <td class="govuk-table__cell">{{mainContent.noneText}}</td>
+          {% endif %}
+          {%endif%}
 
-                                            {% endfor %}
-                                          </tbody>
-                                        </table>
-                                        {%endif%}
-                                      {% endif %}
-                                      {% from "govuk/components/button/macro.njk" import govukButton %}
-
-                                      {{ govukButton({
+          {% endfor %}
+      </tbody>
+    </table>
+    {%endif%}
+    {% endif %}
+    {% from "govuk/components/button/macro.njk" import govukButton %}
+    {{ govukButton({
       text: "Find another plant or pest",
        href: "/plant-health?findanotherpest=true"
     }) }}
-                                    </div>
-                                  </div>
+  </div>
+</div>
 
-                                  {% set supportSection = {
-                                    title: getHelpSection.titleText,
-                                    supportMail: getHelpSection.supportUrl.href,
-                                    email: getHelpSection.supportUrl.email,
-                                    description: getHelpSection.supportUrl.text
-                                  } %}
-                                  {% include "partials/get-help.njk" %}
-                                  {% endcall %}
-                                {% endblock %}
+{% set supportSection = {
+                                title: getHelpSection.titleText,
+                                supportMail: getHelpSection.supportUrl.href,
+                                email: getHelpSection.supportUrl.email,
+                                description: getHelpSection.supportUrl.text
+                              } %}
+{% include "partials/get-help.njk" %}
+{% endcall %}
+{% endblock %}
