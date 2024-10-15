@@ -1,0 +1,33 @@
+{
+  "mainContent": {
+    "headerText1": "Accessibility statement for Check plant health information and import rules",
+    "headerText2": "Using this service",
+    "headerText3": "How accessible this service is",
+    "headerText4": "Feedback and contact information",
+    "headerText5": "Enforcement procedure",
+    "headerText6": "Technical information about this service's accessibility",
+    "headerText7": "Compliance status",
+    "headerText8": "Non-accessible content",
+    "headerText9": "Non-compliance with the accessibility regulations",
+    "headerText10": "What we're doing to improve accessibility",
+    "headerText11": "Preparation of this statement",
+    "paragraphText1": "This service is part of the wider GOV.UK website. There's a separate",
+    "paragraphText2": "This page only contains information about the Check plant health information and import rules service, available at",
+    "paragraphText3": "This service is run by the Department for Environment, Food & Rural Affairs and Animal and Plant Health. We want as many people as possible to be able to use this service. For example, that means you should be able to zoom in up to 400% without the text spilling off the screen.",
+    "paragraphText4": "We've also made the text in the service as simple as possible to understand.",
+    "paragraphText5": "has advice on making your device easier to use if you have a disability",
+    "paragraphText6": "The service uses common styles, patterns and components from the GOV.UK Design System which are widely regarded as accessible.",
+    "paragraphText7": "We know some parts of this service are not fully accessible:",
+    "paragraphText8": "If you find any problems not listed on this page or think we're not meeting accessibility requirements, email us at",
+    "paragraphText9": "The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the 'accessibility regulations'). If you're not happy with how we respond to your complaint, contact the",
+    "paragraphText10": "The Department for Environment, Food & Rural Affairs is committed to making this service accessible, in accordance with the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018.",
+    "paragraphText11": "This service is partially compliant with the",
+    "paragraphText12": "AA standard, due to the non-compliances listed below.",
+    "paragraphText13": "The content listed below is non-accessible for the following reasons.",
+    "paragraphText14": "We will continue to iterate the design of the service, with accessibility considerations being made at each stage.",
+    "paragraphText15": "This page was prepared on 22 August 2024. It was last reviewed on 4 October 2024.",
+    "paragraphText16": "This service was last tested on 13 August 2024 against the WCAG 2.2 AA standard. The testing was carried out by the",
+    "bulletText1": "the autocomplete input field is not structured or labelled correctly which will make it hard for screen reader and voice control users to use.",
+    "bulletText2": " The autocomplete input field is not structured or labelled correctly. This fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships) and 4.1.2 (Name, Role, Value). We plan to fix this in 2024."
+  }
+}

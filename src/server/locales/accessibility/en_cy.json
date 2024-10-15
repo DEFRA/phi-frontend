@@ -1,0 +1,33 @@
+{
+  "mainContent": {
+    "headerText1": "Datganiad hygyrchedd ar gyfer Gwirio gwybodaeth iechyd planhigion a rheolau mewnforio",
+    "headerText2": "Defnyddio'r gwasanaeth hwn",
+    "headerText3": "Pa mor hygyrch yw'r gwasanaeth hwn",
+    "headerText4": "Adborth a gwybodaeth gyswllt",
+    "headerText5": "Gweithdrefn orfodi",
+    "headerText6": "Gwybodaeth dechnegol am hygyrchedd y gwasanaeth hwn",
+    "headerText7": "Statws cydymffurfio",
+    "headerText8": "Cynnwys anhygyrch",
+    "headerText9": "Diffyg cydymffurfio â'r rheoliadau hygyrchedd",
+    "headerText10": "Beth rydym yn ei wneud i wella hygyrchedd",
+    "headerText11": "Paratoi'r datganiad hwn",
+    "paragraphText1": "Mae'r gwasanaeth hwn yn rhan o wefan ehangach GOV.UK. Mae yna ar wahân",
+    "paragraphText2": "Dim ond gwybodaeth am y gwasanaeth gwybodaeth am iechyd planhigion a rheolau mewnforio sydd ar gael yn y dudalen hon",
+    "paragraphText3": "Mae'r gwasanaeth hwn yn cael ei redeg gan Adran yr Amgylchedd, Bwyd a Materion Gwledig ac Iechyd Anifeiliaid a Phlanhigion. Rydym eisiau i gynifer o bobl â phosibl allu defnyddio'r gwasanaeth hwn. Er enghraifft, mae hynny'n golygu y dylech allu chwyddo hyd at 400% heb i'r testun arllwys oddi ar y sgrin.",
+    "paragraphText4": "Rydym hefyd wedi gwneud y testun yn y gwasanaeth mor syml â phosibl i'w ddeall.",
+    "paragraphText5": "yn cael cyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd",
+    "paragraphText6": "Mae'r gwasanaeth yn defnyddio arddulliau, patrymau a chydrannau cyffredin o System Ddylunio GOV.UK sy'n cael eu hystyried yn eang fel rhai hygyrch.",
+    "paragraphText7": "Gwyddom nad yw rhai rhannau o'r gwasanaeth hwn yn gwbl hygyrch:",
+    "paragraphText8": "Os byddwch yn dod o hyd i unrhyw broblemau nad ydynt wedi'u rhestru ar y dudalen hon neu'n meddwl nad ydym yn bodloni gofynion hygyrchedd, anfonwch e-bost atom yn",
+    "paragraphText9": "Mae'r Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) yn gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (y 'rheoliadau hygyrchedd'). Os nad ydych yn hapus gyda'r ffordd yr ydym yn ymateb i'ch cwyn, cysylltwch â'r",
+    "paragraphText10": "Mae Adran yr Amgylchedd, Bwyd a Materion Gwledig wedi ymrwymo i wneud y gwasanaeth hwn yn hygyrch, yn unol â Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018.",
+    "paragraphText11": "Mae'r gwasanaeth hwn yn cydymffurfio'n rhannol â'r",
+    "paragraphText12": "Safon AA, oherwydd y diffyg cydymffurfio a restrir isod.",
+    "paragraphText13": "Nid yw'r cynnwys a restrir isod yn hygyrch am y rhesymau canlynol.",
+    "paragraphText14": "Byddwn yn parhau i ailadrodd cynllun y gwasanaeth, gydag ystyriaethau hygyrchedd yn cael eu gwneud ar bob cam.",
+    "paragraphText15": "Paratowyd y dudalen hon ar 22 Awst 2024. Cafodd ei hadolygu ddiwethaf ar 4 Hydref 2024.",
+    "paragraphText16": "Profwyd y gwasanaeth hwn ddiwethaf ar 13 Awst 2024 yn erbyn safon WCAG 2.2 AA. Gwnaed y prawf gan y",
+    "bulletText1": "nid yw'r maes mewnbwn awtolenwi wedi'i strwythuro na'i labelu'n gywir a fydd yn ei gwneud hi'n anodd i ddefnyddwyr darllen sgrin a rheolaeth llais ei ddefnyddio.",
+    "bulletText2": "Nid yw'r maes mewnbwn awtolenwi wedi'i strwythuro na'i labelu'n gywir. Mae hyn yn methu maen prawf llwyddiant WCAG 2.2 1.3.1 (Gwybodaeth a Pherthnasoedd) a 4.1.2 (Enw, Rôl, Gwerth). Rydym yn bwriadu trwsio hyn yn 2024."
+  }
+}

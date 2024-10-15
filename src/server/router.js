@@ -16,6 +16,7 @@ import { pestDetailsPage } from '~/src/server/plant-health/pest-details'
 import { search } from '~/src/api/search'
 import { config } from '~/src/config'
 import { login } from '~/src/server/login'
+import { accessibilityStatement } from '~/src/server/accessibility'
 
 const sessionCookiePassword = config.get('sessionCookiePassword')
 
@@ -47,6 +48,7 @@ const router = {
 
         login,
         problemWithService,
+        accessibilityStatement,
         serveStaticFiles
       ])
       await server.register({
