@@ -325,6 +325,8 @@ if (document.querySelector('#my-autocomplete-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    hint: true,
+    hintClasses: 'custom-hint-class',
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
@@ -333,8 +335,14 @@ if (document.querySelector('#my-autocomplete-container')) {
       },
       suggestion: function (asd) {
         if (regexValue?.length > 0) {
+          const inputElement =
+            document.getElementsByClassName('custom-hint-class')
+          inputElement[0]?.setAttribute('aria-label', 'autocomplete__hint')
+          inputElement[0]?.setAttribute('id', 'autocomplete__hint')
           return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
+            '<div class="suggestions"><span aria-label=' +
+            asd.text +
+            ' class="name" id="resultName">' +
             asd?.text?.replace(
               new RegExp(regexValue, 'gi'),
               (match) => `<strong>${match}</strong>`
@@ -342,8 +350,17 @@ if (document.querySelector('#my-autocomplete-container')) {
             '</span></div>'
           )
         } else {
+          const inputElement =
+            document.getElementsByClassName('custom-hint-class')
+          document
+            .querySelector('.custom-hint-class')
+            .setAttribute('aria-label', 'autocomplete__hint')
+          inputElement[0]?.setAttribute('aria-label', 'autocomplete__hint')
+          inputElement[0]?.setAttribute('id', 'autocomplete__hint')
           return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
+            '<div class="suggestions"><span aria-label=' +
+            asd +
+            ' class="name" id="resultName">' +
             asd?.replace(
               new RegExp(asd, 'gi'),
               (match) => `<strong>${match}</strong>`
@@ -357,4 +374,7 @@ if (document.querySelector('#my-autocomplete-container')) {
   })
   const inputElement = document.getElementById('my-autocomplete')
   inputElement?.setAttribute('aria-label', 'autocompleteSearchQuery')
+  const inputElement1 = document.getElementsByClassName('custom-hint-class')
+  inputElement1[0]?.setAttribute('aria-label', 'autocomplete__hint')
+  inputElement1[0]?.setAttribute('id', 'autocomplete__hint')
 }
