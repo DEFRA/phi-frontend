@@ -334,11 +334,11 @@ if (document.querySelector('#my-autocomplete-container')) {
         return asd?.text
       },
       suggestion: function (asd) {
+        const inputElementCustom =
+          document.getElementsByClassName('custom-hint-class')
+        inputElementCustom[0]?.setAttribute('aria-label', 'autocomplete__hint')
+        inputElementCustom[0]?.setAttribute('id', 'autocomplete__hint')
         if (regexValue?.length > 0) {
-          const inputElement =
-            document.getElementsByClassName('custom-hint-class')
-          inputElement[0]?.setAttribute('aria-label', 'autocomplete__hint')
-          inputElement[0]?.setAttribute('id', 'autocomplete__hint')
           return (
             '<div class="suggestions"><span aria-label=' +
             asd.text +
@@ -350,13 +350,6 @@ if (document.querySelector('#my-autocomplete-container')) {
             '</span></div>'
           )
         } else {
-          const inputElement =
-            document.getElementsByClassName('custom-hint-class')
-          document
-            .querySelector('.custom-hint-class')
-            .setAttribute('aria-label', 'autocomplete__hint')
-          inputElement[0]?.setAttribute('aria-label', 'autocomplete__hint')
-          inputElement[0]?.setAttribute('id', 'autocomplete__hint')
           return (
             '<div class="suggestions"><span aria-label=' +
             asd +
@@ -374,7 +367,4 @@ if (document.querySelector('#my-autocomplete-container')) {
   })
   const inputElement = document.getElementById('my-autocomplete')
   inputElement?.setAttribute('aria-label', 'autocompleteSearchQuery')
-  const inputElement1 = document.getElementsByClassName('custom-hint-class')
-  inputElement1[0]?.setAttribute('aria-label', 'autocomplete__hint')
-  inputElement1[0]?.setAttribute('id', 'autocomplete__hint')
 }
