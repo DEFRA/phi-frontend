@@ -1,4 +1,9 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
+import {
+  timerFunction,
+  inputValueTemplate,
+  suggestionTemplate
+} from './application.js'
 let finalArray = []
 let timer
 
@@ -10,28 +15,10 @@ async function fetchSuggestions(query, populateResults) {
   defaultcslref?.setAttribute('value', null)
   const apiUrl = '/search/pests?searchQuery=' + query
   await clearTimeout(timer)
-  timer = await setTimeout(async () => {
-    try {
-      if (query.length > 2) {
-        const response = await fetch(apiUrl)
-        const responseJSON = await response.json()
-        await renderSuggestions(responseJSON, query)
-        function compareNames(a, b) {
-          if (a.text.trim() < b.text.trim()) {
-            return -1
-          }
-          if (a.text.trim() > b.text.trim()) {
-            return 1
-          }
-          return 0
-        }
-        populateResults(finalArray.sort(compareNames))
-      }
-    } catch (error) {
-      // TypeError: Failed to fetch
-      // console.log('Error fetching suggestions:', error)
-    }
-  }, 1000)
+  const response = await fetch(apiUrl)
+  const responseJSON = await response.json()
+  await renderSuggestions(responseJSON, query)
+  timer = timerFunction(query, finalArray, populateResults)
 }
 let regexValue
 async function renderSuggestions(json, query) {
@@ -308,7 +295,6 @@ const onConfirm = (e) => {
       .appendChild(inputCslref)
   }
 }
-const cslRefElement = document.getElementById('#cslRef')
 if (document.querySelector('#my-autocomplete-pest-container')) {
   accessibleAutocomplete({
     element: document.querySelector('#my-autocomplete-pest-container'),
@@ -319,32 +305,15 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    hint: true,
+    hintClasses: 'custom-hint-class',
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
-        cslRefElement?.setAttribute('value', asd?.cslRef)
-        return asd?.text
+        return inputValueTemplate(asd)
       },
       suggestion: function (asd) {
-        if (regexValue?.length > 0) {
-          return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.text?.replace(
-              new RegExp(regexValue, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        } else {
-          return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.replace(
-              new RegExp(asd, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        }
+        return suggestionTemplate(asd, regexValue)
       }
     },
     onConfirm

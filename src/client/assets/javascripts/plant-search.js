@@ -1,4 +1,10 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
+import {
+  timerFunction,
+  inputValueTemplate,
+  suggestionTemplate
+} from './application.js'
+
 let finalArray = []
 let timer
 
@@ -9,28 +15,10 @@ async function fetchSuggestions(query, populateResults) {
   defaulthostref?.setAttribute('value', '')
   const apiUrl = '/search/plants?searchQuery=' + query
   await clearTimeout(timer)
-  timer = await setTimeout(async () => {
-    try {
-      if (query.length > 2) {
-        const response = await fetch(apiUrl)
-        const responseJSON = await response.json()
-        await renderSuggestions(responseJSON, query)
-        function compareNames(a, b) {
-          if (a.text < b.text) {
-            return -1
-          }
-          if (a.text > b.text) {
-            return 1
-          }
-          return 0
-        }
-        populateResults(finalArray.sort(compareNames))
-      }
-    } catch (error) {
-      // TypeError: Failed to fetch
-      // console.log('Error fetching suggestions:', error)
-    }
-  }, 1000)
+  const response = await fetch(apiUrl)
+  const responseJSON = await response.json()
+  await renderSuggestions(responseJSON, query)
+  timer = timerFunction(query, finalArray, populateResults)
 }
 let regexValue
 async function renderSuggestions(json, query) {
@@ -313,8 +301,6 @@ const onConfirm = (e) => {
     document.querySelector('#my-autocomplete-container').appendChild(inputHref)
   }
 }
-const hostRefElement = document.getElementById('#hostRef')
-
 if (document.querySelector('#my-autocomplete-container')) {
   accessibleAutocomplete({
     element: document.querySelector('#my-autocomplete-container'),
@@ -325,32 +311,15 @@ if (document.querySelector('#my-autocomplete-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    hint: true,
+    hintClasses: 'custom-hint-class',
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
-        hostRefElement?.setAttribute('value', asd?.hostRef)
-        return asd?.text
+        return inputValueTemplate(asd)
       },
       suggestion: function (asd) {
-        if (regexValue?.length > 0) {
-          return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.text?.replace(
-              new RegExp(regexValue, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        } else {
-          return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.replace(
-              new RegExp(asd, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        }
+        return suggestionTemplate(asd, regexValue)
       }
     },
     onConfirm

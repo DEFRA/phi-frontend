@@ -21,7 +21,7 @@ const problemWithServiceController = {
 
     const statusCode = parseInt(request.query.statusCode)
     const errorMessage = statusCodeMessage(statusCode)
-    let pageTitle = 'Error: '
+    let pageTitle
     if (
       statusCode === 500 ||
       statusCode === 502 ||
@@ -29,16 +29,13 @@ const problemWithServiceController = {
       statusCode === 504
     ) {
       pageTitle =
-        pageTitle +
         'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK'
     } else {
       if (statusCode === 404) {
         pageTitle =
-          pageTitle +
           'Page not found — Check plant health information and import rules — GOV.UK'
       } else {
-        pageTitle =
-          pageTitle + 'Check plant health information and import rules — GOV.UK'
+        pageTitle = 'Check plant health information and import rules — GOV.UK'
       }
     }
     if (statusCode !== undefined) {
