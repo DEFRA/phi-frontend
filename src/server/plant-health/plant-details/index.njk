@@ -115,8 +115,10 @@
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
          <p class="govuk-body">    
-         {% if (annexSixRule) and (annexSixRule === 'INNS' or outcome.toLowerCase() === 'prohibited') %}
+         {% if (annexSixRule) and (outcome.toLowerCase() === 'prohibited') %}
           {{mainContent.pestNewContent2}}
+         {%elif (annexSixRule) and (annexSixRule === 'INNS') %} 
+          {{mainContent.pestINNSContent}}
          {% else %}
            {{mainContent.pestNewContent1}}
           {% endif %}
