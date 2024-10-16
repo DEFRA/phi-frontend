@@ -89,12 +89,21 @@ if (document.querySelector('#my-autocomplete-country-container')) {
       ?.childNodes[0]?.value,
     minLength: 3,
     autoselect: true,
+    hint: true,
+    hintClasses: 'custom-hint-class',
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
         return asd?.text
       },
       suggestion: function (asd) {
+        const inputElement =
+          document.getElementsByClassName('custom-hint-class')
+        document
+          .querySelector('.custom-hint-class')
+          .setAttribute('aria-label', 'autocomplete__hint')
+        inputElement[0]?.setAttribute('aria-label', 'autocomplete__hint')
+        inputElement[0]?.setAttribute('id', 'autocomplete__hint')
         if (regexValue?.length > 0) {
           return (
             '<div class="suggestions"><span class="name" id="resultName">' +
