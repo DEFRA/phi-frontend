@@ -332,7 +332,7 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
           document.getElementsByClassName('custom-hint-class')
         document
           .querySelector('.custom-hint-class')
-          .setAttribute('aria-label', 'autocomplete__hint')
+          ?.setAttribute('aria-label', 'autocomplete__hint')
         inputElement[0]?.setAttribute('aria-label', 'autocomplete__hint')
         inputElement[0]?.setAttribute('id', 'autocomplete__hint')
         if (regexValue?.length > 0) {

@@ -29,7 +29,7 @@ describe('problemWithServiceController', () => {
         heading: 404,
         message: 'Page not found',
         pageTitle:
-          'Error: Page not found — Check plant health information and import rules — GOV.UK',
+          'Page not found — Check plant health information and import rules — GOV.UK',
         statusCode: 404
       })
     )
@@ -45,8 +45,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 403,
         message: 'Forbidden',
-        pageTitle:
-          'Error: Check plant health information and import rules — GOV.UK',
+        pageTitle: 'Check plant health information and import rules — GOV.UK',
         statusCode: 403
       })
     )
@@ -62,8 +61,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 401,
         message: 'Unauthorized',
-        pageTitle:
-          'Error: Check plant health information and import rules — GOV.UK',
+        pageTitle: 'Check plant health information and import rules — GOV.UK',
         statusCode: 401
       })
     )
@@ -79,8 +77,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 400,
         message: 'Bad Request',
-        pageTitle:
-          'Error: Check plant health information and import rules — GOV.UK',
+        pageTitle: 'Check plant health information and import rules — GOV.UK',
         statusCode: 400
       })
     )
@@ -97,7 +94,7 @@ describe('problemWithServiceController', () => {
         heading: 500,
         message: 'Something went wrong',
         pageTitle:
-          'Error: Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
         statusCode: 500
       })
     )
@@ -114,7 +111,7 @@ describe('problemWithServiceController', () => {
         heading: 502,
         message: 'Something went wrong',
         pageTitle:
-          'Error: Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
         statusCode: 502
       })
     )
@@ -131,7 +128,7 @@ describe('problemWithServiceController', () => {
         heading: 503,
         message: 'Something went wrong',
         pageTitle:
-          'Error: Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
         statusCode: 503
       })
     )
@@ -148,7 +145,7 @@ describe('problemWithServiceController', () => {
         heading: 504,
         message: 'Something went wrong',
         pageTitle:
-          'Error: Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
         statusCode: 504
       })
     )
