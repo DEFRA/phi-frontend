@@ -1,5 +1,9 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
-import { timerFunction } from './application.js'
+import {
+  timerFunction,
+  inputValueTemplate,
+  suggestionTemplate
+} from './application.js'
 
 let finalArray = []
 let timer
@@ -78,32 +82,10 @@ if (document.querySelector('#my-autocomplete-country-container')) {
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
-        return asd?.text
+        return inputValueTemplate(asd)
       },
       suggestion: function (asd) {
-        const inputElementCustom =
-          document.getElementsByClassName('custom-hint-class')
-        inputElementCustom[0]?.setAttribute('aria-label', 'autocomplete__hint')
-        inputElementCustom[0]?.setAttribute('id', 'autocomplete__hint')
-        if (regexValue?.length > 0) {
-          return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.text?.replace(
-              new RegExp(regexValue, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        } else {
-          return (
-            '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.replace(
-              new RegExp(asd, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        }
+        return suggestionTemplate(asd, regexValue)
       }
     },
     onConfirm

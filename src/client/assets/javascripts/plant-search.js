@@ -1,5 +1,10 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
-import { timerFunction } from './application.js'
+import {
+  timerFunction,
+  inputValueTemplate,
+  suggestionTemplate
+} from './application.js'
+
 let finalArray = []
 let timer
 
@@ -296,8 +301,6 @@ const onConfirm = (e) => {
     document.querySelector('#my-autocomplete-container').appendChild(inputHref)
   }
 }
-const hostRefElement = document.getElementById('#hostRef')
-
 if (document.querySelector('#my-autocomplete-container')) {
   accessibleAutocomplete({
     element: document.querySelector('#my-autocomplete-container'),
@@ -313,37 +316,10 @@ if (document.querySelector('#my-autocomplete-container')) {
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
-        hostRefElement?.setAttribute('value', asd?.hostRef)
-        return asd?.text
+        return inputValueTemplate(asd)
       },
       suggestion: function (asd) {
-        const inputElementCustom =
-          document.getElementsByClassName('custom-hint-class')
-        inputElementCustom[0]?.setAttribute('aria-label', 'autocomplete__hint')
-        inputElementCustom[0]?.setAttribute('id', 'autocomplete__hint')
-        if (regexValue?.length > 0) {
-          return (
-            '<div class="suggestions"><span aria-label=' +
-            asd.text +
-            ' class="name" id="resultName">' +
-            asd?.text?.replace(
-              new RegExp(regexValue, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        } else {
-          return (
-            '<div class="suggestions"><span aria-label=' +
-            asd +
-            ' class="name" id="resultName">' +
-            asd?.replace(
-              new RegExp(asd, 'gi'),
-              (match) => `<strong>${match}</strong>`
-            ) +
-            '</span></div>'
-          )
-        }
+        return suggestionTemplate(asd, regexValue)
       }
     },
     onConfirm
