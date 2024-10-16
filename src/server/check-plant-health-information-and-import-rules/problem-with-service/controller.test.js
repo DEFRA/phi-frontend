@@ -2,6 +2,11 @@ import { problemWithServiceController } from '~/src/server/check-plant-health-in
 
 describe('problemWithServiceController', () => {
   let request, h
+  const technicalError =
+    'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK'
+  const pageNotFoundError =
+    'Page not found — Check plant health information and import rules — GOV.UK'
+  const pageTitle = 'Check plant health information and import rules — GOV.UK'
 
   beforeEach(() => {
     request = {
@@ -28,8 +33,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 404,
         message: 'Page not found',
-        pageTitle:
-          'Page not found — Check plant health information and import rules — GOV.UK',
+        pageTitle: pageNotFoundError,
         statusCode: 404
       })
     )
@@ -45,7 +49,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 403,
         message: 'Forbidden',
-        pageTitle: 'Check plant health information and import rules — GOV.UK',
+        pageTitle,
         statusCode: 403
       })
     )
@@ -61,7 +65,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 401,
         message: 'Unauthorized',
-        pageTitle: 'Check plant health information and import rules — GOV.UK',
+        pageTitle,
         statusCode: 401
       })
     )
@@ -77,7 +81,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 400,
         message: 'Bad Request',
-        pageTitle: 'Check plant health information and import rules — GOV.UK',
+        pageTitle,
         statusCode: 400
       })
     )
@@ -93,8 +97,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 500,
         message: 'Something went wrong',
-        pageTitle:
-          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+        pageTitle: technicalError,
         statusCode: 500
       })
     )
@@ -110,8 +113,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 502,
         message: 'Something went wrong',
-        pageTitle:
-          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+        pageTitle: technicalError,
         statusCode: 502
       })
     )
@@ -127,8 +129,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 503,
         message: 'Something went wrong',
-        pageTitle:
-          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+        pageTitle: technicalError,
         statusCode: 503
       })
     )
@@ -144,8 +145,7 @@ describe('problemWithServiceController', () => {
       expect.objectContaining({
         heading: 504,
         message: 'Something went wrong',
-        pageTitle:
-          'Sorry, there is a problem with the service — Check plant health information and import rules — GOV.UK',
+        pageTitle: technicalError,
         statusCode: 504
       })
     )
