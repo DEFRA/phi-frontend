@@ -12,4 +12,26 @@ import './plant-search.js'
 import './pest-search.js'
 import './country-search.js'
 
+export function timerFunction(query, finalArray, populateResults) {
+  return setTimeout(async () => {
+    try {
+      if (query.length > 2) {
+        function compareNames(a, b) {
+          if (a.text < b.text) {
+            return -1
+          }
+          if (a.text > b.text) {
+            return 1
+          }
+          return 0
+        }
+        return populateResults(finalArray.sort(compareNames))
+      }
+    } catch (error) {
+      // TypeError: Failed to fetch
+      // console.log('Error fetching suggestions:', error)
+    }
+  }, 1000)
+}
+
 initAll()

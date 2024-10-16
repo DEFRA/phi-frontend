@@ -1,4 +1,5 @@
 import accessibleAutocomplete from './accessible-autocomplete.min.js'
+import { timerFunction } from './application.js'
 let finalArray = []
 let timer
 
@@ -10,28 +11,10 @@ async function fetchSuggestions(query, populateResults) {
   defaultcslref?.setAttribute('value', null)
   const apiUrl = '/search/pests?searchQuery=' + query
   await clearTimeout(timer)
-  timer = await setTimeout(async () => {
-    try {
-      if (query.length > 2) {
-        const response = await fetch(apiUrl)
-        const responseJSON = await response.json()
-        await renderSuggestions(responseJSON, query)
-        function compareNames(a, b) {
-          if (a.text.trim() < b.text.trim()) {
-            return -1
-          }
-          if (a.text.trim() > b.text.trim()) {
-            return 1
-          }
-          return 0
-        }
-        populateResults(finalArray.sort(compareNames))
-      }
-    } catch (error) {
-      // TypeError: Failed to fetch
-      // console.log('Error fetching suggestions:', error)
-    }
-  }, 1000)
+  const response = await fetch(apiUrl)
+  const responseJSON = await response.json()
+  await renderSuggestions(responseJSON, query)
+  timer = timerFunction(query, finalArray, populateResults)
 }
 let regexValue
 async function renderSuggestions(json, query) {
