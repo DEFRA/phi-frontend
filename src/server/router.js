@@ -11,11 +11,9 @@ import { formatPage } from '~/src/server/plant-health/format'
 import { serveStaticFiles } from '~/src/server/common/helpers/serve-static-files'
 import { pestSearchPage } from '~/src/server/plant-health/pest-search'
 import { problemWithService } from '~/src/server/check-plant-health-information-and-import-rules/problem-with-service'
-
 import { pestDetailsPage } from '~/src/server/plant-health/pest-details'
 import { search } from '~/src/api/search'
 import { config } from '~/src/config'
-import { login } from '~/src/server/login'
 import { accessibilityStatement } from '~/src/server/accessibility'
 
 const sessionCookiePassword = config.get('sessionCookiePassword')
@@ -46,7 +44,6 @@ const router = {
         pestSearchPage,
         pestDetailsPage,
 
-        login,
         problemWithService,
         accessibilityStatement,
         serveStaticFiles
