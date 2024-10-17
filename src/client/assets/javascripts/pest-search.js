@@ -66,11 +66,18 @@ async function renderSuggestions(json, query) {
             commonJson[i].pestName[j].NAME.sort().filter((name) => {
               if (name.match(new RegExp(regexValue, 'gi'))) {
                 if (latinArray.length > 0) {
-                  const existingArray = commonExistingNameCheck(
+                  const existingArray1 = commonExistingNameCheck(
                     latinArray,
                     name
                   )
-                  if (existingArray.length === 0) {
+                  const existingArray2 = commonExistingNameCheck(
+                    commonArray,
+                    name
+                  )
+                  if (
+                    existingArray1.length === 0 &&
+                    existingArray2.length === 0
+                  ) {
                     commonArray.push({
                       result: commonJson[i].pestName,
                       cslRef: commonJson[i].cslRef,
@@ -104,11 +111,18 @@ async function renderSuggestions(json, query) {
             synonymJson[i].pestName[j].NAME.filter((name) => {
               if (name.match(new RegExp(regexValue, 'gi'))) {
                 if (latinArray.length > 0) {
-                  const existingArray = synonymExistingNameCheck(
+                  const existingLatinArray = synonymExistingNameCheck(
                     latinArray,
                     name
                   )
-                  if (existingArray.length === 0) {
+                  const existingSynonymArray = synonymExistingNameCheck(
+                    synonymArray,
+                    name
+                  )
+                  if (
+                    existingLatinArray.length === 0 &&
+                    existingSynonymArray.length === 0
+                  ) {
                     synonymArray.push({
                       result: synonymJson[i].pestName,
                       cslRef: synonymJson[i].cslRef,
@@ -162,7 +176,9 @@ function commonExistingNameCheck(latinArray, name) {
   const existingArray = []
   latinArray.filter(function (item) {
     item.result[1].NAME?.filter(function (cname) {
-      if (cname.match(new RegExp(name, 'gi'))) existingArray.push(cname)
+      if (cname.toLowerCase() === name.toLowerCase()) {
+        existingArray.push(cname)
+      }
       return existingArray
     })
     return existingArray
