@@ -344,6 +344,7 @@ function deleteCookie(name) {
     // If a cookie was set with a specified domain, it needs to be specified when deleted
     // If a cookie wasn't set with the domain attribute, it shouldn't be there when deleted
     // You can't tell if a cookie was set with a domain attribute or not, so try both options
+
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/`
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;domain=${window.location.hostname};path=/`
     document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 GMT;domain=.${window.location.hostname};path=/`
