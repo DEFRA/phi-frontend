@@ -80,13 +80,15 @@ const config = convict({
   backendApiUrl: {
     doc: 'Backend api url',
     format: String,
-    default: `https://phi-etl-fera-backend.test.cdp-int.defra.cloud`,
+    // default: `https://phi-etl-fera-backend.test.cdp-int.defra.cloud`,
+    default: 'http://localhost:3049',
     env: 'BACKEND_API_URL'
   },
   frontendUrl: {
     doc: 'Frontend url',
     format: String,
-    default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    // default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    default: 'http://localhost:3000',
     env: 'FRONTEND_URL'
   },
 
@@ -95,6 +97,20 @@ const config = convict({
     format: String,
     default: `https://gd.eppo.int/taxon/`,
     env: 'phot_URL'
+  },
+  analytics: {
+    doc: 'analytics',
+    format: String,
+    default: 'https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ',
+    // default: 'https://www.googletagmanager.com/gtag/js?id=G-H',
+    env: 'analytics'
+  },
+  gtagID: {
+    doc: 'gtagID',
+    format: String,
+    default: 'G-HVF94VF4NZ',
+    env: 'gtagID'
+    // default: 'G-HJO',
   },
   dateFormat: {
     doc: 'dateFormat of publication date in pest document',

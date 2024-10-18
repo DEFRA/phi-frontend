@@ -15,12 +15,17 @@ const cookiePassword = config.get('cookiePassword')
 async function createServer() {
   const server = hapi.server({
     port: config.get('port'),
+    state: {
+      // parse and store in request.state
+      strictHeader: false // may also be 'ignore' or 'log'
+    },
     routes: {
       validate: {
         options: {
           abortEarly: false
         }
       },
+
       files: {
         relativeTo: path.resolve(config.get('root'), '.public')
       },
@@ -55,15 +60,15 @@ async function createServer() {
       isSecure: isProduction
     },
     redirectTo: '/',
-    keepAlive: true,
+    keepAlive: true
     // to validate cookie content on each request and returns boolean(isauthenticated/not)
-    validate: async (request, session) => {
-      if (session.password === config.get('phiPassword')) {
-        return { isValid: true }
-      } else {
-        return { isValid: true }
-      }
-    }
+    // validate: async (request, session) => {
+    //   if (session.password === config.get('phiPassword')) {
+    //     return { isValid: true }
+    //   } else {
+    //     return { isValid: true }
+    //   }
+    // }
   })
   // register with every route to use correct credentials
   server.auth.default({ strategy: 'login', mode: 'required' })
