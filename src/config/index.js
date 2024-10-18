@@ -96,6 +96,20 @@ const config = convict({
     default: `https://gd.eppo.int/taxon/`,
     env: 'phot_URL'
   },
+  analytics: {
+    doc: 'analytics',
+    format: String,
+    default: 'https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ',
+    // default: 'https://www.googletagmanager.com/gtag/js?id=G-H',
+    env: 'analytics'
+  },
+  gtagID: {
+    doc: 'gtagID',
+    format: String,
+    default: 'G-HVF94VF4NZ',
+    env: 'gtagID'
+    // default: 'G-HJO',
+  },
   dateFormat: {
     doc: 'dateFormat of publication date in pest document',
     format: String,

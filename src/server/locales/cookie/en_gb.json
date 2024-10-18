@@ -1,0 +1,113 @@
+{
+  "mainContent": {
+    "headerText1": "Which country, state or territory are you importing",
+    "headerText2": "from?",
+    "searchText1": "This is where the phytosanitary certificate is issued, if one is needed.",
+    "searchText2": "If the country, state or territory is not part of the International Plant Protection Convention, it is not included in this service.",
+    "buttonText": "Continue",
+    "invalidSearchHeader": "Search results for",
+    "invalidSearchContent1": "There are no results matching your entry.",
+    "invalidSearchContent2": "Please search again."
+  },
+  "getHelpSection": {
+    "titleText": "Get help with this service",
+    "supportUrl": {
+      "text": "If you have any queries or you need technical support, email"
+    },
+    "betabannertext1": "This is a new service - your",
+    "betabannertext2": "will help us to improve it.",
+    "betaText": "Beta"
+  },
+  "cookieBanner": {
+    "title": "Cookies",
+    "paragraphs": {
+      "a": "We use some essential cookies to make this service work.",
+      "b": "We'd also like to use analytics cookies so we can understand how you use the service and make improvements."
+    },
+    "buttons": {
+      "a": "Accept analytics cookies",
+      "b": "Reject analytics cookies",
+      "c": "View cookies"
+    },
+    "hideCookieMsg": {
+      "text0": "You’ve accepted analytics cookies. You can ",
+      "text1": "You’ve rejected analytics cookies. You can",
+      "text2": "change your cookie settings",
+      "text3": " at any time.",
+      "buttonText": "Hide cookie message"
+    }
+  },
+  "footerTxt": {
+    "cookies": "Cookies",
+    "privacy": "Privacy",
+    "accessibility": "Accessibility statement",
+    "paragraphs": {
+      "a": "All content is available under the",
+      "b": "Open Government Licence v3.0 ",
+      "c": "except where otherwise stated",
+      "d": "Crown copyright"
+    }
+  },
+  "cookies": {
+    "title": "Cookies",
+    "headings": {
+      "a": "Essential cookies",
+      "b": "Analytics cookies (optional)",
+      "c": "Analytics cookies we use",
+      "d": "Do you want to accept analytics cookies?"
+    },
+    "table1": {
+      "title": "Essential cookies we use",
+      "text1": "Name",
+      "text2": "Purpose",
+      "text3": "Expires",
+      "text4": "session",
+      "text5": "Stores session information between pages",
+      "text6": "1 day",
+      "text7": "phi-cookie",
+      "text8": " Stores login session information "
+    },
+
+    "table2": {
+      "text1": "Name",
+      "text2": "Purpose",
+      "text3": "Expires",
+      "text4": "Collects site usage information from the user",
+      "text5": "11-07-2025",
+      "text6": "_ga_HVF94VF4NZ  ",
+      "text7": "Collects site usage information from the user ",
+      "text8": "11-07-2025",
+      "text9": "Used to reduce the number of requests.",
+      "text10": "1 minute"
+    },
+    "paragraphs": {
+      "w": "",
+      "a": "Cookies are small files saved on your phone, tablet or computer when you visit a website.",
+      "b": "We use cookies to make this site work and collect information about how you use our service.",
+      "c": "These cookies are used across the Check local air quality website.",
+      "d": "We only set cookies when JavaScript is running in your browser and you’ve accepted them. If you choose not to run Javascript, the information on this page will not apply to you.",
+      "e": "Find out",
+      "f": "how to manage cookies",
+      "g": "from the Information Commissioner‘s Office.",
+      "h": "Essential cookies keep your information secure while you use this service. We do not need to ask permission to use them.",
+      "i": "With your permission, we use Google Analytics to collect data about how you use this service. This information helps us to improve our service. ",
+      "j": "Google is not allowed to use or share our analytics data with anyone. ",
+      "k": "We do not allow Google to use or share our analytics data.",
+      "l": "Google Analytics stores anonymised information about:",
+      "m": "the pages you visit",
+      "n": "how long you spend on each page",
+      "o": "how you arrived at the site",
+      "p": "what you click on while you visit the site",
+      "q": "the device and browser you use",
+      "r": "Yes",
+      "s": "No",
+      "buttonText": "Save cookie settings"
+    }
+  },
+
+  "errors": {
+    "titleText": "There is a problem",
+    "searchErrorListText1": "Enter the name of the country, state or territory you are importing",
+    "searchErrorListText2": "from"
+  }
+}

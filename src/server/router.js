@@ -17,6 +17,7 @@ import { search } from '~/src/api/search'
 import { config } from '~/src/config'
 import { login } from '~/src/server/login'
 import { accessibilityStatement } from '~/src/server/accessibility'
+import { CookiesPage } from '~/src/server/cookies'
 
 const sessionCookiePassword = config.get('sessionCookiePassword')
 
@@ -45,7 +46,7 @@ const router = {
         search,
         pestSearchPage,
         pestDetailsPage,
-
+        CookiesPage,
         login,
         problemWithService,
         accessibilityStatement,
