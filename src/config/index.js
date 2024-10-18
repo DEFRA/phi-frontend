@@ -81,12 +81,14 @@ const config = convict({
     doc: 'Backend api url',
     format: String,
     default: `https://phi-etl-fera-backend.test.cdp-int.defra.cloud`,
+    default: `https://localhost:3049`,
     env: 'BACKEND_API_URL'
   },
   frontendUrl: {
     doc: 'Frontend url',
     format: String,
-    default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    //default: `https://phi-frontend.test.cdp-int.defra.cloud`,
+    default: `https://localhost:3000`,
     env: 'FRONTEND_URL'
   },
 
