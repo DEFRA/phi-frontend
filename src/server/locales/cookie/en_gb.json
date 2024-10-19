@@ -73,12 +73,14 @@
       "text2": "Purpose",
       "text3": "Expires",
       "text4": "Collects site usage information from the user",
-      "text5": "11-07-2025",
+      "text5": "1 year",
       "text6": "_ga_HVF94VF4NZ  ",
       "text7": "Collects site usage information from the user ",
-      "text8": "11-07-2025",
+      "text8": "1 year",
       "text9": "Used to reduce the number of requests.",
-      "text10": "1 minute"
+      "text10": "1 minute",
+      "text11": "phi_cookies_analytics",
+      "text12": "1 year"
     },
     "paragraphs": {
       "w": "",
