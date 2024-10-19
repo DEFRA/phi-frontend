@@ -1,8 +1,4 @@
-import {
-  getConsentCookie,
-  setConsentCookie,
-  Cookie
-} from './cookie-functions.js'
+import { getConsentCookie, setConsentCookie } from './cookie-functions.js'
 
 /**
  * Website cookies page
@@ -76,7 +72,6 @@ class CookiesPage {
   savePreferences(event) {
     // Stop default form submission behaviour
     event.preventDefault()
-    let item
     const preferences = {}
 
     this.$cookieFormFieldsets.forEach(($cookieFormFieldset) => {
@@ -89,25 +84,28 @@ class CookiesPage {
         `input[name="cookies[${cookieType}]"]:checked`
       )
 
-      item = $selectedItem.value
       if ($selectedItem instanceof HTMLInputElement) {
         preferences[cookieType] = $selectedItem.value === 'yes'
       }
     })
-    if (item === 'yes') {
-      // Save preferences to cookie and show success notification
-      setConsentCookie(preferences)
-    } else {
-      for (const UACookie of [
-        '_ga_HVF94VF4NZ',
-        '_gid',
-        '_ga',
-        'phi_cookies_analytics'
-      ]) {
-        Cookie(UACookie, null)
-      }
-    }
+
+    // Save preferences to cookie and show success notification
+    setConsentCookie(preferences)
+
+    // for (const UACookie of [
+    //   '_ga_HVF94VF4NZ',
+    //   '_gid',
+    //   '_ga',
+    //   'phi_cookies_analytics'
+    // ]) {
+    //   Cookie(UACookie, null)
+    // }
+
     this.showSuccessNotification()
+    const cookieBanner = document.querySelector(
+      "[data-module='govuk-cookie-banner']"
+    )
+    cookieBanner.setAttribute('hidden', 'true')
   }
 
   /**
