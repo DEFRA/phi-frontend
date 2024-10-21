@@ -34,8 +34,8 @@ module.exports = {
     '<rootDir>/src/config/nunjucks/index.js',
     '<rootDir>/webpack/universalModuleDefinition',
     '<rootDir>/src/api/search/index.js',
-   '<rootDir>/src/server/plant-health/index.js',
-   '<rootDir>/src/config/nunjucks/context/build-navigation.js'
+    '<rootDir>/src/server/plant-health/index.js',
+    '<rootDir>/src/config/nunjucks/context/build-navigation.js'
   ],
   coverageDirectory: '<rootDir>/coverage'
 }
