@@ -24,6 +24,7 @@ function catchAll(request, h) {
     return h.continue
   }
 
+  request.logger.error(response)
   request.logger.error(response?.stack)
   // return  response.output
   return h.redirect(

@@ -30,8 +30,6 @@ module.exports = {
     '<rootDir>/src/server/router.js',
     '<rootDir>/src/server/index.js',
     '<rootDir>/src/server/localisation.js',
-    '<rootDir>/src/server/login/index.js',
-    '<rootDir>/src/server/login/controller.js',
     '<rootDir>/src/config/nunjucks/context/index.js',
     '<rootDir>/src/config/nunjucks/index.js',
     '<rootDir>/webpack/universalModuleDefinition',

@@ -13,7 +13,7 @@ describe('home plugin', () => {
   test('should register the /home route', () => {
     const routes = server.table()
     const homeRoute = routes.find(
-      (route) => route.path === '/home' && route.method === 'get'
+      (route) => route.path === '/' && route.method === 'get'
     )
 
     expect(homeRoute).toBeDefined()

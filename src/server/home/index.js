@@ -7,7 +7,7 @@ const home = {
       server.route([
         {
           method: 'GET',
-          path: '/home',
+          path: '/',
           ...homeController
         }
       ])
