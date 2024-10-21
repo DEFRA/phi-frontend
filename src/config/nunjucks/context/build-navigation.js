@@ -3,7 +3,7 @@ function buildNavigation(request) {
     {
       text: 'Home',
       url: '/',
-      isActive: request.path === '/'
+      isActive: request.path === '/plant-health'
     },
     {
       text: 'About',

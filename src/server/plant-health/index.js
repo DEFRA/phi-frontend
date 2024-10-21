@@ -7,7 +7,7 @@ const plantHealth = {
       server.route([
         {
           method: 'GET',
-          path: '/plant-health',
+          path: '/',
           ...plantHealthController
         },
         {

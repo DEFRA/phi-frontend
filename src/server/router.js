@@ -1,7 +1,6 @@
 import inert from '@hapi/inert'
 import yar from '@hapi/yar'
 import { health } from '~/src/server/health'
-import { home } from '~/src/server/home'
 import { plantHealth } from '~/src/server/plant-health'
 import { purposeOfVisit } from '~/src/server/plant-health/purpose-of-visit'
 import { importConfirmation } from '~/src/server/plant-health/import-confirmation'
@@ -34,7 +33,7 @@ const router = {
       await server.register([inert])
       await server.register([
         health,
-        home,
+        //  home,
         plantHealth,
         purposeOfVisit,
         importConfirmation,
