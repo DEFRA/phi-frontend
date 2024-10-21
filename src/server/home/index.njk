@@ -1,6 +1,7 @@
 {% extends 'layouts/page.njk' %}
 
 {% block header %}
+{% include "partials/cookie-banner.njk" %}  
   {{ govukHeader({
     homepageUrl: "https://www.gov.uk/",
     classes: "app-header",
@@ -9,6 +10,7 @@
   }) }}
 {% endblock %}
 {% block content %}
+
   <div class="govuk-width-container">
     <div class="govuk-main-wrapper">
       <div class="govuk-grid-row">

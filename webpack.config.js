@@ -25,6 +25,7 @@ module.exports = {
     path: path.resolve(__dirname, '.public'),
     library: '[name]'
   },
+
   module: {
     rules: [
       ...(webpackConfig.isDevelopment
@@ -94,6 +95,16 @@ module.exports = {
         }
       }
     ]
+  },
+  resolve: {
+    alias: {
+      '~': path.resolve(__dirname, 'src') // Assuming 'src' is your root directory
+    },
+    fallback: {
+      fs: false,
+      path: require.resolve('path-browserify'),
+      util: require.resolve('util/')
+    }
   },
   plugins: [
     new CleanWebpackPlugin(),
