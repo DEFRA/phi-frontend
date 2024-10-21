@@ -21,19 +21,4 @@ describe('#buildNavigation', () => {
       }
     ])
   })
-
-  // test('Should provide expected highlighted navigation details', () => {
-  //   expect(buildNavigation(mockRequest({ path: '/' }))).toEqual([
-  //     {
-  //       isActive: true,
-  //       text: 'plant-health',
-  //       url: '/'
-  //     },
-  //     {
-  //       isActive: false,
-  //       text: 'About',
-  //       url: '/about'
-  //     }
-  //   ])
-  // })
 })
