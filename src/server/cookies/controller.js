@@ -2,7 +2,6 @@ import { getDefaultLocaleData } from '../localisation'
 const cookiesController = {
   handler: async (request, h) => {
     const data = await getDefaultLocaleData('cookie')
-
     const title = data?.cookies?.title
     const headings = data?.cookies?.headings
     const table1 = data?.cookies?.table1

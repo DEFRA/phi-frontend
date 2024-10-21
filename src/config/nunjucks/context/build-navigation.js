@@ -1,9 +1,9 @@
 function buildNavigation(request) {
   return [
     {
-      text: 'Home',
+      text: 'Plant-health',
       url: '/',
-      isActive: request.path === '/'
+      isActive: request.path === '/plant-health'
     },
     {
       text: 'About',
