@@ -7,7 +7,6 @@ import { router } from './router'
 import { requestLogger } from '~/src/server/common/helpers/logging/request-logger'
 import { catchAll } from '~/src/server/common/helpers/errors'
 import { secureContext } from '~/src/server/common/helpers/secure-context'
-
 const isProduction = config.get('isProduction')
 
 async function createServer() {
