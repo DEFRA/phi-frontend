@@ -17,7 +17,7 @@ describe('plantHealth plugin', () => {
     expect(server.route).toHaveBeenCalledWith([
       {
         method: 'GET',
-        path: '/plant-health',
+        path: '/',
         ...plantHealthController
       },
       {
