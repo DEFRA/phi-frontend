@@ -34,9 +34,7 @@
    {% set processedData =  'Fruit' %}
   {% endif %}
   {% if (item.SERVICE_SUBFORMAT.toLowerCase() === 'other formats') %}
-   {% if data.result.dormantIndicator.length > 0%}
-   {% set processedData = dormantName  %}
-   {% elif data.result.bonsaiIndicator.length > 0%}
+   {%if data.result.bonsaiIndicator.length > 0%}
    {% set processedData = bonsaiName  %}
    {% elif data.result.invintroIndicator.length > 0%}
    {% set processedData = 'in vitro material'  %}

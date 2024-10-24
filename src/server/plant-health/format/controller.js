@@ -271,6 +271,10 @@ const formatPageController = {
               ulIndicatorFlag,
               pageTitle:
                 searchQuery.value +
+                ' / ' +
+                countrySearchQuery.value +
+                ' / ' +
+                format +
                 ' — Check plant health information and import rules — GOV.UK',
               heading: 'Plant Details',
               getHelpSection,
