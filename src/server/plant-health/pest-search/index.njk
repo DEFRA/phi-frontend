@@ -36,8 +36,11 @@
          What pest or disease do you want to find out about?
         </label>
       </h1>
+       <label id="pestsearchhint" class="govuk-label" for="pestsearchhint">
+       {{mainContent.searchText1}}
+      </label>
       <label id="pestsearchhint" class="govuk-label" for="pestsearchhint">
-       You can enter the scientific name or any synonyms or common names. Only non-native pests and diseases that are a risk to Great Britain are included in this service.
+       {{mainContent.searchText2}}
       </label>
 {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">

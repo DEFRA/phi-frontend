@@ -3,7 +3,9 @@
     "headerText": "I ble ydych chi'n mewnforio'ch planhigyn, cynnyrch planhigion neu hadau?",
     "radioButtonText1": "Prydain Fawr (Cymru, Lloegr a'r Alban)",
     "radioButtonText2": "Gogledd Iwerddon",
-    "buttonText": "Parhewch"
+    "buttonText": "Parhewch",
+    "searchText1": "Rhowch yr enw gwyddonol neu unrhyw gyfystyron neu enwau cyffredin y pla neu'r afiechyd.  Arhoswch i'r gwymplen ymddangos, yna dewiswch y pla neu'r afiechyd cywir o'r gwymplen.",
+    "searchText2": "Dim ond plâu a chlefydau anfrodorol sy’n risg i Brydain Fawr sydd wedi’u cynnwys yn y gwasanaeth hwn."
   },
   "getHelpSection": {
     "titleText": "Cael help gyda'r gwasanaeth hwn",

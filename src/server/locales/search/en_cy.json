@@ -2,6 +2,7 @@
   "mainContent": {
     "headerText": "Pa blanhigyn, cynnyrch planhigion neu hadau ydych chi'n eu mewnforio?",
     "searchText1": "Gallwch nodi'r enw gwyddonol neu unrhyw gyfystyron neu enwau cyffredin.",
+    "searchText2": "Rhowch enw gwyddonol neu gyffredin y planhigyn, y cynnyrch planhigyn neu'r hedyn. Arhoswch i'r gwymplen ymddangos, yna dewiswch y rhywogaeth gywir o blanhigion o'r gwymplen.",
     "buttonText": "Parhewch",
     "invalidSearchHeader": "Canlyniadau chwilio am",
     "invalidSearchContent1": "Nid oes unrhyw ganlyniadau sy'n cyfateb i'ch cofnod.",
