@@ -1,11 +1,10 @@
 import { getDefaultLocaleData } from '../localisation'
-import { print }from '../../../src/client/assets/javascripts/print'
+import { print } from '../../../src/client/assets/javascripts/print'
 const plantHealthController = {
   handler: async (request, h) => {
     const data = await getDefaultLocaleData('plant-health')
     const mainContent = data?.mainContent
     const getHelpSection = data?.getHelpSection
-    
 
     if (request != null) {
       if (request.query?.findanotherpest === 'true') {
