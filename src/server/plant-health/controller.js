@@ -1,9 +1,11 @@
 import { getDefaultLocaleData } from '../localisation'
+import { print }from '../../../src/client/assets/javascripts/print'
 const plantHealthController = {
   handler: async (request, h) => {
     const data = await getDefaultLocaleData('plant-health')
     const mainContent = data?.mainContent
     const getHelpSection = data?.getHelpSection
+    
 
     if (request != null) {
       if (request.query?.findanotherpest === 'true') {
@@ -24,6 +26,7 @@ const plantHealthController = {
       return h.view('plant-health/index', {
         mainContent,
         getHelpSection,
+        print,
         pageTitle:
           'What do you want to find out? — Check plant health information and import rules — GOV.UK',
         heading: 'Plant',

@@ -17,6 +17,11 @@ function setErrorMessage(request, titleText, errorListText) {
   return true
 }
 
+
+
+
+
+
 function catchAll(request, h) {
   const { response } = request
 
