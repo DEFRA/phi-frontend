@@ -1,5 +1,4 @@
 import { getDefaultLocaleData } from '../localisation'
-import { print } from '../../../src/client/assets/javascripts/print'
 const plantHealthController = {
   handler: async (request, h) => {
     const data = await getDefaultLocaleData('plant-health')
