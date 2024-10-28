@@ -9,6 +9,16 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_8HNqSjLvDSGG6mG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   <a href="/plant-health/country-search?searchQuery={{searchQuery.value}}&fullSearchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}&&countrySearchQuery={{countrySearchQuery.value}}&emptyCountrySearchQuery=false&format={{format}}&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
+<script> 
+ window.onbeforeprint=function()
+  {
+    console.log("comes into js file")
+  var style =document.createElement('style');
+  style.type='text/css';
+  style.innerHTML = '@media print {a[href]:after {content: none !important; } a {text-decoration :none;  color:black;  }  }';
+    document.head.appendChild(style);
+  }
+  </script>
 {% endblock %}
 {% block content %}
   {% from "govuk/components/radios/macro.njk" import govukRadios %}

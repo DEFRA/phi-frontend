@@ -24,7 +24,7 @@ const plantHealthController = {
       return h.view('plant-health/index', {
         mainContent,
         getHelpSection,
-        print,
+       
         pageTitle:
           'What do you want to find out? — Check plant health information and import rules — GOV.UK',
         heading: 'Plant',
