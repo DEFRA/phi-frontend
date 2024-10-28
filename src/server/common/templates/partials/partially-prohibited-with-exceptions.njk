@@ -86,10 +86,7 @@
             {% endif %}
        </div>
     {% endif %}
-<div class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-1">   
- {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
- href={{data.url}}>{{data.urlText}}</a>
-</div>            
+           
 {% else %}
 <div class="govuk-warning-text govuk-!-margin-bottom-0">
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
@@ -98,10 +95,10 @@
     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
    </strong>
 </div> 
-<div class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">   
+{# <div class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">   
  {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
  href={{data.url}}>{{data.urlText}}</a>
-</div>
+</div> #}
 {% if data.result.subformat.length ===1 and processedData[0].length > 1 %}            
     <h4 class="govuk-heading-s">
         {{data.mainContent.exceptionHeader}}
@@ -151,11 +148,16 @@
     </div>
 {% endif %}
 {% endif %}
+
 {% if data.result.ProhibitionClarification.length > 1 %}
     <h3 class="govuk-heading-s">
         {{data.mainContent.prohibitionClarificationHeader}}
     </h3>
     <p>{{data.result.ProhibitionClarification}}</p>
-{% endif %}
 
+{% endif %}
+<div class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-1">   
+ {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
+ href={{data.url}}>{{data.urlText}}</a>
+</div> 
 
