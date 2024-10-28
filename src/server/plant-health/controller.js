@@ -6,15 +6,22 @@ const plantHealthController = {
     const getHelpSection = data?.getHelpSection
 
     if (request != null) {
-      if (request.query?.findanotherpest === 'true') {
+      const previousURL = request?.info?.referrer
+      if (
+        request.query?.findanotherpest === 'true' ||
+        previousURL ===
+          'https://www.gov.uk/guidance/check-plant-health-information-and-import-rules'
+      ) {
         request.yar.set('purposeOfVisitRadiooption', null)
         request.yar.set('importConfirmationRadiooption', null)
         request.yar.set('searchQuery', null)
         request.yar.set('fullSearchQuery', null)
-        request.yar.set('pestFullSearchQuery', null)
+        request.yar.set('hostRef', null)
+        request.yar.set('cslRef', null)
         request.yar.set('countrySearchQuery', null)
         request.yar.set('format', null)
         request.yar.set('pestsearchQuery', null)
+        request.yar.set('pestFullSearchQuery', null)
       }
       request.yar.set('errors', '')
       request.yar.set('errorMessage', '')

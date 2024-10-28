@@ -3,6 +3,8 @@
     "headerText1": "Pa wlad ydych chi'n ei mewnforio",
     "headerText2": "o?",
     "searchText1": "Dyma'r wlad sy'n cyhoeddi'r dystysgrif ffytoiechydol, os oes angen.",
+    "searchText2": "Rhowch enw'r wlad, y wladwriaeth neu'r diriogaeth. Arhoswch i'r gwymplen ymddangos, yna dewiswch yr ardal gywir o'r gwymplen.",
+    "searchText3": "Nid yw ardaloedd nad ydynt yn rhan o'r Confensiwn Rhyngwladol Diogelu Planhigion wedi'u cynnwys yn y gwasanaeth hwn.",
     "buttonText": "Parhewch",
     "invalidSearchHeader": "Canlyniadau chwilio am",
     "invalidSearchContent1": "Nid oes unrhyw ganlyniadau sy'n cyfateb i'ch cofnod.",

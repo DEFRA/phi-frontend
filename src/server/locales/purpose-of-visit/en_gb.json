@@ -3,7 +3,9 @@
     "headerText": "Where are you importing your plant, plant product or seeds to?",
     "radioButtonText1": "Great Britain (England, Scotland and Wales)",
     "radioButtonText2": "Northern Ireland",
-    "buttonText": "Continue"
+    "buttonText": "Continue",
+    "searchText1": "Enter the scientific name or any synonyms or common names of the pest or disease.  Wait for the drop-down list to appear, then select the correct pest or disease from the drop-down.",
+    "searchText2": "Only non-native pests and diseases that are a risk to Great Britain are included in this service."
   },
   "getHelpSection": {
     "titleText": "Get help with this service",

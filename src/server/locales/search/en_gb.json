@@ -2,6 +2,7 @@
   "mainContent": {
     "headerText": "What plant, plant product or seeds are you importing?",
     "searchText1": "You can enter the scientific name or any synonyms or common names.",
+    "searchText2": "Enter the scientific or common name of the plant, plant product or seed. Wait for the drop-down list to appear, then select the correct plant species from the drop-down.",
     "buttonText": "Continue",
     "invalidSearchHeader": "Search results for",
     "invalidSearchContent1": "There are no results matching your entry.",
