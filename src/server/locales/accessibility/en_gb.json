@@ -13,7 +13,7 @@
     "headerText11": "Preparation of this statement",
     "paragraphText1": "This service is part of the wider GOV.UK website. There's a separate",
     "paragraphText2": "This page only contains information about the Check plant health information and import rules service, available at",
-    "paragraphText3": "This service is run by the Department for Environment, Food & Rural Affairs and Animal and Plant Health. We want as many people as possible to be able to use this service. For example, that means you should be able to zoom in up to 400% without the text spilling off the screen.",
+    "paragraphText3": "This service is run by the Department for Environment, Food & Rural Affairs and Animal and Plant Health. We want as many people as possible to be able to use this service. For example, that means you should be able to :",
     "paragraphText4": "We've also made the text in the service as simple as possible to understand.",
     "paragraphText5": "has advice on making your device easier to use if you have a disability",
     "paragraphText6": "The service uses common styles, patterns and components from the GOV.UK Design System which are widely regarded as accessible.",
@@ -28,6 +28,12 @@
     "paragraphText15": "This page was prepared on 22 August 2024. It was last reviewed on 4 October 2024.",
     "paragraphText16": "This service was last tested on 13 August 2024 against the WCAG 2.2 AA standard. The testing was carried out by the",
     "bulletText1": "the autocomplete input field is not structured or labelled correctly which will make it hard for screen reader and voice control users to use.",
-    "bulletText2": " The autocomplete input field is not structured or labelled correctly. This fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships) and 4.1.2 (Name, Role, Value). We plan to fix this in 2024."
+    "bulletText2": " The autocomplete input field is not structured or labelled correctly. This fails WCAG 2.2 success criterion 1.3.1 (Info and Relationships) and 4.1.2 (Name, Role, Value). We plan to fix this in 2024.",
+    "bulletText3": " zoom in up to 400% without the text spilling off the screen.",
+    "bulletText4": "use browser settings or plugins to change colours, contrast levels and fonts",
+    "bulletText5": "use browser settings or other software to zoom in up to 300% without the text spilling off the screen",
+    "bulletText6": "navigate most of the website using just a keyboard",
+    "bulletText7": "navigate most of the website using speech recognition software",
+    "bulletText8": "listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver) "
   }
 }
