@@ -11,12 +11,20 @@
 {# todo add back link #}
 {% if page == "pestsearch" %}
 <a href="/plant-health/purpose-of-visit?whatdoyouwanttofind=pest&pestsearchQuery={{pestsearchQuery.value}}&pestFullSearchQuery={{pestFullSearchQuery.value}}&cslRef={{cslRef}}" class="govuk-back-link" type='button'>Back</a>
+<script> 
+ window.onbeforeprint=function()
+  {   
+  var style =document.createElement('style');
+  style.type='text/css';
+  style.innerHTML = '@media print {a[href]:after {content: none !important; } a {text-decoration :none;  color:black;  }  }';
+    document.head.appendChild(style);
+  }
+  </script>
 {% else %}
 <a href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a>
 <script> 
  window.onbeforeprint=function()
-  {
-    console.log("comes into js file")
+  {   
   var style =document.createElement('style');
   style.type='text/css';
   style.innerHTML = '@media print {a[href]:after {content: none !important; } a {text-decoration :none;  color:black;  }  }';

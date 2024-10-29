@@ -93,6 +93,7 @@
   <strong class="govuk-warning-text__text">
    <span class="govuk-visually-hidden">Warning</span>
     {{data.mainContent.prohibitedContentText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize}} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}.
+   <p>
    </strong>
 </div> 
 {# <div class="govuk-body govuk-!-padding-top-0 govuk-!-margin-bottom-1">   
@@ -158,6 +159,6 @@
 {% endif %}
 <div class="govuk-body govuk-!-margin-top-2 govuk-!-margin-bottom-1">   
  {{data.mainContent.prohibitedContentText3}} <a class="govuk-link"
- href={{data.url}}>{{data.urlText}}</a>
+ href={{data.url}}>{{data.urlText}}</a> 
 </div> 
 

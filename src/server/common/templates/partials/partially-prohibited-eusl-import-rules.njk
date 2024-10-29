@@ -277,11 +277,7 @@
 {% endif %} 
   {% if 11BimportRules === 'true'%}
     <div class="govuk-body">
-       {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}     
+      
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}  
        {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
@@ -316,11 +312,7 @@
           {{data.mainContent.unprohibitedHelpText1}} {{data.searchQuery.value  | replace(")", "")  | capitalize }} {{data.mainContent.importRulesHeaderText2}} {{data.countrySearchQuery.value }} {{data.mainContent.prohibitedContentText2}} {{data.format}}, {{data.mainContent.unprohibitedHelpText3}}
       </p> 
        
-      {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}   
+      
       <ul class="govuk-list govuk-list--bullet">
           <li>
             get a <a class="govuk-link" rel="noreferrer noopener"  href="https://www.gov.uk/guidance/import-plants-and-plant-products-from-non-eu-countries-to-great-britain#get-a-phytosanitary-certificate">phytosanitary certificate from the National Plant Protection Organisation of the exporting country </a> 
@@ -398,11 +390,7 @@
 {% endif %}
   {% if 11CimportRules === 'true'%}
     <div class="govuk-body"> 
-       {% if item['BTOM_CLARIFICATION'].length > 0 %}
-       <div class='govuk-body'>
-        {{item['BTOM_CLARIFICATION']}}
-       </div>
-      {% endif %}   
+      
       {% if item['SERVICE_SUBFORMAT_EXCLUDED'].length === 0%}  
         {% if data.result.hybridIndicator.length > 0 and processedData.length === 0 %}
         <h4 class="govuk-heading-s">{{formatHeader | capitalize}}</h4>
