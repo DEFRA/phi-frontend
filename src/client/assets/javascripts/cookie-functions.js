@@ -12,18 +12,11 @@
  * The consent cookie version is defined in cookie-banner.njk
  */
 
-// import Analytics from './analytics.js'
-
-// import {config}  from '../../../../src/config/index.js'
-
 /* Name of the cookie to save users cookie preferences to. */
 const CONSENT_COOKIE_NAME = 'phi_cookies_analytics'
-// const ganalytics =config.get('analytics')
+
 const ganalytics = 'https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ'
-// const tagID = config.get('gtagID')
 const tagID = 'G-HVF94VF4NZ'
-// const previewIDs= tagID.split('-');
-// const previewID=previewIDs[1]
 const previewID = 'HVF94VF4NZ'
 /* Google Analytics tracking IDs for preview and live environments. */
 const TRACKING_PREVIEW_ID = previewID
@@ -182,7 +175,12 @@ export function resetCookies() {
       window[`ga-disable-UA-${TRACKING_LIVE_ID}`] = false
 
       if (options[cookieType] === true) {
-        loadGoogleAnalytics()
+        if (
+          process.env.NODE_ENV === 'production' ||
+          process.env.NODE_ENV === 'test'
+        ) {
+          loadGoogleAnalytics()
+        }
       } else {
         // Unset UA cookies if they've been set by GTM
         removeUACookies()
