@@ -9,8 +9,7 @@ const plantHealthController = {
       const previousURL = request?.info?.referrer
       if (
         request.query?.findanotherpest === 'true' ||
-        previousURL ===
-          'https://www.gov.uk/guidance/check-plant-health-information-and-import-rules'
+        previousURL === 'https://www.gov.uk/'
       ) {
         request.yar.set('purposeOfVisitRadiooption', null)
         request.yar.set('importConfirmationRadiooption', null)
