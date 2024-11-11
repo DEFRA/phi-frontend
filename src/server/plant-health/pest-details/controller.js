@@ -23,6 +23,12 @@ const pestDetailsPageController = {
       request.yar.set('eppoCode', {
         value: request.yar?.get('eppoCode')?.value
       })
+      request.yar.set('format', {
+        value: decodeURI(request.yar?.get('format')?.value)
+      })
+      request.yar.set('hostRef', {
+        value: decodeURI(request.yar?.get('hostRef')?.value)
+      })
       request.yar.set('commonName', {
         value: request.yar?.get('fullSearchQuery')?.match(/\[(.*?)\]/)
       })
@@ -35,15 +41,16 @@ const pestDetailsPageController = {
         request.yar.set('format', {
           value: radiobuttonValue
         })
-        const searchQuery = request.yar?.get('searchQuery')
-        const pestSearchQuery = request.yar?.get('pestSearchQuery')
-        const fullSearchQuery = request.yar?.get('fullSearchQuery')
-
+        const searchQuery = request.yar?.get('searchQuery')?.value
+        const pestSearchQuery = request.yar?.get('pestSearchQuery')?.value
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')?.value
+        const hostRef = request.yar?.get('hostRef')?.value
         return h.view('plant-health/pest-details/index', {
           pageTitle: 'Check plant health information and import rules — GOV.UK',
           heading: 'pest-details-page',
           getHelpSection,
           cslRef,
+          hostRef,
           eppoCode,
           pestSearchQuery,
           fullSearchQuery,
