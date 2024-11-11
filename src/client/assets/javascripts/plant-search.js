@@ -331,7 +331,8 @@ if (document.querySelector('#my-autocomplete-container')) {
     showNoOptionsFound: false,
     templates: {
       inputValue: function (asd) {
-        return asd?.text
+        const inputValueText = asd?.text
+        return inputValueText
       },
       suggestion: function (asd) {
         const inputElementCustom =
