@@ -362,7 +362,26 @@ const pestSearchController = {
             return error // Rethrow the error so it can be handled appropriately
           }
         }
-
+        request.yar.set('searchQuery', {
+          value: decodeURI(request.yar?.get('searchQuery')?.value)
+        })
+        request.yar.set('fullSearchQuery', {
+          value: decodeURI(request.yar?.get('fullSearchQuery')?.value)
+        })
+        request.yar.set('countrySearchQuery', {
+          value: decodeURI(request.yar?.get('countrySearchQuery')?.value)
+        })
+        request.yar.set('format', {
+          value: decodeURI(request.yar?.get('format')?.value)
+        })
+        request.yar.set('hostRef', {
+          value: decodeURI(request.yar?.get('hostRef')?.value)
+        })
+        const searchQuery = request.yar?.get('searchQuery')?.value
+        const fullSearchQuery = request.yar?.get('fullSearchQuery')?.value
+        const countrySearchQuery = request.yar?.get('countrySearchQuery')?.value
+        const hostRef = request.yar?.get('hostRef')?.value
+        const format = request.yar?.get('format')?.value
         const plantLinkMapsorted = new Map([...plantLinkMap.entries()].sort())
         const pestFullSearchQuery = request.yar.get('pestFullSearchQuery')
         if (cslGlobal) {
@@ -379,7 +398,12 @@ const pestSearchController = {
             resultofPhoto,
             photoURL,
             photores,
+            format,
             Annex3URL,
+            searchQuery,
+            fullSearchQuery,
+            hostRef,
+            countrySearchQuery,
             pestsearchQuery,
             ContactAuthURL,
             quarantineIndicator: result.pest_detail[0].QUARANTINE_INDICATOR,
