@@ -210,7 +210,7 @@ export function resetCookies() {
         window.dataLayer.push(arguments)
       }
       gtag('js', new Date())
-      gtag('config', tagID)
+      gtag('config', tagID, { page_path: window.location.pathname })
     }
   }
 }
