@@ -163,6 +163,7 @@ async function renderSuggestions(json, query) {
       }
     }
   }
+
   getResults(latinJson, commonJson)
 
   const resultSet = [
@@ -306,6 +307,11 @@ function createAndAppendLiElement(item, index) {
   if (latinInnerHTMLText) {
     finalArray.push({ text: latinInnerHTMLText, cslRef: item.cslRef })
   }
+  const uniqueData = finalArray.filter(
+    (value, arrindex, self) =>
+      arrindex === self.findIndex((t) => t.text === value.text)
+  )
+  finalArray = uniqueData
   return finalArray
 }
 
