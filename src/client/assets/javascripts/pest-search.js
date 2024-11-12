@@ -308,8 +308,8 @@ function createAndAppendLiElement(item, index) {
     finalArray.push({ text: latinInnerHTMLText, cslRef: item.cslRef })
   }
   const uniqueData = finalArray.filter(
-    (value, index, self) =>
-      index === self.findIndex((t) => t.text === value.text)
+    (value, arrindex, self) =>
+      arrindex === self.findIndex((t) => t.text === value.text)
   )
   finalArray = uniqueData
   return finalArray
