@@ -31,7 +31,7 @@ function catchAll(request, h) {
     response.header('Cross-Origin-Embedder-Policy', 'require-corp')
 
     // CORP (Cross-Origin Resource Policy)
-    response.header('Cross-Origin-Resource-Policy', 'same-origin')
+    response.header('Cross-Origin-Resource-Policy', 'cross-origin')
 
     return h.continue
   }
