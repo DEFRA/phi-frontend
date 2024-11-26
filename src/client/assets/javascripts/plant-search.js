@@ -368,7 +368,7 @@ if (document.querySelector('#my-autocomplete-container')) {
   inputElement?.setAttribute('aria-label', 'autocompleteSearchQuery')
 
   // Monitor input field changes
-  inputElement?.addEventListener('input', (event) => {
+  inputElement?.addEventListener('input', (_event) => {
     document.querySelector('#hostRef')?.setAttribute('value', '') // Clear hostRef
   })
 }
