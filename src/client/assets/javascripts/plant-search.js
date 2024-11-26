@@ -307,19 +307,21 @@ const onConfirm = (e) => {
     document
       .querySelector('#my-autocomplete-container')
       .removeChild(existingHostRefElement)
+
     const inputHref = document.createElement('input')
     inputHref.id = 'hostRef'
     inputHref.style = 'display:none'
     inputHref.name = 'hostRef'
-    inputHref.setAttribute('value', e?.hostRef)
+    inputHref.setAttribute('value', e?.hostRef || '')
     inputHref.ariaLabel = 'hostRef'
     document.querySelector('#my-autocomplete-container').appendChild(inputHref)
   }
 }
+
 if (document.querySelector('#my-autocomplete-container')) {
   accessibleAutocomplete({
     element: document.querySelector('#my-autocomplete-container'),
-    id: 'my-autocomplete', // To match it to the existing <label>.
+    id: 'my-autocomplete',
     source: fetchSuggestions,
     name: 'autocompleteSearchQuery',
     defaultValue: document.querySelector('#my-autocomplete-container')
@@ -330,11 +332,10 @@ if (document.querySelector('#my-autocomplete-container')) {
     hintClasses: 'custom-hint-class',
     showNoOptionsFound: false,
     templates: {
-      inputValue: function (asd) {
-        const inputValueText = asd?.text
-        return inputValueText
+      inputValue: function (item) {
+        return item?.text || ''
       },
-      suggestion: function (asd) {
+      suggestion: function (item) {
         const inputElementCustom =
           document.getElementsByClassName('custom-hint-class')
         inputElementCustom[0]?.setAttribute('aria-label', 'autocomplete__hint')
@@ -342,7 +343,7 @@ if (document.querySelector('#my-autocomplete-container')) {
         if (regexValue?.length > 0) {
           return (
             '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.text?.replace(
+            item?.text?.replace(
               new RegExp(regexValue, 'gi'),
               (match) => `<strong>${match}</strong>`
             ) +
@@ -351,8 +352,8 @@ if (document.querySelector('#my-autocomplete-container')) {
         } else {
           return (
             '<div class="suggestions"><span class="name" id="resultName">' +
-            asd?.replace(
-              new RegExp(asd, 'gi'),
+            item?.replace(
+              new RegExp(item, 'gi'),
               (match) => `<strong>${match}</strong>`
             ) +
             '</span></div>'
@@ -362,6 +363,12 @@ if (document.querySelector('#my-autocomplete-container')) {
     },
     onConfirm
   })
+
   const inputElement = document.getElementById('my-autocomplete')
   inputElement?.setAttribute('aria-label', 'autocompleteSearchQuery')
+
+  // Monitor input field changes
+  inputElement?.addEventListener('input', (event) => {
+    document.querySelector('#hostRef')?.setAttribute('value', '') // Clear hostRef
+  })
 }
