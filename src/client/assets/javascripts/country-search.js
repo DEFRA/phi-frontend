@@ -39,10 +39,10 @@ let regexValue, suggestions
 async function renderSuggestions(json, query) {
   finalArray = []
   if (json.length === 0 && query !== '') {
-    const emptyCoutrySearchValue = document.getElementById(
+    const emptyCountrySearchValue = document.getElementById(
       'emptyCountrySearchQuery'
     )
-    emptyCoutrySearchValue.value = true
+    emptyCountrySearchValue.value = true
   } else {
     const newJson = json.message.countries[0].COUNTRY_GROUPING.COUNTRY_GROUPING
     suggestions = newJson.filter(function (item) {
@@ -70,15 +70,24 @@ function createAndAppendLiElement(suggestions) {
 
 const onConfirm = (e) => {
   if (e !== undefined) {
+    const container = document.querySelector(
+      '#my-autocomplete-country-container'
+    )
+
+    // Remove existing input with the same id
+    if (container.childNodes[6]) {
+      container.removeChild(container.childNodes[6])
+    }
+
+    // Create and append new input element
     const countryCode = document.createElement('input')
     countryCode.id = 'countryCode'
     countryCode.style = 'display:none'
     countryCode.name = 'countryCode'
     countryCode.setAttribute('value', e?.countryCode)
     countryCode.ariaLabel = 'countryCode'
-    document
-      .querySelector('#my-autocomplete-country-container')
-      .appendChild(countryCode)
+
+    container.appendChild(countryCode)
   }
 }
 if (document.querySelector('#my-autocomplete-country-container')) {
@@ -127,5 +136,15 @@ if (document.querySelector('#my-autocomplete-country-container')) {
     onConfirm
   })
   const inputElement = document.getElementById('my-autocomplete')
+  const _container = document.querySelector(
+    '#my-autocomplete-country-container'
+  )
   inputElement?.setAttribute('aria-label', 'autocompleteCountrySearchQuery')
+  // Listen for 'input' events on the input field
+  inputElement.addEventListener('input', () => {
+    // Check if childNode[6] exists in the container
+    if (_container.childNodes[6]) {
+      _container.removeChild(_container.childNodes[6])
+    }
+  })
 }

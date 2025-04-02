@@ -379,4 +379,7 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
   })
   const inputElement = document.getElementById('my-autocomplete')
   inputElement?.setAttribute('aria-label', 'pestsearchQuery')
+  inputElement?.addEventListener('input', (_event) => {
+    document.getElementById('cslRef')?.setAttribute('value', '') // Clear cslRef
+  })
 }

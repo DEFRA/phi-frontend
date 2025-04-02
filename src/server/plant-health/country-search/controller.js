@@ -57,11 +57,18 @@ const countrySearchController = {
       const hostRef = request?.yar?.get('hostRef')?.value
       const eppoCode = request?.yar?.get('eppoCode')?.value
       const searchInput = request?.yar?.get('countrySearchQuery')
-      const searchValue = searchInput?.value
+      const autoCompleteValue = request?.yar?.get(
+        'autocompleteCountrySearchQuery'
+      )?.value
       const radiobuttonValue = request?.yar?.get('format')?.value
       const searchQuery = request.yar?.get('searchQuery')
       const countryCode = request?.yar?.get('countryCode')?.value
-      if (searchValue && countryCode !== '' && countryCode !== 'null') {
+      if (
+        searchInput?.value &&
+        autoCompleteValue !== '' &&
+        countryCode &&
+        countryCode !== 'null'
+      ) {
         const countrySearchQuery = request.yar?.get('countrySearchQuery')
         const fullSearchQuery = request.yar?.get('fullSearchQuery')
         const data = await getDefaultLocaleData('format')
