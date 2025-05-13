@@ -10,7 +10,7 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_8HNqSjLvDSGG6mG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
   <a href="/plant-health/import-confirmation?whereareyouimportinginto=gb&searchQuery={{searchQuery.value}}&fullSearchQuery={{fullSearchQuery.value}}&&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
-<script> 
+<script>
  window.onbeforeprint=function()
   {
     console.log("comes into js file")
@@ -60,6 +60,8 @@
       <label  id ="countrysearch3" class="govuk-label govuk-!-padding-bottom-2" for=""countrysearch3"">
         {{mainContent.searchText3}}
       </label>
+      <label id ="countrysearch4" class="govuk-label govuk-!-font-size-16 govuk-!-font-weight-bold">{{mainContent.searchText4}}</label>
+      <label id ="countrysearch5" class="govuk-label govuk-!-padding-bottom-2 govuk-!-font-size-16 govuk-!-font-weight-bold">{{mainContent.searchText5}}</label>
       {% if errorMessage.message %}
       <p id="event-name-error" class="govuk-error-message">
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
@@ -88,6 +90,6 @@
 
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
   {% include "partials/get-help.njk" %}
-  
+
   {% endcall %}
 {% endblock %}
