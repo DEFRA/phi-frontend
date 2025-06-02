@@ -5,6 +5,8 @@
     "searchText1": "This is where the phytosanitary certificate is issued, if one is needed.",
     "searchText2": "Enter the country, state or territory name. Wait for the drop-down list to appear, then select the correct area from the drop-down.",
     "searchText3": "Areas that are not part of the International Plant Protection Convention are not included in this service.",
+    "searchText4": "For United States of America please use United States",
+    "searchText5": "For The Netherlands please use Netherlands",
     "buttonText": "Continue",
     "invalidSearchHeader": "Search results for",
     "invalidSearchContent1": "There are no results matching your entry.",
