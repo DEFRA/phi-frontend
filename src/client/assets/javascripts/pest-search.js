@@ -379,7 +379,8 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
   })
   const inputElement = document.getElementById('my-autocomplete')
   inputElement?.setAttribute('aria-label', 'pestsearchQuery')
+  // monitoring the input changes so we can clear previous cslRef value to avoid invalid values being allowed to continue. REF: DEFAPI-129
   inputElement?.addEventListener('input', (_event) => {
-    document.getElementById('cslRef')?.setAttribute('value', '') // Clear cslRef
+    document.getElementById('cslRef')?.setAttribute('value', undefined) // set cslRef element value to undefined
   })
 }
