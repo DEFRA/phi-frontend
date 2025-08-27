@@ -9,7 +9,7 @@
   html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_8HNqSjLvDSGG6mG">feedback</a>'+" "+getHelpSection.betabannertext2
 }) }}
  <a href='/plant-health/purpose-of-visit' class="govuk-back-link" type='button'>Back</a>
- <script> 
+ <script>
  window.onbeforeprint=function()
   {
     console.log("comes into js file")
@@ -57,7 +57,11 @@
     <span class="govuk-visually-hidden">Error:</span> {{errorMessage.message.text}}
   </p>
 {% endif %}
-   <div id="my-autocomplete-pest-container"><input aria-label="defaultValue" id="defaultValue"  style="display:none;" value='{{pestFullSearchQuery.value}}'></input><input aria-label="cslRef" id="cslRef" for ="searchResults" name="cslReff" style="display: none;" value={{cslRef}}></input></div>
+   <div id="my-autocomplete-pest-container">
+    <input aria-label="defaultValue" id="defaultValue"  style="display:none;" value='{{pestFullSearchQuery.value}}'></input>
+    <input aria-label="cslRef" id="cslRef" for ="searchResults" name="cslReff" style="display: none;" value={{cslRef}}></input>
+    <div id="progressLine" class="progress-line hidden"></div>
+   </div>
   </div>
   {% if invalidPestSearchEntry %}
     <div>
@@ -75,9 +79,7 @@
       id: "submitButton"
     }) }}
   </form>
- 
   {% set supportSection = { title: getHelpSection.titleText, supportMail: getHelpSection.supportUrl.href, email: getHelpSection.supportUrl.email, description: getHelpSection.supportUrl.text } %}
   {% include "partials/get-help.njk" %}
-  
   {% endcall %}
 {% endblock %}

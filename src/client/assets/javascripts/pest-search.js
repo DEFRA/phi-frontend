@@ -2,6 +2,7 @@ import accessibleAutocomplete from './accessible-autocomplete.min.js'
 
 let finalArray = []
 let timer
+const progressLine = document.getElementById('progressLine')
 
 async function fetchSuggestions(query, populateResults) {
   finalArray = []
@@ -27,9 +28,12 @@ async function fetchSuggestions(query, populateResults) {
         const response = await fetch(apiUrl)
         const responseJSON = await response.json()
         await renderSuggestions(responseJSON, query)
+        // API response received — hide progress line
+        progressLine.classList.add('hidden')
         return populateResults(finalArray.sort(compareNames))
       }
     } catch (error) {
+      progressLine.classList.add('hidden')
       // TypeError: Failed to fetch
       // console.log('Error fetching suggestions:', error)
     }
@@ -377,10 +381,16 @@ if (document.querySelector('#my-autocomplete-pest-container')) {
     },
     onConfirm
   })
+
   const inputElement = document.getElementById('my-autocomplete')
   inputElement?.setAttribute('aria-label', 'pestsearchQuery')
   // monitoring the input changes so we can clear previous cslRef value to avoid invalid values being allowed to continue. REF: DEFAPI-129
   inputElement?.addEventListener('input', (_event) => {
     document.getElementById('cslRef')?.setAttribute('value', undefined) // set cslRef element value to undefined
+    if (inputElement.value.trim() !== '') {
+      progressLine.classList.remove('hidden')
+    } else {
+      progressLine.classList.add('hidden')
+    }
   })
 }

@@ -158,6 +158,18 @@ export function resetCookies() {
     // If no preferences or old version use the default
     JSON.parse(JSON.stringify(DEFAULT_COOKIE_CONSENT))
 
+  const loadGoogleAnalytics = () => {
+    const script = document.createElement('script')
+    script.src = ganalytics
+    script.async = true
+    document.head.appendChild(script)
+    window.dataLayer = window.dataLayer || []
+    function gtag() {
+      window.dataLayer.push(arguments)
+    }
+    gtag('js', new Date())
+    gtag('config', tagID, { page_path: window.location.pathname })
+  }
   for (const cookieType in options) {
     if (cookieType === 'version') {
       continue
@@ -199,18 +211,6 @@ export function resetCookies() {
         // Delete cookie
         Cookie(cookie, null)
       })
-    }
-    function loadGoogleAnalytics() {
-      const script = document.createElement('script')
-      script.src = ganalytics
-      script.async = true
-      document.head.appendChild(script)
-      window.dataLayer = window.dataLayer || []
-      function gtag() {
-        window.dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
-      gtag('config', tagID, { page_path: window.location.pathname })
     }
   }
 }
