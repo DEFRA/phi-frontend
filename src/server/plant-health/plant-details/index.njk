@@ -1,15 +1,7 @@
 {% extends 'layouts/page.njk' %}
 {% block beforeContent %}
-  {% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
-
-  {{ govukPhaseBanner({
-  tag: {
-    text: getHelpSection.betaText
-  },
-  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_8HNqSjLvDSGG6mG">feedback</a>'+" "+getHelpSection.betabannertext2
-}) }}
   <a href="/plant-health/country-search?searchQuery={{searchQuery.value}}&fullSearchQuery={{fullSearchQuery.value}}&&hostRef={{hostRef}}&&eppoCode={{eppoCode}}&&countrySearchQuery={{countrySearchQuery.value}}&emptyCountrySearchQuery=false&format={{format}}&countryCode={{countryCode}}" class="govuk-back-link" type='button'>Back</a>
-<script> 
+<script>
  window.onbeforeprint=function()
   {
     console.log("comes into js file")
@@ -99,7 +91,7 @@
             {% include "partials/partially-prohibited-non-eusl-import-rules.njk" %}
             {% endif %}
             {% endif %}
-        {%endif%}      
+        {%endif%}
       {% if (outcome) and (outcome === 'un-prohibited') %}
           {% set data = {
           result: result,
@@ -124,10 +116,10 @@
       {% if (qnPests.length === 0) %}
         <p class="govuk-body-m">{{mainContent.pestContentText1}} {{countrySearchQuery.value | capitalize}} {{mainContent.pestContentText2}}.</p>
       {% else %}
-         <p class="govuk-body">    
+         <p class="govuk-body">
          {% if (annexSixRule) and (outcome.toLowerCase() === 'prohibited') %}
           {{mainContent.pestNewContent2}}
-         {%elif (annexSixRule) and (annexSixRule === 'INNS') %} 
+         {%elif (annexSixRule) and (annexSixRule === 'INNS') %}
           {{mainContent.pestINNSContent}}
          {% else %}
            {{mainContent.pestNewContent1}}
@@ -167,18 +159,18 @@
                     {% endif %}
                   {% endif %}
                 </tr>
-              {% endif %}  
+              {% endif %}
             {% endfor %}
           </tbody>
         </table>
         {% endif %}
         {% if (rnqpPests.length > 0) and (outcome === 'partially-prohibited' or outcome === 'un-prohibited')%}
-          <p class="govuk-body"> 
+          <p class="govuk-body">
             <h2 class="govuk-heading-l">
               {{mainContent.RNQPPestHeader}}
-            </h2>   
+            </h2>
             <p class="govuk-body">{{mainContent.RNQPPestContent}}</p>
-          </p>  
+          </p>
           <table class="govuk-table">
             <thead class="govuk-table__head">
               <tr class="govuk-table__row">
@@ -199,13 +191,13 @@
                   {% endif %}
                   <td class="govuk-table__cell">
                     {{item.regulated_indicator | replace('\n', '<br>') | safe }}
-                  </td> 
-                </tr>                
+                  </td>
+                </tr>
                 {% endif %}
               {% endfor %}
             </tbody>
-          </table> 
-        {% endif %} 
+          </table>
+        {% endif %}
       {% from "govuk/components/button/macro.njk" import govukButton %}
 
       {{ govukButton({

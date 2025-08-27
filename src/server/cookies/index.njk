@@ -1,14 +1,7 @@
 {% extends 'layouts/page.njk' %}
 
 {% block beforeContent %}
-{% from "govuk/components/phase-banner/macro.njk" import govukPhaseBanner %}
 
-{{ govukPhaseBanner({
-  tag: {
-    text: getHelpSection.betaText
-  },
-  html: getHelpSection.betabannertext1+" "+'<a class="govuk-link" href="https://defragroup.eu.qualtrics.com/jfe/form/SV_8HNqSjLvDSGG6mG">feedback</a>'+" "+getHelpSection.betabannertext2
-}) }}
   <a href="javascript: history.back()" class="govuk-back-link" type='button'>Back</a>
 {% endblock %}
 {% block content %}
@@ -40,7 +33,7 @@
     <p class="govuk-body">{{paragraphs.a}}</p>
 
       <p class="govuk-body">{{paragraphs.b}}</p>
-     
+
       <form class="js-cookies-page-form">
 
         <h2 class="govuk-heading-m">{{headings.a}}</h2>
@@ -49,7 +42,7 @@
 
         {{ govukTable({
           firstCellIsHeader: true,
-          
+
           head: [
             { text: table1.text1 },
             { text: table1.text2},
@@ -69,7 +62,7 @@
         <p class="govuk-body">{{paragraphs.i}}</p>
 
         <p class="govuk-body">{{paragraphs.j}}</p>
-        
+
 
         <p class="govuk-body">{{paragraphs.l}}</p>
 
@@ -130,7 +123,7 @@
               value: "no"
             }
           ]
-        }) }} 
+        }) }}
 
         {{ govukButton({
           text: paragraphs.buttonText,
@@ -138,7 +131,7 @@
           attributes: {
             hidden: ""
           }
-        }) }} 
+        }) }}
       </form>
     </div>
   </div>
