@@ -75,12 +75,19 @@ const pestSearchController = {
         const result = await invokepestdetailsAPI(pestDetails)
         async function invokepestdetailsAPI(payload) {
           try {
-            const response = await axios.post(
+            const response = await fetch(
               config.get('backendApiUrl') + '/search/pestdetails',
-              { pestDetails: payload }
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ pestDetails: payload })
+              }
             )
 
-            return response.data
+            const data = await response.json()
+            return data
           } catch (error) {
             return error // Rethrow the error so it can be handled appropriately
           }
