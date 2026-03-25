@@ -82,14 +82,19 @@ const pestSearchController = {
 
             return response.data
           } catch (error) {
-                return {
-                  message: error.message,
-                  cause: error.cause,
-                  code: error.code,
-                  status: error.response?.status,
-                  statusText: error.response?.statusText,
-                  url: config.get('backendApiUrl') + '/search/pestdetails'
-                }
+            const errorDetails = {
+              message: error.message,
+              cause: error.cause,
+              code: error.code,
+              status: error.response?.status,
+              statusText: error.response?.statusText,
+              url: config.get('backendApiUrl') + '/search/pestdetails'
+            }
+
+            console.error('Pest details error:', errorDetails)
+            console.log('Pest details error:', errorDetails)
+
+            return error // Rethrow the error so it can be handled appropriately
           }
         }
 
