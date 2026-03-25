@@ -75,21 +75,21 @@ const pestSearchController = {
         const result = await invokepestdetailsAPI(pestDetails)
         async function invokepestdetailsAPI(payload) {
           try {
-            const response = await fetch(
+            const response = await axios.post(
               config.get('backendApiUrl') + '/search/pestdetails',
-              {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ pestDetails: payload })
-              }
+              { pestDetails: payload }
             )
 
-            const data = await response.json()
-            return data
+            return response.data
           } catch (error) {
-            return error // Rethrow the error so it can be handled appropriately
+                return {
+                  message: error.message,
+                  cause: error.cause,
+                  code: error.code,
+                  status: error.response?.status,
+                  statusText: error.response?.statusText,
+                  url: config.get('backendApiUrl') + '/search/pestdetails'
+                }
           }
         }
 
