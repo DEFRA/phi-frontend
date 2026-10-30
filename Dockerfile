@@ -1,4 +1,4 @@
-ARG PARENT_VERSION=latest
+ARG PARENT_VERSION=3.2.4-node24.22.1
 ARG PORT=3000
 ARG PORT_DEBUG=9229
 
@@ -11,7 +11,7 @@ LABEL uk.gov.defra.ffc.parent-image=defradigital/node-development:${PARENT_VERSI
 
 ARG PORT
 ARG PORT_DEBUG
-ENV PORT ${PORT}
+ENV PORT=${PORT}
 EXPOSE ${PORT} ${PORT_DEBUG}
 
 COPY --chown=node:node package*.json ./
@@ -21,9 +21,9 @@ RUN npm run build
 
 CMD [ "npm", "run", "docker:dev" ]
 
-FROM development as productionBuild
+FROM development AS production_build
 
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 RUN npm run build
 
@@ -34,21 +34,22 @@ ENV TZ="Europe/London"
 # Add curl to template.
 # CDP PLATFORM HEALTHCHECK REQUIREMENT
 USER root
-RUN apk update && \
-    apk add curl
+RUN apk add --no-cache --update \
+    curl && \
+    rm -rf /var/cache/apk/*
 USER node
 
 ARG PARENT_VERSION
 LABEL uk.gov.defra.ffc.parent-image=defradigital/node:${PARENT_VERSION}
 
-COPY --from=productionBuild /home/node/package*.json ./
-COPY --from=productionBuild /home/node/.server ./.server/
-COPY --from=productionBuild /home/node/.public/ ./.public/
+COPY --from=production_build /home/node/package*.json ./
+COPY --from=production_build /home/node/.server ./.server/
+COPY --from=production_build /home/node/.public/ ./.public/
 
 RUN npm ci --omit=dev
 
 ARG PORT
-ENV PORT ${PORT}
+ENV PORT=${PORT}
 EXPOSE ${PORT}
 
 CMD [ "node", "./.server" ]
