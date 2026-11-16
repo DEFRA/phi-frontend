@@ -24,6 +24,11 @@ async function getDefaultLocaleData(page) {
     ])
   }
   const data = await readJsonFileWithTimeout(filePath, '100')
+
+  if (page === 'cookie' && data?.cookies?.table2) {
+    data.cookies.table2.text6 = `_ga_${config.get('gtagID')}  `
+  }
+
   return data
 }
 export { getDefaultLocaleData }
