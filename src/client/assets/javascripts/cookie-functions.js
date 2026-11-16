@@ -15,9 +15,9 @@
 /* Name of the cookie to save users cookie preferences to. */
 const CONSENT_COOKIE_NAME = 'phi_cookies_analytics'
 
-const ganalytics = 'https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ'
-const tagID = 'G-HVF94VF4NZ'
-const previewID = 'HVF94VF4NZ'
+const ganalytics = `https://www.googletagmanager.com/gtag/js?id=G-${process.env.GTAG_ID}`
+const tagID = `G-${process.env.GTAG_ID}`
+const previewID = process.env.GTAG_ID
 /* Google Analytics tracking IDs for preview and live environments. */
 const TRACKING_PREVIEW_ID = previewID
 const TRACKING_LIVE_ID = previewID
