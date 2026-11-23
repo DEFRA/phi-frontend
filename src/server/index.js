@@ -12,6 +12,11 @@ function catchAll(request, h) {
   const { response } = request
 
   if (!response.isBoom) {
+    // Add gtagID to all view responses
+    if (response.variety === 'view') {
+      response.source.context.gtagID = config.get('gtagID')
+    }
+    
     response.header(
       'Strict-Transport-Security',
       'max-age=31536000; includeSubDomains'

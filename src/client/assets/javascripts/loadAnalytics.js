@@ -1,5 +1,7 @@
 // @ts-nocheck
 export default function loadAnalytics() {
+  const GTAG_ID = `G-${process.env.GTAG_ID}`
+
   if (!globalThis.ga || !globalThis.ga.loaded) {
     globalThis.dataLayer = globalThis.dataLayer || []
     if (localStorage.getItem('consentMode') === null) {
@@ -31,13 +33,13 @@ export default function loadAnalytics() {
         iframe.setAttribute("width", "0")
         iframe.setAttribute("style", "display:none;visibility:hidden")
         iframe.async = true
-        iframe.src = "https://www.googletagmanager.com/ns.html?id=G-HVF94VF4NZ"
+        iframe.src = `https://www.googletagmanager.com/ns.html?id=${GTAG_ID}`
         noscript.appendChild(iframe)
         document.body.appendChild(noscript)
         ///
         const k = d.createElement(s)
         k.async = true
-        k.src = "https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ"
+        k.src = `https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`
         document.body.appendChild(k)
       //  const urlParams = new URLSearchParams(globalThis.location.search);
        // const userId = urlParams.get('userId');
@@ -50,14 +52,14 @@ export default function loadAnalytics() {
         const j = d.createElement(s);
       //  const dl = l != 'dataLayer' ? '&l=' + l : ''
         j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ'
+        j.src = `https://www.googletagmanager.com/gtag/js?id=${GTAG_ID}`
         f.parentNode.insertBefore(j, f)
         globalThis.dataLayer.push('js', new Date())
         // globalThis.dataLayer.push('config', 'G-HVF94VF4NZ',{
         //   'user_id': utm_source
         // })
 
-      })(window, document, 'script', 'dataLayer', 'G-HVF94VF4NZ')
+      })(window, document, 'script', 'dataLayer', GTAG_ID)
   }
 }
 // globalThis.dataLayer = globalThis.dataLayer || [];

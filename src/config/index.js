@@ -106,7 +106,7 @@ const config = convict({
   gtagID: {
     doc: 'gtagID',
     format: String,
-    default: 'G-HVF94VF4NZ',
+    default: 'HVF94VF4NZ',
     env: 'gtagID'
     // default: 'G-HJO',
   },
