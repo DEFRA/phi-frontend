@@ -107,7 +107,7 @@ const config = convict({
     doc: 'gtagID',
     format: String,
     default: 'HVF94VF4NZ',
-    env: 'gtagID'
+    env: 'GOOGLE_ANALYTICS_ID'
     // default: 'G-HJO',
   },
   dateFormat: {
