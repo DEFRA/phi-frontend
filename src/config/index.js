@@ -99,14 +99,14 @@ const config = convict({
   analytics: {
     doc: 'analytics',
     format: String,
-    default: 'https://www.googletagmanager.com/gtag/js?id=G-HVF94VF4NZ',
+    default: 'https://www.googletagmanager.com/gtag/js?id=G-45YLLHVRT3',
     // default: 'https://www.googletagmanager.com/gtag/js?id=G-H',
     env: 'analytics'
   },
   gtagID: {
     doc: 'gtagID',
     format: String,
-    default: 'HVF94VF4NZ',
+    default: '45YLLHVRT3',
     env: 'GOOGLE_ANALYTICS_ID'
   },
   dateFormat: {
