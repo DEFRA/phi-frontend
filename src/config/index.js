@@ -108,7 +108,6 @@ const config = convict({
     format: String,
     default: 'HVF94VF4NZ',
     env: 'GOOGLE_ANALYTICS_ID'
-    // default: 'G-HJO',
   },
   dateFormat: {
     doc: 'dateFormat of publication date in pest document',
