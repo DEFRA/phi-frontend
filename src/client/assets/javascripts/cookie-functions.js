@@ -177,7 +177,8 @@ export function resetCookies() {
       if (options[cookieType] === true) {
         if (
           process.env.NODE_ENV === 'production' ||
-          process.env.NODE_ENV === 'test'
+          process.env.NODE_ENV === 'test' ||
+          process.env.NODE_ENV === 'development'
         ) {
           loadGoogleAnalytics()
         }
