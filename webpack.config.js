@@ -3,6 +3,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackAssetsManifest = require('webpack-assets-manifest')
 const webpack = require('webpack')
+const { gtagID } = require('./src/config/webpack-env.cjs')
 
 const webpackConfig = {
   isDevelopment: process.env.NODE_ENV !== 'production',
@@ -116,7 +117,7 @@ module.exports = {
       filename: 'css/[name].[fullhash].css'
     }),
     new webpack.DefinePlugin({
-      'process.env.GTAG_ID': JSON.stringify(process.env.gtagID)
+      'process.env.GTAG_ID': JSON.stringify(gtagID)
     })
   ]
 }
